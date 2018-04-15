@@ -5,8 +5,11 @@
 # dependencies
 
 pip install numpy
+
 pip install pygame
+
 pip install opengl
+
 
 
 On windows it might be harder
