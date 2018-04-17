@@ -27,6 +27,7 @@ function newConnection(socket) {
   // what to listen for
   socket.on('named', handleNaming);
   socket.on('updatePlayer', updatePlayer);
+  // socket.on('loadPlayers', loadPlayers);
 
   function updatePlayer(data)
   {
@@ -37,17 +38,26 @@ function newConnection(socket) {
   {
     // later do not allow duplicates
     name = data["name"];
+    console.log(name + " added" );
     playersConnected.push(name);
   }
+
+  // function loadPlayers(data)
+  // {
+  //
+  // }
 
     socket.on('disconnect', handleDisconnect);
     function handleDisconnect(data)
     {
-      console.log("disconnect");
-      console.log(name);
       var idx = playersConnected.indexOf(name);
-      console.log(idx);
+      console.log("disconnect by " + idx + " " + name);
       console.log(playersConnected);
+      if (idx != -1)
+      {
+        playersConnected.pop(name);
+        io.sockets.emit("deletePlayer", {"name":name});
+      }
     }
 
 

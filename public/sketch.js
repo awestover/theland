@@ -21,6 +21,8 @@ function setup()
   user = new User(name, world);
 
   socket.on("updatePlayer", handleUpdatePlayer);
+  socket.on("deletePlayer", handleDeletePlayer);
+
 }
 
 function draw()
@@ -34,21 +36,35 @@ function draw()
   };
   socket.emit("updatePlayer", data);
 
+
+  var msg = "";
   for (var otherUser in otherUsers)
   {
-    console.log(otherUser["user"]);
+    // console.log(otherUser["user"]);
+    msg += otherUser["animals"];
   }
+  // console.log(msg);
 
 }
 
 function handleUpdatePlayer(data)
 {
-  otherUsers[data["name"]] = data["state"];
-  console.log(otherUsers);
+  // console.log("update handle");
+  // console.log(data["user"]["name"]);
+
+  var new_data = {
+    "animals": data["user"]["animals"],
+    "name": data["user"]["name"]
+  }
+  otherUsers[data["user"]["name"]] = new_data;
 
 }
 
-
+function handleDeletePlayer(data)
+{
+  console.log("deleting" + data["name"]);
+  delete otherUsers[data["name"]];
+}
 
 
 //
