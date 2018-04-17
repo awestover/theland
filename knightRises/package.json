@@ -1,0 +1,23 @@
+{
+  "name": "TheKnightRises",
+  "version": "1.0.0",
+  "description": "A fun multiplayer game",
+  "engines": {
+     "node": "6.10.3"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "fun",
+    "game"
+  ],
+  "author": "Alek  Westover",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3",
+    "socket.io": "^2.0.3"
+  }
+}
