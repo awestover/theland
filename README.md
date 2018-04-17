@@ -9,12 +9,15 @@ npm
 nodejs
 stuff in pacakges.json or something
 
+website at
+http://knight-rises.herokuapp.com/
+
 # for 3d open gl
-pip install numpy
-pip install pygame
-pip install opengl
+    pip install numpy
+    pip install pygame
+    pip install opengl
 or maybe
-sudo apt-get install python-opengl
+    sudo apt-get install python-opengl
 or something similar
 
 On windows it will be much harder
