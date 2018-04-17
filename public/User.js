@@ -2,7 +2,7 @@ function User(name, world)
 {
   this.name = name;
   this.world = world;
-  this.animals = [];
+  this.animals = [new Animal({"pos":[Math.random()*100, Math.random()*100]})];
 }
 
 User.prototype.show = function()

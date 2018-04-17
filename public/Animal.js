@@ -1,10 +1,14 @@
-function Animal(name)
+function Animal(animal_traits)
 {
-  this.name = name;
+  this.pos = animal_traits["pos"];
 }
 
-
-function show()
+Animal.prototype.show = function()
 {
-  return this.name;
+  ellipse(this.pos[0], this.pos[1], 10, 10);
+}
+
+Animal.prototype.getPos = function()
+{
+  return this.pos;
 }

@@ -37,11 +37,16 @@ function draw()
   socket.emit("updatePlayer", data);
 
 
-  var msg = "";
+  // var msg = "";
   for (var otherUser in otherUsers)
   {
-    // console.log(otherUser["user"]);
-    msg += otherUser["animals"];
+    // console.log(otherUsers[otherUser]);
+    // msg += otherUser["animals"];
+    for (var cAnimal in otherUsers[otherUser]["animals"])
+    {
+      otherUsers[otherUser]["animals"][cAnimal].show();
+      // console.log(otherUsers[otherUser]["animals"][cAnimal].getPos());
+    }
   }
   // console.log(msg);
 
@@ -52,11 +57,31 @@ function handleUpdatePlayer(data)
   // console.log("update handle");
   // console.log(data["user"]["name"]);
 
+  // console.log();
+
+  var cAnimals = [];
+  for (var i = 0; i < data["user"]["animals"].length; i++)
+  {
+    cAnimals.push(new Animal(data["user"]["animals"][0]));
+    // cAnimals.push(new Animal({"pos": data["user"]["animals"][i]}));
+  }
+
   var new_data = {
-    "animals": data["user"]["animals"],
+    "animals": cAnimals,
     "name": data["user"]["name"]
   }
   otherUsers[data["user"]["name"]] = new_data;
+
+  // don't really need User objects...
+  // does it exist?
+  // if (otherUsers[data["user"]["name"]])
+  // {
+  //   otherUsers[new_data["name"]].setAnimalsPos(new_data["animals"])
+  // }
+  // else {
+  //   otherUsers[new_data["name"]] = new User();
+  // }
+
 
 }
 

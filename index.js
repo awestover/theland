@@ -13,10 +13,7 @@ io.sockets.on('connection', newConnection);  // when you get a connection do thi
 
 // store dictionaries of data for all users
 // this would be nice, too hard for now though
-
-// var playerData = {
-//
-// }
+// var playerData = {}
 
 var playersConnected = [];
 
@@ -42,23 +39,18 @@ function newConnection(socket) {
     playersConnected.push(name);
   }
 
-  // function loadPlayers(data)
-  // {
-  //
-  // }
-
-    socket.on('disconnect', handleDisconnect);
-    function handleDisconnect(data)
+  socket.on('disconnect', handleDisconnect);
+  function handleDisconnect(data)
+  {
+    var idx = playersConnected.indexOf(name);
+    console.log("disconnect by " + idx + " " + name);
+    console.log(playersConnected);
+    if (idx != -1)
     {
-      var idx = playersConnected.indexOf(name);
-      console.log("disconnect by " + idx + " " + name);
-      console.log(playersConnected);
-      if (idx != -1)
-      {
-        playersConnected.pop(name);
-        io.sockets.emit("deletePlayer", {"name":name});
-      }
+      playersConnected.pop(name);
+      io.sockets.emit("deletePlayer", {"name":name});
     }
+  }
 
 
     // // these are the functions that send data
