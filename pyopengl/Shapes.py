@@ -142,7 +142,7 @@ class Asteroid(Obstacle):
 
         critical_distance = 2
 
-        print(dist)
+        # print(dist)
 
         return dist < critical_distance
 
