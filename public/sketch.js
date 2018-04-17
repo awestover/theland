@@ -1,23 +1,54 @@
 // main user interaction
 
-let name = prompt("Name");
-let world = prompt("World");
+let socket;
+let user;
+let screen_dims;
+let canvas;
 
-let socket = io.connect();
+let otherUsers = {};
 
-console.log(socket);
+function setup()
+{
+  screen_dims = [windowWidth, windowHeight];
+  canvas = createCanvas(screen_dims[0]*0.9, screen_dims[1]*0.9);
+  frameRate(10);
 
-// // when we are sent a 'key' or a message to 'updateEnemy' we call these functions
-// socket.on('key', freakOut);
-// socket.on('updatePlayer', updateEnemy);
-// socket.on('shoot', addBullet);
+  socket = io.connect();
 
-// //we also have to emit data
-// let loc_data = {
-//   expos: playerLoc.x,
-//   eypos: playerLoc.y,
-//   exv: playerVel.x,
-//   eyv: playerVel.y
-// }
-// socket.emit('updatePlayer', loc_data);
-// // note the names must match
+  let name = prompt("Name");
+  socket.emit("named", {"name":name});
+  let world = prompt("World");
+  user = new User(name, world);
+
+  socket.on("updatePlayer", handleUpdatePlayer);
+}
+
+function draw()
+{
+  background(255,0,255);
+  fill(0,0,255);
+  text(user.getName(), 200,20);
+
+  let data = {
+    "user": user
+  };
+  socket.emit("updatePlayer", data);
+
+  for (var otherUser in otherUsers)
+  {
+    console.log(otherUser["user"]);
+  }
+
+}
+
+function handleUpdatePlayer(data)
+{
+  otherUsers[data["name"]] = data["state"];
+  console.log(otherUsers);
+
+}
+
+
+
+
+//

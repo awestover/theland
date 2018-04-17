@@ -11,26 +11,67 @@ console.log("server running");
 
 io.sockets.on('connection', newConnection);  // when you get a connection do this
 
+// store dictionaries of data for all users
+// this would be nice, too hard for now though
+
+// var playerData = {
+//
+// }
+
+var playersConnected = [];
+
 function newConnection(socket) {
+  console.log("new connection");
+  var name;
+
   // what to listen for
-    socket.on('key', keyMsg);
-    socket.on('updatePlayer', locMsg);
-    socket.on('shoot', shootMsg);
+  socket.on('named', handleNaming);
+  socket.on('updatePlayer', updatePlayer);
 
-  // these are the functions that send data
+  function updatePlayer(data)
+  {
+    io.sockets.emit("updatePlayer", data);
+  }
 
-    function keyMsg(key_data)
+  function handleNaming(data)
+  {
+    // later do not allow duplicates
+    name = data["name"];
+    playersConnected.push(name);
+  }
+
+    socket.on('disconnect', handleDisconnect);
+    function handleDisconnect(data)
     {
-        io.sockets.emit('key', key_data);
+      console.log("disconnect");
+      console.log(name);
+      var idx = playersConnected.indexOf(name);
+      console.log(idx);
+      console.log(playersConnected);
     }
 
-    function shootMsg(shoot_data)
-    {
-        io.sockets.emit('shoot', shoot_data);
-    }
 
-    function locMsg(loc_data)
-    {
-        socket.broadcast.emit('updatePlayer', loc_data);
-    }
+    // // these are the functions that send data
+    // function updatePlayerData(data)
+    // {
+    //   // does the world not exist?
+    //   if (!playerData[data["world"]])
+    //   {
+    //     playerData[data["world"]];
+    //   }
+    //
+    //   playerData[data["world"]][data["name"]] = data["state"];
+    //   console.log(playerData);
+    //
+    //   io.sockets.emit('')
+
+    //  alternative:
+    //    socket.broadcast.emit(x, y)
+    //
+    // }
+
 }
+
+
+
+//
