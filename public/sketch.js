@@ -1,4 +1,7 @@
+// main user interaction
 
+let name = prompt("Name");
+let world = prompt("World");
 
 let socket = io.connect();
 
