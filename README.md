@@ -12,6 +12,16 @@ stuff in pacakges.json or something
 website at
 http://knight-rises.herokuapp.com/
 
+You can't acess the repo for some reason when it is on heroku
+
+so you should copy code to github when you are done
+
+cp -r knight-rises/* knight-rises-code-github/
+
+gitc "added code"
+gitp
+
+
 # for 3d open gl
     pip install numpy
     pip install pygame
