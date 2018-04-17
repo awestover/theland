@@ -36,6 +36,8 @@ function draw()
   for (var an in user.animals)
   {
     user.animals[an].show();
+    user.animals[an].move();
+    // console.log(user.animals[an]);
   }
 
   // let data = {
