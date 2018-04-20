@@ -4,6 +4,8 @@ let user;
 let screen_dims;
 let canvas;
 
+let last_down = [0, 0];
+
 const animal_names = ["dog", "shark"];
 const animal_size = [66, 50];
 
@@ -27,12 +29,39 @@ function setup()
 function draw()
 {
   background(255,0,255);
-  fill(0,0,255);
-  text(user.name, 200,20);
+  // fill(0,0,255);
+  // text(user.name, 200,20);
 
+  push();
+  translate(user.pos[0], user.pos[1]);
   user.show();
+  pop();
+
+  fill(0, 0, 0);
+  ellipse(screen_dims[0]/2, screen_dims[1]/2, 10, 10);
+
   user.update();
 
+}
+
+// function touchMoved() {
+//   ellipse(mouseX, mouseY, 5, 5);
+//   return false;
+// }
+
+function touchStarted()
+{
+  last_down = [mouseX,mouseY];
+  // console.log(last_down);
+  return false;
+}
+
+function touchEnded()
+{
+  let current_pos = [mouseX, mouseY];
+  user.updateView(last_down, current_pos);
+  // console.log(current_pos);
+  return false;
 }
 
 

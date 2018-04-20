@@ -4,6 +4,8 @@ function User(name, world, animal_type)
   this.world = world;
   this.animal_type = animal_type;
 
+  this.pos = [0,0]; // where are you looking
+
   this.knights = 0;
   // cost and level are probably going to be linked
   this.cost = 10;
@@ -19,8 +21,6 @@ User.prototype.show = function()
   {
     this.animals[an].show();
   }
-  fill(0, 0, 0);
-  ellipse(screen_dims[0]/2, screen_dims[1]/2, 10, 10);
 }
 
 User.prototype.update = function()
@@ -62,6 +62,27 @@ User.prototype.buyAnimal = function()
   }
 }
 
+
+User.prototype.updateView = function(last_pos, current_pos)
+{
+  this.shiftPos([current_pos[0]-last_pos[0], current_pos[1] - last_pos[1]]);
+}
+
+User.prototype.shiftPos = function(pos)
+{
+  this.pos = [pos[0]-this.pos[0], pos[1] - this.pos[1]];
+}
+
+// later only show things that are in our view
+User.prototype.inView = function(pos)
+{
+  let sPos = this.shiftPos(pos);
+  if (sPos[0]>0 && sPos[0] < screen_dims[0] && sPos[1]>0 && sPos[1]<screen_dims[1])
+  {
+    return true;
+  }
+  return false;
+}
 
 User.prototype.setKnightsText = function()
 {
