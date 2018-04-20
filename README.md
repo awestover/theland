@@ -12,6 +12,8 @@ stuff in pacakges.json or something
 website at
 http://knight-rises.herokuapp.com/
 
+<a>http://localhost:8000/index.html</a>
+
 You can't acess the repo for some reason when it is on heroku
 
 so you should copy code to github when you are done
