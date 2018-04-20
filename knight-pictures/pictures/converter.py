@@ -21,7 +21,7 @@ def imgTransparent(imgPath):
 
 	img.save(join("batch","{}").format(imgPath), "PNG")
 
-#os.mkdir("batch")
+os.mkdir("batch")
 for file in os.listdir():
 	if ".png" in file:
 		imgTransparent(file)
