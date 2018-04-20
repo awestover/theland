@@ -1,33 +1,39 @@
 function Animal(animal_traits)
 {
   this.pos = animal_traits["pos"];
+  this.name = animal_traits["name"];
+  this.level = 1;
 
   var thInit = Math.random()*Math.PI*2;
   var xv = Math.cos(thInit);
   var yv = Math.sin(thInit);
   this.vel = [xv, yv];
-  // this.name = animal_traits["name"];
-  this.name="dog";
-  this.image = false;
-  this.level = 1;
-  if (this.name == "shark")
-  {
-    this.image = loadImage("pictures/batch/shark.png");
+  this.image=this.getImg();
+}
+
+Animal.prototype.getImg = function()
+{
+  let path = "pictures/";
+  path += this.name;
+  path += this.level;
+  path += ".png";
+  try {
+    return loadImage(path);
   }
-  else if (this.name == "dog")
+  catch(err)
   {
-    this.image = loadImage("pictures/batch/dog1.png");
+    console.log(err);
+    return false;
   }
 }
 
 Animal.prototype.show = function()
 {
-  if (this.image)
+  try
   {
-    image(this.image, this.pos[0], this.pos[1], this.image.width/2, this.image.height/2);
-    // console.log(this.image);
+    image(this.image, this.pos[0], this.pos[1], this.image.width, this.image.height);
   }
-  else
+  catch(err)
   {
     ellipse(this.pos[0], this.pos[1], 10, 10);
   }
@@ -36,6 +42,24 @@ Animal.prototype.show = function()
 Animal.prototype.getPos = function()
 {
   return this.pos;
+}
+
+Animal.prototype.getDims = function()
+{
+  // should be same as animal_size
+  return [this.image.width, this.image.height];
+}
+
+Animal.prototype.addPos = function(apos)
+{
+  this.pos[0] += apos[0];
+  this.pos[1] += apos[1];
+}
+
+Animal.prototype.subPos = function(apos)
+{
+  this.pos[0] -= apos[0];
+  this.pos[1] -= apos[1];
 }
 
 
@@ -52,7 +76,3 @@ Animal.prototype.move = function()
   this.pos = [this.pos[0] + nx, this.pos[1] + ny];
 
 }
-
-
-
-//

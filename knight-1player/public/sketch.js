@@ -5,17 +5,22 @@ let screen_dims;
 let canvas;
 
 const animal_names = ["dog", "shark"];
+const animal_size = [66, 50];
 
 function setup()
 {
-  screen_dims = [windowWidth, windowHeight];
-  canvas = createCanvas(screen_dims[0]*0.9, screen_dims[1]*0.9);
+  screen_dims = [windowWidth*0.95, windowHeight*0.85];
+  canvas = createCanvas(screen_dims[0], screen_dims[1]);
   frameRate(10);
 
-  // let name = prompt("Name");
-  let name = "alek";
-  let world = "the land";
-  user = new User(name, world);
+  let name = "Alek";
+  let world = "The Land";
+  user = new User(name, world, pickRandom(animal_names)[0]);
+
+  // set name and world
+  $('#name').text("Name: " + name);
+  $('#world').text("World: " + world);
+
 
 }
 
@@ -23,14 +28,10 @@ function draw()
 {
   background(255,0,255);
   fill(0,0,255);
-  text(user.getName(), 200,20);
+  text(user.name, 200,20);
 
-  for (var an in user.animals)
-  {
-    user.animals[an].show();
-    user.animals[an].move();
-  }
-
+  user.show();
+  user.update();
 
 }
 
