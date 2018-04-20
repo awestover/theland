@@ -4,6 +4,8 @@ let user;
 let screen_dims;
 let canvas;
 
+const animal_names = ["dog", "shark"];
+
 function setup()
 {
   screen_dims = [windowWidth, windowHeight];
@@ -30,4 +32,12 @@ function draw()
   }
 
 
+}
+
+
+// pick random element from list
+function pickRandom(list)
+{
+  var idx = Math.floor(Math.random()*list.length);
+  return [list[idx], idx];
 }
