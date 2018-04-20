@@ -9,6 +9,9 @@ npm
 nodejs
 stuff in pacakges.json or something
 
+One player version at
+<a href="https://awestover.github.io/coolGames/knight-1player/public/">https://awestover.github.io/coolGames/knight-1player/public/</a>
+
 website at
 http://knight-rises.herokuapp.com/
 
