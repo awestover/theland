@@ -70,7 +70,8 @@ User.prototype.updateView = function(last_pos, current_pos)
 
 User.prototype.shiftPos = function(pos)
 {
-  this.pos = [pos[0]-this.pos[0], pos[1] - this.pos[1]];
+  this.pos = [this.pos[0] + pos[0], this.pos[1] + pos[1]];
+  console.log(this.pos);
 }
 
 // later only show things that are in our view

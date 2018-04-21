@@ -29,8 +29,6 @@ function setup()
 function draw()
 {
   background(255,0,255);
-  // fill(0,0,255);
-  // text(user.name, 200,20);
 
   push();
   translate(user.pos[0], user.pos[1]);
@@ -44,25 +42,27 @@ function draw()
 
 }
 
-// function touchMoved() {
-//   ellipse(mouseX, mouseY, 5, 5);
-//   return false;
-// }
+// do it continously now
+function touchMoved() {
+  let current_pos = [mouseX, mouseY];
+  user.updateView(last_down, current_pos);
+  last_down = [mouseX, mouseY];
+  return false;
+}
 
 function touchStarted()
 {
   last_down = [mouseX,mouseY];
-  // console.log(last_down);
   return false;
 }
 
-function touchEnded()
-{
-  let current_pos = [mouseX, mouseY];
-  user.updateView(last_down, current_pos);
-  // console.log(current_pos);
-  return false;
-}
+// function touchEnded()
+// {
+//   let current_pos = [mouseX, mouseY];
+//   user.updateView(last_down, current_pos);
+//   // console.log(current_pos);
+//   return false;
+// }
 
 
 // pick random element from list
