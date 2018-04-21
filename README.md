@@ -9,8 +9,13 @@ npm
 nodejs
 stuff in pacakges.json or something
 
+One player version at
+<a href="https://awestover.github.io/coolGames/knight-1player/public/">https://awestover.github.io/coolGames/knight-1player/public/</a>
+
 website at
 http://knight-rises.herokuapp.com/
+
+<a>http://localhost:8000/index.html</a>
 
 You can't acess the repo for some reason when it is on heroku
 
