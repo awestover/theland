@@ -1,7 +1,7 @@
 // animal class
 function Animal(animal_traits)
 {
-  this.pos = animal_traits["pos"];
+  this.pos = animal_traits["pos"].slice();
   this.name = animal_traits["name"];
   this.level = 1;
 

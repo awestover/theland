@@ -20,19 +20,15 @@ function setup()
   frameRate(10);
 
   socket = io.connect();
+  socket.on("updatePlayer", handleUpdatePlayer);
+  socket.on("deletePlayer", handleDeletePlayer);
+  socket.on('nameChosen', handleNameChosen);
 
   let name = prompt("Name");
   socket.emit("named", {"name":name});
   let world = prompt("World");
+  socket.emit("sendWorld", world);
   user = new User(name, world, pickRandom(animal_names)[0]);
-
-  if (name == "alek")
-  {
-    user.knights = 1000000000;
-  }
-
-  socket.on("updatePlayer", handleUpdatePlayer);
-  socket.on("deletePlayer", handleDeletePlayer);
 
   // set name and world
   $('#name').text("Name: " + name);
@@ -60,7 +56,8 @@ function draw()
     user.addOffspringAnimal(newAnimals[i]);
   }
   let data = {
-    "user": user
+    "user": user,
+    "world": user.world
   };
   socket.emit("updatePlayer", data);
 
@@ -90,7 +87,7 @@ function handleUpdatePlayer(data)
   var cAnimals = [];
   for (var i = 0; i < data["user"]["animals"].length; i++)
   {
-    cAnimals.push(new Animal(data["user"]["animals"][0]));
+    cAnimals.push(new Animal(data["user"]["animals"][i]));
   }
 
   var new_data = {
@@ -101,22 +98,11 @@ function handleUpdatePlayer(data)
   }
   otherUsers[data["user"]["name"]] = new User(new_data["name"], new_data["world"], new_data["animal_type"], new_data["animals"]);
 
-  // don't really need User objects...
-  // does it exist?
-  // if (otherUsers[data["user"]["name"]])
-  // {
-  //   otherUsers[new_data["name"]].setAnimalsPos(new_data["animals"])
-  // }
-  // else {
-  //   otherUsers[new_data["name"]] = new User();
-  // }
-
-
 }
 
 function handleDeletePlayer(data)
 {
-  console.log("deleting" + data["name"]);
+  console.log("deleting " + data["name"]);
   delete otherUsers[data["name"]];
 }
 
@@ -134,6 +120,23 @@ function touchStarted()
 function touchEnded()
 {
   isDown = false;
+}
+
+function handleNameChosen(data)
+{
+  // console.log("name " + data);
+  user.name = data;
+
+  if (user.name == "alek")
+  {
+    user.knights = 100000;
+    for (var i = 0; i < 1000; i++)
+    {
+      user.addAnimal();
+    }
+  }
+
+  $('#name').text("Name: " + user.name);
 }
 
 function onCanvas(pos)
