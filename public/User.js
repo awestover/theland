@@ -1,5 +1,5 @@
 //user class
-function User(name, world, animal_type)
+function User(name, world, animal_type, animals)
 {
   this.name = name;
   this.world = world;
@@ -11,32 +11,49 @@ function User(name, world, animal_type)
   // cost and level are probably going to be linked
   this.cost = 10;
 
-  this.animals = [];
-  this.addAnimal();
+  if(! animals)
+  {
+    this.animals = [];
+    this.addAnimal();
+  }
+  else {
+    this.animals = animals;
+  }
 
 }
 
 User.prototype.show = function()
 {
-  let results = [];
-  for (var an in user.animals)
+  for (var an=0; an<this.animals.length; an++)
   {
-    let currentResult = this.animals[an].show();
-    if (currentResult != false)
-    {
-      results.push(currentResult);
-    }
+    this.animals[an].show();
   }
-  return results;
 }
 
 User.prototype.update = function()
 {
+  let results = [];
   for (var an in user.animals)
   {
-    this.animals[an].move();
+    let deathPr = 0.01;
+    if (random() < deathPr && this.animals.length > 1)
+    {
+      this.animals.pop(an);
+      an -= 1;
+    }
+    else
+    {
+      this.animals[an].move();
+      let currentResult = this.animals[an].possibleOffspring();
+      if (currentResult != false)
+      {
+        results.push(currentResult);
+      }
+    }
   }
   this.addFrameKnights();
+
+  return results;
 }
 
 User.prototype.addFrameKnights = function()
@@ -84,7 +101,7 @@ User.prototype.updateView = function(last_pos, current_pos)
 User.prototype.shiftPos = function(pos)
 {
   this.pos = [this.pos[0] + pos[0], this.pos[1] + pos[1]];
-  console.log(this.pos);
+  // console.log(this.pos);
 }
 
 // later only show things that are in our view

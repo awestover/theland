@@ -38,25 +38,28 @@ function setup()
 function draw()
 {
   background(255,0,255);
-  
+
   push();
   translate(user.pos[0], user.pos[1]);
-  let newAnimals = user.show();
+  user.show();
 
+  for (var key in otherUsers)
+  {
+    otherUsers[key].show();
+  }
+  pop();
+
+  let newAnimals = user.update();
   for (var i = 0; i < newAnimals.length; i++)
   {
     user.addOffspringAnimal(newAnimals[i]);
   }
+  let data = {
+    "user": user
+  };
+  socket.emit("updatePlayer", data);
 
-  pop();
-
-  fill(0, 0, 0);
-  rect(screen_dims[0]/2-5, screen_dims[1]/2-0.25, 10, 0.5);
-  rect(screen_dims[0]/2-0.25, screen_dims[1]/2-5, 0.5, 10);
-
-  user.update();
-
-  if (isDown)
+  if (isDown) // handle dragging
   {
     let current_pos = [mouseX, mouseY];
     if (onCanvas(current_pos))
@@ -69,24 +72,9 @@ function draw()
     }
   }
 
-  let data = {
-    "user": user
-  };
-  socket.emit("updatePlayer", data);
-
-
-  // var msg = "";
-  for (var otherUser in otherUsers)
-  {
-    // console.log(otherUsers[otherUser]);
-    // msg += otherUser["animals"];
-    for (var cAnimal in otherUsers[otherUser]["animals"])
-    {
-      otherUsers[otherUser]["animals"][cAnimal].show();
-      // console.log(otherUsers[otherUser]["animals"][cAnimal].getPos());
-    }
-  }
-  // console.log(msg);
+  fill(0, 0, 0);
+  rect(screen_dims[0]/2-5, screen_dims[1]/2-0.25, 10, 0.5);
+  rect(screen_dims[0]/2-0.25, screen_dims[1]/2-5, 0.5, 10);
 
 }
 
@@ -94,21 +82,19 @@ function handleUpdatePlayer(data)
 {
   // console.log("update handle");
   // console.log(data["user"]["name"]);
-
-  // console.log();
-
   var cAnimals = [];
   for (var i = 0; i < data["user"]["animals"].length; i++)
   {
     cAnimals.push(new Animal(data["user"]["animals"][0]));
-    // cAnimals.push(new Animal({"pos": data["user"]["animals"][i]}));
   }
 
   var new_data = {
     "animals": cAnimals,
-    "name": data["user"]["name"]
+    "name": data["user"]["name"],
+    "world": data["user"]["world"],
+    "animal_type":data["user"]["animal_type"]
   }
-  otherUsers[data["user"]["name"]] = new_data;
+  otherUsers[data["user"]["name"]] = new User(new_data["name"], new_data["world"], new_data["animal_type"], new_data["animals"]);
 
   // don't really need User objects...
   // does it exist?
@@ -129,7 +115,6 @@ function handleDeletePlayer(data)
   delete otherUsers[data["name"]];
 }
 
-
 // function touchMoved() {
 //   return false
 // }
@@ -148,7 +133,9 @@ function touchEnded()
 
 function onCanvas(pos)
 {
-  return (pos[0] > 0 && pos[0] < screen_dims[0] && pos[1] > 0 && pos[1] < screen_dims[1]);
+  let xIn = pos[0] > 0 && pos[0] < screen_dims[0];
+  let yIn = pos[1] > 0 && pos[1] < screen_dims[1];
+  return (xIn && yIn);
 }
 
 // pick random element from list

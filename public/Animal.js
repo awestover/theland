@@ -28,16 +28,19 @@ Animal.prototype.getImg = function()
   }
 }
 
-Animal.prototype.show = function()
+Animal.prototype.possibleOffspring = function()
 {
   let result = false;
-
   let offspringPr = 0.01;
   if (offspringPr > Math.random())
   {
     result = this.createOffspring();
   }
+  return result;
+}
 
+Animal.prototype.show = function()
+{
   try
   {
     image(this.image, this.pos[0], this.pos[1], this.image.width, this.image.height);
@@ -46,9 +49,6 @@ Animal.prototype.show = function()
   {
     ellipse(this.pos[0], this.pos[1], 10, 10);
   }
-
-  return result;
-
 }
 
 Animal.prototype.getPos = function()
