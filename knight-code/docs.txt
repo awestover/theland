@@ -1,0 +1,5 @@
+
+socketio lessons learned:
+
+"rooms" for semi private communication (private within a group) are important 
+https://socket.io/docs/rooms-and-namespaces/

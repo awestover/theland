@@ -18,25 +18,55 @@ io.sockets.on('connection', newConnection);  // when you get a connection do thi
 var playersConnected = [];
 
 function newConnection(socket) {
+	/*
+		socket.on  - when this specific socket instance (which indexjs holds all of the sockets) hears something
+
+		socket.emit - emit to this socket only
+		socket.broadcast - to all other people
+		io.sockets.emit - to everyone
+	*/
+
   console.log("new connection");
   var name;
+  var world;
 
   // what to listen for
   socket.on('named', handleNaming);
+  socket.on('sendWorld', handleSendWorld);
   socket.on('updatePlayer', updatePlayer);
   // socket.on('loadPlayers', loadPlayers);
 
+
+  function handleSendWorld(data)
+  {
+  	world = data;
+  	socket.join(world); // join a world... this means you can have a private conversation within that world
+  }
+
   function updatePlayer(data)
   {
-    io.sockets.emit("updatePlayer", data);
+  	// don't emit to yourself or people in other worlds
+  	socket.broadcast.to(data["world"]).emit("updatePlayer", data);
+    // io.sockets.emit("updatePlayer", data);
   }
 
   function handleNaming(data)
   {
     // later do not allow duplicates
     name = data["name"];
+
+    while (nameExists(name)!=0)
+    {
+    	name = name + Math.floor(Math.random()*10); 
+    }
+
     console.log(name + " added" );
     playersConnected.push(name);
+    console.log("Now playing: ");
+    console.log(playersConnected);
+
+    socket.emit('nameChosen', name);
+
   }
 
   socket.on('disconnect', handleDisconnect);
@@ -44,36 +74,31 @@ function newConnection(socket) {
   {
     var idx = playersConnected.indexOf(name);
     console.log("disconnect by " + idx + " " + name);
-    console.log(playersConnected);
     if (idx != -1)
     {
-      playersConnected.pop(name);
-      io.sockets.emit("deletePlayer", {"name":name});
+      playersConnected.splice(idx, 1); // 1 means remove 1 thing
+      console.log("Now playing: ");
+      console.log(playersConnected);
+
+	  // don't emit to yourself or people in other worlds
+  	  socket.broadcast.to(world).emit("deletePlayer", {"name": name});      
+      // io.sockets.emit("deletePlayer", {"name":name});
     }
   }
 
-
-    // // these are the functions that send data
-    // function updatePlayerData(data)
-    // {
-    //   // does the world not exist?
-    //   if (!playerData[data["world"]])
-    //   {
-    //     playerData[data["world"]];
-    //   }
-    //
-    //   playerData[data["world"]][data["name"]] = data["state"];
-    //   console.log(playerData);
-    //
-    //   io.sockets.emit('')
-
-    //  alternative:
-    //    socket.broadcast.emit(x, y)
-    //
-    // }
-
 }
 
+function nameExists(name)
+{
+	var ct=0;
+	for (var i = 0; i<playersConnected.length; i++)
+	{
+		if (playersConnected[i] == name)
+		// if (playersConnected[i].indexOf(name)!=-1)
+		{
+			ct+=1;
+		}
+	}
+	return ct;
+}
 
-
-//
