@@ -32,7 +32,13 @@ function draw()
 
   push();
   translate(user.pos[0], user.pos[1]);
-  user.show();
+  let newAnimals = user.show();
+
+  for (var i = 0; i < newAnimals.length; i++)
+  {
+    user.addOffspringAnimal(newAnimals[i]);
+  }
+
   pop();
 
   fill(0, 0, 0);

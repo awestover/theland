@@ -17,10 +17,16 @@ function User(name, world, animal_type)
 
 User.prototype.show = function()
 {
+  let results = [];
   for (var an in user.animals)
   {
-    this.animals[an].show();
+    let currentResult = this.animals[an].show();
+    if (currentResult != false)
+    {
+      results.push(currentResult);
+    }
   }
+  return results;
 }
 
 User.prototype.update = function()
@@ -50,6 +56,12 @@ User.prototype.addAnimal = function()
   });
   this.animals.push(randAnimal);
   this.animals[this.animals.length-1].subPos([animal_size[0]/2,animal_size[1]/2]);
+  this.setAnimalsText();
+}
+
+User.prototype.addOffspringAnimal = function(animal)
+{
+  this.animals.push(animal);
   this.setAnimalsText();
 }
 

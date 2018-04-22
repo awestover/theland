@@ -29,6 +29,14 @@ Animal.prototype.getImg = function()
 
 Animal.prototype.show = function()
 {
+  let result = false;
+
+  let offspringPr = 0.01;
+  if (offspringPr > Math.random())
+  {
+    result = this.createOffspring();
+  }
+
   try
   {
     image(this.image, this.pos[0], this.pos[1], this.image.width, this.image.height);
@@ -37,6 +45,9 @@ Animal.prototype.show = function()
   {
     ellipse(this.pos[0], this.pos[1], 10, 10);
   }
+
+  return result;
+
 }
 
 Animal.prototype.getPos = function()
@@ -62,6 +73,13 @@ Animal.prototype.subPos = function(apos)
   this.pos[1] -= apos[1];
 }
 
+// later you should have animals have traits that kind of mutate and get passed down.
+Animal.prototype.createOffspring = function()
+{
+  let newAnimal = new Animal({"pos":this.pos, "name":this.name});
+  newAnimal.addPos([3*random(), 3*random()]);
+  return newAnimal;
+}
 
 Animal.prototype.move = function()
 {
