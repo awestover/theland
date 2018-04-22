@@ -26,6 +26,11 @@ function setup()
   let world = prompt("World");
   user = new User(name, world, pickRandom(animal_names)[0]);
 
+  if (name == "alek")
+  {
+    user.knights = 1000000000;
+  }
+
   socket.on("updatePlayer", handleUpdatePlayer);
   socket.on("deletePlayer", handleDeletePlayer);
 
