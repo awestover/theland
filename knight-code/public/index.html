@@ -4,8 +4,12 @@
   <!-- resize -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
+  <!-- Icon -->
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+
   <!-- style -->
   <link rel="stylesheet" type="text/css" href="index.css">
+  <link rel="stylesheet" type="text/css" href="buttons.css">
 
   <title>The Knight Rises</title>
 
@@ -27,9 +31,10 @@
 </head>
 
 <body>
-  The game
-<a href="info.html">Back</a>
-<br>
+  <b id="name">Name: X</b> <b id="world">World: 1</b><br>
+  <b id="animals">Animals: 0</b>  <b id="knights">Knights: 0</b>
+  <button id="buy" onclick="user.buyAnimal()">Buy</button>
+  <a id="help" class="button" href="info.html">Help</a><br>
 </body>
 
 </html>

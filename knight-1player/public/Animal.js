@@ -1,3 +1,4 @@
+// animal class
 function Animal(animal_traits)
 {
   this.pos = animal_traits["pos"];
