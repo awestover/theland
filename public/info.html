@@ -4,6 +4,9 @@
   <!-- resize -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
+  <!-- Icon -->
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+
   <title>The Knight Rises Information</title>
 
   <!-- p5 libraries-->
@@ -18,15 +21,51 @@
   <script src="/socket.io/socket.io.js"></script>
   <!-- style -->
   <link rel="stylesheet" type="text/css" href="info.css">
+  <link rel="stylesheet" type="text/css" href="buttons.css">
+
 </head>
 
 <body>
-  information about the game
-  The currency in this game is "the knight"
-  If you get knights you can buy an animal
-  animals will grow and reproduce
-  the goal of the game is to get the most animals
-  good luck
-  <a href="index.html">Back</a>
+<h1>Information about the game</h1>
+<p>
+The currency in this game is "the knight"
+If you get knights you can buy an animal
+animals will grow and reproduce
+the goal of the game is to get the most animals
+good luck
+
+Move arround the board
+
+attack other players?
+</p>
+
+<h2>How does the currency work?</h2>
+<p>
+You gain 1 currency every frame of animation
+Click on the buy button to get an animal in the current center of your screen
+this costs 10 knights
+</p>
+
+<h2>Scores:</h2>
+<p>
+need socket for this....
+</p>
+
+<h2>reset character</h2>
+<p>
+need socket for this to not be an option :)
+</p>
+
+<h2>Winning and losing</h2>
+<p>If you run out of animals you lose. If you have the most animals your are in the lead! see the scoreboard(once it exists)
+for your current standing</p>
+
+<h2> New Feutures on the way </h2>
+<p>
+The initial release...
+</p>
+
+
+  <a class="button" href="index.html">Back</a>
 </body>
 </html>

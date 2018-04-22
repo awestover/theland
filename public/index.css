@@ -1,3 +1,27 @@
 body{
 	background-color: grey;
 }
+
+#buy{
+	float: right;
+	margin:2%;
+}
+
+#name{
+	float: left;
+}
+#world{
+	float: right;
+}
+
+#animals{
+	float: left;
+}
+#knights{
+	padding-left: 5%;
+	float: left;
+}
+#help{
+	float: right;
+	margin: 2%;
+}
