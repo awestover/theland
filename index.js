@@ -17,6 +17,8 @@ io.sockets.on('connection', newConnection);  // when you get a connection do thi
 
 var playersConnected = [];
 
+var worldCounts = {};
+
 function newConnection(socket) {
 	/*
 		socket.on  - when this specific socket instance (which indexjs holds all of the sockets) hears something
@@ -39,8 +41,29 @@ function newConnection(socket) {
 
   function handleSendWorld(data)
   {
-  	world = data;
+  	world = data["world"].valueOf();
+
+    // 12 ppl max in the world (it is a clock!!!!!)
+    while (worldCounts[world] && worldCounts[world] >= 12)
+    {
+      world += Math.floor(10*Math.random());
+    }
+
+    if (worldCounts[world])
+    {
+      worldCounts[world] += 1;
+    }
+    else {
+      worldCounts[world] = 1;
+    }
+
   	socket.join(world); // join a world... this means you can have a private conversation within that world
+
+    console.log(worldCounts);
+    console.log("world chosen " + world);
+
+    // what world did we really join?...
+    socket.emit("worldChosen", {"world":world, "ourTheta": worldCounts[world]-1});
   }
 
   function updatePlayer(data)
@@ -57,7 +80,7 @@ function newConnection(socket) {
 
     while (nameExists(name)!=0)
     {
-    	name = name + Math.floor(Math.random()*10); 
+    	name = name + Math.floor(Math.random()*10);
     }
 
     console.log(name + " added" );
@@ -81,7 +104,7 @@ function newConnection(socket) {
       console.log(playersConnected);
 
 	  // don't emit to yourself or people in other worlds
-  	  socket.broadcast.to(world).emit("deletePlayer", {"name": name});      
+  	  socket.broadcast.to(world).emit("deletePlayer", {"name": name});
       // io.sockets.emit("deletePlayer", {"name":name});
     }
   }
@@ -101,4 +124,3 @@ function nameExists(name)
 	}
 	return ct;
 }
-

@@ -30,6 +30,11 @@ User.prototype.show = function()
   }
 }
 
+User.prototype.adjustAnimalLoc=function(pos)
+{
+  return [screen_dims[0]/2-pos[0], screen_dims[1]/2-pos[1]];
+}
+
 User.prototype.update = function()
 {
   let results = [];
@@ -69,7 +74,7 @@ User.prototype.addFrameKnights = function()
 User.prototype.addAnimal = function()
 {
   var randAnimal = new Animal({
-    "pos":[screen_dims[0]/2, screen_dims[1]/2],
+    "pos":this.adjustAnimalLoc(this.pos),
     "name": this.animal_type
   });
   this.animals.push(randAnimal);

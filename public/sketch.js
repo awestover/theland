@@ -11,7 +11,8 @@ let isDown = false;
 const animal_names = ["dog", "shark"];
 const animal_size = [66, 50];
 
-let otherUsers = {};
+let otherUsers = [];
+let ourTheta;
 
 function setup()
 {
@@ -23,22 +24,23 @@ function setup()
   socket.on("updatePlayer", handleUpdatePlayer);
   socket.on("deletePlayer", handleDeletePlayer);
   socket.on('nameChosen', handleNameChosen);
+  socket.on('worldChosen', handleWorldChosen);
 
   let name = prompt("Name");
   socket.emit("named", {"name":name});
   let world = prompt("World");
-  socket.emit("sendWorld", world);
+  socket.emit("sendWorld", {"world":world});
   user = new User(name, world, pickRandom(animal_names)[0]);
-
-  // set name and world
-  $('#name').text("Name: " + name);
-  $('#world').text("World: " + world);
 
 }
 
 function draw()
 {
   background(255,0,255);
+
+
+  // probably need to scale everything and translate everything to achieve cross platformness
+
 
   push();
   translate(user.pos[0], user.pos[1]);
@@ -48,6 +50,12 @@ function draw()
   {
     otherUsers[key].show();
   }
+
+  for (let th = 0; th < 12; th++)
+  {
+    drawTerritory(th);
+  }
+
   pop();
 
   let newAnimals = user.update();
@@ -96,14 +104,25 @@ function handleUpdatePlayer(data)
     "world": data["user"]["world"],
     "animal_type":data["user"]["animal_type"]
   }
-  otherUsers[data["user"]["name"]] = new User(new_data["name"], new_data["world"], new_data["animal_type"], new_data["animals"]);
+  otherUsers.push(new User(new_data["name"], new_data["world"], new_data["animal_type"], new_data["animals"]));
 
 }
 
 function handleDeletePlayer(data)
 {
   console.log("deleting " + data["name"]);
-  delete otherUsers[data["name"]];
+  let i=0;
+  for (i = 0; i < otherUsers.length; i++)
+  {
+      if (otherUsers.name == data["name"])
+      {
+        break;
+      }
+  }
+  if (i!= -1)
+  {
+    otherUsers.splice(i, 1);
+  }
 }
 
 // function touchMoved() {
@@ -120,6 +139,13 @@ function touchStarted()
 function touchEnded()
 {
   isDown = false;
+}
+
+function handleWorldChosen(data)
+{
+  user.world = data["world"];
+  ourTheta = data["ourTheta"];
+  $('#world').text("World: " + user.world);
 }
 
 function handleNameChosen(data)
@@ -151,4 +177,32 @@ function pickRandom(list)
 {
   var idx = Math.floor(Math.random()*list.length);
   return [list[idx], idx];
+}
+
+function drawTerritory(name)
+{
+  let th = 0;
+  for (th = 0; th<otherUsers.length; th++)
+  {
+    if (otherUsers[th].name == name)
+    {
+      break;
+    }
+  }
+  let result = calculateTerritory(th);
+  fill(0, 255, 255);
+  ellipse(result[0], result[1], result[2], result[2]);
+}
+
+function calculateTerritory(th)
+{
+  // note: divide into 12 parts, th is an index not an absoulte angle
+  // need to implement -1500 to 1500 grid boundary with lava on the edge
+  // 1000 away from 0,0 100 radius
+  // WORRY ABOUT UNITS (later)
+  // PEOPLE AREN'T die if they try to go in here
+  let bigR = 200;
+  let littleR = 100;
+  let loc = [Math.cos(th*Math.PI/6)*bigR, Math.sin(th*Math.PI/6)*bigR];
+  return [loc[0], loc[1], littleR];
 }
