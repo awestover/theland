@@ -1,5 +1,17 @@
 // main user interaction
 
+/*
+Notes:
+
+theland.herokuapp.com is the new name
+
+if you use it in browser on a phone, it will be annoying
+later try to make it better: ie make reload harder, no scrolling etc
+
+Improvements: boundaries need to work
+
+*/
+
 let socket;
 let user;
 let screen_dims;
@@ -41,15 +53,7 @@ function draw()
   background(255,0,255);
   // center to 0,0
   translate(screen_dims[0]/2, screen_dims[1]/2);
-  // scale(512/screen_dims[0], 512/screen_dims[1]); // all screens are now 100 by 100
   textAlign(CENTER);
-
-  fill(0);
-  ellipse(10, 10, 10, 10);
-  fill(0);
-  ellipse(500, 10, 10, 10);
-
-  // probably need to scale everything and translate everything to achieve cross platformness
 
   push();
   translate(user.pos[0], user.pos[1]);
@@ -172,7 +176,7 @@ function touchEnded()
 
 function handleWorldChosen(data)
 {
-  console.log(data);
+  // console.log(data);
   user.world = data["world"];
   user.th = data["ourTheta"];
   $('#world').text("World: " + user.world);
@@ -212,7 +216,7 @@ function pickRandom(list)
 function drawTerritory(th, name)
 {
   let result = calculateTerritory(th);
-  fill(0, 255, 255);
+  fill(0, 255, 255, 100);
   ellipse(result[0], result[1], result[2], result[2]);
   fill(0,0,0);
   if (name)
@@ -228,8 +232,8 @@ function calculateTerritory(th)
   // 1000 away from 0,0 100 radius
   // WORRY ABOUT UNITS (later)
   // PEOPLE AREN'T die if they try to go in here
-  let bigR = 200;
-  let littleR = 100;
+  let bigR = 1000;
+  let littleR = 300;
   let loc = [Math.cos(th*Math.PI/6)*bigR, Math.sin(th*Math.PI/6)*bigR];
   return [loc[0], loc[1], littleR];
 }
