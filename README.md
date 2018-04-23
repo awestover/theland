@@ -13,7 +13,7 @@ One player version at
 <a href="https://awestover.github.io/coolGames/knight-1player/public/">https://awestover.github.io/coolGames/knight-1player/public/</a>
 
 website at
-http://knight-rises.herokuapp.com/
+<a href="theland.herokuapp.com">theland.herokuapp.com</a>
 
 <a>http://localhost:8000/index.html</a>
 
@@ -21,6 +21,7 @@ You can't acess the repo for some reason when it is on heroku
 
 so you should copy code to github when you are done
 
+(not quite, this copies heroku remote too... manually copy all files...)
 cp -r knight-rises/* knight-rises-code-github/
 
 gitc "added code"
