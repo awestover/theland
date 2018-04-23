@@ -13,7 +13,7 @@ One player version at
 <a href="https://awestover.github.io/coolGames/knight-1player/public/">https://awestover.github.io/coolGames/knight-1player/public/</a>
 
 website at
-<a href="theland.herokuapp.com">theland.herokuapp.com</a>
+<a href="https://theland.herokuapp.com">theland.herokuapp.com</a>
 
 <a>http://localhost:8000/index.html</a>
 
