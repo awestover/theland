@@ -1,9 +1,11 @@
 //user class
-function User(name, world, animal_type, animals)
+function User(user_info)
 {
-  this.name = name;
-  this.world = world;
-  this.animal_type = animal_type;
+  this.name = user_info["name"];
+  this.world = user_info["world"];
+  this.animal_type = user_info["animal_type"];
+
+  this.th = user_info["th"];
 
   this.pos = [0,0]; // where are you looking
 
@@ -11,13 +13,13 @@ function User(name, world, animal_type, animals)
   // cost and level are probably going to be linked
   this.cost = 10;
 
-  if(! animals)
+  if(! user_info["animals"])
   {
     this.animals = [];
     this.addAnimal();
   }
   else {
-    this.animals = animals;
+    this.animals = user_info["animals"];
   }
 
 }
@@ -32,7 +34,7 @@ User.prototype.show = function()
 
 User.prototype.adjustAnimalLoc=function(pos)
 {
-  return [screen_dims[0]/2-pos[0], screen_dims[1]/2-pos[1]];
+  return [-pos[0], -pos[1]];
 }
 
 User.prototype.update = function()
@@ -73,11 +75,11 @@ User.prototype.addFrameKnights = function()
 
 User.prototype.addAnimal = function()
 {
-  var randAnimal = new Animal({
+  let newAnimal = new Personal({
     "pos":this.adjustAnimalLoc(this.pos),
     "name": this.animal_type
   });
-  this.animals.push(randAnimal);
+  this.animals.push(newAnimal);
   this.animals[this.animals.length-1].subPos([animal_size[0]/2,animal_size[1]/2]);
   this.setAnimalsText();
 }

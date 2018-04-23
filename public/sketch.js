@@ -3,6 +3,7 @@
 let socket;
 let user;
 let screen_dims;
+let real_screen_dims = [512, 512];
 let canvas;
 
 let last_down = [0, 0];
@@ -11,8 +12,7 @@ let isDown = false;
 const animal_names = ["dog", "shark"];
 const animal_size = [66, 50];
 
-let otherUsers = [];
-let ourTheta;
+let otherUsers = {};
 
 function setup()
 {
@@ -26,21 +26,30 @@ function setup()
   socket.on('nameChosen', handleNameChosen);
   socket.on('worldChosen', handleWorldChosen);
 
+  // fill in all fields later
+  user = new User({"animal_type": pickRandom(animal_names)[0]});
+
   let name = prompt("Name");
   socket.emit("named", {"name":name});
   let world = prompt("World");
   socket.emit("sendWorld", {"world":world});
-  user = new User(name, world, pickRandom(animal_names)[0]);
 
 }
 
 function draw()
 {
   background(255,0,255);
+  // center to 0,0
+  translate(screen_dims[0]/2, screen_dims[1]/2);
+  // scale(512/screen_dims[0], 512/screen_dims[1]); // all screens are now 100 by 100
+  textAlign(CENTER);
 
+  fill(0);
+  ellipse(10, 10, 10, 10);
+  fill(0);
+  ellipse(500, 10, 10, 10);
 
   // probably need to scale everything and translate everything to achieve cross platformness
-
 
   push();
   translate(user.pos[0], user.pos[1]);
@@ -51,9 +60,20 @@ function draw()
     otherUsers[key].show();
   }
 
-  for (let th = 0; th < 12; th++)
+  drawTerritory(user.th, user.name);
+
+  let drawTerrct = 1; // already did current user
+  for (let key in otherUsers)
   {
-    drawTerritory(th);
+    // console.log(otherUsers[key].name);
+    drawTerritory(otherUsers[key].th, otherUsers[key].name);
+    drawTerrct += 1;
+  }
+
+  while(drawTerrct < 12)
+  {
+    drawTerritory(drawTerrct, "unclaimed");
+    drawTerrct += 1;
   }
 
   pop();
@@ -82,10 +102,15 @@ function draw()
     }
   }
 
-  fill(0, 0, 0);
-  rect(screen_dims[0]/2-5, screen_dims[1]/2-0.25, 10, 0.5);
-  rect(screen_dims[0]/2-0.25, screen_dims[1]/2-5, 0.5, 10);
+  drawCenterCross();
 
+}
+
+function drawCenterCross()
+{
+  fill(0, 0, 0);
+  rect(-5, -0.25, 10, 0.5);
+  rect(-0.25, -5, 0.5, 10);
 }
 
 function handleUpdatePlayer(data)
@@ -95,34 +120,38 @@ function handleUpdatePlayer(data)
   var cAnimals = [];
   for (var i = 0; i < data["user"]["animals"].length; i++)
   {
-    cAnimals.push(new Animal(data["user"]["animals"][i]));
+    cAnimals.push(new Personal(data["user"]["animals"][i]));
   }
 
   var new_data = {
     "animals": cAnimals,
     "name": data["user"]["name"],
     "world": data["user"]["world"],
-    "animal_type":data["user"]["animal_type"]
+    "animal_type":data["user"]["animal_type"],
+    "th": data["user"]["th"]
   }
-  otherUsers.push(new User(new_data["name"], new_data["world"], new_data["animal_type"], new_data["animals"]));
+
+  //note names are unique
+  otherUsers[new_data["name"]] = new User(new_data);
 
 }
 
 function handleDeletePlayer(data)
 {
   console.log("deleting " + data["name"]);
-  let i=0;
-  for (i = 0; i < otherUsers.length; i++)
-  {
-      if (otherUsers.name == data["name"])
-      {
-        break;
-      }
-  }
-  if (i!= -1)
-  {
-    otherUsers.splice(i, 1);
-  }
+  delete otherUsers[data["name"]];
+  // let i=0;
+  // for (i = 0; i < otherUsers.length; i++)
+  // {
+  //     if (otherUsers.name == data["name"])
+  //     {
+  //       break;
+  //     }
+  // }
+  // if (i!= -1)
+  // {
+  //   otherUsers.splice(i, 1);
+  // }
 }
 
 // function touchMoved() {
@@ -143,8 +172,9 @@ function touchEnded()
 
 function handleWorldChosen(data)
 {
+  console.log(data);
   user.world = data["world"];
-  ourTheta = data["ourTheta"];
+  user.th = data["ourTheta"];
   $('#world').text("World: " + user.world);
 }
 
@@ -179,19 +209,16 @@ function pickRandom(list)
   return [list[idx], idx];
 }
 
-function drawTerritory(name)
+function drawTerritory(th, name)
 {
-  let th = 0;
-  for (th = 0; th<otherUsers.length; th++)
-  {
-    if (otherUsers[th].name == name)
-    {
-      break;
-    }
-  }
   let result = calculateTerritory(th);
   fill(0, 255, 255);
   ellipse(result[0], result[1], result[2], result[2]);
+  fill(0,0,0);
+  if (name)
+  {
+    text(name, result[0], result[1]);
+  }
 }
 
 function calculateTerritory(th)

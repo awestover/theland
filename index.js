@@ -41,7 +41,12 @@ function newConnection(socket) {
 
   function handleSendWorld(data)
   {
-  	world = data["world"].valueOf();
+  	world = data["world"];
+
+    if  (!world)
+    {
+      world = "World";
+    }
 
     // 12 ppl max in the world (it is a clock!!!!!)
     while (worldCounts[world] && worldCounts[world] >= 12)
@@ -78,6 +83,11 @@ function newConnection(socket) {
     // later do not allow duplicates
     name = data["name"];
 
+    if (!name)
+    {
+      name = "User";
+    }
+
     while (nameExists(name)!=0)
     {
     	name = name + Math.floor(Math.random()*10);
@@ -95,6 +105,8 @@ function newConnection(socket) {
   socket.on('disconnect', handleDisconnect);
   function handleDisconnect(data)
   {
+    worldCounts[world] -= 1;
+
     var idx = playersConnected.indexOf(name);
     console.log("disconnect by " + idx + " " + name);
     if (idx != -1)
