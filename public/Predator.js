@@ -1,7 +1,8 @@
 // this can eat stuff
-function Predator( animal_traits)
+class Predator extends Animal
 {
-  Animal.call(this, animal_traits);
+  constructor(animal_traits)
+  {
+    super(animal_traits);
+  }
 }
-
-Predator.prototype = Object.create(Animal.prototype);

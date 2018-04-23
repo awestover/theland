@@ -1,133 +1,137 @@
 //user class
-function User(user_info)
-{
-  this.name = user_info["name"];
-  this.world = user_info["world"];
-  this.animal_type = user_info["animal_type"];
 
-  this.th = user_info["th"];
+class User{
 
-  this.pos = [0,0]; // where are you looking
-
-  this.knights = 0;
-  // cost and level are probably going to be linked
-  this.cost = 10;
-
-  if(! user_info["animals"])
+  constructor(user_info)
   {
-    this.animals = [];
-    this.addAnimal();
-  }
-  else {
-    this.animals = user_info["animals"];
-  }
+    this.name = user_info["name"];
+    this.world = user_info["world"];
+    this.animal_type = user_info["animal_type"];
 
-}
+    this.th = user_info["th"];
 
-User.prototype.show = function()
-{
-  for (var an=0; an<this.animals.length; an++)
-  {
-    this.animals[an].show();
-  }
-}
+    this.pos = [0,0]; // where are you looking
 
-User.prototype.adjustAnimalLoc=function(pos)
-{
-  return [-pos[0], -pos[1]];
-}
+    this.knights = 0;
+    // cost and level are probably going to be linked
+    this.cost = 10;
 
-User.prototype.update = function()
-{
-  let results = [];
-  for (var an in user.animals)
-  {
-    let deathPr = 0.01;
-    if (random() < deathPr && this.animals.length > 1)
+    if(! user_info["animals"])
     {
-      this.animals.pop(an);
-      an -= 1;
+      this.animals = [];
+      this.addAnimal();
     }
-    else
+    else {
+      this.animals = user_info["animals"];
+    }
+  }
+
+  show()
+  {
+    for (var an=0; an<this.animals.length; an++)
     {
-      this.animals[an].move();
-      let currentResult = this.animals[an].possibleOffspring();
-      if (currentResult != false)
+      this.animals[an].show();
+    }
+  }
+
+  adjustAnimalLoc(pos)
+  {
+    return [-pos[0], -pos[1]];
+  }
+
+  update()
+  {
+    let results = [];
+    for (var an in user.animals)
+    {
+      let deathPr = 0.01;
+      if (random() < deathPr && this.animals.length > 1)
       {
-        results.push(currentResult);
+        this.animals.pop(an);
+        an -= 1;
+      }
+      else
+      {
+        this.animals[an].move();
+        let currentResult = this.animals[an].possibleOffspring();
+        if (currentResult != false)
+        {
+          results.push(currentResult);
+        }
       }
     }
+    this.addFrameKnights();
+
+    return results;
   }
-  this.addFrameKnights();
 
-  return results;
-}
-
-User.prototype.addFrameKnights = function()
-{
-  // later this can be variable or something
-  if(Math.random() < 0.5)
+  addFrameKnights()
   {
-    this.knights += 1;
-    this.setKnightsText();
+    // later this can be variable or something
+    if(Math.random() < 0.5)
+    {
+      this.knights += 1;
+      this.setKnightsText();
+    }
   }
-}
 
-User.prototype.addAnimal = function()
-{
-  let newAnimal = new Personal({
-    "pos":this.adjustAnimalLoc(this.pos),
-    "name": this.animal_type
-  });
-  this.animals.push(newAnimal);
-  this.animals[this.animals.length-1].subPos([animal_size[0]/2,animal_size[1]/2]);
-  this.setAnimalsText();
-}
-
-User.prototype.addOffspringAnimal = function(animal)
-{
-  this.animals.push(animal);
-  this.setAnimalsText();
-}
-
-User.prototype.buyAnimal = function()
-{
-  if (this.knights >= this.cost)
+  addAnimal()
   {
-    this.knights -= this.cost;
-    this.addAnimal();
+    let newAnimal = new Personal({
+      "pos":this.adjustAnimalLoc(this.pos),
+      "name": this.animal_type
+    });
+    this.animals.push(newAnimal);
+    this.animals[this.animals.length-1].subPos([animal_size[0]/2,animal_size[1]/2]);
+    this.setAnimalsText();
   }
-}
 
-
-User.prototype.updateView = function(last_pos, current_pos)
-{
-  this.shiftPos([current_pos[0]-last_pos[0], current_pos[1] - last_pos[1]]);
-}
-
-User.prototype.shiftPos = function(pos)
-{
-  this.pos = [this.pos[0] + pos[0], this.pos[1] + pos[1]];
-  // console.log(this.pos);
-}
-
-// later only show things that are in our view
-User.prototype.inView = function(pos)
-{
-  let sPos = this.shiftPos(pos);
-  if (sPos[0]>0 && sPos[0] < screen_dims[0] && sPos[1]>0 && sPos[1]<screen_dims[1])
+  addOffspringAnimal(animal)
   {
-    return true;
+    this.animals.push(animal);
+    this.setAnimalsText();
   }
-  return false;
-}
 
-User.prototype.setKnightsText = function()
-{
-    $('#knights').text("Knights: " + this.knights);
-}
+  buyAnimal()
+  {
+    if (this.knights >= this.cost)
+    {
+      this.knights -= this.cost;
+      this.addAnimal();
+    }
+  }
 
-User.prototype.setAnimalsText = function()
-{
-    $('#animals').text("Animals: " + this.animals.length);
+
+  updateView(last_pos, current_pos)
+  {
+    this.shiftPos([current_pos[0]-last_pos[0], current_pos[1] - last_pos[1]]);
+  }
+
+  shiftPos(pos)
+  {
+    this.pos = [this.pos[0] + pos[0], this.pos[1] + pos[1]];
+    // console.log(this.pos);
+  }
+
+  // later only show things that are in our view
+  inView(pos)
+  {
+    let sPos = this.shiftPos(pos);
+    if (sPos[0]>0 && sPos[0] < screen_dims[0] && sPos[1]>0 && sPos[1]<screen_dims[1])
+    {
+      return true;
+    }
+    return false;
+  }
+
+  setKnightsText()
+  {
+      $('#knights').text("Knights: " + this.knights);
+  }
+
+  setAnimalsText()
+  {
+      $('#animals').text("Animals: " + this.animals.length);
+  }
+
 }

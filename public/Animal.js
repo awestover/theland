@@ -7,7 +7,7 @@ movement properties etc
 
 */
 
-class Animal()
+class Animal
 {
   constructor(animal_traits)
   {
@@ -22,7 +22,7 @@ class Animal()
     this.image=this.getImg();
   }
 
-  get getImg = function()
+  getImg()
   {
     let path = "pictures/";
     path += this.name;
@@ -38,7 +38,7 @@ class Animal()
     }
   }
 
-  possibleOffspring = function()
+  possibleOffspring()
   {
     let result = false;
     let offspringPr = 0.01;
@@ -49,7 +49,7 @@ class Animal()
     return result;
   }
 
-  show = function()
+  show()
   {
     try
     {
@@ -61,38 +61,38 @@ class Animal()
     }
   }
 
-  getPos = function()
+  getPos()
   {
     return this.pos;
   }
 
-  get getDims = function()
+  getDims()
   {
     // should be same as animal_size
     return [this.image.width, this.image.height];
   }
 
-  addPos = function(apos)
+  addPos(apos)
   {
     this.pos[0] += apos[0];
     this.pos[1] += apos[1];
   }
 
-  subPos = function(apos)
+  subPos(apos)
   {
     this.pos[0] -= apos[0];
     this.pos[1] -= apos[1];
   }
 
   // later you should have animals have traits that kind of mutate and get passed down.
-  createOffspring = function()
+  createOffspring()
   {
     let newAnimal = new Animal({"pos":this.pos, "name":this.name});
     newAnimal.addPos([3*random(), 3*random()]);
     return newAnimal;
   }
 
-  move = function()
+  move()
   {
     var th = (Math.random()-0.5);
     if (Math.random() < 0.5) {

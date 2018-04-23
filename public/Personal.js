@@ -1,8 +1,10 @@
 // the user controlled animals
-
-function Personal(animal_traits)
+class Personal extends Animal
 {
-  Animal.call(this, animal_traits);
-}
 
-Personal.prototype = Object.create(Animal.prototype);
+  constructor(animal_traits)
+  {
+    super(animal_traits);
+  }
+
+}
