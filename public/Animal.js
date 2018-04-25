@@ -20,16 +20,15 @@ class Animal
     var yv = Math.sin(thInit);
     this.vel = [xv, yv];
     this.image=this.getImg();
+
+    this.w = animal_size[0];//this.image.width;
+    this.h = animal_size[1];//this.image.height;
   }
 
   getImg()
   {
-    let path = "pictures/";
-    path += this.name;
-    path += this.level;
-    path += ".png";
-    try {
-      return loadImage(path);
+    try{
+      return animal_pictures[this.name+this.level];
     }
     catch(err)
     {
@@ -37,6 +36,26 @@ class Animal
       return false;
     }
   }
+
+  // getImg()
+  // {
+  //   let path = "pictures/";
+  //   path += this.name;
+  //   path += this.level;
+  //   path += ".png";
+  //   try {
+  //     let img = loadImage(path);
+  //     this.w=this.image.width;
+  //     this.h=this.image.height;
+  //
+  //     return img;
+  //   }
+  //   catch(err)
+  //   {
+  //     console.log(err);
+  //     return false;
+  //   }
+  // }
 
   possibleOffspring()
   {
@@ -61,16 +80,16 @@ class Animal
     }
   }
 
-  getPos()
-  {
-    return this.pos;
-  }
+  // getPos()
+  // {
+  //   return this.pos;
+  // }
 
-  getDims()
-  {
-    // should be same as animal_size
-    return [this.image.width, this.image.height];
-  }
+  // getDims()
+  // {
+  //   // should be same as animal_size
+  //   return [this.image.width, this.image.height];
+  // }
 
   addPos(apos)
   {
@@ -104,6 +123,24 @@ class Animal
     this.vel = [nx, ny];
     this.pos = [this.pos[0] + nx, this.pos[1] + ny];
 
+  }
+
+  checkCollide(otherAnimal)
+  {
+    // let w =  this.getDims()[0]; let h = this.getDims()[1];
+    // let wo = otherAnimal.getDims()[0]; let ho = otherAnimal.getDims()[1];
+
+    let x0 = this.pos[0] < otherAnimal.pos[0] < this.pos[0] + this.w;
+    let x1 = this.pos[0] < otherAnimal.pos[0] + otherUsers.w < this.pos[0] + this.w;
+    let y0 = this.pos[1] < otherAnimal.pos[1] < this.pos[1] + this.h;
+    let y1 = this.pos[1] < otherAnimal.pos[1] + otherUsers.h < this.pos[1] + this.h;
+
+    return ((x0 || x1) && (y0 || y1));
+  }
+
+  getBox()
+  {
+    return [this.pos[0], this.pos[1], this.w, this.h];
   }
 
 }

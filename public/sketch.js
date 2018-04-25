@@ -1,6 +1,5 @@
-// main user interaction
-
-/*
+/* Main user interaction
+Alek Westover
 Notes:
 
 theland.herokuapp.com is the new name
@@ -15,19 +14,30 @@ Improvements: boundaries need to work
 let socket;
 let user;
 let screen_dims;
-let real_screen_dims = [512, 512];
 let canvas;
 
 let last_down = [0, 0];
 let isDown = false;
 
-const animal_names = ["dog", "shark"];
+const animal_names = ["dog", "shark", "bear"];
+const max_lvl = 1;
 const animal_size = [66, 50];
+let animal_pictures = {};
 
 let otherUsers = {};
+let gametree;
 
 function setup()
 {
+  for (let m = 1; m<=max_lvl; m++)
+  {
+    for(let i = 0; i < animal_names.length; i++)
+    {
+      let cName = animal_names[i] + m;
+      animal_pictures[cName] = loadImage("pictures/"+cName+".png");
+    }
+  }
+
   screen_dims = [windowWidth*0.95, windowHeight*0.85];
   canvas = createCanvas(screen_dims[0], screen_dims[1]);
   frameRate(10);
@@ -46,6 +56,8 @@ function setup()
   let world = prompt("World");
   socket.emit("sendWorld", {"world":world});
 
+  gametree = new Gametree();
+
 }
 
 function draw()
@@ -55,13 +67,17 @@ function draw()
   translate(screen_dims[0]/2, screen_dims[1]/2);
   textAlign(CENTER);
 
+  gametree.clear();
+
   push();
   translate(user.pos[0], user.pos[1]);
   user.show();
+  gametree.insertUser(user);
 
   for (var key in otherUsers)
   {
     otherUsers[key].show();
+    gametree.insertUser(otherUsers[key]);
   }
 
   drawTerritory(user.th, user.name);
@@ -78,6 +94,16 @@ function draw()
   {
     drawTerritory(drawTerrct, "unclaimed");
     drawTerrct += 1;
+  }
+
+
+  let collisions = gametree.getCollisions();
+  for (var c = 0; c<collisions.length; c++)
+  {
+    // might need .getBox if you put actual Animal references back in the tree...
+    noFill();
+    dRect(gametree.get(collisions[c][0]));
+    dRect(gametree.get(collisions[c][1]));
   }
 
   pop();
@@ -119,8 +145,7 @@ function drawCenterCross()
 
 function handleUpdatePlayer(data)
 {
-  // console.log("update handle");
-  // console.log(data["user"]["name"]);
+  // console.log("Update player " + data["user"]["name"]);
   var cAnimals = [];
   for (var i = 0; i < data["user"]["animals"].length; i++)
   {
@@ -144,18 +169,7 @@ function handleDeletePlayer(data)
 {
   console.log("deleting " + data["name"]);
   delete otherUsers[data["name"]];
-  // let i=0;
-  // for (i = 0; i < otherUsers.length; i++)
-  // {
-  //     if (otherUsers.name == data["name"])
-  //     {
-  //       break;
-  //     }
-  // }
-  // if (i!= -1)
-  // {
-  //   otherUsers.splice(i, 1);
-  // }
+  // splice(x, 1) to remove element NOT pop (pop does 0th element allways)
 }
 
 // function touchMoved() {
@@ -176,7 +190,6 @@ function touchEnded()
 
 function handleWorldChosen(data)
 {
-  // console.log(data);
   user.world = data["world"];
   user.th = data["ourTheta"];
   $('#world').text("World: " + user.world);
@@ -184,7 +197,6 @@ function handleWorldChosen(data)
 
 function handleNameChosen(data)
 {
-  // console.log("name " + data);
   user.name = data;
 
   if (user.name == "alek")
@@ -223,6 +235,11 @@ function drawTerritory(th, name)
   {
     text(name, result[0], result[1]);
   }
+}
+
+function dRect(arr)
+{
+  rect(arr[0], arr[1], arr[2], arr[3]);
 }
 
 function calculateTerritory(th)
