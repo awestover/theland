@@ -11,15 +11,20 @@ class Animal
 {
   constructor(animal_traits)
   {
-    this.pos = animal_traits["pos"].slice();
-    this.name = animal_traits["name"];
-    this.level = 1;
+    // identification
+    this.pos = animal_traits["pos"].slice() || [0,0];
+    this.name = animal_traits["name"] || "circle";
+    this.username = animal_traits["username"] || "NPC";
 
-    var thInit = Math.random()*Math.PI*2;
-    var xv = Math.cos(thInit);
-    var yv = Math.sin(thInit);
-    this.vel = [xv, yv];
-    this.image=this.getImg();
+    // important statistics, change later
+    this.level = animal_traits["level"] || 1;
+    this.health = animal_traits["health"] || 10;
+    this.sickPr = animal_traits["sickPr"] || 0.001;
+    this.rebirthPr = animal_traits["rebirthPr"] || 0.001;
+    this.strength = animal_traits["strength"] || 1; // weakens with damage??? show indicator...
+
+    this.vel = this.randomHeading();
+    this.image = this.getImg();
 
     this.w = animal_size[0];//this.image.width;
     this.h = animal_size[1];//this.image.height;
@@ -37,31 +42,16 @@ class Animal
     }
   }
 
-  // getImg()
-  // {
-  //   let path = "pictures/";
-  //   path += this.name;
-  //   path += this.level;
-  //   path += ".png";
-  //   try {
-  //     let img = loadImage(path);
-  //     this.w=this.image.width;
-  //     this.h=this.image.height;
-  //
-  //     return img;
-  //   }
-  //   catch(err)
-  //   {
-  //     console.log(err);
-  //     return false;
-  //   }
-  // }
+  randomHeading()
+  {
+    let thInit = Math.random()*Math.PI*2;
+    return [Math.cos(thInit), Math.sin(thInit)];
+  }
 
   possibleOffspring()
   {
     let result = false;
-    let offspringPr = 0.01;
-    if (offspringPr > Math.random())
+    if (this.rebirthPr > Math.random())
     {
       result = this.createOffspring();
     }
@@ -70,6 +60,8 @@ class Animal
 
   show()
   {
+    fill(100, 100, 200);
+    rect(this.pos[0], this.pos[1], 10*this.health, 10);
     try
     {
       image(this.image, this.pos[0], this.pos[1], this.image.width, this.image.height);
@@ -79,17 +71,6 @@ class Animal
       ellipse(this.pos[0], this.pos[1], 10, 10);
     }
   }
-
-  // getPos()
-  // {
-  //   return this.pos;
-  // }
-
-  // getDims()
-  // {
-  //   // should be same as animal_size
-  //   return [this.image.width, this.image.height];
-  // }
 
   addPos(apos)
   {
@@ -125,22 +106,58 @@ class Animal
 
   }
 
-  checkCollide(otherAnimal)
-  {
-    // let w =  this.getDims()[0]; let h = this.getDims()[1];
-    // let wo = otherAnimal.getDims()[0]; let ho = otherAnimal.getDims()[1];
-
-    let x0 = this.pos[0] < otherAnimal.pos[0] < this.pos[0] + this.w;
-    let x1 = this.pos[0] < otherAnimal.pos[0] + otherUsers.w < this.pos[0] + this.w;
-    let y0 = this.pos[1] < otherAnimal.pos[1] < this.pos[1] + this.h;
-    let y1 = this.pos[1] < otherAnimal.pos[1] + otherUsers.h < this.pos[1] + this.h;
-
-    return ((x0 || x1) && (y0 || y1));
-  }
-
   getBox()
   {
     return [this.pos[0], this.pos[1], this.w, this.h];
+  }
+
+  attack()
+  {
+    // for now...
+    return this.strength;
+  }
+
+  shouldDie()
+  {
+    if (this.health <=0)
+    {
+      return true;
+    }
+    else {
+      if (this.sickPr > random())
+      {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  }
+
+  levelUp()
+  {
+    this.level += 1;
+    // change other stats too later...
+    this.health += 1;
+    this.image = this.getImg();
+  }
+
+  handleCollide(otherAnimal)
+  {
+    // later will vary for predator prey personal etc
+    // later apply damage buffer?
+    // if ("NPC")?
+    if (otherAnimal.username == this.username)
+    {
+      if (this.level < max_lvl)
+      {
+        this.levelUp();
+      }
+    }
+    else {
+      this.health -= otherAnimal.attack();
+      console.log(this.name);
+    }
   }
 
 }

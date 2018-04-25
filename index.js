@@ -88,6 +88,11 @@ function newConnection(socket) {
       name = "User";
     }
 
+    if(name=="NPC")
+    {
+      name = "fakeNPC";
+    }
+
     while (nameExists(name)!=0)
     {
     	name = name + Math.floor(Math.random()*10);

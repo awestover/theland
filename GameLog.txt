@@ -1,0 +1,8 @@
+April 23
+Basic game mechanics
+
+April 24
+Collision boxes work
+
+April 25
+death mechanics

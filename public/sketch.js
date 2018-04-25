@@ -7,8 +7,15 @@ theland.herokuapp.com is the new name
 if you use it in browser on a phone, it will be annoying
 later try to make it better: ie make reload harder, no scrolling etc
 
-Improvements: boundaries need to work
-
+TODO:
+boundaries need to work, possible glitch drawing 2 boundaries in the same place...
+edges: fire, no scroll past no go past
+animals tend towards cursor if the setting is on
+lower death and birth rate
+up the price
+efficient collision checking?
+Predator and prey npcs
+IF mouse Animal collision show animal full stats
 */
 
 let socket;
@@ -19,10 +26,15 @@ let canvas;
 let last_down = [0, 0];
 let isDown = false;
 
+// all animal names
 const animal_names = ["dog", "shark", "bear"];
-const max_lvl = 1;
+const max_lvl = 2;
 const animal_size = [66, 50];
 let animal_pictures = {};
+
+// screen dimensions
+const bounds = [[-2500, 2500], [-2500, 2500]];
+let edgeRects;
 
 let otherUsers = {};
 let gametree;
@@ -40,6 +52,7 @@ function setup()
 
   screen_dims = [windowWidth*0.95, windowHeight*0.85];
   canvas = createCanvas(screen_dims[0], screen_dims[1]);
+  textAlign(CENTER);
   frameRate(10);
 
   socket = io.connect();
@@ -48,13 +61,14 @@ function setup()
   socket.on('nameChosen', handleNameChosen);
   socket.on('worldChosen', handleWorldChosen);
 
-  // fill in all fields later
   user = new User({"animal_type": pickRandom(animal_names)[0]});
-
   let name = prompt("Name");
   socket.emit("named", {"name":name});
   let world = prompt("World");
   socket.emit("sendWorld", {"world":world});
+  user.addAnimal();
+
+  edgeRects = calculateEdge();
 
   gametree = new Gametree();
 
@@ -62,16 +76,16 @@ function setup()
 
 function draw()
 {
-  background(255,0,255);
-  // center to 0,0
-  translate(screen_dims[0]/2, screen_dims[1]/2);
-  textAlign(CENTER);
+  // graphics basis
+  background(205,50,205);
+  translate(screen_dims[0]/2, screen_dims[1]/2);  // center to 0,0
 
-  gametree.clear();
-
+  // show major elements and get ready to check for collisions
   push();
   translate(user.pos[0], user.pos[1]);
   user.show();
+
+  gametree.clear();
   gametree.insertUser(user);
 
   for (var key in otherUsers)
@@ -80,34 +94,46 @@ function draw()
     gametree.insertUser(otherUsers[key]);
   }
 
-  drawTerritory(user.th, user.name);
+  // draw the territories
 
-  let drawTerrct = 1; // already did current user
+  let thNames = {};
   for (let key in otherUsers)
   {
-    // console.log(otherUsers[key].name);
-    drawTerritory(otherUsers[key].th, otherUsers[key].name);
-    drawTerrct += 1;
+    thNames[otherUsers[key].th] = otherUsers[key].name;
   }
 
-  while(drawTerrct < 12)
+  for (let cth = 0; cth < 12; cth++)
   {
-    drawTerritory(drawTerrct, "unclaimed");
-    drawTerrct += 1;
+    if (cth == user.th)
+    {
+      drawTerritory(user.th, user.name);
+    }
+    else if (thNames[cth])
+    {
+      drawTerritory(cth, thNames[cth]);
+    }
+    else {
+      drawTerritory(cth, "unclaimed");
+    }
+
   }
 
-
+  // look at collisions
   let collisions = gametree.getCollisions();
-  for (var c = 0; c<collisions.length; c++)
+  for (let c = 0; c<collisions.length; c++)
   {
-    // might need .getBox if you put actual Animal references back in the tree...
     noFill();
-    dRect(gametree.get(collisions[c][0]));
-    dRect(gametree.get(collisions[c][1]));
+    let gcs = [gametree.get(collisions[c][0]), gametree.get(collisions[c][1])];
+    dRect(gcs[0].getBox());
+    dRect(gcs[1].getBox());
+
+    gcs[0].handleCollide(gcs[1]);
+    gcs[1].handleCollide(gcs[0]);
   }
 
   pop();
 
+  //update animals, send data
   let newAnimals = user.update();
   for (var i = 0; i < newAnimals.length; i++)
   {
@@ -119,6 +145,7 @@ function draw()
   };
   socket.emit("updatePlayer", data);
 
+  //handle drag
   if (isDown) // handle dragging
   {
     let current_pos = [mouseX, mouseY];
@@ -132,6 +159,7 @@ function draw()
     }
   }
 
+  drawEdge(); // not allways needed...
   drawCenterCross();
 
 }
@@ -198,11 +226,12 @@ function handleWorldChosen(data)
 function handleNameChosen(data)
 {
   user.name = data;
+  user.giveAnimalsName();
 
   if (user.name == "alek")
   {
-    user.knights = 100000;
-    for (var i = 0; i < 1000; i++)
+    user.knights = 1000000;
+    for (var i = 0; i < 20; i++)
     {
       user.addAnimal();
     }
@@ -244,13 +273,38 @@ function dRect(arr)
 
 function calculateTerritory(th)
 {
-  // note: divide into 12 parts, th is an index not an absoulte angle
-  // need to implement -1500 to 1500 grid boundary with lava on the edge
-  // 1000 away from 0,0 100 radius
-  // WORRY ABOUT UNITS (later)
-  // PEOPLE AREN'T die if they try to go in here
-  let bigR = 1000;
-  let littleR = 300;
+  /*
+  note: divide into 12 parts, th is an index not an absoulte angle
+  need to implement -1500 to 1500 grid boundary with lava on the edge
+  1000 away from 0,0 100 radius
+  WORRY ABOUT UNITS (later)
+  PEOPLE AREN'T die if they try to go in here
+  */
+  let bigR = 1500;
+  let littleR = 500;
   let loc = [Math.cos(th*Math.PI/6)*bigR, Math.sin(th*Math.PI/6)*bigR];
   return [loc[0], loc[1], littleR];
+}
+
+function drawEdge()
+{
+  fill(200, 20, 20);
+  for (let i = 0; i<4; i++)
+  {
+    dRect(edgeRects[i]);
+  }
+}
+
+function calculateEdge()
+{
+  /*
+  A rectangular border arround the whole grid at the furthest locations from center
+  */
+  let brw = 200; let brh = 200;
+  let brs = [[],[],[],[]];
+  brs[0] = [bounds[0][0], bounds[1][0], brw, bounds[1][1]-bounds[1][0]];
+  brs[1] = [bounds[0][0], bounds[1][0], bounds[0][1]-bounds[0][0], brh];
+  brs[2] = [bounds[0][1]-brw, bounds[1][0], brw, bounds[1][1]-bounds[1][0]];
+  brs[3] = [bounds[0][0], bounds[1][1]-brh, bounds[0][1]-bounds[0][0], brh];
+  return brs;
 }

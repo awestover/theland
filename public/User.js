@@ -1,4 +1,6 @@
-//user class
+/*
+user class
+*/
 
 class User{
 
@@ -9,17 +11,14 @@ class User{
     this.animal_type = user_info["animal_type"];
 
     this.th = user_info["th"];
-
     this.pos = [0,0]; // where are you looking
 
     this.knights = 0;
-    // cost and level are probably going to be linked
-    this.cost = 10;
+    this.cost = 100; // may be variable later
 
-    if(! user_info["animals"])
+    if(!user_info["animals"])
     {
       this.animals = [];
-      this.addAnimal();
     }
     else {
       this.animals = user_info["animals"];
@@ -44,8 +43,7 @@ class User{
     let results = [];
     for (var an in user.animals)
     {
-      let deathPr = 0.01;
-      if (random() < deathPr && this.animals.length > 1)
+      if (this.animals[an].shouldDie())
       {
         this.animals.pop(an);
         an -= 1;
@@ -79,7 +77,8 @@ class User{
   {
     let newAnimal = new Personal({
       "pos":this.adjustAnimalLoc(this.pos),
-      "name": this.animal_type
+      "name": this.animal_type,
+      "username": this.name
     });
     this.animals.push(newAnimal);
     this.animals[this.animals.length-1].subPos([animal_size[0]/2,animal_size[1]/2]);
@@ -132,6 +131,14 @@ class User{
   setAnimalsText()
   {
       $('#animals').text("Animals: " + this.animals.length);
+  }
+
+  giveAnimalsName()
+  {
+    for(let an in this.animals)
+    {
+      this.animals[an].username = this.name;
+    }
   }
 
 }

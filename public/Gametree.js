@@ -19,7 +19,7 @@ class Gametree
 
   insert(animal)
   {
-    this.values.push(animal.getBox());
+    this.values.push(animal);
   }
 
   insertUser(user)
@@ -38,10 +38,8 @@ class Gametree
     {
       for (var j = i+1; j < this.values.length; j++)
       {
-          if (this.checkBoxCollide(this.values[i], this.values[j]))
-          // if (this.values[i].checkCollide(this.values[j]))
+          if (this.checkBoxCollide(this.values[i].getBox(), this.values[j].getBox()))
           {
-            // console.log(this.get(i) + ", "+this.get(j));
             collisions.push([i, j]);
           }
       }
