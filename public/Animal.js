@@ -84,12 +84,40 @@ class Animal
     this.pos[1] -= apos[1];
   }
 
+  addVel(avel)
+  {
+    this.vel[0]+=avel[0];//*dt
+    this.vel[1]+=avel[1];//*dt
+  }
+
+  scaleVel(k)
+  {
+    this.vel[0] *= k;
+    this.vel[1] *= k;
+  }
+
   // later you should have animals have traits that kind of mutate and get passed down.
   createOffspring()
   {
     let newAnimal = new Animal({"pos":this.pos, "name":this.name, "username":this.username});
     newAnimal.addPos([3*random(), 3*random()]);
     return newAnimal;
+  }
+
+  // check the math here....
+  pushMotion(location)
+  {
+    let deltaV = [location[0]-this.pos[0], location[1]-this.pos[1]];
+    let cMag = this.velMag()+0.00001;
+    let nMag = 1;
+    deltaV = [deltaV[0]*nMag/cMag, deltaV[0]*nMag/cMag]
+    this.addVel(deltaV);
+    this.scaleVel(nMag);
+  }
+
+  velMag()
+  {
+    return Math.sqrt(this.vel[0]*this.vel[0]+this.vel[1]*this.vel[1]);
   }
 
   move()

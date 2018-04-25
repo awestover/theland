@@ -11,10 +11,11 @@ class User{
     this.animal_type = user_info["animal_type"];
 
     this.th = user_info["th"];
-    this.pos = [0,0]; // where are you looking
+    this.pos = user_info["pos"] || [0,0]; // where are you looking
 
     this.knights = 0;
     this.cost = 100; // may be variable later
+    this.attractAnimals = true;
 
     if(!user_info["animals"])
     {
@@ -139,6 +140,11 @@ class User{
     {
       this.animals[an].username = this.name;
     }
+  }
+
+  toggleAttractAnimals()
+  {
+    this.attractAnimals = ! this.attractAnimals;
   }
 
 }

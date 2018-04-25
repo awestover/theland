@@ -8,14 +8,18 @@ if you use it in browser on a phone, it will be annoying
 later try to make it better: ie make reload harder, no scrolling etc
 
 TODO:
+animals tend towards cursor
+
 boundaries need to work, possible glitch drawing 2 boundaries in the same place...
+
 edges: fire, no scroll past no go past
-animals tend towards cursor if the setting is on
-lower death and birth rate
-up the price
+
 efficient collision checking?
+
 Predator and prey npcs
+
 IF mouse Animal collision show animal full stats
+
 */
 
 let socket;
@@ -33,8 +37,11 @@ const animal_size = [66, 50];
 let animal_pictures = {};
 
 // screen dimensions
-const bounds = [[-2500, 2500], [-2500, 2500]];
-let edgeRects;
+const gridSize   = 2500;
+const territoryR = 500;
+const bounds = [[-gridSize, gridSize], [-gridSize, gridSize]];
+let edgeRects = [];
+let territoryLocs = [];
 
 let otherUsers = {};
 let gametree;
@@ -69,6 +76,10 @@ function setup()
   user.addAnimal();
 
   edgeRects = calculateEdge();
+  for (let th = 0; th < 12; th++)
+  {
+    territoryLocs[th] = calculateTerritory(th);
+  }
 
   gametree = new Gametree();
 
@@ -131,6 +142,9 @@ function draw()
     gcs[1].handleCollide(gcs[0]);
   }
 
+  drawEdge(); // not allways needed...
+  drawOrigin();
+
   pop();
 
   //update animals, send data
@@ -159,7 +173,6 @@ function draw()
     }
   }
 
-  drawEdge(); // not allways needed...
   drawCenterCross();
 
 }
@@ -169,6 +182,12 @@ function drawCenterCross()
   fill(0, 0, 0);
   rect(-5, -0.25, 10, 0.5);
   rect(-0.25, -5, 0.5, 10);
+}
+
+function drawOrigin()
+{
+  noFill();
+  ellipse(0,0,10,10);
 }
 
 function handleUpdatePlayer(data)
@@ -220,6 +239,7 @@ function handleWorldChosen(data)
 {
   user.world = data["world"];
   user.th = data["ourTheta"];
+  user.pos = territoryLocs[user.th];
   $('#world').text("World: " + user.world);
 }
 
@@ -256,13 +276,12 @@ function pickRandom(list)
 
 function drawTerritory(th, name)
 {
-  let result = calculateTerritory(th);
   fill(0, 255, 255, 100);
-  ellipse(result[0], result[1], result[2], result[2]);
+  ellipse(territoryLocs[th][0], territoryLocs[th][1], territoryR, territoryR);
   fill(0,0,0);
   if (name)
   {
-    text(name, result[0], result[1]);
+    text(name, territoryLocs[th][0], territoryLocs[th][1]);
   }
 }
 
@@ -275,15 +294,9 @@ function calculateTerritory(th)
 {
   /*
   note: divide into 12 parts, th is an index not an absoulte angle
-  need to implement -1500 to 1500 grid boundary with lava on the edge
-  1000 away from 0,0 100 radius
-  WORRY ABOUT UNITS (later)
-  PEOPLE AREN'T die if they try to go in here
+  need to implement grid boundary with lava on the edge
   */
-  let bigR = 1500;
-  let littleR = 500;
-  let loc = [Math.cos(th*Math.PI/6)*bigR, Math.sin(th*Math.PI/6)*bigR];
-  return [loc[0], loc[1], littleR];
+  return [Math.cos(th*Math.PI/6)*gridSize*0.6, Math.sin(th*Math.PI/6)*gridSize*0.6];
 }
 
 function drawEdge()
@@ -298,6 +311,8 @@ function drawEdge()
 function calculateEdge()
 {
   /*
+  NOTE: this is BROKEN currently. The screen is weird... + is to the left in x....
+
   A rectangular border arround the whole grid at the furthest locations from center
   */
   let brw = 200; let brh = 200;

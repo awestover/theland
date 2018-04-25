@@ -2,9 +2,14 @@ body{
 	background-color: grey;
 }
 
+#attract{
+	float: right;
+	margin: 2%;
+}
+
 #buy{
 	float: right;
-	margin:2%;
+	margin: 2%;
 }
 
 #name{
