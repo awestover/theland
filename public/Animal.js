@@ -60,8 +60,8 @@ class Animal
 
   show()
   {
-    fill(100, 100, 200);
-    rect(this.pos[0], this.pos[1], 10*this.health, 10);
+    fill(200, 50, 50);
+    rect(this.pos[0], this.pos[1],5*this.health, 10);
     try
     {
       image(this.image, this.pos[0], this.pos[1], this.image.width, this.image.height);
@@ -87,7 +87,7 @@ class Animal
   // later you should have animals have traits that kind of mutate and get passed down.
   createOffspring()
   {
-    let newAnimal = new Animal({"pos":this.pos, "name":this.name});
+    let newAnimal = new Animal({"pos":this.pos, "name":this.name, "username":this.username});
     newAnimal.addPos([3*random(), 3*random()]);
     return newAnimal;
   }
@@ -138,7 +138,7 @@ class Animal
   {
     this.level += 1;
     // change other stats too later...
-    this.health += 1;
+    this.health += 5;
     this.image = this.getImg();
   }
 
@@ -156,7 +156,8 @@ class Animal
     }
     else {
       this.health -= otherAnimal.attack();
-      console.log(this.name);
+      // console.log(this.username == otherAnimal.username);
+      // console.log(this.username + " " + otherAnimal.username);
     }
   }
 
