@@ -19,11 +19,13 @@ class Animal
     // important statistics, change later
     this.level = animal_traits["level"] || 1;
     this.health = animal_traits["health"] || 10;
-    this.sickPr = animal_traits["sickPr"] || 0.001;
-    this.rebirthPr = animal_traits["rebirthPr"] || 0.001;
-    this.strength = animal_traits["strength"] || 1; // weakens with damage??? show indicator...
+    this.sickPr = animal_traits["sickPr"] || 0.002;
+    this.rebirthPr = animal_traits["rebirthPr"] || 0.002;
+    this.strength = animal_traits["strength"] || 1;
+    this.speed = animal_traits["speed"] || 1.3;
 
     this.vel = this.randomHeading();
+    this.scaleVel(this.speed);
     this.image = this.getImg();
 
     this.w = animal_size[0];//this.image.width;
@@ -104,15 +106,22 @@ class Animal
     return newAnimal;
   }
 
-  // check the math here....
   pushMotion(location)
   {
-    let deltaV = [location[0]-this.pos[0], location[1]-this.pos[1]];
-    let cMag = this.velMag()+0.00001;
-    let nMag = 1;
-    deltaV = [deltaV[0]*nMag/cMag, deltaV[0]*nMag/cMag]
-    this.addVel(deltaV);
-    this.scaleVel(nMag);
+    let deltaV = [-this.pos[0]-location[0]-this.w/2, -this.pos[1]-location[1]-this.h/2];
+    let cMag = this.mag(deltaV);
+    if (cMag>50)
+    {
+      deltaV = vecScalarMult(deltaV, 2.5*this.speed/cMag);
+      this.vel = deltaV;
+      this.addPos(deltaV);
+    }
+    this.move();
+  }
+
+  mag(vel)
+  {
+    return Math.sqrt(vel[0]*vel[0]+vel[1]*vel[1]);
   }
 
   velMag()
@@ -122,7 +131,7 @@ class Animal
 
   move()
   {
-    var th = (Math.random()-0.5);
+    var th = (Math.random()-0.5)*0.9;
     if (Math.random() < 0.5) {
       th = 0;
     }
@@ -130,7 +139,7 @@ class Animal
     var ny = this.vel[0]*Math.sin(th) + this.vel[1]*Math.cos(th);
 
     this.vel = [nx, ny];
-    this.pos = [this.pos[0] + nx, this.pos[1] + ny];
+    this.addPos(this.vel); // *dt
 
   }
 
@@ -148,6 +157,10 @@ class Animal
   shouldDie()
   {
     if (this.health <=0)
+    {
+      return true;
+    }
+    else if (violateEdge(this.getBox()))
     {
       return true;
     }

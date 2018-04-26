@@ -48,10 +48,17 @@ class User{
       {
         this.animals.pop(an);
         an -= 1;
+        this.setAnimalsText();
       }
       else
       {
-        this.animals[an].move();
+        if (user.attractAnimals)
+        {
+          this.animals[an].pushMotion(this.pos);
+        }
+        else {
+          this.animals[an].move();
+        }
         let currentResult = this.animals[an].possibleOffspring();
         if (currentResult != false)
         {
@@ -59,6 +66,7 @@ class User{
         }
       }
     }
+
     this.addFrameKnights();
 
     return results;
@@ -76,7 +84,7 @@ class User{
 
   addAnimal()
   {
-    let newAnimal = new Personal({
+    let newAnimal = new Animal({
       "pos":this.adjustAnimalLoc(this.pos),
       "name": this.animal_type,
       "username": this.name

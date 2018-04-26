@@ -6,3 +6,9 @@ Collision boxes work
 
 April 25
 death mechanics
+
+NOTE CURRENTLY NOT USING Personal, Prey, Predator Classes
+not sure when they will be integrated... they make it confusing. I don't want to duplicate code...
+
+
+Slight collision detection error I think....
