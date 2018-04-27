@@ -23,6 +23,7 @@ class Animal
     this.rebirthPr = animal_traits["rebirthPr"] || 0.002;
     this.strength = animal_traits["strength"] || 1;
     this.speed = animal_traits["speed"] || 1.3;
+    this.levelUpPr = animal_traits["levelUpPr"] || 0.002;
 
     this.vel = this.randomHeading();
     this.scaleVel(this.speed);
@@ -159,14 +160,17 @@ class Animal
     if (this.health <=0)
     {
       return true;
+      // console.log("death death");
     }
     else if (violateEdge(this.getBox()))
     {
       return true;
+      // console.log("edge death");
     }
     else {
       if (this.sickPr > random())
       {
+        // console.log("random death");
         return true;
       }
       else {
@@ -192,7 +196,10 @@ class Animal
     {
       if (this.level < max_lvl)
       {
-        this.levelUp();
+        if (this.levelUpPr > random())
+        {
+          this.levelUp();
+        }
       }
     }
     else {

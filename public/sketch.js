@@ -1,16 +1,14 @@
 /* Main user interaction
 Alek Westover
-Notes:
 
-theland.herokuapp.com is the new name
+theland.herokuapp.com is the games name
 
 if you use it in browser on a phone, it will be annoying
 later try to make it better: ie make reload harder, no scrolling etc
+https://web.archive.org/web/20151103001838/http://www.luster.io/blog/9-29-14-mobile-web-checklist.html
+
 
 TODO:
-animals tend towards cursor
-
-boundaries need to work, possible glitch drawing 2 boundaries in the same place...
 
 edges: fire, no scroll past no go past
 
@@ -37,12 +35,14 @@ const animal_size = [66, 50];
 let animal_pictures = {};
 
 // screen dimensions
-const gridSize   = 1000;//2500;
-const boundSize = 100;
-const territoryR = 300//500;
+const gridSize   = 1000; //2500
+const boundSize  = 100;
+const territoryR = 300; //500
 const bounds = [[-gridSize, gridSize], [-gridSize, gridSize]];
 let edgeRects = [];
 let territoryLocs = [];
+let scoresVisible = false;
+const numHighscores = 5;
 
 let otherUsers = {};
 let gametree;
@@ -176,6 +176,11 @@ function draw()
     }
   }
 
+  if(scoresVisible)
+  {
+    showMaxScores();
+  }
+
   drawCenterCross();
 
 }
@@ -230,7 +235,7 @@ function handleDeletePlayer(data)
 {
   console.log("deleting " + data["name"]);
   delete otherUsers[data["name"]];
-  // splice(x, 1) to remove element NOT pop (pop does 0th element allways)
+  // splice(x, 1) to remove element
 }
 
 // function touchMoved() {
@@ -400,4 +405,86 @@ function calculateEdge()
   brs[2] = [bounds[0][1]-brw, bounds[1][0], brw, bounds[1][1]-bounds[1][0]];
   brs[3] = [bounds[0][0], bounds[1][1]-brh, bounds[0][1]-bounds[0][0], brh];
   return brs;
+}
+
+
+function valInArr(arr, val)
+{
+  for (let i in arr)
+  {
+    if (arr[i] == val)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+function toggleScores()
+{
+  scoresVisible = ! scoresVisible;
+}
+
+function showMaxScores()
+{
+  fill(0,0,0);
+  let nameScores = getMaxScores();
+  let ctxt;
+  for (let i = 0; i < numHighscores; i++)
+  {
+    if(!nameScores[0][i])
+    {
+      nameScores[0][i] = "NONE";
+      nameScores[1][i] = -1;
+    }
+    ctxt = nameScores[0][i] + ": " + nameScores[1][i];
+    text(ctxt, screen_dims[0]*0.3, -0.5*screen_dims[1]+(i+1)*50);
+  }
+}
+
+function addV(a, b)
+{
+  let o = [];
+  for (let i = 0; i < a.length; i++)
+  {
+    o.push(a[i]+b[i]);
+  }
+  return o;
+}
+
+function getMaxScores()
+{
+  // might have a problem if there is a tie... could give bonus for being on board, might work...
+  let scores = [];
+  let names = [];
+  let userName; let maxScore;
+  for (let i = 0; i < numHighscores; i++)
+  {
+    if(!valInArr(names, user.name))
+    {
+      userName = user.name;
+      maxScore = user.getScore();
+    }
+    else {
+      userName = "NONE";
+      maxScore = -1;
+    }
+
+    for (let ou in otherUsers) /// VERY SCARY NOT SURE ACESS ORDER IS CONSTANT
+    {
+      if (!valInArr(names, ou))
+      {
+        if (otherUsers[ou].getScore() > maxScore)
+        {
+          maxScore = otherUsers[ou].getScore();
+          userName = ou;
+        }
+      }
+    }
+
+    names.push(userName);
+    scores.push(maxScore);
+  }
+
+  return [names, scores];
 }

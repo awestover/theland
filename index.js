@@ -88,6 +88,11 @@ function newConnection(socket) {
       name = "User";
     }
 
+    if (name=="NONE")
+    {
+      name="fakeNONE";
+    }
+
     if(name=="NPC")
     {
       name = "fakeNPC";

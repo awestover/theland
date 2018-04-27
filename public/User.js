@@ -46,7 +46,7 @@ class User{
     {
       if (this.animals[an].shouldDie())
       {
-        this.animals.pop(an);
+        this.animals.splice(an, 1);
         an -= 1;
         this.setAnimalsText();
       }
@@ -112,13 +112,23 @@ class User{
 
   updateView(last_pos, current_pos)
   {
-    this.shiftPos([current_pos[0]-last_pos[0], current_pos[1] - last_pos[1]]);
+    let proposedPos = addV([current_pos[0]-last_pos[0], current_pos[1] - last_pos[1]], this.pos);
+    // if((user.pos[0] > -gridSize || user.pos[0] < proposedPos[0]) && (user.pos[0] < gridSize || user.pos[1] > proposedPos[0]))
+    // {
+    //   this.pos[0] = proposedPos[0];
+    // }
+    // if ((user.pos[1] < -gridSize || user.pos[1] > proposedPos[0]) && (user.pos[1] < gridSize || user.pos[1] > proposedPos[1]))
+    // {
+    //   this.pos[1] = proposedPos[1];
+    // }
+    this.pos=proposedPos;
+    // console.log(proposedPos);
+    // console.log(this.pos);
   }
 
   shiftPos(pos)
   {
     this.pos = [this.pos[0] + pos[0], this.pos[1] + pos[1]];
-    // console.log(this.pos);
   }
 
   // later only show things that are in our view
@@ -153,6 +163,11 @@ class User{
   toggleAttractAnimals()
   {
     this.attractAnimals = ! this.attractAnimals;
+  }
+
+  getScore()
+  {
+    return Math.floor(this.animals.length*10+0.01*this.knights);
   }
 
 }

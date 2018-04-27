@@ -2,6 +2,11 @@ body{
 	background-color: grey;
 }
 
+#scores{
+	float: right;
+	margin: 2%;
+}
+
 #attract{
 	float: right;
 	margin: 2%;
