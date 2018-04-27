@@ -151,8 +151,11 @@ class Animal
 
   attack()
   {
-    // for now...
-    return this.strength;
+    // for now... kinda stupid to be honest though
+    if(this.health > 0)
+    {
+      return this.strength;
+    }
   }
 
   shouldDie()

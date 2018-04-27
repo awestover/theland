@@ -113,17 +113,14 @@ class User{
   updateView(last_pos, current_pos)
   {
     let proposedPos = addV([current_pos[0]-last_pos[0], current_pos[1] - last_pos[1]], this.pos);
-    // if((user.pos[0] > -gridSize || user.pos[0] < proposedPos[0]) && (user.pos[0] < gridSize || user.pos[1] > proposedPos[0]))
-    // {
-    //   this.pos[0] = proposedPos[0];
-    // }
-    // if ((user.pos[1] < -gridSize || user.pos[1] > proposedPos[0]) && (user.pos[1] < gridSize || user.pos[1] > proposedPos[1]))
-    // {
-    //   this.pos[1] = proposedPos[1];
-    // }
-    this.pos=proposedPos;
-    // console.log(proposedPos);
-    // console.log(this.pos);
+    if((proposedPos[0] > -gridSize || user.pos[0] < proposedPos[0]) && (proposedPos[0] < gridSize || user.pos[0] > proposedPos[0]))
+    {
+      this.pos[0] = proposedPos[0];
+    }
+    if ((proposedPos[1] > -gridSize || user.pos[1] < proposedPos[1]) && (proposedPos[1] < gridSize || user.pos[1] > proposedPos[1]))
+    {
+      this.pos[1] = proposedPos[1];
+    }
   }
 
   shiftPos(pos)

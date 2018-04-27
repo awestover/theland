@@ -35,6 +35,7 @@ const animal_size = [66, 50];
 let animal_pictures = {};
 
 // screen dimensions
+const keyCodes = {"a":65, "d": 68, "s": 83, "w": 87};
 const gridSize   = 1000; //2500
 const boundSize  = 100;
 const territoryR = 300; //500
@@ -46,6 +47,7 @@ const numHighscores = 5;
 
 let otherUsers = {};
 let gametree;
+
 
 function setup()
 {
@@ -176,6 +178,7 @@ function draw()
     }
   }
 
+  handleKeysDown();
   if(scoresVisible)
   {
     showMaxScores();
@@ -253,6 +256,24 @@ function touchEnded()
 {
   isDown = false;
 }
+
+function handleKeysDown() {
+  // let lkey = key.toLowerCase();
+  let keyD = 30;
+  if (keyIsDown(LEFT_ARROW) || keyIsDown(keyCodes['a'])) {
+    user.updateView(user.pos, addV(user.pos, [keyD, 0]));
+  }
+  else if (keyIsDown(RIGHT_ARROW) || keyIsDown(keyCodes['d'])) {
+    user.updateView(user.pos, addV(user.pos, [-keyD, 0]));
+  }
+  if (keyIsDown(UP_ARROW) || keyIsDown(keyCodes['w'])) {
+    user.updateView(user.pos, addV(user.pos, [0, keyD]));
+  }
+  else if (keyIsDown(DOWN_ARROW) || keyIsDown(keyCodes['s'])) {
+    user.updateView(user.pos, addV(user.pos, [0, -keyD]));
+  }
+}
+
 
 function handleWorldChosen(data)
 {
