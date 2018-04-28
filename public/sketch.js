@@ -42,7 +42,7 @@ const territoryR = 300; //500
 const bounds = [[-gridSize, gridSize], [-gridSize, gridSize]];
 let edgeRects = [];
 let territoryLocs = [];
-let scoresVisible = false;
+let scoresVisible = true;
 const numHighscores = 5;
 
 let otherUsers = {};
@@ -448,6 +448,9 @@ function toggleScores()
 
 function showMaxScores()
 {
+  let tx = screen_dims[0]*0.4; let ty = -0.45*screen_dims[1];
+  fill(10,10,10,50);
+  rect(tx-75, ty, 150, 50*6);
   fill(0,0,0);
   let nameScores = getMaxScores();
   let ctxt;
@@ -459,7 +462,7 @@ function showMaxScores()
       nameScores[1][i] = -1;
     }
     ctxt = nameScores[0][i] + ": " + nameScores[1][i];
-    text(ctxt, screen_dims[0]*0.3, -0.5*screen_dims[1]+(i+1)*50);
+    text(ctxt, tx, ty+(i+1)*50);
   }
 }
 
