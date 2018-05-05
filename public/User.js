@@ -84,7 +84,7 @@ class User{
 
   addAnimal()
   {
-    let newAnimal = new Animal({
+    let newAnimal = new Personal({
       "pos":this.adjustAnimalLoc(this.pos),
       "name": this.animal_type,
       "username": this.name

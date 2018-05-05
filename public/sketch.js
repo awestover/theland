@@ -52,6 +52,7 @@ const numHighscores = 5;
 let otherUsers = {};
 let gametree;
 
+let all_foods = []; // somehow food is associated with user but not really...
 
 function setup()
 {
@@ -220,7 +221,7 @@ function handleUpdatePlayer(data)
   var cAnimals = [];
   for (var i = 0; i < data["user"]["animals"].length; i++)
   {
-    cAnimals.push(new Animal(data["user"]["animals"][i]));
+    cAnimals.push(new Personal(data["user"]["animals"][i]));
   }
 
   var new_data = {
@@ -283,6 +284,22 @@ function handleKeysDown() {
   }
   else if (keyIsDown(DOWN_ARROW) || keyIsDown(keyCodes['s'])) {
     user.updateView(user.pos, addV(user.pos, [0, -keyD]));
+  }
+}
+
+function keyPressed()
+{
+  if (key.toLowerCase()=='b')
+  {
+    user.buyAnimal();
+  }
+  if (key.toLowerCase()=='t')
+  {
+    user.toggleAttractAnimals();
+  }
+  if (key.toLowerCase()=='s')
+  {
+    toggleScores();
   }
 }
 

@@ -6,9 +6,4 @@ class Prey extends Animal
     super(animal_traits);
   }
 
-  show()
-  {
-    
-  }
-
 }
