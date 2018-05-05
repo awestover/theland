@@ -206,7 +206,12 @@ class Animal
       }
     }
     else {
-      this.health -= otherAnimal.attack();
+      let damage = otherAnimal.attack();
+      if (!damage || otherAnimal.health == 0)
+      {
+        damage = 0;
+      }
+      this.health -= damage;
       // console.log(this.username == otherAnimal.username);
       // console.log(this.username + " " + otherAnimal.username);
     }

@@ -40,5 +40,34 @@ On windows it will be much harder
 http://pyopengl.sourceforge.net/
 
 
+# Interesting notes
+
+In javascript you can write classes kind of like in java
+
+class A
+{
+  constructor()
+  {
+    this.w=1;
+  }
+  x()
+  {
+    return this.w;
+  }
+}
 
 
+class B extends A
+{
+  constructor()
+  {
+    super();
+  }
+  y()
+  {
+    return 3;
+  }
+}
+
+
+# End

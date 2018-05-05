@@ -10,11 +10,11 @@ https://web.archive.org/web/20151103001838/http://www.luster.io/blog/9-29-14-mob
 
 TODO:
 
-edges: fire, no scroll past no go past
-
-efficient collision checking?
+efficient collision checking
 
 Predator and prey npcs
+
+Animals need to satisfy hunger too
 
 IF mouse Animal collision show animal full stats
 
@@ -29,7 +29,11 @@ let last_down = [0, 0];
 let isDown = false;
 
 // all animal names
-const animal_names = ["dog", "shark", "bear"];
+const animal_names = ["dog", "shark", "bear", "crab"];
+let animal_txt_help = "Please chose an animal. Your choices include:\n";
+for (let i = 0; i < animal_names.length; i++){
+  animal_txt_help += animal_names[i] + "(" + i + ")" + "\n";
+}
 const max_lvl = 2;
 const animal_size = [66, 50];
 let animal_pictures = {};
@@ -71,7 +75,15 @@ function setup()
   socket.on('nameChosen', handleNameChosen);
   socket.on('worldChosen', handleWorldChosen);
 
-  user = new User({"animal_type": pickRandom(animal_names)[0]});
+  let animalType = parseInt(prompt(animal_txt_help));
+  if (isNaN(animalType) || animalType < 0 || animalType >= animal_names.length)
+  {
+    animalType = pickRandom(animal_names)[0];
+  }
+  else {
+    animalType = animal_names[animalType];
+  }
+  user = new User({"animal_type": animalType});
   let name = prompt("Name");
   socket.emit("named", {"name":name});
   let world = prompt("World");
