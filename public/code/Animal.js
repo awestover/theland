@@ -16,9 +16,7 @@ class Animal
     this.name = animal_traits["name"] || "circle";
     this.health = animal_traits["health"] || 10;
 
-    // may be overridden...
-    this.w = animal_size[0];
-    this.h = animal_size[1];
+    this.dims=[66,50];
   }
 
   addPos(apos)
@@ -31,11 +29,6 @@ class Animal
   {
     this.pos[0] -= apos[0];
     this.pos[1] -= apos[1];
-  }
-
-  mag(vel)
-  {
-    return Math.sqrt(vel[0]*vel[0]+vel[1]*vel[1]);
   }
 
   randomHeading()
@@ -63,7 +56,7 @@ class Animal
 
   getBox()
   {
-    return [this.pos[0], this.pos[1], this.w, this.h];
+    return [this.pos[0], this.pos[1], this.dims[0], this.dims[1]];
   }
 
 }

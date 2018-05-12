@@ -10,7 +10,6 @@ class User{
     this.world = user_info["world"];
     this.animal_type = user_info["animal_type"];
 
-    this.th = user_info["th"];
     this.pos = user_info["pos"] || [0,0]; // where are you looking
 
     this.knights = 0;
@@ -24,6 +23,8 @@ class User{
     else {
       this.animals = user_info["animals"];
     }
+
+    this.prey = [];
   }
 
   show()
@@ -42,7 +43,7 @@ class User{
   update()
   {
     let results = [];
-    for (var an in user.animals)
+    for (var an in this.animals)
     {
       if (this.animals[an].shouldDie())
       {
@@ -52,7 +53,7 @@ class User{
       }
       else
       {
-        if (user.attractAnimals)
+        if (this.attractAnimals)
         {
           this.animals[an].pushMotion(this.pos);
         }
@@ -90,7 +91,7 @@ class User{
       "username": this.name
     });
     this.animals.push(newAnimal);
-    this.animals[this.animals.length-1].subPos([animal_size[0]/2,animal_size[1]/2]);
+    this.animals[this.animals.length-1].subPos([newAnimal.dims[0]/2,newAnimal.dims[1]/2]);
     this.setAnimalsText();
   }
 
@@ -113,11 +114,11 @@ class User{
   updateView(last_pos, current_pos)
   {
     let proposedPos = addV([current_pos[0]-last_pos[0], current_pos[1] - last_pos[1]], this.pos);
-    if((proposedPos[0] > -gridSize || user.pos[0] < proposedPos[0]) && (proposedPos[0] < gridSize || user.pos[0] > proposedPos[0]))
+    if((proposedPos[0] > -gridSize || this.pos[0] < proposedPos[0]) && (proposedPos[0] < gridSize || this.pos[0] > proposedPos[0]))
     {
       this.pos[0] = proposedPos[0];
     }
-    if ((proposedPos[1] > -gridSize || user.pos[1] < proposedPos[1]) && (proposedPos[1] < gridSize || user.pos[1] > proposedPos[1]))
+    if ((proposedPos[1] > -gridSize || this.pos[1] < proposedPos[1]) && (proposedPos[1] < gridSize || this.pos[1] > proposedPos[1]))
     {
       this.pos[1] = proposedPos[1];
     }

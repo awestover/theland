@@ -71,10 +71,10 @@ function newConnection(socket) {
     socket.emit("worldChosen", {"world":world, "ourTheta": worldCounts[world]-1});
   }
 
-  function updatePlayer(data)
+  function updatePlayer(user)
   {
   	// don't emit to yourself or people in other worlds
-  	socket.broadcast.to(data["world"]).emit("updatePlayer", data);
+  	socket.broadcast.to(user.world).emit("updatePlayer", user);
     // io.sockets.emit("updatePlayer", data);
   }
 

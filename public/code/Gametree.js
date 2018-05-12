@@ -1,5 +1,8 @@
 // the game tree. checks all collisions
 
+
+// this.w and this.h dont exist
+
 class Gametree
 {
   constructor()

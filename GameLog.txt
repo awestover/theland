@@ -10,5 +10,40 @@ death mechanics
 NOTE CURRENTLY NOT USING Personal, Prey, Predator Classes
 not sure when they will be integrated... they make it confusing. I don't want to duplicate code...
 
+May 5th
+
+Need to add food
+
+also note: users are not sending out the amount of knights that they have which leads to leaderboard problems
+
+also, it might be good to have a cheat where I can kill the other player...
+something like send an attack to all animals...
+
+attacks should draw knights...
+
+
 
 Slight collision detection error I think....
+
+
+
+TODO:
+
+efficient collision checking
+
+Predator and prey npcs
+
+Animals need to satisfy hunger too
+
+IF mouse Animal collision show animal full stats
+
+
+
+if you use it in browser on a phone, it will be annoying
+later try to make it better: ie make reload harder, no scrolling etc
+https://web.archive.org/web/20151103001838/http://www.luster.io/blog/9-29-14-mobile-web-checklist.html
+
+
+Kill your own animals optional
+
+kill other animals then get reward should be added

@@ -20,8 +20,7 @@ class Personal extends Animal
     this.scaleVel(this.speed);
     this.image = this.getImg();
 
-    this.w = animal_size[0];//this.image.width;
-    this.h = animal_size[1];//this.image.height;
+    this.dims = [66, 50];
   }
 
   getImg()
@@ -71,8 +70,8 @@ class Personal extends Animal
 
   pushMotion(location)
   {
-    let deltaV = [-this.pos[0]-location[0]-this.w/2, -this.pos[1]-location[1]-this.h/2];
-    let cMag = this.mag(deltaV);
+    let deltaV = [-this.pos[0]-location[0]-this.dims[0]/2, -this.pos[1]-location[1]-this.dims[1]/2];
+    let cMag = magv(deltaV);
     if (cMag>50)
     {
       deltaV = vecScalarMult(deltaV, 2.5*this.speed/cMag);
@@ -95,7 +94,7 @@ class Personal extends Animal
     this.addPos(this.vel); // *dt
 
   }
-  
+
   attack()
   {
     // for now... kinda stupid to be honest though
