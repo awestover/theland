@@ -36,8 +36,8 @@ function newConnection(socket) {
   socket.on('named', handleNaming);
   socket.on('sendWorld', handleSendWorld);
   socket.on('updatePlayer', updatePlayer);
+  socket.on('pushAnimalUpdate', pushAnimalUpdate);
   // socket.on('loadPlayers', loadPlayers);
-
 
   function handleSendWorld(data)
   {
@@ -76,6 +76,12 @@ function newConnection(socket) {
   	// don't emit to yourself or people in other worlds
   	socket.broadcast.to(user.world).emit("updatePlayer", user);
     // io.sockets.emit("updatePlayer", data);
+  }
+
+  function pushAnimalUpdate(data)
+  {
+    console.log(data);
+    socket.broadcast.to(data.world).emit("pushedAnimalUpdate", data);
   }
 
   function handleNaming(data)

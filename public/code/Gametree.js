@@ -27,9 +27,12 @@ class Gametree
 
   insertUser(user)
   {
-    for (var an in user.animals)
+    for (let an in allAnimals)
     {
-      this.insert(user.animals[an]);
+      for (let i in user[allAnimals[an]])
+      {
+        this.insert(user[allAnimals[an]][i]);
+      }
     }
   }
 

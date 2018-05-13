@@ -59,3 +59,7 @@ score board is weird sometimes
 Boundary is a bit off...
 Do NOT allow animals to overlap
 make the circles kill animals if they go in them
+
+if multiple logins and logouts it sometimes mmesses up user.th
+example: login 2 ppl. then logout the one with user.th=0; then login another guy
+im pretty sure that you now have 2 ppl with th=1;

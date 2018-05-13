@@ -2,52 +2,54 @@
 user class
 */
 
-class User{
+class User {
 
   constructor(user_info)
   {
     this.name = user_info["name"];
     this.world = user_info["world"];
     this.animal_type = user_info["animal_type"];
+    this.th = user_info["th"] || 0;
 
     this.pos = user_info["pos"] || [0,0]; // where are you looking
 
     this.knights = user_info["knights"] || 0;
     this.cost = user_info["cost"] || 100; // may be variable later
     this.attractAnimals = user_info["attractAnimals"] || true;
-    this.allAnimals = ["animals", "preys", "predators"];
 
-    for (let an in this.allAnimals)
+    for (let an in allAnimals)
     {
-      if (!user_info[this.allAnimals[an]])
+      if (!user_info[allAnimals[an]])
       {
-        this[this.allAnimals[an]] = [];
+        this[allAnimals[an]] = [];
       }
       else {
-        this[this.allAnimals[an]] = user_info[this.allAnimals[an]];
+        this[allAnimals[an]] = user_info[allAnimals[an]];
       }
     }
+
+    this.idCt = user_info["isCt"] || 0;
 
   }
 
   hideStats()
   {
-    for (let i = 0; i < this.allAnimals.length; i++)
+    for (let i = 0; i < allAnimals.length; i++)
     {
-      for (let an=0; an<this[this.allAnimals[i]].length; an++)
+      for (let an=0; an<this[allAnimals[i]].length; an++)
       {
-        this[this.allAnimals[i]][an].showStats=false;
+        this[allAnimals[i]][an].showStats=false;
       }
     }
   }
 
   show()
   {
-    for (let i = 0; i < this.allAnimals.length; i++)
+    for (let i = 0; i < allAnimals.length; i++)
     {
-      for (let an=0; an<this[this.allAnimals[i]].length; an++)
+      for (let an=0; an<this[allAnimals[i]].length; an++)
       {
-        this[this.allAnimals[i]][an].show();
+        this[allAnimals[i]][an].show();
       }
     }
   }
@@ -60,11 +62,11 @@ class User{
   update()
   {
     let results = [];
-    for (let an in this.animals)
+    for (let an in this.personals)
     {
-      if (this.animals[an].shouldDie())
+      if (this.personals[an].shouldDie())
       {
-        this.animals.splice(an, 1);
+        this.personals.splice(an, 1);
         an -= 1;
         this.setAnimalsText();
       }
@@ -72,17 +74,32 @@ class User{
       {
         if (this.attractAnimals)
         {
-          this.animals[an].pushMotion(this.pos);
+          this.personals[an].pushMotion(this.pos);
         }
         else {
-          this.animals[an].move();
+          this.personals[an].move();
         }
-        let currentResult = this.animals[an].possibleOffspring();
+        let currentResult = this.personals[an].possibleOffspring();
         if (currentResult != false)
         {
           results.push(currentResult);
         }
       }
+
+      for (let i = 0; i < results.length; i++)
+      {
+        this.addOffspringAnimal(results[i]);
+      }
+
+      for (let an in this.preys)
+      {
+        if(this.preys[an].shouldDie())
+        {
+          this.preys.splice(an, 1);
+          an -= 1;
+        }
+      }
+
     }
 
     this.addFrameKnights();
@@ -105,7 +122,8 @@ class User{
     let newPrey = new Prey({
       "pos":[random(bounds[0][0], bounds[0][1]), random(bounds[1][0], bounds[1][1])],
       "name": this.animal_type,
-      "username": this.name
+      "username": this.name,
+      "id": this.idCt
     });
     this.preys.push(newPrey);
     this.preys[this.preys.length-1].subPos([newPrey.dims[0]/2, newPrey.dims[1]/2]);
@@ -116,27 +134,31 @@ class User{
     let newPredator = new Predator({
       "pos":[random(bounds[0][0], bounds[0][1]), random(bounds[1][0], bounds[1][1])],
       "name": this.animal_type,
-      "username": this.name
+      "username": this.name,
+      "id":this.idCt
     });
+    this.idCt += 1;
     this.predators.push(newPredator);
     this.predators[this.predators.length-1].subPos([newPredator.dims[0]/2, newPredator.dims[1]/2]);
   }
 
-  addAnimal()
+  addPersonal()
   {
-    let newAnimal = new Personal({
+    let newPersonal = new Personal({
       "pos":this.adjustAnimalLoc(this.pos),
       "name": this.animal_type,
-      "username": this.name
+      "username": this.name,
+      "id": this.idCt
     });
-    this.animals.push(newAnimal);
-    this.animals[this.animals.length-1].subPos([newAnimal.dims[0]/2,newAnimal.dims[1]/2]);
+    this.idCt += 1;
+    this.personals.push(newPersonal);
+    this.personals[this.personals.length-1].subPos([newPersonal.dims[0]/2,newPersonal.dims[1]/2]);
     this.setAnimalsText();
   }
 
   addOffspringAnimal(animal)
   {
-    this.animals.push(animal);
+    this.personals.push(animal);
     this.setAnimalsText();
   }
 
@@ -145,7 +167,7 @@ class User{
     if (this.knights >= this.cost)
     {
       this.knights -= this.cost;
-      this.addAnimal();
+      this.addPersonal();
     }
   }
 
@@ -186,7 +208,7 @@ class User{
 
   setAnimalsText()
   {
-      $('#animals').text("Animals: " + this.animals.length);
+      $('#animals').text("Animals: " + this.personals.length);
   }
 
   setAnimalType()
@@ -196,9 +218,9 @@ class User{
 
   giveAnimalsName()
   {
-    for(let an in this.animals)
+    for(let an in this.personals)
     {
-      this.animals[an].username = this.name;
+      this.personals[an].username = this.name;
     }
   }
 
@@ -209,7 +231,7 @@ class User{
 
   getScore()
   {
-    return Math.floor(this.animals.length*10+0.01*this.knights);
+    return Math.floor(this.personals.length*10+0.01*this.knights);
   }
 
 }

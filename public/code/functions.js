@@ -110,7 +110,6 @@ function drawEdge()
 //   return false
 // }
 
-
 function dRect(arr)
 {
   rect(arr[0], arr[1], arr[2], arr[3]);

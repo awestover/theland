@@ -8,6 +8,7 @@ for (let i = 0; i < animal_names.length; i++){
 }
 const max_lvl = 4;
 let animal_pictures = {};
+const allAnimals = ["personals", "preys", "predators"];
 
 const keyCodes = {"a":65, "d": 68, "s": 83, "w": 87};
 const gridSize   = 1000; //2500

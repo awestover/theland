@@ -24,6 +24,7 @@ function setup()
   socket.on("deletePlayer", handleDeletePlayer);
   socket.on('nameChosen', handleNameChosen);
   socket.on('worldChosen', handleWorldChosen);
+  socket.on('pushedAnimalUpdate', handlePushedAnimalUpdate);
 
   let animalType = parseInt(prompt(animal_txt_help));
   if (isNaN(animalType) || animalType < 0 || animalType >= animal_names.length)
@@ -39,7 +40,7 @@ function setup()
   socket.emit("named", {"name":name});
   let world = prompt("World");
   socket.emit("sendWorld", {"world":world});
-  user.addAnimal();
+  user.addPersonal();
   user.addPrey();
   user.addPrey();
 
@@ -116,14 +117,8 @@ function draw()
   drawOrigin();
 
   pop();
-
-  //update animals, send data
-  let newAnimals = user.update();
-  for (let i = 0; i < newAnimals.length; i++)
-  {
-    user.addOffspringAnimal(newAnimals[i]);
-  }
-
+  
+  user.update();
   socket.emit("updatePlayer", user);
 
   //handle drag
@@ -152,9 +147,9 @@ function draw()
 
 function handleUpdatePlayer(otherUser)
 {
-  for (let i = 0; i < otherUser.animals.length; i++)
+  for (let i = 0; i < otherUser.personals.length; i++)
   {
-    otherUser.animals[i] = new Personal(otherUser.animals[i]);
+    otherUser.personals[i] = new Personal(otherUser.personals[i]);
   }
   for (let i = 0; i < otherUser.preys.length; i++)
   {
@@ -185,11 +180,24 @@ function touchEnded()
 {
   let rMPos=realPos([mouseX, mouseY]);
   let collisions = gametree.getCollisionsWith([rMPos[0], rMPos[1], 5, 5])
-  user.hideStats();
   if (collisions.length > 0)
   {
-    let idx = 0; // choose smart later if multiple collisions...
-    gametree.values[idx].showStats = true;
+    let cidx = 0; // choose smart later if multiple collisions...
+    let idx = collisions[cidx];
+    if (gametree.values[idx].username == user.name)
+    {
+      gametree.values[idx].showStats = true;
+    }
+    else {
+      let data = {
+        "world": user.world,
+        "username": gametree.values[idx].username,
+        "type": gametree.values[idx].type,
+        "id": gametree.values[idx].id,
+        "updates":{"showStats": true}
+      }
+      socket.emit("pushAnimalUpdate", data);
+    }
   }
   isDown = false;
 }
@@ -256,4 +264,23 @@ function handleNameChosen(data)
   }
 
   $('#name').text("Name: " + user.name);
+}
+
+function handlePushedAnimalUpdate(data)
+{
+  if (data["username"] == user.name)
+  {
+    for (let an in user[data["type"]])
+    {
+      if (user[data["type"]][an].id == data["id"])
+      {
+        for (let trait in data["updates"])
+        {
+          user[data["type"]][an][trait] = data["updates"][trait];
+        }
+        return true;
+      }
+    }
+  }
+  return false;
 }

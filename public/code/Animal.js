@@ -19,16 +19,22 @@ class Animal
 
     // identification
     this.username = animal_traits["username"] || "NPC";
+    this.id = animal_traits["id"] || 0;
 
     this.dims=[66,50];
-    this.showStats = false;
+    this.showStats = animal_traits["showStats"] || false;
+
+    this.type = "animals";
   }
 
   pStats()
   {
     if (this.showStats)
     {
-      text(this.name, this.pos[0], this.pos[1]);
+      fill(0,0,0);
+      let ctx = "Name: "  +  this.name + "\n"
+              + "Health: " + this.health + "\n"
+      text(ctx, this.pos[0], this.pos[1]-this.dims[1]*0.5);
     }
   }
 
@@ -76,6 +82,15 @@ class Animal
   getBox()
   {
     return [this.pos[0], this.pos[1], this.dims[0], this.dims[1]];
+  }
+
+  shouldDie()
+  {
+    if (this.health <=0)
+    {
+      return true;
+    }
+    return false;
   }
 
 }

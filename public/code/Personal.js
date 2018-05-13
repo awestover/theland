@@ -4,11 +4,12 @@ class Personal extends Animal
   constructor(animal_traits)
   {
     super(animal_traits);
+    this.type="personals";
 
     // important statistics, change later
     this.level = animal_traits["level"] || 1;
-    this.sickPr = animal_traits["sickPr"] || 0.002;
-    this.rebirthPr = animal_traits["rebirthPr"] || 0.002;
+    this.sickPr = animal_traits["sickPr"] || 0; // .002;
+    this.rebirthPr = animal_traits["rebirthPr"] || 0;// .002;
     this.strength = animal_traits["strength"] || 1;
     this.speed = animal_traits["speed"] || 1.3;
     this.levelUpPr = animal_traits["levelUpPr"] || 0.002;
@@ -136,9 +137,7 @@ class Personal extends Animal
 
   handleCollide(otherAnimal)
   {
-    // later will vary for predator prey personal etc
     // later apply damage buffer?
-    // if ("NPC")?
     if (otherAnimal.username == this.username)
     {
       if (this.level < max_lvl)
@@ -150,12 +149,28 @@ class Personal extends Animal
       }
     }
     else {
-      let damage = otherAnimal.attack();
-      if (!damage || otherAnimal.health == 0)
+      if (otherAnimal.type == "personals")
       {
-        damage = 0;
+        let damage = otherAnimal.attack();
+        if (!damage || otherAnimal.health == 0)
+        {
+          damage = 0;
+        }
+        this.health -= damage;
       }
-      this.health -= damage;
+      else if (otherAnimal.type == "preys")
+      {
+        let help = otherAnimal.boost();
+        if (!help || otherAnimal.health == 0)
+        {
+          help = 0;
+        }
+        this.health += help;
+      }
+      else if (otherAnimal.type == "predators")
+      {
+        alert("CRUMB I didnt even make predators yet sry man");
+      }
       // console.log(this.username == otherAnimal.username);
       // console.log(this.username + " " + otherAnimal.username);
     }
