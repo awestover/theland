@@ -16,7 +16,7 @@ function setup()
 
   screen_dims = [windowWidth*0.95, windowHeight*0.85];
   canvas = createCanvas(screen_dims[0], screen_dims[1]);
-  textAlign(CENTER);
+  textAlign(LEFT);
   frameRate(10);
 
   socket = io.connect();
@@ -123,10 +123,7 @@ function draw()
   {
     user.addOffspringAnimal(newAnimals[i]);
   }
-  // let data = {
-  //   "user": user,
-  //   "world": user.world
-  // };
+
   socket.emit("updatePlayer", user);
 
   //handle drag
@@ -186,6 +183,14 @@ function touchStarted()
 
 function touchEnded()
 {
+  let rMPos=realPos([mouseX, mouseY]);
+  let collisions = gametree.getCollisionsWith([rMPos[0], rMPos[1], 5, 5])
+  user.hideStats();
+  if (collisions.length > 0)
+  {
+    let idx = 0; // choose smart later if multiple collisions...
+    gametree.values[idx].showStats = true;
+  }
   isDown = false;
 }
 

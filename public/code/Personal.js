@@ -44,6 +44,7 @@ class Personal extends Animal
 
   show()
   {
+    super.pStats();
     fill(200, 50, 50);
     // health bar
     rect(this.pos[0], this.pos[1],5*this.health, 10);

@@ -21,6 +21,15 @@ class Animal
     this.username = animal_traits["username"] || "NPC";
 
     this.dims=[66,50];
+    this.showStats = false;
+  }
+
+  pStats()
+  {
+    if (this.showStats)
+    {
+      text(this.name, this.pos[0], this.pos[1]);
+    }
   }
 
   show()

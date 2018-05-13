@@ -5,4 +5,10 @@ class Predator extends Animal
   {
     super(animal_traits);
   }
+
+  show()
+  {
+    super.pStats();
+    super.show();
+  }
 }

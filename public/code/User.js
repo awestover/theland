@@ -15,46 +15,40 @@ class User{
     this.knights = user_info["knights"] || 0;
     this.cost = user_info["cost"] || 100; // may be variable later
     this.attractAnimals = user_info["attractAnimals"] || true;
+    this.allAnimals = ["animals", "preys", "predators"];
 
-    if(!user_info["animals"])
+    for (let an in this.allAnimals)
     {
-      this.animals = [];
-    }
-    else {
-      this.animals = user_info["animals"];
-    }
-
-    if(!user_info["preys"])
-    {
-      this.preys = [];
-    }
-    else {
-      this.preys = user_info["preys"];
-    }
-
-    if(!user_info["predators"])
-    {
-      this.predators = [];
-    }
-    else {
-      this.predators = user_info["predators"];
+      if (!user_info[this.allAnimals[an]])
+      {
+        this[this.allAnimals[an]] = [];
+      }
+      else {
+        this[this.allAnimals[an]] = user_info[this.allAnimals[an]];
+      }
     }
 
   }
 
+  hideStats()
+  {
+    for (let i = 0; i < this.allAnimals.length; i++)
+    {
+      for (let an=0; an<this[this.allAnimals[i]].length; an++)
+      {
+        this[this.allAnimals[i]][an].showStats=false;
+      }
+    }
+  }
+
   show()
   {
-    for (var an=0; an<this.animals.length; an++)
+    for (let i = 0; i < this.allAnimals.length; i++)
     {
-      this.animals[an].show();
-    }
-    for (var an=0; an<this.preys.length; an++)
-    {
-      this.preys[an].show();
-    }
-    for (var an=0; an<this.predators.length; an++)
-    {
-      this.predators[an].show();
+      for (let an=0; an<this[this.allAnimals[i]].length; an++)
+      {
+        this[this.allAnimals[i]][an].show();
+      }
     }
   }
 
@@ -66,7 +60,7 @@ class User{
   update()
   {
     let results = [];
-    for (var an in this.animals)
+    for (let an in this.animals)
     {
       if (this.animals[an].shouldDie())
       {

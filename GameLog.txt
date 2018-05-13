@@ -44,6 +44,18 @@ later try to make it better: ie make reload harder, no scrolling etc
 https://web.archive.org/web/20151103001838/http://www.luster.io/blog/9-29-14-mobile-web-checklist.html
 
 
-Kill your own animals optional
 
+Sunday TODO list
+
+Kill your own animals optional
 kill other animals then get reward should be added
+check food collisions
+need health
+check mouse animal collisions and show stats (only mouse pressed so Maybe different)
+
+Future
+
+score board is weird sometimes
+Boundary is a bit off...
+Do NOT allow animals to overlap
+make the circles kill animals if they go in them

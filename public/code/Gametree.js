@@ -50,6 +50,20 @@ class Gametree
     return collisions;
   }
 
+  getCollisionsWith(box)
+  {
+    // crummy comparison FOR NOW
+    let collisions = [];
+    for (var i = 0; i < this.values.length; i++)
+    {
+      if (this.checkBoxCollide(this.values[i].getBox(), box))
+      {
+        collisions.push(i);
+      }
+    }
+    return collisions;
+  }
+
   inMiddle(a, b, c)
   {
     return ((a < b) && (b < c));

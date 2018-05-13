@@ -1,5 +1,10 @@
 //functions
 
+function realPos(pos)
+{
+    return [pos[0] - screen_dims[0]/2 - user.pos[0], pos[1] - screen_dims[1]/2 - user.pos[1]];
+}
+
 function drawCenterCross()
 {
   fill(0, 0, 0);
@@ -86,10 +91,15 @@ function onEdge(boxa)
   return false;
 }
 
+function mouseOn(boxa)
+{
+  return gametree.checkBoxCollide(boxa, [mouseX, mouseY, 5, 5])
+}
+
 function drawEdge()
 {
   noStroke();
-  fill(200, 20, 20);
+  fill(200, 20, 20,100);
   for (let i = 0; i<4; i++)
   {
     dRect(edgeRects[i]);
@@ -180,6 +190,8 @@ function calculateEdge()
   /*
   NOTE: this is BROKEN currently. The screen is weird... + is to the left in x....
 
+  BROKEN
+
   A rectangular border arround the whole grid at the furthest locations from center
   */
   let brw = boundSize; let brh = boundSize;
@@ -193,9 +205,11 @@ function calculateEdge()
 
 function showMaxScores()
 {
-  let tx = screen_dims[0]*0.4; let ty = -0.45*screen_dims[1];
+  let tx = screen_dims[0]*0.2;
+  let ty = -0.45*screen_dims[1];
   fill(10,10,10,50);
-  rect(tx-75, ty, 150, 50*6);
+  let cwww=screen_dims[0]*0.3;
+  rect(tx*0.9, ty, cwww, 50*6);
   fill(0,0,0);
   let nameScores = getMaxScores();
   let ctxt;
