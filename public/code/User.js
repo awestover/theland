@@ -12,9 +12,9 @@ class User{
 
     this.pos = user_info["pos"] || [0,0]; // where are you looking
 
-    this.knights = 0;
-    this.cost = 100; // may be variable later
-    this.attractAnimals = true;
+    this.knights = user_info["knights"] || 0;
+    this.cost = user_info["cost"] || 100; // may be variable later
+    this.attractAnimals = user_info["attractAnimals"] || true;
 
     if(!user_info["animals"])
     {
@@ -24,7 +24,22 @@ class User{
       this.animals = user_info["animals"];
     }
 
-    this.prey = [];
+    if(!user_info["preys"])
+    {
+      this.preys = [];
+    }
+    else {
+      this.preys = user_info["preys"];
+    }
+
+    if(!user_info["predators"])
+    {
+      this.predators = [];
+    }
+    else {
+      this.predators = user_info["predators"];
+    }
+
   }
 
   show()
@@ -32,6 +47,14 @@ class User{
     for (var an=0; an<this.animals.length; an++)
     {
       this.animals[an].show();
+    }
+    for (var an=0; an<this.preys.length; an++)
+    {
+      this.preys[an].show();
+    }
+    for (var an=0; an<this.predators.length; an++)
+    {
+      this.predators[an].show();
     }
   }
 
@@ -81,6 +104,28 @@ class User{
       this.knights += 1;
       this.setKnightsText();
     }
+  }
+
+  addPrey()
+  {
+    let newPrey = new Prey({
+      "pos":[random(bounds[0][0], bounds[0][1]), random(bounds[1][0], bounds[1][1])],
+      "name": this.animal_type,
+      "username": this.name
+    });
+    this.preys.push(newPrey);
+    this.preys[this.preys.length-1].subPos([newPrey.dims[0]/2, newPrey.dims[1]/2]);
+  }
+
+  addPredator()
+  {
+    let newPredator = new Predator({
+      "pos":[random(bounds[0][0], bounds[0][1]), random(bounds[1][0], bounds[1][1])],
+      "name": this.animal_type,
+      "username": this.name
+    });
+    this.predators.push(newPredator);
+    this.predators[this.predators.length-1].subPos([newPredator.dims[0]/2, newPredator.dims[1]/2]);
   }
 
   addAnimal()
@@ -148,6 +193,11 @@ class User{
   setAnimalsText()
   {
       $('#animals').text("Animals: " + this.animals.length);
+  }
+
+  setAnimalType()
+  {
+      $('#animalType').text("Animals Type: " + this.animal_type);
   }
 
   giveAnimalsName()

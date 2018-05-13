@@ -6,7 +6,7 @@ let animal_txt_help = "Please chose an animal. Your choices include:\n";
 for (let i = 0; i < animal_names.length; i++){
   animal_txt_help += animal_names[i] + "(" + i + ")" + "\n";
 }
-const max_lvl = 2;
+const max_lvl = 4;
 let animal_pictures = {};
 
 const keyCodes = {"a":65, "d": 68, "s": 83, "w": 87};

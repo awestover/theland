@@ -34,11 +34,14 @@ function setup()
     animalType = animal_names[animalType];
   }
   user = new User({"animal_type": animalType});
+  user.setAnimalType();
   let name = prompt("Name");
   socket.emit("named", {"name":name});
   let world = prompt("World");
   socket.emit("sendWorld", {"world":world});
   user.addAnimal();
+  user.addPrey();
+  user.addPrey();
 
   edgeRects = calculateEdge();
   for (let th = 0; th < 12; th++)
@@ -152,31 +155,19 @@ function draw()
 
 function handleUpdatePlayer(otherUser)
 {
-  // console.log("Update player " + otherUser["name"]);
-  // let cAnimals = [];
-  // for (let i = 0; i < otherUser["animals"].length; i++)
-  // {
-  //   cAnimals.push(new Personal(otherUser["animals"][i]));
-  // }
-  //
-  // let new_data = {
-  //   "animals": cAnimals,
-  //   "name": otherUser["name"],
-  //   "world": otherUser["world"],
-  //   "animal_type": otherUser["animal_type"],
-  //   "pos": otherUser["pos"]
-  // }
-  //
-  // //note names are unique
-  // otherUsers[new_data["name"]] = new User(new_data);
-
   for (let i = 0; i < otherUser.animals.length; i++)
   {
     otherUser.animals[i] = new Personal(otherUser.animals[i]);
   }
-
+  for (let i = 0; i < otherUser.preys.length; i++)
+  {
+    otherUser.preys[i] = new Prey(otherUser.preys[i]);
+  }
+  for (let i = 0; i < otherUser.predators.length; i++)
+  {
+    otherUser.predators[i] = new Predators(otherUser.predators[i]);
+  }
   otherUsers[otherUser.name] = new User(otherUser);
-
 }
 
 function handleDeletePlayer(data)

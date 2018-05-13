@@ -26,6 +26,11 @@ body{
 	float: right;
 }
 
+#animalType{
+	padding-left: 5%;
+	float: left;
+}
+
 #animals{
 	float: left;
 }

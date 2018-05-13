@@ -5,9 +5,6 @@ class Personal extends Animal
   {
     super(animal_traits);
 
-    // identification
-    this.username = animal_traits["username"] || "NPC";
-
     // important statistics, change later
     this.level = animal_traits["level"] || 1;
     this.sickPr = animal_traits["sickPr"] || 0.002;

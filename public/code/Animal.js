@@ -11,12 +11,22 @@ class Animal
 {
   constructor(animal_traits)
   {
+    // basic stats
     this.pos = animal_traits["pos"].slice() || [0,0];
     this.vel = [0, 0];
     this.name = animal_traits["name"] || "circle";
     this.health = animal_traits["health"] || 10;
 
+    // identification
+    this.username = animal_traits["username"] || "NPC";
+
     this.dims=[66,50];
+  }
+
+  show()
+  {
+    fill(0,0,0);
+    ellipse(this.pos[0], this.pos[1], 10, 10);
   }
 
   addPos(apos)
