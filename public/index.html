@@ -10,6 +10,7 @@
   <!-- style -->
   <link rel="stylesheet" type="text/css" href="style/index.css">
   <link rel="stylesheet" type="text/css" href="style/buttons.css">
+  <link rel="stylesheet" type="text/css" href="style/noselect.css">
 
   <title>The Land</title>
 
@@ -36,9 +37,9 @@
 
 </head>
 
-<body>
+<body class="noselect">
   <b id="name">Name: X</b> <b id ="animalType">Animal Type: Z</b> <b id="world">World: 1</b><br>
-  <b id="animals">Animals: 0</b>  <b id="knights">Knights: 0</b>
+  <b id="animals">Animals: 0</b>  <b id="stormlight">Stormlight: 0</b>
   <button id="buy" onclick="user.buyAnimal()">Buy</button>
   <button id="attract" onclick="user.toggleAttractAnimals()">Toggle Attract</button>
   <button id="scores" onclick="toggleScores()">Toggle Scores</button>

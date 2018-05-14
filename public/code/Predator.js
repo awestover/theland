@@ -5,11 +5,40 @@ class Predator extends Animal
   {
     super(animal_traits);
     this.type="predators";
+    this.power = animal_traits["power"] || 1;
+
+    this.health = animal_traits["health"] || 100;
+
+    this.speed = animal_traits["speed"] || 1.5;
+    this.vel = super.randomHeading(this.speed);
+
+    this.name=animal_traits["name"] || "dino";
+    this.dims=[75,100];
   }
 
-  show()
+  handleCollide(otherAnimal)
   {
-    super.pStats();
-    super.show();
+    if (otherAnimal.type == "personals")
+    {
+      let damage = otherAnimal.attack();
+      if (!damage || otherAnimal.health == 0)
+      {
+        damage = 0;
+      }
+      this.health -= damage;
+    }
+    else if (otherAnimal.type == "preys")
+    {
+      console.log("Not sure yet what to do");
+    }
+    else if (otherAnimal.type == "predators")
+    {
+      alert("I really Dunno man");
+    }
+  }
+
+  eat()
+  {
+    return this.power;
   }
 }

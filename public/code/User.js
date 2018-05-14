@@ -13,7 +13,7 @@ class User {
 
     this.pos = user_info["pos"] || [0,0]; // where are you looking
 
-    this.knights = user_info["knights"] || 0;
+    this.stormlight = user_info["stormlight"] || 0;
     this.cost = user_info["cost"] || 100; // may be variable later
     this.attractAnimals = user_info["attractAnimals"] || true;
 
@@ -30,6 +30,16 @@ class User {
 
     this.idCt = user_info["isCt"] || 0;
 
+  }
+
+  initAnimals()
+  {
+    this.addPersonal();
+
+    this.addPrey();
+    this.addPrey();
+
+    this.addPredator();
   }
 
   hideStats()
@@ -91,40 +101,65 @@ class User {
         this.addOffspringAnimal(results[i]);
       }
 
+      let preysKilled=0;
       for (let an in this.preys)
       {
         if(this.preys[an].shouldDie())
         {
           this.preys.splice(an, 1);
           an -= 1;
+          preysKilled+=1;
+        }
+      }
+      for(let i=0; i < preysKilled; i++)
+      {
+        this.addPrey();
+      }
+
+      for(let an in this.predators)
+      {
+        if (this.predators[an].shouldDie())
+        {
+          this.predators.splice(an, 1);
+          an -= 1;
+        }
+        else {
+          this.predators[an].move();
         }
       }
 
     }
 
-    this.addFrameKnights();
+    this.addFrameStormlight();
 
     return results;
   }
 
-  addFrameKnights()
+  addFrameStormlight()
   {
     // later this can be variable or something
-    if(Math.random() < 0.5)
+    if(Math.random() < 0.3)
     {
-      this.knights += 1;
-      this.setKnightsText();
+      if (this.attractAnimals)
+      {
+        this.stormlight += 1;
+      }
+      else {
+        this.stormlight += 2;
+      }
+      this.setStormlightText();
     }
   }
 
   addPrey()
   {
     let newPrey = new Prey({
-      "pos":[random(bounds[0][0], bounds[0][1]), random(bounds[1][0], bounds[1][1])],
-      "name": this.animal_type,
+      "pos":randomMidish(0.7),
       "username": this.name,
+      "name": "pizza",
       "id": this.idCt
     });
+    this.idCt +=1;
     this.preys.push(newPrey);
     this.preys[this.preys.length-1].subPos([newPrey.dims[0]/2, newPrey.dims[1]/2]);
   }
@@ -132,8 +167,8 @@ class User {
   addPredator()
   {
     let newPredator = new Predator({
-      "pos":[random(bounds[0][0], bounds[0][1]), random(bounds[1][0], bounds[1][1])],
-      "name": this.animal_type,
+      "pos":randomMidish(0.7),
+      "name": "dino",
       "username": this.name,
       "id":this.idCt
     });
@@ -164,9 +199,9 @@ class User {
 
   buyAnimal()
   {
-    if (this.knights >= this.cost)
+    if (this.stormlight >= this.cost)
     {
-      this.knights -= this.cost;
+      this.stormlight -= this.cost;
       this.addPersonal();
     }
   }
@@ -201,9 +236,9 @@ class User {
     return false;
   }
 
-  setKnightsText()
+  setStormlightText()
   {
-      $('#knights').text("Knights: " + this.knights);
+      $('#stormlight').text("Stormlight: " + this.stormlight);
   }
 
   setAnimalsText()
@@ -231,7 +266,13 @@ class User {
 
   getScore()
   {
-    return Math.floor(this.personals.length*10+0.01*this.knights);
+    return Math.floor(this.personals.length*10+0.01*this.stormlight);
+  }
+
+  triggerReward(sl)
+  {
+    this.stormlight+=sl;
+    this.setStormlightText();
   }
 
 }

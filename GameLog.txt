@@ -60,6 +60,16 @@ Boundary is a bit off...
 Do NOT allow animals to overlap
 make the circles kill animals if they go in them
 
-if multiple logins and logouts it sometimes mmesses up user.th
+Better gametree collision detection (faster quadtree)
+
+if multiple logins and logouts it sometimes messes up user.th
 example: login 2 ppl. then logout the one with user.th=0; then login another guy
 im pretty sure that you now have 2 ppl with th=1;
+
+rotate animals to correct direction
+
+Monday:
+improve stuff
+ask around for ideas
+
+Also note the predators are a little bit broken

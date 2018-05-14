@@ -1,12 +1,30 @@
 //constants
 
 // all animal names
-const animal_names = ["dog", "shark", "bear", "crab"];
+const personal_names = ["dog", "shark", "bear", "crab"];
+const prey_names = ["pizza"];
+const predator_names = ["dino"];
 let animal_txt_help = "Please chose an animal. Your choices include:\n";
-for (let i = 0; i < animal_names.length; i++){
-  animal_txt_help += animal_names[i] + "(" + i + ")" + "\n";
+for (let i = 0; i < personal_names.length; i++){
+  animal_txt_help += personal_names[i] + "(" + i + ")" + "\n";
 }
-const max_lvl = 4;
+let animal_names = [];
+for (let pn in personal_names)
+{
+  animal_names.push(personal_names[pn]);
+}
+for(let pn in prey_names)
+{
+  animal_names.push(prey_names[pn]);
+}
+for (let pn in predator_names)
+{
+  animal_names.push(predator_names[pn]);
+}
+
+const rewards = {"predators":2, "personals": 1, "preys": 0};
+
+const max_lvls = {"personals": 4, "preys": 1, "predators": 1};
 let animal_pictures = {};
 const allAnimals = ["personals", "preys", "predators"];
 

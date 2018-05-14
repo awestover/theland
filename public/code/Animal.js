@@ -24,7 +24,34 @@ class Animal
     this.dims=[66,50];
     this.showStats = animal_traits["showStats"] || false;
 
+    this.level = animal_traits["level"] || 1;
+
     this.type = "animals";
+    this.image = this.getImg();
+  }
+
+  getImg()
+  {
+    try{
+      return animal_pictures[this.name+this.level];
+    }
+    catch(err)
+    {
+      return false;
+    }
+  }
+
+  move()
+  {
+    var th = (Math.random()-0.5)*0.9;
+    if (Math.random() < 0.5) {
+      th = 0;
+    }
+    var nx = this.vel[0]*Math.cos(th) - this.vel[1]*Math.sin(th);
+    var ny = this.vel[0]*Math.sin(th) + this.vel[1]*Math.cos(th);
+
+    this.vel = [nx, ny];
+    this.addPos(this.vel); // *dt
   }
 
   pStats()
@@ -40,8 +67,24 @@ class Animal
 
   show()
   {
-    fill(0,0,0);
-    ellipse(this.pos[0], this.pos[1], 10, 10);
+    if (this.health>0)
+    {
+      this.pStats();
+      fill(200, 50, 50);
+      // health bar
+      rect(this.pos[0], this.pos[1],5*this.health, 10);
+      try
+      {
+        image(this.image, this.pos[0], this.pos[1], this.image.width, this.image.height);
+      }
+      catch(err)
+      {
+        ellipse(this.pos[0], this.pos[1], 10, 10);
+      }
+    }
+    else {
+      console.log("this.health=0 in an Animal... a bit sketchy");
+    }
   }
 
   addPos(apos)
@@ -56,10 +99,10 @@ class Animal
     this.pos[1] -= apos[1];
   }
 
-  randomHeading()
+  randomHeading(speed)
   {
     let thInit = Math.random()*Math.PI*2;
-    return [Math.cos(thInit), Math.sin(thInit)];
+    return [Math.cos(thInit)*speed, Math.sin(thInit)*speed];
   }
 
   addVel(avel)

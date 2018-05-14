@@ -6,12 +6,9 @@ class Prey extends Animal
     super(animal_traits);
     this.type = "preys";
     this.help = animal_traits["help"] || 1;
-  }
 
-  show()
-  {
-    super.pStats();
-    super.show();
+    this.name = animal_traits["name"] || "pizza"; // for now...
+    this.dims=[30,30];
   }
 
   handleCollide(otherAnimal)

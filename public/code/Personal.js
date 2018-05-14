@@ -7,30 +7,15 @@ class Personal extends Animal
     this.type="personals";
 
     // important statistics, change later
-    this.level = animal_traits["level"] || 1;
     this.sickPr = animal_traits["sickPr"] || 0; // .002;
     this.rebirthPr = animal_traits["rebirthPr"] || 0;// .002;
     this.strength = animal_traits["strength"] || 1;
     this.speed = animal_traits["speed"] || 1.3;
     this.levelUpPr = animal_traits["levelUpPr"] || 0.002;
 
-    this.vel = this.randomHeading();
-    this.scaleVel(this.speed);
-    this.image = this.getImg();
+    this.vel = super.randomHeading(this.speed);
 
     this.dims = [66, 50];
-  }
-
-  getImg()
-  {
-    try{
-      return animal_pictures[this.name+this.level];
-    }
-    catch(err)
-    {
-      console.log(err);
-      return false;
-    }
   }
 
   possibleOffspring()
@@ -41,22 +26,6 @@ class Personal extends Animal
       result = this.createOffspring();
     }
     return result;
-  }
-
-  show()
-  {
-    super.pStats();
-    fill(200, 50, 50);
-    // health bar
-    rect(this.pos[0], this.pos[1],5*this.health, 10);
-    try
-    {
-      image(this.image, this.pos[0], this.pos[1], this.image.width, this.image.height);
-    }
-    catch(err)
-    {
-      ellipse(this.pos[0], this.pos[1], 10, 10);
-    }
   }
 
   // later you should have animals have traits that kind of mutate and get passed down.
@@ -78,20 +47,6 @@ class Personal extends Animal
       this.addPos(deltaV);
     }
     this.move();
-  }
-
-  move()
-  {
-    var th = (Math.random()-0.5)*0.9;
-    if (Math.random() < 0.5) {
-      th = 0;
-    }
-    var nx = this.vel[0]*Math.cos(th) - this.vel[1]*Math.sin(th);
-    var ny = this.vel[0]*Math.sin(th) + this.vel[1]*Math.cos(th);
-
-    this.vel = [nx, ny];
-    this.addPos(this.vel); // *dt
-
   }
 
   attack()
@@ -137,10 +92,17 @@ class Personal extends Animal
 
   handleCollide(otherAnimal)
   {
+
+    //current reward system is trash
+    if (otherAnimal.health <= 0)
+    {
+      return false;
+    }
+
     // later apply damage buffer?
     if (otherAnimal.username == this.username)
     {
-      if (this.level < max_lvl)
+      if (this.level < max_lvls["personals"])
       {
         if (this.levelUpPr > random())
         {
@@ -152,16 +114,19 @@ class Personal extends Animal
       if (otherAnimal.type == "personals")
       {
         let damage = otherAnimal.attack();
-        if (!damage || otherAnimal.health == 0)
+        if (!damage)
         {
           damage = 0;
         }
         this.health -= damage;
+
+        // this is kind of really stupid
+        user.triggerReward(rewards["personals"]);
       }
       else if (otherAnimal.type == "preys")
       {
         let help = otherAnimal.boost();
-        if (!help || otherAnimal.health == 0)
+        if (!help)
         {
           help = 0;
         }
@@ -169,11 +134,19 @@ class Personal extends Animal
       }
       else if (otherAnimal.type == "predators")
       {
-        alert("CRUMB I didnt even make predators yet sry man");
+        let damage = otherAnimal.eat();
+        if (!damage)
+        {
+          damage = 0;
+        }
+        this.health -= damage;
+
+        // this is kind of really stupid
+        user.triggerReward(rewards["predators"]);
       }
-      // console.log(this.username == otherAnimal.username);
-      // console.log(this.username + " " + otherAnimal.username);
     }
+    return true;
+
   }
 
 }

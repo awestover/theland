@@ -24,6 +24,10 @@ function magv(v)
   return mag(v[0], v[1]);
 }
 
+function randomMidish(damp)//damp is about 0.8
+{
+  return [random(bounds[0][0]*damp, bounds[0][1]*damp), random(bounds[1][0]*damp, bounds[1][1]*damp)];
+}
 
 function vecScalarMult(x, k)
 {

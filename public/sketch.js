@@ -5,11 +5,27 @@ theland.herokuapp.com
 
 function setup()
 {
-  for (let m = 1; m<=max_lvl; m++)
+  for (let m = 1; m<=max_lvls["personals"]; m++)
   {
-    for(let i = 0; i < animal_names.length; i++)
+    for (let pn in personal_names)
     {
-      let cName = animal_names[i] + m;
+      let cName = personal_names[pn] + m;
+      animal_pictures[cName] = loadImage("pictures/"+cName+".png");
+    }
+  }
+  for (let m = 1; m<=max_lvls["preys"]; m++)
+  {
+    for(let pn in prey_names)
+    {
+      let cName = prey_names[pn] + m;
+      animal_pictures[cName] = loadImage("pictures/"+cName+".png");
+    }
+  }
+  for (let m = 1; m<=max_lvls["predators"]; m++)
+  {
+    for (let pn in predator_names)
+    {
+      let cName = predator_names[pn] + m;
       animal_pictures[cName] = loadImage("pictures/"+cName+".png");
     }
   }
@@ -27,12 +43,12 @@ function setup()
   socket.on('pushedAnimalUpdate', handlePushedAnimalUpdate);
 
   let animalType = parseInt(prompt(animal_txt_help));
-  if (isNaN(animalType) || animalType < 0 || animalType >= animal_names.length)
+  if (isNaN(animalType) || animalType < 0 || animalType >= personal_names.length)
   {
-    animalType = pickRandom(animal_names)[0];
+    animalType = pickRandom(personal_names)[0];
   }
   else {
-    animalType = animal_names[animalType];
+    animalType = personal_names[animalType];
   }
   user = new User({"animal_type": animalType});
   user.setAnimalType();
@@ -40,9 +56,7 @@ function setup()
   socket.emit("named", {"name":name});
   let world = prompt("World");
   socket.emit("sendWorld", {"world":world});
-  user.addPersonal();
-  user.addPrey();
-  user.addPrey();
+  user.initAnimals();
 
   edgeRects = calculateEdge();
   for (let th = 0; th < 12; th++)
@@ -57,7 +71,8 @@ function setup()
 function draw()
 {
   // graphics basis
-  background(205,50,205);
+  // background(205,50,205);
+  background(30, 122, 91);
   translate(screen_dims[0]/2, screen_dims[1]/2);  // center to 0,0
 
   // show major elements and get ready to check for collisions
@@ -117,7 +132,7 @@ function draw()
   drawOrigin();
 
   pop();
-  
+
   user.update();
   socket.emit("updatePlayer", user);
 
@@ -157,7 +172,7 @@ function handleUpdatePlayer(otherUser)
   }
   for (let i = 0; i < otherUser.predators.length; i++)
   {
-    otherUser.predators[i] = new Predators(otherUser.predators[i]);
+    otherUser.predators[i] = new Predator(otherUser.predators[i]);
   }
   otherUsers[otherUser.name] = new User(otherUser);
 }
@@ -236,7 +251,7 @@ function keyPressed()
   }
   else if (lk=='c')
   {
-    user.knights+=100;
+    user.stormlight+=100;
   }
 }
 
@@ -256,7 +271,7 @@ function handleNameChosen(data)
 
   if (user.name == "lbd")
   {
-    user.knights = 100000;
+    user.stormlight = 100000;
     for (let i = 0; i < 4; i++)
     {
       user.addAnimal();
