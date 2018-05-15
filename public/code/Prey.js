@@ -13,6 +13,10 @@ class Prey extends Animal
 
   handleCollide(otherAnimal)
   {
+    if (otherAnimal.username == this.username)
+    {
+      return false;
+    }
     if (otherAnimal.type == "personals")
     {
       let damage = otherAnimal.attack();
@@ -28,8 +32,9 @@ class Prey extends Animal
     }
     else if (otherAnimal.type == "predators")
     {
-      alert("I really DUnno man");
+      console.log("I really Dunno man");
     }
+    return true;
   }
 
   boost()

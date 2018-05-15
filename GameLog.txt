@@ -47,11 +47,17 @@ https://web.archive.org/web/20151103001838/http://www.luster.io/blog/9-29-14-mob
 
 Sunday TODO list
 
-Kill your own animals optional
-kill other animals then get reward should be added
+Kill your own animals optional (I DUNNO ABOUT THIS ANYMORE...)
+kill other animals then get reward should be added (NEEDS TO BE FIXED...)
 check food collisions
 need health
 check mouse animal collisions and show stats (only mouse pressed so Maybe different)
+
+Monday:
+improve stuff
+ask around for ideas
+
+Also note the predators are a little bit broken
 
 Future
 
@@ -68,8 +74,4 @@ im pretty sure that you now have 2 ppl with th=1;
 
 rotate animals to correct direction
 
-Monday:
-improve stuff
-ask around for ideas
-
-Also note the predators are a little bit broken
+Predators are broken...

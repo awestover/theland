@@ -100,34 +100,33 @@ class User {
       {
         this.addOffspringAnimal(results[i]);
       }
+    }
 
-      let preysKilled=0;
-      for (let an in this.preys)
+    let preysKilled=0;
+    for (let an in this.preys)
+    {
+      if(this.preys[an].shouldDie())
       {
-        if(this.preys[an].shouldDie())
-        {
-          this.preys.splice(an, 1);
-          an -= 1;
-          preysKilled+=1;
-        }
+        this.preys.splice(an, 1);
+        an -= 1;
+        preysKilled+=1;
       }
-      for(let i=0; i < preysKilled; i++)
-      {
-        this.addPrey();
-      }
+    }
+    for(let i=0; i < preysKilled; i++)
+    {
+      this.addPrey();
+    }
 
-      for(let an in this.predators)
+    for(let an in this.predators)
+    {
+      if (this.predators[an].shouldDie())
       {
-        if (this.predators[an].shouldDie())
-        {
-          this.predators.splice(an, 1);
-          an -= 1;
-        }
-        else {
-          this.predators[an].move();
-        }
+        this.predators.splice(an, 1);
+        an -= 1;
       }
-
+      else {
+        this.predators[an].move();
+      }
     }
 
     this.addFrameStormlight();
