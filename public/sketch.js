@@ -5,28 +5,15 @@ theland.herokuapp.com
 
 function setup()
 {
-  for (let m = 1; m<=max_lvls["personals"]; m++)
+  for (let an in allAnimals)
   {
-    for (let pn in personal_names)
+    for (let m = 1; m<=max_lvls[allAnimals[an]]; m++)
     {
-      let cName = personal_names[pn] + m;
-      animal_pictures[cName] = loadImage("pictures/"+cName+".png");
-    }
-  }
-  for (let m = 1; m<=max_lvls["preys"]; m++)
-  {
-    for(let pn in prey_names)
-    {
-      let cName = prey_names[pn] + m;
-      animal_pictures[cName] = loadImage("pictures/"+cName+".png");
-    }
-  }
-  for (let m = 1; m<=max_lvls["predators"]; m++)
-  {
-    for (let pn in predator_names)
-    {
-      let cName = predator_names[pn] + m;
-      animal_pictures[cName] = loadImage("pictures/"+cName+".png");
+      for (let pn in animal_names[allAnimals[an]])
+      {
+        let cName = animal_names[allAnimals[an]][pn] + m;
+        animal_pictures[cName] = loadImage("pictures/"+cName+".png");
+      }
     }
   }
 
@@ -43,12 +30,12 @@ function setup()
   socket.on('pushedAnimalUpdate', handlePushedAnimalUpdate);
 
   let animalType = parseInt(prompt(animal_txt_help));
-  if (isNaN(animalType) || animalType < 0 || animalType >= personal_names.length)
+  if (isNaN(animalType) || animalType < 0 || animalType >= animal_names["personals"].length)
   {
-    animalType = pickRandom(personal_names)[0];
+    animalType = pickRandom(animal_names["personals"])[0];
   }
   else {
-    animalType = personal_names[animalType];
+    animalType = animal_names["personals"][animalType];
   }
   user = new User({"animal_type": animalType});
   user.setAnimalType();
@@ -72,7 +59,7 @@ function draw()
 {
   // graphics basis
   // background(205,50,205);
-  background(30, 122, 91);
+  background(2, 124, 57);
   translate(screen_dims[0]/2, screen_dims[1]/2);  // center to 0,0
 
   // show major elements and get ready to check for collisions

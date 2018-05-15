@@ -103,7 +103,7 @@ function mouseOn(boxa)
 function drawEdge()
 {
   noStroke();
-  fill(200, 20, 20,100);
+  fill(200, 20, 20,175);
   for (let i = 0; i<4; i++)
   {
     dRect(edgeRects[i]);
@@ -212,7 +212,7 @@ function showMaxScores()
   let ty = -0.45*screen_dims[1];
   fill(10,10,10,50);
   let cwww=screen_dims[0]*0.3;
-  rect(tx*0.9, ty, cwww, 50*6);
+  rect(tx*0.9, ty, cwww, 60*(numHighscores));
   fill(0,0,0);
   let nameScores = getMaxScores();
   let ctxt;

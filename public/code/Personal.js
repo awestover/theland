@@ -7,8 +7,8 @@ class Personal extends Animal
     this.type="personals";
 
     // important statistics, change later
-    this.sickPr = animal_traits["sickPr"] || 0; // .002;
-    this.rebirthPr = animal_traits["rebirthPr"] || 0;// .002;
+    this.sickPr = animal_traits["sickPr"] || 0.001;//0;
+    this.rebirthPr = animal_traits["rebirthPr"] || 0.001;//0;
     this.strength = animal_traits["strength"] || 1;
     this.speed = animal_traits["speed"] || 1.3;
     this.levelUpPr = animal_traits["levelUpPr"] || 0.002;
@@ -63,23 +63,18 @@ class Personal extends Animal
     if (this.health <=0)
     {
       return true;
-      // console.log("death death");
     }
     else if (violateEdge(this.getBox()))
     {
       return true;
-      // console.log("edge death");
     }
     else {
       if (this.sickPr > random())
       {
-        // console.log("random death");
         return true;
       }
-      else {
-        return false;
-      }
     }
+    return false;
   }
 
   levelUp()

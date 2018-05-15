@@ -28,6 +28,8 @@ class Animal
 
     this.type = "animals";
     this.image = this.getImg();
+
+    this.rotated = 1; // + or - 1 for right and left (positive x vel and negative v vel)
   }
 
   getImg()
@@ -52,6 +54,8 @@ class Animal
 
     this.vel = [nx, ny];
     this.addPos(this.vel); // *dt
+
+    this.rotated=Math.sign(this.vel[0]);
   }
 
   pStats()
@@ -69,18 +73,25 @@ class Animal
   {
     if (this.health>0)
     {
+      push();
+      translate(this.pos[0]+this.dims[0]/2, this.pos[1]);
+      scale(this.rotated,1);
+
       this.pStats();
-      fill(200, 50, 50);
+
       // health bar
-      rect(this.pos[0], this.pos[1],5*this.health, 10);
+      fill(200, 50, 50);
+      rect(-this.dims[0]/2, 0, 5*this.health, 10);
+
       try
       {
-        image(this.image, this.pos[0], this.pos[1], this.image.width, this.image.height);
+        image(this.image, -this.dims[0]/2, 0);
       }
       catch(err)
       {
         ellipse(this.pos[0], this.pos[1], 10, 10);
       }
+      pop();
     }
     else {
       console.log("this.health=0 in an Animal... a bit sketchy");
@@ -130,6 +141,10 @@ class Animal
   shouldDie()
   {
     if (this.health <=0)
+    {
+      return true;
+    }
+    else if (violateEdge(this.getBox()))
     {
       return true;
     }

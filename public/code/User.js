@@ -117,16 +117,22 @@ class User {
       this.addPrey();
     }
 
+    let predatorsKilled=0;
     for(let an in this.predators)
     {
       if (this.predators[an].shouldDie())
       {
         this.predators.splice(an, 1);
         an -= 1;
+        predatorsKilled+=1;
       }
       else {
         this.predators[an].move();
       }
+    }
+    for(let i = 0; i < predatorsKilled; i++)
+    {
+      this.addPredator();
     }
 
     this.addFrameStormlight();
