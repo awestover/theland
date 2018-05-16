@@ -12,6 +12,7 @@ for (let i = 0; i < animal_names["personals"].length; i++){
 }
 
 const rewards  = {"predators": 2, "personals": 1, "preys": 0};
+// note level 0 is reserved for boosted state...
 const max_lvls = {"personals": 4, "predators": 1, "preys": 1};
 let animal_pictures = {};
 

@@ -13,14 +13,10 @@ class Prey extends Animal
 
   handleCollide(otherAnimal)
   {
-    if (otherAnimal.username == this.username)
-    {
-      return false;
-    }
     if (otherAnimal.type == "personals")
     {
       let damage = otherAnimal.attack();
-      if (!damage || otherAnimal.health == 0)
+      if (!damage || otherAnimal.health <= 0)
       {
         damage = 0;
       }

@@ -63,14 +63,15 @@ A little bit fixed
 rotate animals to correct direction (add rotation tracker, adjust when ever xvel sign is out of sync)
 WORKS
 
-
+Gain health and get boosted if you kill a predator
+WORKS
 
 
 Future:
 
 collisions are a little bit broken... (why/when?)
 
-Boundary is a bit off... (why, needed callibrations?)
+Boundary is a bit off... (why, needed calibrations?)
 
 if multiple logins and logouts it sometimes messes up user.th
 example: login 2 ppl. then logout the one with user.th=0; then login another guy

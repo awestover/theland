@@ -7,7 +7,7 @@ function setup()
 {
   for (let an in allAnimals)
   {
-    for (let m = 1; m<=max_lvls[allAnimals[an]]; m++)
+    for (let m = 0; m<=max_lvls[allAnimals[an]]; m++)
     {
       for (let pn in animal_names[allAnimals[an]])
       {
@@ -28,6 +28,7 @@ function setup()
   socket.on('nameChosen', handleNameChosen);
   socket.on('worldChosen', handleWorldChosen);
   socket.on('pushedAnimalUpdate', handlePushedAnimalUpdate);
+  socket.on('predatorKilled', handlePredatorKilled);
 
   let animalType = parseInt(prompt(animal_txt_help));
   if (isNaN(animalType) || animalType < 0 || animalType >= animal_names["personals"].length)
@@ -280,6 +281,24 @@ function handlePushedAnimalUpdate(data)
         {
           user[data["type"]][an][trait] = data["updates"][trait];
         }
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function handlePredatorKilled(alldata)
+{
+  let data=alldata["animal"];
+  if (data["username"] == user.name)
+  {
+    for (let an in user[data["type"]])
+    {
+      if (user[data["type"]][an].id == data["id"])
+      {
+        user.triggerReward(100);// send later
+        user[data["type"]][an].getBoosted();
         return true;
       }
     }

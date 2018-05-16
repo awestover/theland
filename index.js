@@ -37,6 +37,7 @@ function newConnection(socket) {
   socket.on('sendWorld', handleSendWorld);
   socket.on('updatePlayer', updatePlayer);
   socket.on('pushAnimalUpdate', pushAnimalUpdate);
+  socket.on('predatorDied', notePredatorDied);
   // socket.on('loadPlayers', loadPlayers);
 
   function handleSendWorld(data)
@@ -68,6 +69,8 @@ function newConnection(socket) {
     console.log("world chosen " + world);
 
     // what world did we really join?...
+
+    //THETA CALCULATION IS WRONG....
     socket.emit("worldChosen", {"world":world, "ourTheta": worldCounts[world]-1});
   }
 
@@ -116,6 +119,12 @@ function newConnection(socket) {
 
     socket.emit('nameChosen', name);
 
+  }
+
+  function notePredatorDied(data)
+  {
+    // console.log("PREDATOR DOWN" + data["world"]);
+    io.to(data["world"]).emit("predatorKilled", data);
   }
 
   socket.on('disconnect', handleDisconnect);

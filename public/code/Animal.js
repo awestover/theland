@@ -28,8 +28,28 @@ class Animal
 
     this.type = "animals";
     this.image = this.getImg();
+    this.boostedImage = this.getBoostedImg();
 
     this.rotated = 1; // + or - 1 for right and left (positive x vel and negative v vel)
+
+    this.boosted=animal_traits["boosted"] || false;
+  }
+
+  getBoosted()
+  {
+    this.health *= 3;
+    this.boosted = true;
+  }
+
+  getBoostedImg()
+  {
+    try{
+      return animal_pictures[this.name+0];
+    }
+    catch(err)
+    {
+      return false;
+    }
   }
 
   getImg()
@@ -85,7 +105,13 @@ class Animal
 
       try
       {
-        image(this.image, -this.dims[0]/2, 0);
+        if (!this.boosted)
+        {
+          image(this.image, -this.dims[0]/2, 0);
+        }
+        else {
+          image(this.boostedImage, -this.dims[0]/2, 0);
+        }
       }
       catch(err)
       {

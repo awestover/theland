@@ -18,19 +18,22 @@ class Predator extends Animal
 
   handleCollide(otherAnimal)
   {
-    if (otherAnimal.username == this.username)
-    {
-      return false;
-    }
-
     if (otherAnimal.type == "personals")
     {
       let damage = otherAnimal.attack();
-      if (!damage || otherAnimal.health == 0)
+      if (!damage || otherAnimal.health <= 0)
       {
         damage = 0;
       }
       this.health -= damage;
+      if (this.health <= 0)
+      {
+        let data = {
+          "world": user.world,
+          "animal": otherAnimal
+        }
+        socket.emit('predatorDied', data);
+      }
     }
     else if (otherAnimal.type == "preys")
     {
@@ -41,7 +44,7 @@ class Predator extends Animal
       console.log("I really Dunno man");
     }
     return true;
-    
+
   }
 
   eat()
