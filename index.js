@@ -17,7 +17,7 @@ io.sockets.on('connection', newConnection);  // when you get a connection do thi
 
 var playersConnected = [];
 
-var worldCounts = {};
+var worldThetas = {};
 
 function newConnection(socket) {
 	/*
@@ -31,6 +31,7 @@ function newConnection(socket) {
   console.log("new connection");
   var name;
   var world;
+  var th;
 
   // what to listen for
   socket.on('named', handleNaming);
@@ -50,28 +51,34 @@ function newConnection(socket) {
     }
 
     // 12 ppl max in the world (it is a clock!!!!!)
-    while (worldCounts[world] && worldCounts[world] >= 12)
+    while (worldThetas[world] && worldThetas[world].length >= 12)
     {
       world += Math.floor(10*Math.random());
     }
 
-    if (worldCounts[world])
+    if (worldThetas[world])
     {
-      worldCounts[world] += 1;
+      var ii=0;
+      while (ii < worldThetas[world].length && worldThetas[world][ii]==ii)
+      {
+        ii += 1;
+      }
+      worldThetas[world].splice(ii,0, ii);// insert into that position that value
+      th=ii;
     }
     else {
-      worldCounts[world] = 1;
+      worldThetas[world] = [0];
+      th=0;
     }
 
   	socket.join(world); // join a world... this means you can have a private conversation within that world
 
-    console.log(worldCounts);
+    // console.log(worldThetas);
     console.log("world chosen " + world);
 
     // what world did we really join?...
 
-    //THETA CALCULATION IS WRONG....
-    socket.emit("worldChosen", {"world":world, "ourTheta": worldCounts[world]-1});
+    socket.emit("worldChosen", {"world":world, "ourTheta": th});
   }
 
   function updatePlayer(user)
@@ -83,7 +90,7 @@ function newConnection(socket) {
 
   function pushAnimalUpdate(data)
   {
-    console.log(data);
+    // console.log(data);
     socket.broadcast.to(data.world).emit("pushedAnimalUpdate", data);
   }
 
@@ -130,7 +137,14 @@ function newConnection(socket) {
   socket.on('disconnect', handleDisconnect);
   function handleDisconnect(data)
   {
-    worldCounts[world] -= 1;
+    for (var i = 0; i < worldThetas[world].length; i++)
+    {
+      if (th == worldThetas[world][i])
+      {
+        worldThetas[world].splice(i,1);
+        break;
+      }
+    }
 
     var idx = playersConnected.indexOf(name);
     console.log("disconnect by " + idx + " " + name);

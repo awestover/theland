@@ -66,16 +66,19 @@ WORKS
 Gain health and get boosted if you kill a predator
 WORKS
 
+if multiple logins and logouts it sometimes messes up user.th
+example: login 2 ppl. then logout the one with user.th=0; then login another guy
+I'm pretty sure that you now have 2 ppl with th=1;
+WORKS
+
 
 Future:
 
-collisions are a little bit broken... (why/when?)
+random population boom for animals (why? / needs to stop...)
+
+collisions are a little bit broken... (why / when?)
 
 Boundary is a bit off... (why, needed calibrations?)
-
-if multiple logins and logouts it sometimes messes up user.th
-example: login 2 ppl. then logout the one with user.th=0; then login another guy
-im pretty sure that you now have 2 ppl with th=1;
 
 Do NOT allow animals to overlap
 
@@ -84,3 +87,6 @@ make the circles kill animals if they go in the wrong one
 Better gametree collision detection (faster quadtree)
 
 Animals have lots of stats and you can breed them
+
+
+Stuff can spawn on top of other stuff
