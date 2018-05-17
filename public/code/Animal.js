@@ -78,14 +78,14 @@ class Animal
     this.rotated=Math.sign(this.vel[0]);
   }
 
-  pStats()
+  pStats(pp)
   {
     if (this.showStats)
     {
       fill(0,0,0);
       let ctx = "Name: "  +  this.name + "\n"
               + "Health: " + this.health + "\n"
-      text(ctx, this.pos[0], this.pos[1]-this.dims[1]*0.5);
+      text(ctx, pp[0], pp[1]-this.dims[1]*0.6);
     }
   }
 
@@ -94,28 +94,28 @@ class Animal
     if (this.health>0)
     {
       push();
-      translate(this.pos[0]+this.dims[0]/2, this.pos[1]);
-      scale(this.rotated,1);
+      translate(this.pos[0]+this.dims[0]/2, this.pos[1]+this.dims[1]/2);
 
-      this.pStats();
+      this.pStats([-this.dims[0]/2, -this.dims[1]/2]);
 
       // health bar
       fill(200, 50, 50);
-      rect(-this.dims[0]/2, 0, 5*this.health, 10);
+      rect(-this.dims[0]/2, -this.dims[1]/2, 5*this.health, 10);
 
+      scale(this.rotated,1);
       try
       {
         if (!this.boosted)
         {
-          image(this.image, -this.dims[0]/2, 0);
+          image(this.image, -this.dims[0]/2, -this.dims[1]/2);
         }
         else {
-          image(this.boostedImage, -this.dims[0]/2, 0);
+          image(this.boostedImage, -this.dims[0]/2, -this.dims[1]/2);
         }
       }
       catch(err)
       {
-        ellipse(this.pos[0], this.pos[1], 10, 10);
+        ellipse(-this.dims[0]/2, -this.dims[1]/2, this.dims[0]/2, this.dims[1]/2);
       }
       pop();
     }
