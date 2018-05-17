@@ -37,11 +37,11 @@ class Predator extends Animal
     }
     else if (otherAnimal.type == "preys")
     {
-      console.log("Not sure yet what to do");
+      // console.log("Not sure yet what to do");
     }
     else if (otherAnimal.type == "predators")
     {
-      console.log("I really Dunno man");
+      // console.log("I really Dunno man");
     }
     return true;
 

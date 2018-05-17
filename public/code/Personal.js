@@ -18,22 +18,13 @@ class Personal extends Animal
     this.dims = [66, 50];
   }
 
-  possibleOffspring()
+  hasOffspring()
   {
-    let result = false;
     if (this.rebirthPr > Math.random())
     {
-      result = this.createOffspring();
+      return {"pos":this.pos};
     }
-    return result;
-  }
-
-  // later you should have animals have traits that kind of mutate and get passed down.
-  createOffspring()
-  {
-    let newAnimal = new Personal({"pos":this.pos, "name":this.name, "username":this.username});
-    newAnimal.addPos([3*random(), 3*random()]);
-    return newAnimal;
+    return false;
   }
 
   pushMotion(location)

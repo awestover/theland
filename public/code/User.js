@@ -89,17 +89,17 @@ class User {
         else {
           this.personals[an].move();
         }
-        let currentResult = this.personals[an].possibleOffspring();
+        let currentResult = this.personals[an].hasOffspring();
         if (currentResult != false)
         {
           results.push(currentResult);
         }
       }
+    }
 
-      for (let i = 0; i < results.length; i++)
-      {
-        this.addOffspringAnimal(results[i]);
-      }
+    for (let i = 0; i < results.length; i++)
+    {
+      this.addPersonal(results[i]);
     }
 
     let preysKilled=0;
@@ -156,7 +156,7 @@ class User {
     }
   }
 
-  addPrey()
+  addPrey(data)
   {
     let newPrey = new Prey({
       "pos":randomMidish(0.7),
@@ -164,12 +164,16 @@ class User {
       "name": "pizza",
       "id": this.idCt
     });
-    this.idCt +=1;
+    for (let f in data)
+    {
+      newPersonal[f] = data[f];
+    }
+    this.idCt+=1;
     this.preys.push(newPrey);
     this.preys[this.preys.length-1].subPos([newPrey.dims[0]/2, newPrey.dims[1]/2]);
   }
 
-  addPredator()
+  addPredator(data)
   {
     let newPredator = new Predator({
       "pos":randomMidish(0.7),
@@ -177,12 +181,16 @@ class User {
       "username": this.name,
       "id":this.idCt
     });
+    for (let f in data)
+    {
+      newPersonal[f] = data[f];
+    }
     this.idCt += 1;
     this.predators.push(newPredator);
     this.predators[this.predators.length-1].subPos([newPredator.dims[0]/2, newPredator.dims[1]/2]);
   }
 
-  addPersonal()
+  addPersonal(data)
   {
     let newPersonal = new Personal({
       "pos":this.adjustAnimalLoc(this.pos),
@@ -190,6 +198,10 @@ class User {
       "username": this.name,
       "id": this.idCt
     });
+    for (let f in data)
+    {
+      newPersonal[f] = data[f];
+    }
     this.idCt += 1;
     this.personals.push(newPersonal);
     this.personals[this.personals.length-1].subPos([newPersonal.dims[0]/2,newPersonal.dims[1]/2]);
