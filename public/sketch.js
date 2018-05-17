@@ -241,6 +241,10 @@ function keyPressed()
   {
     user.stormlight+=100;
   }
+  else if (lk=='f')
+  {
+    freeze=!freeze;
+  }
 }
 
 

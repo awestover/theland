@@ -67,19 +67,17 @@ class Gametree
     return collisions;
   }
 
-  inMiddle(a, b, c)
+  // 1 d collision detection (real number line)
+  collideX(a, b)
   {
-    return ((a < b) && (b < c));
+    return ((b[0] < a[1]) && (b[1] > a[0]));
   }
 
-  checkBoxCollide(box1, box2)
+  // do 2 boxes intersect?
+  checkBoxCollide(a, b)
   {
-    let x0 = this.inMiddle(box1[0], box2[0], box1[0] + box1[2]);
-    let y0 = this.inMiddle(box1[1], box2[1], box1[1] + box1[3]);
-    let x1 = this.inMiddle(box1[0], box2[0] + box2[2], box1[0] + box1[2]);
-    let y1 = this.inMiddle(box1[1], box2[1] + box2[3], box1[1] + box1[3]);
-
-    return ((x0 || x1) && (y0 || y1));
+    let xInt = this.collideX([a[0], a[0]+a[2]], [b[0], b[0]+b[2]]);
+    let yInt = this.collideX([a[1], a[1]+a[3]], [b[1], b[1]+b[3]]);
+    return (xInt && yInt);
   }
-
 }

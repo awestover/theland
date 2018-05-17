@@ -76,6 +76,11 @@ function valInArr(arr, val)
   return false;
 }
 
+function inMiddle(a, b, c)
+{
+  return ((a < b) && (b < c));
+}
+
 
 function violateEdge(boxa)
 {

@@ -20,6 +20,7 @@ class Predator extends Animal
   {
     if (otherAnimal.type == "personals")
     {
+      // console.log("HIT PREDATOR");
       let damage = otherAnimal.attack();
       if (!damage || otherAnimal.health <= 0)
       {

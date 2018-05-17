@@ -71,6 +71,9 @@ class User {
 
   update()
   {
+    if (freeze){
+      return false;
+    }
     let results = [];
     for (let an in this.personals)
     {
@@ -203,14 +206,10 @@ class User {
       newPersonal[f] = data[f];
     }
     this.idCt += 1;
+
+    alert("WARNING");
     this.personals.push(newPersonal);
     this.personals[this.personals.length-1].subPos([newPersonal.dims[0]/2,newPersonal.dims[1]/2]);
-    this.setAnimalsText();
-  }
-
-  addOffspringAnimal(animal)
-  {
-    this.personals.push(animal);
     this.setAnimalsText();
   }
 
@@ -283,7 +282,7 @@ class User {
 
   getScore()
   {
-    return Math.floor(this.personals.length*10+0.01*this.stormlight);
+    return Math.floor(this.personals.length*10+0.1*this.stormlight);
   }
 
   triggerReward(sl)

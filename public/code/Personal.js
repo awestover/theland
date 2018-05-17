@@ -27,19 +27,6 @@ class Personal extends Animal
     return false;
   }
 
-  pushMotion(location)
-  {
-    let deltaV = [-this.pos[0]-location[0]-this.dims[0]/2, -this.pos[1]-location[1]-this.dims[1]/2];
-    let cMag = magv(deltaV);
-    if (cMag>50)
-    {
-      deltaV = vecScalarMult(deltaV, 2.5*this.speed/cMag);
-      this.vel = deltaV;
-      this.addPos(deltaV);
-    }
-    this.move();
-  }
-
   attack()
   {
     // for now... kinda stupid to be honest though
@@ -86,7 +73,7 @@ class Personal extends Animal
     }
 
     // later apply damage buffer?
-    if (otherAnimal.username == this.username)
+    if (otherAnimal.username == this.username && otherAnimal.type=="personals")
     {
       if (this.level < max_lvls["personals"])
       {

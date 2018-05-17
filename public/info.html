@@ -53,7 +53,18 @@ this costs 100 stormlight for now
   your score is determined mostly by how many animals you are fielding
   but other factors like stormlight contribute to your score as well
 see the scoreboard by pressing Toggle Scores
-for your current standing
+for your current standing.
+</p>
+
+<h2>What is my score?</h2>
+<p>
+  In general this is your score:
+
+  function getScore()
+  {
+    return Math.floor(this.personals.length*10+0.1*this.stormlight);
+  }
+
 </p>
 
 <h2>Food</h2>

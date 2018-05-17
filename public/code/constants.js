@@ -26,6 +26,9 @@ let territoryLocs = [];
 let scoresVisible = true;
 const numHighscores = 3;
 
+// testing purposes
+let freeze=false;
+
 let socket;
 let user;
 let screen_dims;

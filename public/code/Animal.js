@@ -44,7 +44,7 @@ class Animal
   getBoostedImg()
   {
     try{
-      return animal_pictures[this.name+0];
+      return animal_pictures[this.name+"0"];
     }
     catch(err)
     {
@@ -76,6 +76,19 @@ class Animal
     this.addPos(this.vel); // *dt
 
     this.rotated=Math.sign(this.vel[0]);
+  }
+
+  pushMotion(location)
+  {
+    let deltaV = [-this.pos[0]-location[0]-this.dims[0]/2, -this.pos[1]-location[1]-this.dims[1]/2];
+    let cMag = magv(deltaV);
+    if (cMag>50)
+    {
+      deltaV = vecScalarMult(deltaV, 2.5*this.speed/cMag);
+      this.vel = deltaV;
+      this.addPos(deltaV);
+    }
+    this.move();
   }
 
   pStats(pp)
