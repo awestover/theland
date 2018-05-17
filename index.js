@@ -12,7 +12,7 @@ console.log("server running");
 io.sockets.on('connection', newConnection);  // when you get a connection do this
 
 // store dictionaries of data for all users
-// this would be nice, too hard for now though
+// this would be nice, maybe...
 // var playerData = {}
 
 var playersConnected = [];
@@ -38,7 +38,7 @@ function newConnection(socket) {
   socket.on('sendWorld', handleSendWorld);
   socket.on('updatePlayer', updatePlayer);
   socket.on('pushAnimalUpdate', pushAnimalUpdate);
-  socket.on('predatorDied', notePredatorDied);
+  socket.on('deathAlert', handleDeath);
   // socket.on('loadPlayers', loadPlayers);
 
   function handleSendWorld(data)
@@ -128,10 +128,9 @@ function newConnection(socket) {
 
   }
 
-  function notePredatorDied(data)
+  function handleDeath(data)
   {
-    // console.log("PREDATOR DOWN" + data["world"]);
-    io.to(data["world"]).emit("predatorKilled", data);
+    io.to(data["world"]).emit("death", data);
   }
 
   socket.on('disconnect', handleDisconnect);

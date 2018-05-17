@@ -7,7 +7,7 @@ class Predator extends Animal
     this.type="predators";
     this.power = animal_traits["power"] || 1;
 
-    this.health = animal_traits["health"] || 100;
+    this.health = animal_traits["health"] || Math.floor((2*random()+1)*100);
 
     this.speed = animal_traits["speed"] || 1.5;
     this.vel = super.randomHeading(this.speed);
@@ -18,38 +18,29 @@ class Predator extends Animal
 
   handleCollide(otherAnimal)
   {
+    if (this.health <= 0 || otherAnimal.health <=0)
+    {
+      return false;
+    }
     if (otherAnimal.type == "personals")
     {
-      // console.log("HIT PREDATOR");
-      let damage = otherAnimal.attack();
-      if (!damage || otherAnimal.health <= 0)
-      {
-        damage = 0;
-      }
-      this.health -= damage;
+      let deltaH = otherAnimal.interact();
+      this.health += deltaH;
       if (this.health <= 0)
       {
         let data = {
           "world": user.world,
-          "animal": otherAnimal
+          "animal": otherAnimal,
+          "reward": rewards["predators"]
         }
-        socket.emit('predatorDied', data);
+        socket.emit('deathAlert', data);
       }
     }
-    else if (otherAnimal.type == "preys")
-    {
-      // console.log("Not sure yet what to do");
-    }
-    else if (otherAnimal.type == "predators")
-    {
-      // console.log("I really Dunno man");
-    }
     return true;
-
   }
 
-  eat()
+  interact()
   {
-    return this.power;
+    return -this.power;
   }
 }

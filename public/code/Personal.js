@@ -7,8 +7,8 @@ class Personal extends Animal
     this.type="personals";
 
     // important statistics, change later
-    this.sickPr = animal_traits["sickPr"] || 0.001;//0;
-    this.rebirthPr = animal_traits["rebirthPr"] || 0.001;//0;
+    this.sickPr = animal_traits["sickPr"] || 0.001;
+    this.rebirthPr = animal_traits["rebirthPr"] || 0.001;
     this.strength = animal_traits["strength"] || 1;
     this.speed = animal_traits["speed"] || 1.3;
     this.levelUpPr = animal_traits["levelUpPr"] || 0.002;
@@ -27,13 +27,9 @@ class Personal extends Animal
     return false;
   }
 
-  attack()
+  interact()
   {
-    // for now... kinda stupid to be honest though
-    if(this.health > 0)
-    {
-      return this.strength;
-    }
+      return -this.strength;
   }
 
   shouldDie()
@@ -65,14 +61,11 @@ class Personal extends Animal
 
   handleCollide(otherAnimal)
   {
-
-    //current reward system is trash
-    if (otherAnimal.health <= 0)
+    if (otherAnimal.health <= 0 || this.health <=0)
     {
       return false;
     }
 
-    // later apply damage buffer?
     if (otherAnimal.username == this.username && otherAnimal.type=="personals")
     {
       if (this.level < max_lvls["personals"])
@@ -84,42 +77,19 @@ class Personal extends Animal
       }
     }
     else {
-      if (otherAnimal.type == "personals")
-      {
-        let damage = otherAnimal.attack();
-        if (!damage)
-        {
-          damage = 0;
-        }
-        this.health -= damage;
-
-        // this is kind of really stupid
-        user.triggerReward(rewards["personals"]);
+      let deltaH = otherAnimal.interact();
+      this.health += deltaH;
+    }
+    if (this.health <=0)
+    {
+      let data = {
+        "world": user.world,
+        "animal": otherAnimal,
+        "reward": rewards["personals"]
       }
-      else if (otherAnimal.type == "preys")
-      {
-        let help = otherAnimal.boost();
-        if (!help)
-        {
-          help = 0;
-        }
-        this.health += help;
-      }
-      else if (otherAnimal.type == "predators")
-      {
-        let damage = otherAnimal.eat();
-        if (!damage)
-        {
-          damage = 0;
-        }
-        this.health -= damage;
-
-        // this is kind of really stupid
-        user.triggerReward(rewards["predators"]);
-      }
+      socket.emit('deathAlert', data);
     }
     return true;
-
   }
 
 }

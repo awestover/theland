@@ -80,4 +80,23 @@ class Gametree
     let yInt = this.collideX([a[1], a[1]+a[3]], [b[1], b[1]+b[3]]);
     return (xInt && yInt);
   }
+
+
+  getTerritoryCollisions()
+  {
+    let collisions = [];
+    for (let i = 0; i < this.values.length; i++)
+    {
+      for (let j = 0; j < numTerritories; j++)
+      {
+        if (rectInCircle(this.values[i].getBox(), [territoryLocs[j], territoryR]))
+        {
+          collisions.push(i);
+          break;
+        }
+      }
+    }
+    return collisions;
+  }
+
 }

@@ -8,32 +8,25 @@ class Prey extends Animal
     this.help = animal_traits["help"] || 1;
 
     this.name = animal_traits["name"] || "pizza"; // for now...
-    this.dims=[30,30];
+    this.dims = [30,30];
   }
 
   handleCollide(otherAnimal)
   {
-    if (otherAnimal.type == "personals")
+    if (this.health <=0 || otherAnimal.health <=0)
     {
-      let damage = otherAnimal.attack();
-      if (!damage || otherAnimal.health <= 0)
-      {
-        damage = 0;
-      }
-      this.health -= damage;
+      return false;
     }
-    else if (otherAnimal.type == "preys")
+
+    if (otherAnimal.type != "preys")
     {
-      // console.log("NO I am serious this really should not happen");
-    }
-    else if (otherAnimal.type == "predators")
-    {
-      // console.log("I really Dunno man");
+      let deltaH = otherAnimal.interact();
+      this.health += deltaH;
     }
     return true;
   }
 
-  boost()
+  interact()
   {
     return this.help;
   }

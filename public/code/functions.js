@@ -1,5 +1,28 @@
 //functions
 
+function rectInCircle(boxCoords, circleCoords)
+{
+  /*circle rectangle collision
+  easier to think of circle running into rectangle, even though it is the other way arround
+  Basic idea: if the point on the square which is closest to the circle isn't in the circle there is not collision
+  otherwise there is collision.
+  Clamp opperation: get the point in the sqare closest to the circles center X and Y
+  */
+  let x = boxCoords[0]; let y = boxCoords[1];
+  let w = boxCoords[2]; let h = boxCoords[3];
+  let xc = circleCoords[0][0]; let yc = circleCoords[0][1];
+  let r = circleCoords[1];
+
+  // gives center if circle is in rectangle, otherwise gives the coordinates of the closest side (x and y)
+  let nearX = max(x, min(xc, x+w) );
+  let nearY = max(y, min(yc, y+h) );
+
+  let dx = nearX - xc; let dy = nearY - yc;
+
+  return (dx*dx + dy*dy <= r*r);
+
+}
+
 function realPos(pos)
 {
     return [pos[0] - screen_dims[0]/2 - user.pos[0], pos[1] - screen_dims[1]/2 - user.pos[1]];
@@ -168,29 +191,6 @@ function boxInTerritory(boxCoords)
     }
   }
   return false;
-}
-
-function rectInCircle(boxCoords, circleCoords)
-{
-  /*circle rectangle collision
-  easier to think of circle running into rectangle, even though it is the other way arround
-  Basic idea: if the point on the square which is closest to the circle isn't in the circle there is not collision
-  otherwise there is collision.
-  Clamp opperation: get the point in the sqare closest to the circles center X and Y
-  */
-  let x = boxCoords[0]; let y = boxCoords[1];
-  let w = boxCoords[2]; let h = boxCoords[3];
-  let xc = circleCoords[0][0]; let yc = circleCoords[0][1];
-  let r = circleCoords[1];
-
-  // gives center if circle is in rectangle, otherwise gives the coordinates of the closest side (x and y)
-  let nearX = max(x, min(xc, x+w) );
-  let nearY = max(y, min(yc, y+h) );
-
-  let dx = nearX - xc; let dy = nearY - yc;
-
-  return (dx*dx + dy*dy <= r*r);
-
 }
 
 function calculateEdge()

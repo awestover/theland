@@ -11,12 +11,13 @@ for (let i = 0; i < animal_names["personals"].length; i++){
   animal_txt_help += animal_names["personals"][i] + "(" + i + ")" + "\n";
 }
 
-const rewards  = {"predators": 2, "personals": 1, "preys": 0};
+const rewards  = {"predators": 100, "personals": 10, "preys": 0};
 // note level 0 is reserved for boosted state...
 const max_lvls = {"personals": 4, "predators": 1, "preys": 1};
 let animal_pictures = {};
 
 const keyCodes = {"a":65, "d": 68, "s": 83, "w": 87};
+const numTerritories = 12;
 const gridSize   = 1000; //2500
 const boundSize  = 100;
 const territoryR = 300; //500

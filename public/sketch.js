@@ -28,7 +28,7 @@ function setup()
   socket.on('nameChosen', handleNameChosen);
   socket.on('worldChosen', handleWorldChosen);
   socket.on('pushedAnimalUpdate', handlePushedAnimalUpdate);
-  socket.on('predatorKilled', handlePredatorKilled);
+  socket.on('death', handleDeath);
 
   let animalType = parseInt(prompt(animal_txt_help));
   if (isNaN(animalType) || animalType < 0 || animalType >= animal_names["personals"].length)
@@ -59,7 +59,6 @@ function setup()
 function draw()
 {
   // graphics basis
-  // background(205,50,205);
   background(2, 124, 57);
   translate(screen_dims[0]/2, screen_dims[1]/2);  // center to 0,0
 
@@ -98,7 +97,6 @@ function draw()
     else {
       drawTerritory(cth, "unclaimed");
     }
-
   }
 
   // look at collisions
@@ -247,7 +245,6 @@ function keyPressed()
   }
 }
 
-
 function handleWorldChosen(data)
 {
   user.world = data["world"];
@@ -260,16 +257,10 @@ function handleNameChosen(data)
 {
   user.name = data;
   user.giveAnimalsName();
-
   if (user.name == "lbd")
   {
     user.stormlight = 100000;
-    for (let i = 0; i < 4; i++)
-    {
-      user.addAnimal();
-    }
   }
-
   $('#name').text("Name: " + user.name);
 }
 
@@ -292,18 +283,21 @@ function handlePushedAnimalUpdate(data)
   return false;
 }
 
-function handlePredatorKilled(alldata)
+function handleDeath(alldata)
 {
   let data=alldata["animal"];
   if (data["username"] == user.name)
   {
-    for (let an in user[data["type"]])
+    if (data["type"] == "personals")
     {
-      if (user[data["type"]][an].id == data["id"])
+      for (let an in user[data["type"]])
       {
-        user.triggerReward(100);// send later
-        user[data["type"]][an].getBoosted();
-        return true;
+        if (user[data["type"]][an].id == data["id"])
+        {
+          user.triggerReward(alldata["reward"]);
+          user[data["type"]][an].getBoosted();
+          return true;
+        }
       }
     }
   }

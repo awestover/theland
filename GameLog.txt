@@ -75,19 +75,21 @@ check inside collisions
 were broken
 FIXED
 
-Future:
-
 random population boom for animals (why? / needs to stop...)
+I THINK I FIXED THIS
+
+Future TODO:
+
+wrap health bars...
+
+make the circles kill animals if they go in the wrong one
+
+statistics (hunger, resistance) need breeding
 
 Boundary is a bit off... (why, needed calibrations?)
 
 Do NOT allow animals to overlap
 
-make the circles kill animals if they go in the wrong one
-
 Better gametree collision detection (faster quadtree)
-
-Animals have lots of stats and you can breed them
-
 
 Stuff can spawn on top of other stuff
