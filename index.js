@@ -137,13 +137,18 @@ function newConnection(socket) {
   socket.on('disconnect', handleDisconnect);
   function handleDisconnect(data)
   {
-    for (var i = 0; i < worldThetas[world].length; i++)
-    {
-      if (th == worldThetas[world][i])
+    try {
+      for (var i = 0; i < worldThetas[world].length; i++)
       {
-        worldThetas[world].splice(i,1);
-        break;
+        if (th == worldThetas[world][i])
+        {
+          worldThetas[world].splice(i,1);
+          break;
+        }
       }
+    }
+    catch (e) {
+      console.log("ERROR "+e);
     }
 
     var idx = playersConnected.indexOf(name);

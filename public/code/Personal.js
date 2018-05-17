@@ -22,7 +22,7 @@ class Personal extends Animal
   {
     if (this.rebirthPr > Math.random())
     {
-      return {"pos":this.pos};
+      return {"pos":this.pos.slice()};
     }
     return false;
   }

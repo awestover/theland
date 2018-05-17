@@ -206,8 +206,6 @@ class User {
       newPersonal[f] = data[f];
     }
     this.idCt += 1;
-
-    alert("WARNING");
     this.personals.push(newPersonal);
     this.personals[this.personals.length-1].subPos([newPersonal.dims[0]/2,newPersonal.dims[1]/2]);
     this.setAnimalsText();

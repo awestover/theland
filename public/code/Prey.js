@@ -24,11 +24,11 @@ class Prey extends Animal
     }
     else if (otherAnimal.type == "preys")
     {
-      console.log("NO I am serious this really should not happen");
+      // console.log("NO I am serious this really should not happen");
     }
     else if (otherAnimal.type == "predators")
     {
-      console.log("I really Dunno man");
+      // console.log("I really Dunno man");
     }
     return true;
   }
