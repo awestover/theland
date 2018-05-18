@@ -114,6 +114,20 @@ function draw()
     gcs[1].handleCollide(gcs[0]);
   }
 
+  let tCollisions = gametree.getTerritoryCollisions()
+  for (let coll in tCollisions)
+  {
+    let ccollided = gametree.values[tCollisions[coll][0]];
+    let ccth = tCollisions[coll][1];
+    if (ccollided.th == ccth)
+    {
+      ccollided.inUserTerritory();
+    }
+    else {
+      ccollided.inEnemyTerritory();
+    }
+  }
+
   drawEdge(); // not allways needed...
   drawOrigin();
 

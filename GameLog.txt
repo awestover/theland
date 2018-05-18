@@ -78,18 +78,18 @@ FIXED
 random population boom for animals (why? / needs to stop...)
 I THINK I FIXED THIS
 
-Future TODO:
+make the circles kill animals if they go in the wrong one
+WORKS
 
 wrap health bars...
+WORKS
 
-make the circles kill animals if they go in the wrong one
+Future TODO:
+
+Do NOT allow animals to overlap or spawn on stop of other stuff
 
 statistics (hunger, resistance) need breeding
 
-Boundary is a bit off... (why, needed calibrations?)
-
-Do NOT allow animals to overlap
-
 Better gametree collision detection (faster quadtree)
 
-Stuff can spawn on top of other stuff
+Boundary is a bit off I think... (why, needed calibrations?)

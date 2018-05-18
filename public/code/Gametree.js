@@ -91,7 +91,7 @@ class Gametree
       {
         if (rectInCircle(this.values[i].getBox(), [territoryLocs[j], territoryR]))
         {
-          collisions.push(i);
+          collisions.push([i,j]);
           break;
         }
       }

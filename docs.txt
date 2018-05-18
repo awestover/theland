@@ -9,3 +9,5 @@ splice and slice
 
 splice(x, length) deletes a section of an array
 slice(x, length)  copies  a section of an array
+
+ellipse(x,y,w,h) NOT radius...

@@ -19,6 +19,7 @@ class Animal
 
     // identification
     this.username = animal_traits["username"] || "NPC";
+    this.th = animal_traits["th"] || 0;
     this.id = animal_traits["id"] || 0;
 
     this.dims=[66,50];
@@ -109,11 +110,22 @@ class Animal
       push();
       translate(this.pos[0]+this.dims[0]/2, this.pos[1]+this.dims[1]/2);
 
-      this.pStats([-this.dims[0]/2, -this.dims[1]/2]);
-
       // health bar
       fill(200, 50, 50);
-      rect(-this.dims[0]/2, -this.dims[1]/2, 5*this.health, 10);
+      noStroke();
+      let healthPerRow = 20;
+      let barHeight = this.dims[1]*0.1;
+      let curY = -2*barHeight;
+      let nrs = Math.floor(this.health/healthPerRow);
+      if (nrs >0)
+      {
+        curY -= barHeight*nrs;
+        rect(-this.dims[0]/2, -this.dims[1]/2 + curY, this.dims[0], barHeight*nrs);
+      }
+      curY -= barHeight;
+      rect(-this.dims[0]/2, -this.dims[1]/2 + curY, this.dims[0]*((this.health%healthPerRow)/healthPerRow), barHeight);
+
+      this.pStats([-this.dims[0]/2, -this.dims[1]/2]);
 
       scale(this.rotated,1);
       try
@@ -188,6 +200,17 @@ class Animal
       return true;
     }
     return false;
+  }
+
+  inUserTerritory()
+  {
+    // perks later
+  }
+
+  inEnemyTerritory()
+  {
+    // bad
+    this.health = this.health -1;
   }
 
 }

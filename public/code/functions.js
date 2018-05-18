@@ -39,7 +39,7 @@ function drawOrigin()
 {
   noFill();
   stroke(0,0,0);
-  ellipse(0,0,10,10);
+  ellipse(0,0,2*5,2*5);
 }
 
 function magv(v)
@@ -164,7 +164,7 @@ function pickRandom(list)
 function drawTerritory(th, name)
 {
   fill(0, 255, 255, 100);
-  ellipse(territoryLocs[th][0], territoryLocs[th][1], territoryR, territoryR);
+  ellipse(territoryLocs[th][0], territoryLocs[th][1], 2*territoryR, 2*territoryR);
   fill(0,0,0);
   if (name)
   {
@@ -251,7 +251,7 @@ function getMaxScores()
       maxScore = -1;
     }
 
-    for (let ou in otherUsers) /// VERY SCARY NOT SURE ACESS ORDER IS CONSTANT
+    for (let ou in otherUsers)
     {
       if (!valInArr(names, ou))
       {

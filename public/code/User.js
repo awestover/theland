@@ -163,8 +163,9 @@ class User {
   {
     let newPrey = new Prey({
       "pos":randomMidish(0.7),
-      "username": this.name,
       "name": "pizza",
+      "username": this.name,
+      "th": this.th,
       "id": this.idCt
     });
     for (let f in data)
@@ -182,6 +183,7 @@ class User {
       "pos":randomMidish(0.7),
       "name": "dino",
       "username": this.name,
+      "th": this.th,
       "id":this.idCt
     });
     for (let f in data)
@@ -199,6 +201,7 @@ class User {
       "pos":this.adjustAnimalLoc(this.pos),
       "name": this.animal_type,
       "username": this.name,
+      "th": this.th,
       "id": this.idCt
     });
     for (let f in data)
@@ -267,9 +270,13 @@ class User {
 
   giveAnimalsName()
   {
-    for(let an in this.personals)
+    for (let t in allAnimals)
     {
-      this.personals[an].username = this.name;
+      for(let an in this[allAnimals[t]])
+      {
+        this[allAnimals[t]][an].username = this.name;
+        this[allAnimals[t]][an].th = this.th;
+      }
     }
   }
 
@@ -280,7 +287,7 @@ class User {
 
   getScore()
   {
-    return Math.floor(this.personals.length*10+0.1*this.stormlight);
+    return Math.floor(this.personals.length*20+0.1*this.stormlight);
   }
 
   triggerReward(sl)
