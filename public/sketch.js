@@ -62,7 +62,7 @@ function draw()
   background(2, 124, 57);
   translate(screen_dims[0]/2, screen_dims[1]/2);  // center to 0,0
 
-  text("X:"+accelerationX + " Y:"+accelerationY + " Z:" + accelerationZ, 0, 0);
+  text("X:"+angles[0]+ " Y:"+angles[1], 0, 0);
 
   // show major elements and get ready to check for collisions
   push();
@@ -236,12 +236,42 @@ function handleKeysDown() {
   }
 }
 
-function handleAccelerometer()
+function handleTilted()
 {
-  console.log(accelerationX);
-  console.log(accelerationY);
-  console.log(accelerationZ);
+  let rD = 20;
+  let threshold = 10;
+  if (this.angles[0] < -threshold)
+  {
+    user.updateView(user.pos, addV(user.pos, [-keyD, 0]));
+  }
+  else if (this.angles[0] > threshold)
+  {
+    user.updateView(user.pos, addV(user.pos, [keyD, 0]));
+  }
+  if (this.angles[1] < -threshold)
+  {
+    user.updateView(user.pos, addV(user.pos, [0, keyD]));
+  }
+  else if (this.angles[1] > threshold)
+  {
+    user.updateView(user.pos, addV(user.pos, [0, -keyD]));
+  }
 }
+
+// function handleAccelerometer()
+// {
+//   console.log(accelerationX);
+//   console.log(accelerationY);
+//   console.log(accelerationZ);
+// }
+
+// accelerometer Data
+window.addEventListener('deviceorientation', function(e)
+{
+  angles[0] = e.alpha;
+  angles[1] = e.beta;
+  angles[2] = e.gamma;
+});
 
 function keyPressed()
 {

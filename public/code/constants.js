@@ -11,6 +11,8 @@ for (let i = 0; i < animal_names["personals"].length; i++){
   animal_txt_help += animal_names["personals"][i] + "(" + i + ")" + "\n";
 }
 
+let angles = [];
+
 let cheats = false;
 
 const rewards  = {"predators": 300, "personals": 30, "preys": 0};
