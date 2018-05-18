@@ -1,3 +1,8 @@
 body{
-  background-color: red;
+  padding-bottom: 5%;
+}
+
+a {
+  background-color: lightgrey;
+  padding: 5%;
 }

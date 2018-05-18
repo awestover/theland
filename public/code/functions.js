@@ -1,5 +1,19 @@
 //functions
 
+function parseURL(url)
+{
+	var lastPart = url.split("?");
+	lastPart = lastPart[lastPart.length-1];
+	var terms = lastPart.split("&");
+	var data = {};
+	for (var t = 0; t < terms.length; t++)
+	{
+		var curt = terms[t].split("=");
+		data[curt[0]] = curt[1];
+	}
+	return data;
+}
+
 function rectInCircle(boxCoords, circleCoords)
 {
   /*circle rectangle collision

@@ -9,16 +9,12 @@
 
   <title>The Land Information</title>
 
-  <!-- p5 libraries-->
-  <script src="libraries/p5/p5.js" type="text/javascript"></script>
-  <script src="libraries/p5/addons/p5.dom.js" type="text/javascript"></script>
-  <script src="libraries/p5/addons/p5.sound.js" type="text/javascript"></script>
-
   <!--jquery-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-  <!-- node libraries -->
-  <script src="/socket.io/socket.io.js"></script>
+  <!--bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
   <!-- style -->
   <link rel="stylesheet" type="text/css" href="style/info.css">
   <link rel="stylesheet" type="text/css" href="style/buttons.css">
@@ -26,9 +22,11 @@
 </head>
 
 <body>
+
+<div class="container">
 <h1>The Land</h1>
 <h2>Information about the game</h2>
-<p>
+<p class="well well-lg">
 The currency in this game is "stormlight"
 If you get stormlight you can buy an animal
 animals will grow and reproduce (and sometimes get sick and die as dictated by the cycle of life)
@@ -42,75 +40,97 @@ attack other players in order to harm them and get stormlight for defeating them
 </p>
 
 <h2>How does the currency work?</h2>
-<p>
+<p class="well well-lg">
 You have a somewhat steady (yet slightly random) constant income source
 Click on the buy button to get an animal in the current center of your screen
 this costs 100 stormlight for now
 </p>
 
 <h2>Winning and losing</h2>
-<p>Look at the leaderboard to see your score
-  your score is determined mostly by how many animals you are fielding
-  but other factors like stormlight contribute to your score as well
+<p class="well well-lg">
+Look at the leaderboard to see your score your score
+is determined mostly by how many animals you are fielding
+but other factors like stormlight contribute to your score as well
 see the scoreboard by pressing Toggle Scores
 for your current standing.
 </p>
 
 <h2>What is my score?</h2>
-<p>
-  In general this is your score:
-
-  function getScore()
-  {
-    return Math.floor(this.personals.length*20+0.1*this.stormlight);
-  }
-
+<p class="well well-lg">
+In general this is your score:
+<pre>
+function getScore()
+{
+  return Math.floor(this.personals.length*20+0.1*this.stormlight);
+}
+</pre>
 </p>
 
 <h2>Food</h2>
-  <p>
-    Eat food. It is good for you
-  </p>
+<p class="well well-lg">
+Eat food. It is good for you
+</p>
 
 <h2>Predators</h2>
-<p>
-  These will eat YOU. They will also destroy food, but they can only eat humans.
-  If you eat one you get boosted, which on the first time it happens will double your health
+<p class="well well-lg">
+These will eat YOU. They will also destroy food, but they can only eat humans.
+If you eat one you get boosted, which on the first time it happens will double your health
 </p>
 
 <h2>Toggle Attract</h2>
-<p>
-  your animals may be attracted to the center if you want
-  which gives a higher chance of level up, but you gain stormlight faster
-  if you have this off...
+<p class="well well-lg">
+your animals may be attracted to the center if you want
+which gives a higher chance of level up, but you gain stormlight faster
+if you have this off...
 </p>
 
 <h2>BORDER</h2>
-<p>
-  You know that big red rectangle arround the perrimeter of the map?
-  Don't step on it.
-  Really, I am not sure why you would want to.
-  It will kill you. I am very sorry for the inconvenience.
+<p class="well well-lg">
+You know that big red rectangle arround the perrimeter of the map?
+Don't step on it.
+Really, I am not sure why you would want to.
+It will kill you. I am very sorry for the inconvenience.
 </p>
 
 <h2>Terrirories</h2>
-<p>
-  You lose health if you enter someone elses territory, and gain strength if you visit yours.
+<p class="well well-lg">
+You lose health if you enter someone elses territory, and gain strength if you visit yours.
 </p>
 
 <h2>Hotkeys</h2>
-<p>
-  b to buy
-  arrows or awsd to move
-  t to toggle attract
-  c to show scores
+<p class="well well-lg">
+Well here they are I guess
 </p>
+<table class="table">
+<thread>
+  <th>Key</th>
+  <th>Action</th>
+</thread>
+<tbody>
+  <tr>
+    <td>b</td>
+    <td>Buy</td>
+  </tr>
+  <tr>
+    <td>t</td>
+    <td>toggle attract</td>
+  </tr>
+  <tr>
+    <td>c</td>
+    <td>Show scores</td>
+  </tr>
+  <tr>
+    <td>arrows or awsd</td>
+    <td>move view (will be followed if attract it on)</td>
+  </tr>
+</tbody>
+</table>
 
 <h2> Coming soon </h2>
-<p>
+<p class="well well-lg">
 This section will soon be put in to place
 </p>
-
-  <a class="button" href="index.html">Back</a>
+<a class="btn" href="index.html">Back</a>
+</div>
 </body>
 </html>

@@ -1,49 +1,24 @@
-html, body {
-	margin: 0;
-	height: 100%;
-	overflow: hidden;
-	-webkit-overflow-scrolling: touch;
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
 }
 
-body{
-	background-color: grey;
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
 }
 
-#scores{
-	float: right;
-	margin: 2%;
-}
-
-#attract{
-	float: right;
-	margin: 2%;
-}
-
-#buy{
-	float: right;
-	margin: 2%;
-}
-
-#name{
-	float: left;
-}
-#world{
-	float: right;
-}
-
-#animalType{
-	padding-left: 5%;
-	float: left;
-}
-
-#animals{
-	float: left;
-}
-#stormlight{
-	padding-left: 5%;
-	float: left;
-}
-#help{
-	float: right;
-	margin: 2%;
+a {
+  background-color: lightgrey;
+  padding: 5%;
 }

@@ -7,16 +7,24 @@ var server = require('http').createServer(app).listen(port);
 var socket = require('socket.io');
 var io = socket(server);
 app.use(express.static('public'));
-console.log("server running");
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+// handle posts
+app.post('/', function(req, res) {
+    var unm = req.body.unm;
+    var world = req.body.world;
+    var anType = req.body.anType;
+    console.log(req);
+    res.redirect("game.html?"+joinIns([unm, world, anType], ["unm", "world", "anType"]));
+});
+
+console.log("server running");
 io.sockets.on('connection', newConnection);  // when you get a connection do this
 
-// store dictionaries of data for all users
-// this would be nice, maybe...
-// var playerData = {}
-
 var playersConnected = [];
-
 var worldThetas = {};
 
 function newConnection(socket) {
@@ -39,7 +47,6 @@ function newConnection(socket) {
   socket.on('updatePlayer', updatePlayer);
   socket.on('pushAnimalUpdate', pushAnimalUpdate);
   socket.on('deathAlert', handleDeath);
-  // socket.on('loadPlayers', loadPlayers);
 
   function handleSendWorld(data)
   {
@@ -90,7 +97,6 @@ function newConnection(socket) {
 
   function pushAnimalUpdate(data)
   {
-    // console.log(data);
     socket.broadcast.to(data.world).emit("pushedAnimalUpdate", data);
   }
 
@@ -99,23 +105,11 @@ function newConnection(socket) {
     // later do not allow duplicates
     name = data["name"];
 
-    if (!name)
-    {
-      name = "User";
-    }
+    if (!name){name = "User";}
+    if (name=="NONE"){name="fakeNONE";}
+    if(name=="NPC"){name="fakeNPC";}
 
-    if (name=="NONE")
-    {
-      name="fakeNONE";
-    }
-
-    if(name=="NPC")
-    {
-      name = "fakeNPC";
-    }
-
-    while (nameExists(name)!=0)
-    {
+    while (nameExists(name)!=0) {
     	name = name + Math.floor(Math.random()*10);
     }
 
@@ -125,7 +119,6 @@ function newConnection(socket) {
     console.log(playersConnected);
 
     socket.emit('nameChosen', name);
-
   }
 
   function handleDeath(data)
@@ -164,6 +157,21 @@ function newConnection(socket) {
     }
   }
 
+}
+
+function joinIns(ins, fields)
+{
+	var out = "";
+	if (ins.length<1)
+	{
+		return out;
+	}
+	for (var i = 0; i < ins.length-1; i++)
+	{
+		out+=fields[i]+"="+ins[i]+"&";
+	}
+	out+= ins[ins.length-1]+"="+fields[ins.length-1];
+	return out;
 }
 
 function nameExists(name)

@@ -1,0 +1,49 @@
+html, body {
+	margin: 0;
+	height: 100%;
+	overflow: hidden;
+	-webkit-overflow-scrolling: touch;
+}
+
+body{
+	background-color: grey;
+}
+
+#scores{
+	float: right;
+	margin: 2%;
+}
+
+#attract{
+	float: right;
+	margin: 2%;
+}
+
+#buy{
+	float: right;
+	margin: 2%;
+}
+
+#name{
+	float: left;
+}
+#world{
+	float: right;
+}
+
+#animalType{
+	padding-left: 5%;
+	float: left;
+}
+
+#animals{
+	float: left;
+}
+#stormlight{
+	padding-left: 5%;
+	float: left;
+}
+#help{
+	float: right;
+	margin: 2%;
+}
