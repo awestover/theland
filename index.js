@@ -17,7 +17,6 @@ app.post('/', function(req, res) {
     var unm = req.body.unm;
     var world = req.body.world;
     var anType = req.body.anType;
-    console.log(req);
     res.redirect("game.html?"+joinIns([unm, world, anType], ["unm", "world", "anType"]));
 });
 

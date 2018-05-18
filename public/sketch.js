@@ -62,6 +62,8 @@ function draw()
   background(2, 124, 57);
   translate(screen_dims[0]/2, screen_dims[1]/2);  // center to 0,0
 
+  text("X:"+accelerationX + " Y:"+accelerationY + " Z:" + accelerationZ, 0, 0);
+
   // show major elements and get ready to check for collisions
   push();
   translate(user.pos[0], user.pos[1]);
