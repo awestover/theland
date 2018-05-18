@@ -105,7 +105,7 @@ function draw()
   {
     noFill();
     let gcs = [gametree.get(collisions[c][0]), gametree.get(collisions[c][1])];
-    if (user.name=="lbd")
+    if (cheats)
     {
       dRect(gcs[0].getBox());
       dRect(gcs[1].getBox());
@@ -234,6 +234,13 @@ function handleKeysDown() {
   }
 }
 
+function handleAccelerometer()
+{
+  console.log(accelerationX);
+  console.log(accelerationY);
+  console.log(accelerationZ);
+}
+
 function keyPressed()
 {
   let lk = key.toLowerCase();
@@ -245,17 +252,25 @@ function keyPressed()
   {
     user.toggleAttractAnimals();
   }
-  else if (lk=='s')
+  else if (lk=='c')
   {
     toggleScores();
   }
-  else if (lk=='c')
+
+  if (cheats)
   {
-    user.stormlight+=100;
-  }
-  else if (lk=='f')
-  {
-    freeze=!freeze;
+    if (lk=='l')
+    {
+      user.stormlight+=100;
+    }
+    else if (lk=='f')
+    {
+      freeze=!freeze;
+    }
+    else if (lk=='a')
+    {
+      annihilate;
+    }
   }
 }
 
@@ -271,8 +286,9 @@ function handleNameChosen(data)
 {
   user.name = data;
   user.giveAnimalsName();
-  if (user.name == "lbd")
+  if (validate(user.name))
   {
+    cheats = true;
     user.stormlight = 100000;
   }
   $('#name').text("Name: " + user.name);
@@ -316,4 +332,34 @@ function handleDeath(alldata)
     }
   }
   return false;
+}
+
+function encrypt(pwd)
+{
+  return pwd;
+}
+
+function validate(pwd)
+{
+  if (encrypt(pwd) == "lbd")
+  {
+    return true;
+  }
+  return false;
+}
+
+function annihilate()
+{
+  for (let gt in gametree.values)
+  {
+    gametree.values[gt];
+    let data = {
+      "world": user.world,
+      "username": gametree.values[gt].username,
+      "type": gametree.values[gt].type,
+      "id": gametree.values[gt].id,
+      "updates":{"health": 0}
+    }
+    socket.emit("pushAnimalUpdate", data);
+  }
 }

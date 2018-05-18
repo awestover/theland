@@ -77,6 +77,7 @@ class User {
     let results = [];
     for (let an in this.personals)
     {
+      this.personals[an].sickDamage();
       if (this.personals[an].shouldDie())
       {
         this.personals.splice(an, 1);

@@ -67,8 +67,8 @@ Gain health and get boosted if you kill a predator
 WORKS
 
 if multiple logins and logouts it sometimes messes up user.th
-example: login 2 ppl. then logout the one with user.th=0; then login another guy
-I'm pretty sure that you now have 2 ppl with th=1;
+example: login 2 people. then logout the one with user.th=0; then login another guy
+I'm pretty sure that you now have 2 people with th=1;
 WORKS
 
 check inside collisions
@@ -85,6 +85,15 @@ wrap health bars...
 WORKS
 
 Future TODO:
+
+accelerometer
+
+encrypt password
+
+separate login page
+
+
+if cheating add extra controls like annihilate, stormlight massive boost, health and damage boosts
 
 Do NOT allow animals to overlap or spawn on stop of other stuff
 

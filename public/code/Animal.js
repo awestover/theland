@@ -34,12 +34,16 @@ class Animal
     this.rotated = 1; // + or - 1 for right and left (positive x vel and negative v vel)
 
     this.boosted=animal_traits["boosted"] || false;
+    this.visitedUserTerritory = animal_traits["visitedUserTerritory"] || false;
   }
 
   getBoosted()
   {
-    this.health *= 3;
-    this.boosted = true;
+    if (! this.boosted)
+    {
+      this.boosted = true;
+      this.health *= 2;
+    }
   }
 
   getBoostedImg()
@@ -202,15 +206,18 @@ class Animal
     return false;
   }
 
-  inUserTerritory()
-  {
-    // perks later
-  }
-
   inEnemyTerritory()
   {
     // bad
     this.health = this.health -1;
+  }
+
+  inUserTerritory()
+  {
+    if (!this.visitedUserTerritory)
+    {
+      this.visitedUserTerritory = true;
+    }
   }
 
 }

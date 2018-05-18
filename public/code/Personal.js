@@ -18,6 +18,14 @@ class Personal extends Animal
     this.dims = [66, 50];
   }
 
+  sickDamage()
+  {
+    if (this.sickPr > random())
+    {
+      this.health = Math.floor(this.health/2) + 1;
+    }
+  }
+
   hasOffspring()
   {
     if (this.rebirthPr > Math.random())
@@ -30,25 +38,6 @@ class Personal extends Animal
   interact()
   {
       return -this.strength;
-  }
-
-  shouldDie()
-  {
-    if (this.health <=0)
-    {
-      return true;
-    }
-    else if (violateEdge(this.getBox()))
-    {
-      return true;
-    }
-    else {
-      if (this.sickPr > random())
-      {
-        return true;
-      }
-    }
-    return false;
   }
 
   levelUp()
@@ -90,6 +79,15 @@ class Personal extends Animal
       socket.emit('deathAlert', data);
     }
     return true;
+  }
+
+  inUserTerritory()
+  {
+    if (!this.visitedUserTerritory)
+    {
+      this.visitedUserTerritory = true;
+      this.strength *= 2;
+    }
   }
 
 }
