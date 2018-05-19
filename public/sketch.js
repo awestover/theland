@@ -33,7 +33,7 @@ function setup()
   socket.on('death', handleDeath);
 
   // let animalType = parseInt(prompt(animal_txt_help));
-  let animalType = parseInt(values["anType"]);
+  let animalType = parseInt(userValues["anType"]);
   if (isNaN(animalType) || animalType < 0 || animalType >= animal_names["personals"].length)
   {
     animalType = pickRandom(animal_names["personals"])[0];
@@ -67,7 +67,7 @@ function draw()
   background(2, 124, 57);
   translate(screen_dims[0]/2, screen_dims[1]/2);  // center to 0,0
 
-  text("X:"+angles[0]+ " Y:"+angles[1], 0, 0);
+  text("X:"+angles[0]+ " Y:"+angles[1], -20, -10);
 
   // show major elements and get ready to check for collisions
   push();
@@ -277,6 +277,13 @@ window.addEventListener('deviceorientation', function(e)
   angles[0] = e.alpha;
   angles[1] = e.beta;
   angles[2] = e.gamma;
+  for (let i = 0; i < 3; i++)
+  {
+    if (!angles[i])
+    {
+      angles[i]=0;
+    }
+  }
 });
 
 function keyPressed()
