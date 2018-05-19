@@ -153,6 +153,7 @@ function draw()
   }
 
   handleKeysDown();
+  handleTilted();
   if(scoresVisible)
   {
     showMaxScores();
