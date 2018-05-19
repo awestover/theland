@@ -245,13 +245,13 @@ function handleTilted()
 {
   let rD = 20;
   let threshold = 10;
-  if (angles[2] > -threshold)
-  {
-    user.updateView(user.pos, addV(user.pos, [-rD, 0]));
-  }
-  else if (angles[2] < threshold)
+  if (angles[2] < -threshold)
   {
     user.updateView(user.pos, addV(user.pos, [rD, 0]));
+  }
+  else if (angles[2] > threshold)
+  {
+    user.updateView(user.pos, addV(user.pos, [-rD, 0]));
   }
   if (angles[1] < -threshold)
   {
