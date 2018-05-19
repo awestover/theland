@@ -84,16 +84,17 @@ WORKS
 wrap health bars...
 WORKS
 
+separate login page
+WORKS
+
+encrypt password
+WHY is this needed?
+
 Future TODO:
 
 accelerometer
 
-encrypt password
-
-separate login page
-
-
-if cheating add extra controls like annihilate, stormlight massive boost, health and damage boosts
+if cheating add extra controls like stormlight massive boost, health and damage boosts
 
 Do NOT allow animals to overlap or spawn on stop of other stuff
 

@@ -84,7 +84,6 @@ function draw()
   }
 
   // draw the territories
-
   let thNames = {};
   for (let key in otherUsers)
   {
@@ -248,19 +247,19 @@ function handleTilted()
   let threshold = 10;
   if (angles[0] < -threshold)
   {
-    user.updateView(user.pos, addV(user.pos, [-keyD, 0]));
+    user.updateView(user.pos, addV(user.pos, [-rD, 0]));
   }
   else if (angles[0] > threshold)
   {
-    user.updateView(user.pos, addV(user.pos, [keyD, 0]));
+    user.updateView(user.pos, addV(user.pos, [rD, 0]));
   }
   if (angles[1] < -threshold)
   {
-    user.updateView(user.pos, addV(user.pos, [0, keyD]));
+    user.updateView(user.pos, addV(user.pos, [0, rD]));
   }
   else if (angles[1] > threshold)
   {
-    user.updateView(user.pos, addV(user.pos, [0, -keyD]));
+    user.updateView(user.pos, addV(user.pos, [0, -rD]));
   }
 }
 
