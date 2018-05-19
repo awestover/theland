@@ -311,7 +311,7 @@ function keyPressed()
     {
       freeze=!freeze;
     }
-    else if (lk=='a')
+    else if (lk=='h')
     {
       annihilate();
     }
@@ -396,7 +396,6 @@ function annihilate()
 {
   for (let gt in gametree.values)
   {
-    gametree.values[gt];
     let data = {
       "world": user.world,
       "username": gametree.values[gt].username,
