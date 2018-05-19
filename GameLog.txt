@@ -90,9 +90,10 @@ WORKS
 encrypt password
 WHY is this needed?
 
-Future TODO:
-
 accelerometer
+WORKS
+
+Future TODO:
 
 if cheating add extra controls like stormlight massive boost, health and damage boosts
 
