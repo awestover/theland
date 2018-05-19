@@ -6,7 +6,7 @@ let animal_names = {};
 animal_names["personals"] = ["dog", "shark", "bear", "crab"];
 animal_names["preys"] = ["pizza"];
 animal_names["predators"] = ["dino"];
-let animal_txt_help = "Please chose an animal. Your choices include:\n";
+let animal_txt_help = "";
 for (let i = 0; i < animal_names["personals"].length; i++){
   animal_txt_help += animal_names["personals"][i] + "(" + i + ")" + "\n";
 }
