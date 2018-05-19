@@ -22,6 +22,8 @@ function setup()
   textAlign(LEFT);
   frameRate(10);
 
+  let userValues = parseURL(document.URL);
+
   socket = io.connect();
   socket.on("updatePlayer", handleUpdatePlayer);
   socket.on("deletePlayer", handleDeletePlayer);
@@ -30,7 +32,8 @@ function setup()
   socket.on('pushedAnimalUpdate', handlePushedAnimalUpdate);
   socket.on('death', handleDeath);
 
-  let animalType = parseInt(prompt(animal_txt_help));
+  // let animalType = parseInt(prompt(animal_txt_help));
+  let animalType = parseInt(values["anType"]);
   if (isNaN(animalType) || animalType < 0 || animalType >= animal_names["personals"].length)
   {
     animalType = pickRandom(animal_names["personals"])[0];
@@ -40,9 +43,11 @@ function setup()
   }
   user = new User({"animal_type": animalType});
   user.setAnimalType();
-  let name = prompt("Name");
+  // let name = prompt("Name");
+  let name = userValues["unm"];
   socket.emit("named", {"name":name});
-  let world = prompt("World");
+  // let world=prompt("World");
+  let world = userValues["world"];
   socket.emit("sendWorld", {"world":world});
   user.initAnimals();
 
@@ -241,19 +246,19 @@ function handleTilted()
 {
   let rD = 20;
   let threshold = 10;
-  if (this.angles[0] < -threshold)
+  if (angles[0] < -threshold)
   {
     user.updateView(user.pos, addV(user.pos, [-keyD, 0]));
   }
-  else if (this.angles[0] > threshold)
+  else if (angles[0] > threshold)
   {
     user.updateView(user.pos, addV(user.pos, [keyD, 0]));
   }
-  if (this.angles[1] < -threshold)
+  if (angles[1] < -threshold)
   {
     user.updateView(user.pos, addV(user.pos, [0, keyD]));
   }
-  else if (this.angles[1] > threshold)
+  else if (angles[1] > threshold)
   {
     user.updateView(user.pos, addV(user.pos, [0, -keyD]));
   }

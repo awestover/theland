@@ -169,7 +169,7 @@ function joinIns(ins, fields)
 	{
 		out+=fields[i]+"="+ins[i]+"&";
 	}
-	out+= ins[ins.length-1]+"="+fields[ins.length-1];
+	out+= fields[ins.length-1]+"="+ins[ins.length-1];
 	return out;
 }
 
@@ -178,8 +178,8 @@ function nameExists(name)
 	var ct=0;
 	for (var i = 0; i<playersConnected.length; i++)
 	{
+    // if (playersConnected[i].indexOf(name)!=-1)
 		if (playersConnected[i] == name)
-		// if (playersConnected[i].indexOf(name)!=-1)
 		{
 			ct+=1;
 		}
