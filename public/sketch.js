@@ -313,7 +313,7 @@ function keyPressed()
     }
     else if (lk=='a')
     {
-      annihilate;
+      annihilate();
     }
   }
 }
