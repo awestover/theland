@@ -67,7 +67,7 @@ function draw()
   background(2, 124, 57);
   translate(screen_dims[0]/2, screen_dims[1]/2);  // center to 0,0
 
-  text("X:"+angles[0]+ " Y:"+angles[1], -20, -10);
+  text("X:"+Math.floor(angles[0])+ " Y:"+Math.floor(angles[1]), -20, -10);
 
   // show major elements and get ready to check for collisions
   push();
