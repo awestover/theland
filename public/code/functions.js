@@ -16,8 +16,8 @@ function parseURL(url)
 
 function worldToColor(txt)
 {
-	const NUMCOLORS = 2;
-	let colors = [[2, 124, 57], [124, 2, 57]];
+	const NUMCOLORS = 4;
+	let colors = [[2, 124, 57], [124, 2, 57], [2, 57, 124], [57, 124, 57]];
 	let val = 0;
 	for (let i=0; i < txt.length; i++)
 	{

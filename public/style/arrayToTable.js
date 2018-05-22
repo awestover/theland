@@ -1,7 +1,7 @@
 // generate a table from a 1d array and a 2d array
 function arrayToTable(titles, values)
 {
-  let output = '<table class="table table-dark table-striped table-bordered table-hover">';
+  let output = '<table class="table table-inverse table-bordered">';
   output += '<thread>';
   for (let i in titles)
   {

@@ -97,15 +97,19 @@ It will kill you. I am very sorry for the inconvenience.
 You lose health if you enter someone elses territory, and gain strength if you visit yours.
 </p>
 
+<script>
+let titles; let keys; let responses; let data;
+</script>
+
 <h2>Hotkeys</h2>
 <p id="hotkeys" class="well well-lg">
 Well here they are I guess
 </p>
 <script>
-let titles = ["Key", "Action"];
-let keys = ['b','t','c','arrows or awsd', 'h'];
-let responses = ['Buy','toggle attract', 'togle scores', 'move view', 'annihilate (only if cheating)'];
-let data = [ keys, responses];
+titles = ["Key", "Action"];
+keys = ['b','t','c','arrows or awsd', 'h'];
+responses = ['Buy','toggle attract', 'togle scores', 'move view', 'annihilate (only if cheating)'];
+data = [ keys, responses];
 $('#hotkeys').append(arrayToTable(titles, data));
 </script>
 
@@ -115,13 +119,13 @@ This section will soon be put in to place
 </p>
 
 <h2>Credits</h2>
-<p id="credits"></p>
+<p id="credits">Note, I am sorry that this is not an exhaustive list.</p>
 <script>
-let titles = ["Person", "Help"];
-let keys = ['Alek Westover','Walter Shen','Brandon Westover','Eli Barnes', "Stephan Donaldson"];
-let responses = ['He wrote the entire game and stuff',
+titles = ["Person", "Help"];
+keys = ['Alek Westover','Walter Shen','Brandon Westover','Eli Barnes', "Stephan Donaldson"];
+responses = ['He wrote the entire game and stuff',
   'He made the butterflies', 'Accelerometer suggestion', 'Eli discovered the duplicate animal object bug (slice and splice)', 'Wrote Thomas Covenant series'];
-let data = [ keys, responses];
+data = [ keys, responses];
 $('#credits').append(arrayToTable(titles, data));
 </script>
 

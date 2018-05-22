@@ -6,3 +6,8 @@ a {
   background-color: lightgrey;
   padding: 5%;
 }
+
+.table-inverse {
+  color: #fff;
+  background-color: #373a3c;
+}
