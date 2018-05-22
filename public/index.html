@@ -9,7 +9,6 @@
 
   <!-- style -->
   <link rel="stylesheet" type="text/css" href="style/index.css">
-  <link rel="stylesheet" type="text/css" href="style/buttons.css">
 
   <title>The Land</title>
 
@@ -34,20 +33,19 @@
         <input name="world" class="form-control" placeholder="World">
         <label for="anType">Animal Type</label>
         <input name="anType" class="form-control" placeholder="1">
+        <p id="animal_txt_help">Types include: </p>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
       </form>
-      <a class="btn" href="info.html">Help</a>
-      <p>
-        Some info stuff
-        For instance
-        your animal choices include
-      </p>
-      <p id="animal_txt_help"></p>
-      <script>
-        $("#animal_txt_help").text(animal_txt_help)
-      </script>
-
+      <button class="btn btn-lg" id="button" onclick='window.location.href = "info.html";'>Help</button>
     </div>
+
+    <script src="style/arrayToTable.js" type="text/javascript"></script>
+    <script>
+      let data = [animal_names["personals"], personalNameIndxes, descriptions];
+      let table = arrayToTable(["name", "index", "description"], data);
+      $("#animal_txt_help").append(table);
+    </script>
+
 </body>
 
 </html>

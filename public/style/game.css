@@ -5,23 +5,28 @@ html, body {
 	-webkit-overflow-scrolling: touch;
 }
 
+button{
+	font-size: xx-small;
+}
+
 body{
 	background-color: grey;
+	font-size: xx-small;
 }
 
 #scores{
 	float: right;
-	margin: 2%;
+	/* margin: 2%; */
 }
 
 #attract{
 	float: right;
-	margin: 2%;
+	/* margin: 2%; */
 }
 
 #buy{
 	float: right;
-	margin: 2%;
+	/* margin: 2%; */
 }
 
 #name{

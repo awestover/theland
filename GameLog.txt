@@ -104,3 +104,5 @@ statistics (hunger, resistance) need breeding
 Better gametree collision detection (faster quadtree)
 
 Boundary is a bit off I think... (why, needed calibrations?)
+
+Buy upgrades 

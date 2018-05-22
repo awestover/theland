@@ -11,3 +11,8 @@ splice(x, length) deletes a section of an array
 slice(x, length)  copies  a section of an array
 
 ellipse(x,y,w,h) NOT radius...
+
+
+for links via button press do
+window.location.href = "http://stackoverflow.com"; etc
+DO NOT hack css into a <a> tag...
