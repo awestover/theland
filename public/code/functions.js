@@ -14,6 +14,18 @@ function parseURL(url)
 	return data;
 }
 
+function worldToColor(txt)
+{
+	const NUMCOLORS = 2;
+	let colors = [[2, 124, 57], [124, 2, 57]];
+	let val = 0;
+	for (let i=0; i < txt.length; i++)
+	{
+		val = (val + txt.charCodeAt(i)) % NUMCOLORS;
+	}
+	return colors[val];
+}
+
 function rectInCircle(boxCoords, circleCoords)
 {
   /*circle rectangle collision
@@ -177,7 +189,13 @@ function pickRandom(list)
 
 function drawTerritory(th, name)
 {
-  fill(0, 255, 255, 100);
+	if (th==user.th)
+	{
+		fill(255, 0, 0, 100);
+	}
+	else {
+		fill(0, 255, 255, 100);
+	}
   ellipse(territoryLocs[th][0], territoryLocs[th][1], 2*territoryR, 2*territoryR);
   fill(0,0,0);
   if (name)

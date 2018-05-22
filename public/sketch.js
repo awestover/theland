@@ -56,15 +56,13 @@ function setup()
   {
     territoryLocs[th] = calculateTerritory(th);
   }
-
   gametree = new Gametree();
-
 }
 
 function draw()
 {
   // graphics basis
-  background(2, 124, 57);
+  background(bgColor[0], bgColor[1], bgColor[2]);
   translate(screen_dims[0]/2, screen_dims[1]/2);  // center to 0,0
 
   text("Z:"+Math.floor(angles[2])+ " Y:"+Math.floor(angles[1]), -20, -10);
@@ -330,6 +328,9 @@ function handleWorldChosen(data)
   user.th = data["ourTheta"];
   user.pos = negateV(territoryLocs[user.th]);
   $('#world').text("World: " + user.world);
+
+  bgColor = worldToColor(user.world);
+
 }
 
 function handleNameChosen(data)

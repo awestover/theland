@@ -20,10 +20,11 @@ class Personal extends Animal
 
   sickDamage()
   {
-    if (this.sickPr > random())
-    {
-      this.health = Math.floor(this.health/2) + 1;
-    }
+    // if (this.sickPr > random())
+    // {
+    //   this.health = Math.floor(this.health/2) + 1;
+    // }
+    this.health = 0;
   }
 
   hasOffspring()

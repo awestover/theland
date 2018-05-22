@@ -113,6 +113,18 @@ $('#hotkeys').append(arrayToTable(titles, data));
 <p class="well well-lg">
 This section will soon be put in to place
 </p>
+
+<h2>Credits</h2>
+<p id="credits"></p>
+<script>
+let titles = ["Person", "Help"];
+let keys = ['Alek Westover','Walter Shen','Brandon Westover','Eli Barnes', "Stephan Donaldson"];
+let responses = ['He wrote the entire game and stuff',
+  'He made the butterflies', 'Accelerometer suggestion', 'Eli discovered the duplicate animal object bug (slice and splice)', 'Wrote Thomas Covenant series'];
+let data = [ keys, responses];
+$('#credits').append(arrayToTable(titles, data));
+</script>
+
 <button class="btn btn-lg" id="button" onclick='window.location.href = "index.html";'>Back</button>
 
 </div>
