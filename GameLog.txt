@@ -93,6 +93,8 @@ WHY is this needed?
 accelerometer
 WORKS
 
+NOTE the Gambler's ruin is needed
+
 Future TODO:
 
 if cheating add extra controls like stormlight massive boost, health and damage boosts
