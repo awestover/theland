@@ -245,21 +245,27 @@ function handleTilted()
 {
   let rD = 20;
   let threshold = 10;
+  let dvs = [[rD, 0], [-rD, 0], [0, rD], [0, -rD]];
+  if (deviceOrientation == "landscape")
+  {
+      dvs = [[0, rD], [0, -rD], [rD, 0], [-rD, 0]];
+  }
+
   if (angles[2] < -threshold)
   {
-    user.updateView(user.pos, addV(user.pos, [rD, 0]));
+    user.updateView(user.pos, addV(user.pos, dvs[0]));
   }
   else if (angles[2] > threshold)
   {
-    user.updateView(user.pos, addV(user.pos, [-rD, 0]));
+    user.updateView(user.pos, addV(user.pos, dvs[1]));
   }
   if (angles[1] < -threshold)
   {
-    user.updateView(user.pos, addV(user.pos, [0, rD]));
+    user.updateView(user.pos, addV(user.pos, dvs[2]));
   }
   else if (angles[1] > threshold)
   {
-    user.updateView(user.pos, addV(user.pos, [0, -rD]));
+    user.updateView(user.pos, addV(user.pos, dvs[3]));
   }
 }
 

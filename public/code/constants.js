@@ -3,7 +3,7 @@ const allAnimals = ["personals", "preys", "predators"];
 
 // all animal names
 let animal_names = {};
-animal_names["personals"] = ["dog", "shark", "bear", "crab"];
+animal_names["personals"] = ["dog", "shark", "bear", "crab", "butterfly"];
 animal_names["preys"] = ["pizza"];
 animal_names["predators"] = ["dino"];
 let animal_txt_help = "";
