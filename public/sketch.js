@@ -248,7 +248,7 @@ function handleTilted()
   let dvs = [[rD, 0], [-rD, 0], [0, rD], [0, -rD]];
   if (deviceOrientation == "landscape")
   {
-      dvs = [[0, rD], [0, -rD], [-rD, 0], [rD, 0]];
+      dvs = [[0, -rD], [0, rD], [rD, 0], [-rD, 0]];
   }
 
   if (angles[2] < -threshold)
