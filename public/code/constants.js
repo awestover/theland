@@ -39,11 +39,12 @@ const keyCodes = {"a":65, "d": 68, "s": 83, "w": 87};
 const numTerritories = 12;
 const gridSize   = 1500; //2500
 const boundSize  = 100;
-const territoryR = 225; //500
+const territoryR = 175; //500
 const bounds = [[-gridSize, gridSize], [-gridSize, gridSize]];
 let edgeRects = [];
 let territoryLocs = [];
-let scoresVisible = true;
+let scoresVisible = false;
+const scoreWidth = 120;
 const numHighscores = 3;
 
 // testing purposes

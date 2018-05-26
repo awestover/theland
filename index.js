@@ -26,6 +26,8 @@ io.sockets.on('connection', newConnection);  // when you get a connection do thi
 var playersConnected = [];
 var worldThetas = {};
 
+var maxSLength = 15;
+
 function newConnection(socket) {
 	/*
 		socket.on  - when this specific socket instance (which indexjs holds all of the sockets) hears something
@@ -54,6 +56,11 @@ function newConnection(socket) {
     if  (!world)
     {
       world = "World";
+    }
+
+    if (world.length > maxSLength)
+    {
+      world = world.slice(0, maxSLength);
     }
 
     // 12 ppl max in the world (it is a clock!!!!!)
@@ -107,6 +114,11 @@ function newConnection(socket) {
     if (!name){name = "User";}
     if (name=="NONE"){name="fakeNONE";}
     if(name=="NPC"){name="fakeNPC";}
+
+    if (name.length > maxSLength)
+    {
+      name = name.slice(0,maxSLength)
+    }
 
     while (nameExists(name)!=0) {
     	name = name + Math.floor(Math.random()*10);

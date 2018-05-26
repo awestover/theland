@@ -245,12 +245,13 @@ function calculateEdge()
 
 function showMaxScores()
 {
-  let tx = screen_dims[0]*0.2;
+  // let tx = screen_dims[0]*0.2;
+	let tx = screen_dims[0]/2-scoreWidth*1.2;
   let ty = -0.45*screen_dims[1];
   fill(10,10,10,50);
-  let cwww=screen_dims[0]*0.3;
-  rect(tx*0.9, ty, cwww, 60*(numHighscores));
+  rect(tx, ty, scoreWidth, 60*(numHighscores));
   fill(0,0,0);
+	let dy = 50;
   let nameScores = getMaxScores();
   let ctxt;
   for (let i = 0; i < numHighscores; i++)
@@ -261,7 +262,7 @@ function showMaxScores()
       nameScores[1][i] = -1;
     }
     ctxt = nameScores[0][i] + ": " + nameScores[1][i];
-    text(ctxt, tx, ty+(i+1)*50);
+    text(ctxt, tx, ty+(i+1)*dy, scoreWidth, dy);
   }
 }
 

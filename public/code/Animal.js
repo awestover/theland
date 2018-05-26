@@ -103,7 +103,7 @@ class Animal
       fill(0,0,0);
       let ctx = "Name: "  +  this.name + "\n"
               + "Health: " + this.health + "\n"
-      text(ctx, pp[0], pp[1]-this.dims[1]*0.6);
+      text(ctx, pp[0]+this.dims[1]/2, pp[1]-this.dims[1]*0.6);
     }
   }
 

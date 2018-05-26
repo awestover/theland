@@ -19,7 +19,7 @@ function setup()
 
   screen_dims = [windowWidth*0.95, windowHeight*0.85];
   canvas = createCanvas(screen_dims[0], screen_dims[1]);
-  textAlign(LEFT);
+  textAlign(CENTER);
   frameRate(10);
 
   let userValues = parseURL(document.URL);
