@@ -204,8 +204,7 @@ function touchStarted()
 function touchEnded()
 {
   $("#name").append(event.type);
-  // console.log(event.type);// && event.type "touchend" or "mouseup"
-  if (event.type == "mouseup")
+  if (event.type == "touchend" || event.type == "mouseup" && (deviceOrientation == "undefined"))
   {
     let rMPos=realPos([mouseX, mouseY]);
     let collisions = gametree.getCollisionsWith([rMPos[0], rMPos[1], 5, 5])
@@ -228,11 +227,6 @@ function touchEnded()
         }
         socket.emit("pushAnimalUpdate", data);
       }
-      // if (deviceOrientation != 'undefined')
-      // {
-      //   console.log("hey");
-      //   return false;
-      // }
     }
     isDown = false;
   }
