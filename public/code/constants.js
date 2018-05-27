@@ -60,3 +60,16 @@ let isDown = false;
 
 let otherUsers = {};
 let gametree;
+
+// not really a limit, they can still reproduce over this you just can't buy any more after 10
+const maxAnimals = 10;
+
+// convert to color objects in setup
+//https://sashat.me/2017/01/11/list-of-20-simple-distinct-colors/
+let thColors = [[0, 130, 200],
+  [230, 25, 75],   [60, 180, 75],  [128, 128, 0],
+  [245, 130, 48],  [255, 225, 25], [145, 30, 180],
+  [70, 240, 240],  [240, 50, 230], [210, 245, 60],
+  [250, 190, 190], [0, 128, 128],  [230, 190, 255]];
+
+const barHeight = 5;

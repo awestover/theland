@@ -3,7 +3,6 @@ user class
 */
 
 class User {
-
   constructor(user_info)
   {
     this.name = user_info["name"];
@@ -62,6 +61,9 @@ class User {
         this[allAnimals[i]][an].show();
       }
     }
+    noStroke();
+  	fill(thColors[this.th]);
+  	ellipse(-this.pos[0], -this.pos[1], 10, 10);
   }
 
   adjustAnimalLoc(pos)
@@ -217,7 +219,7 @@ class User {
 
   buyAnimal()
   {
-    if (this.stormlight >= this.cost)
+    if (this.stormlight >= this.cost && this.personals.length < maxAnimals)
     {
       this.stormlight -= this.cost;
       this.addPersonal();
@@ -276,6 +278,16 @@ class User {
       for(let an in this[allAnimals[t]])
       {
         this[allAnimals[t]][an].username = this.name;
+      }
+    }
+  }
+
+  giveAnimalsTh()
+  {
+    for (let t in allAnimals)
+    {
+      for(let an in this[allAnimals[t]])
+      {
         this[allAnimals[t]][an].th = this.th;
       }
     }

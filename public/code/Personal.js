@@ -8,22 +8,27 @@ class Personal extends Animal
 
     // important statistics, change later
     this.sickPr = animal_traits["sickPr"] || 0.001;
-    this.rebirthPr = animal_traits["rebirthPr"] || 0.001;
+    this.rebirthPr = animal_traits["rebirthPr"] || 0.0005;
     this.strength = animal_traits["strength"] || 1;
     this.speed = animal_traits["speed"] || 1.3;
-    this.levelUpPr = animal_traits["levelUpPr"] || 0.002;
+    this.levelUpPr = animal_traits["levelUpPr"] || 0.0005;
 
     this.vel = super.randomHeading(this.speed);
 
     this.dims = [66, 50];
+
+    this.deadHunger = 5;
+
+    this.age = animal_traits["age"] || 0;
+    this.hunger = animal_traits["age"] || 0;
   }
 
   sickDamage()
   {
     if (this.sickPr > random())
     {
-    //   this.health = Math.floor(this.health/2) + 1;
-        this.health = 0;
+      this.health = 0;
+      // this.health = Math.floor(this.health/4);
     }
   }
 
@@ -89,6 +94,19 @@ class Personal extends Animal
       this.visitedUserTerritory = true;
       this.strength *= 2;
     }
+  }
+
+  shouldDie()
+  {
+    if (super.shouldDie())
+    {
+      return true;
+    }
+    else if (this.hunger >= this.deadHunger)
+    {
+      return true;
+    }
+    return false;
   }
 
 }

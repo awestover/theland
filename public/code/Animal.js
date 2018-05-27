@@ -2,9 +2,7 @@
 Animal class
 
 basic ideas for all animals
-
 movement properties etc
-
 */
 
 class Animal
@@ -39,7 +37,7 @@ class Animal
 
   getBoosted()
   {
-    if (! this.boosted)
+    if (!this.boosted)
     {
       this.boosted = true;
       this.health *= 2;
@@ -101,10 +99,48 @@ class Animal
     if (this.showStats)
     {
       fill(0,0,0);
-      let ctx = "Name: "  +  this.name + "\n"
-              + "Health: " + this.health + "\n"
-      text(ctx, pp[0]+this.dims[1]/2, pp[1]-this.dims[1]*0.6);
+      textSize(10);
+      let ctx = "Name: "  +  this.name;
+      ctx += "\n" + "Health: " + this.health;
+      ctx += "\n" + "Level: " + this.level;
+      if (this.type == "personals")
+      {
+        ctx += "\n" + "Strength: " + this.strength;
+        ctx += "\n" + "Age: " + this.age;
+      }
+      if (this.speed)
+      {
+        ctx += "\n" + "Speed: " + this.speed;
+      }
+      if (this.help)
+      {
+        ctx += "\n" + "Help: " + this.help;
+      }
+      if (this.power)
+      {
+        ctx += "\n" + "Power: " + this.power;
+      }
+      text(ctx, pp[0]+this.dims[0]/2, pp[1]+1.3*this.dims[1]);
     }
+  }
+
+  drawBar(size, clr, perRow, curY)
+  {
+    noStroke();
+    fill(clr);
+    let nrs = Math.floor(size/perRow);
+    if (nrs>0)
+    {
+      curY -= barHeight*nrs;
+      rect(-this.dims[0]/2, -this.dims[1]/2 + curY, this.dims[0], barHeight*nrs);
+    }
+    if ((size%perRow) != 0)
+    {
+      curY -= barHeight;
+      rect(-this.dims[0]/2, -this.dims[1]/2 + curY, this.dims[0]*((size%perRow)/perRow), barHeight);
+    }
+
+    return curY;
   }
 
   show()
@@ -114,21 +150,30 @@ class Animal
       push();
       translate(this.pos[0]+this.dims[0]/2, this.pos[1]+this.dims[1]/2);
 
-      // health bar
-      fill(200, 50, 50);
-      noStroke();
-      let healthPerRow = 20;
-      let barHeight = this.dims[1]*0.1;
-      let curY = -2*barHeight;
-      let nrs = Math.floor(this.health/healthPerRow);
-      if (nrs >0)
-      {
-        curY -= barHeight*nrs;
-        rect(-this.dims[0]/2, -this.dims[1]/2 + curY, this.dims[0], barHeight*nrs);
-      }
-      curY -= barHeight;
-      rect(-this.dims[0]/2, -this.dims[1]/2 + curY, this.dims[0]*((this.health%healthPerRow)/healthPerRow), barHeight);
+      let curY;
+      //health bar
+      curY = this.drawBar(this.health, color(200,50,50), 20, -2*barHeight);
 
+      // user indicator
+      if (this.type == "personals")
+      {
+        //strength bar
+        curY = this.drawBar(this.strength, color(66, 134, 244), 5, curY);
+        //age bar
+        curY = this.drawBar(this.age, color(82, 232, 55), 5, curY);
+        //hunger bar
+        curY = this.drawBar(this.hunger, color(224, 206, 13), 5, curY);
+        //speed bar
+        curY = this.drawBar(this.speed, color(205, 15, 226), 5, curY);
+
+        noFill();
+        stroke(thColors[this.th]);
+        strokeWeight(3);
+        ellipse(0, 0, this.dims[0]*1.3, this.dims[1]*1.3);
+      }
+
+      stroke(0,0,0);
+      strokeWeight(0.5);
       this.pStats([-this.dims[0]/2, -this.dims[1]/2]);
 
       scale(this.rotated,1);

@@ -54,12 +54,12 @@ function realPos(pos)
     return [pos[0] - screen_dims[0]/2 - user.pos[0], pos[1] - screen_dims[1]/2 - user.pos[1]];
 }
 
-function drawCenterCross()
-{
-  fill(0, 0, 0);
-  rect(-5, -0.25, 10, 0.5);
-  rect(-0.25, -5, 0.5, 10);
-}
+// function drawCenterCross()
+// {
+//   fill(0, 0, 0);
+//   rect(-5, -0.25, 10, 0.5);
+//   rect(-0.25, -5, 0.5, 10);
+// }
 
 function drawOrigin()
 {

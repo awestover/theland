@@ -17,7 +17,12 @@ function setup()
     }
   }
 
-  screen_dims = [windowWidth*0.95, windowHeight*0.85];
+  for (let i in thColors)
+  {
+    thColors[i] = color(thColors[i]);
+  }
+
+  screen_dims = [windowWidth, windowHeight*0.91];
   canvas = createCanvas(screen_dims[0], screen_dims[1]);
   textAlign(CENTER);
   frameRate(10);
@@ -65,7 +70,7 @@ function draw()
   background(bgColor[0], bgColor[1], bgColor[2]);
   translate(screen_dims[0]/2, screen_dims[1]/2);  // center to 0,0
 
-  text("Z:"+Math.floor(angles[2])+ " Y:"+Math.floor(angles[1]), -20, -10);
+  text("Z:"+Math.floor(angles[2])+ " Y:"+Math.floor(angles[1]), 0, -10);
 
   // show major elements and get ready to check for collisions
   push();
@@ -161,7 +166,7 @@ function draw()
     showMaxScores();
   }
 
-  drawCenterCross();
+  // drawCenterCross();
 
 }
 
@@ -206,7 +211,7 @@ function touchEnded()
     let idx = collisions[cidx];
     if (gametree.values[idx].username == user.name)
     {
-      gametree.values[idx].showStats = true;
+      gametree.values[idx].showStats = !gametree.values[idx].showStats;
     }
     else {
       let data = {
@@ -214,7 +219,7 @@ function touchEnded()
         "username": gametree.values[idx].username,
         "type": gametree.values[idx].type,
         "id": gametree.values[idx].id,
-        "updates":{"showStats": true}
+        "updates":{"showStats": !gametree.values[idx].showStats}
       }
       socket.emit("pushAnimalUpdate", data);
     }
@@ -326,11 +331,11 @@ function handleWorldChosen(data)
 {
   user.world = data["world"];
   user.th = data["ourTheta"];
-  user.pos = negateV(territoryLocs[user.th]);
+  user.giveAnimalsTh();
+  // user.pos = negateV(territoryLocs[user.th]);
   $('#world').text("World: " + user.world);
 
   bgColor = worldToColor(user.world);
-
 }
 
 function handleNameChosen(data)
