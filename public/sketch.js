@@ -228,9 +228,9 @@ function touchEnded()
       }
       socket.emit("pushAnimalUpdate", data);
     }
+    return false;
   }
   isDown = false;
-  return false;
 }
 
 function handleKeysDown() {
