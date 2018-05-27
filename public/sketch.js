@@ -203,6 +203,11 @@ function touchStarted()
 
 function touchEnded()
 {
+  // console.log(event.type);// && event.type != "touchend"
+  // if (event.type != "mouseup")
+  // {
+  //   return false;
+  // }
   let rMPos=realPos([mouseX, mouseY]);
   let collisions = gametree.getCollisionsWith([rMPos[0], rMPos[1], 5, 5])
   if (collisions.length > 0)
@@ -225,6 +230,7 @@ function touchEnded()
     }
   }
   isDown = false;
+  return false;
 }
 
 function handleKeysDown() {
