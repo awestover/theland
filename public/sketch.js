@@ -203,6 +203,7 @@ function touchStarted()
 
 function touchEnded()
 {
+  $("#name").append(event.type);
   // console.log(event.type);// && event.type "touchend" or "mouseup"
   if (event.type == "mouseup")
   {
