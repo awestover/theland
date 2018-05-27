@@ -203,34 +203,37 @@ function touchStarted()
 
 function touchEnded()
 {
-  // console.log(event.type);// && event.type != "touchend"
-  // if (event.type != "mouseup")
-  // {
-  //   return false;
-  // }
-  let rMPos=realPos([mouseX, mouseY]);
-  let collisions = gametree.getCollisionsWith([rMPos[0], rMPos[1], 5, 5])
-  if (collisions.length > 0)
+  // console.log(event.type);// && event.type "touchend" or "mouseup"
+  if (event.type == "mouseup")
   {
-    let cidx = 0; // choose smart later if multiple collisions...
-    let idx = collisions[cidx];
-    if (gametree.values[idx].username == user.name)
+    let rMPos=realPos([mouseX, mouseY]);
+    let collisions = gametree.getCollisionsWith([rMPos[0], rMPos[1], 5, 5])
+    if (collisions.length > 0)
     {
-      gametree.values[idx].showStats = !gametree.values[idx].showStats;
-    }
-    else {
-      let data = {
-        "world": user.world,
-        "username": gametree.values[idx].username,
-        "type": gametree.values[idx].type,
-        "id": gametree.values[idx].id,
-        "updates":{"showStats": !gametree.values[idx].showStats}
+      let cidx = 0; // choose smart later if multiple collisions...
+      let idx = collisions[cidx];
+      if (gametree.values[idx].username == user.name)
+      {
+        gametree.values[idx].showStats = !gametree.values[idx].showStats;
       }
-      socket.emit("pushAnimalUpdate", data);
+      else {
+        let data = {
+          "world": user.world,
+          "username": gametree.values[idx].username,
+          "type": gametree.values[idx].type,
+          "id": gametree.values[idx].id,
+          "updates":{"showStats": !gametree.values[idx].showStats}
+        }
+        socket.emit("pushAnimalUpdate", data);
+      }
+      // if (deviceOrientation != 'undefined')
+      // {
+      //   console.log("hey");
+      //   return false;
+      // }
     }
-    return false;
+    isDown = false;
   }
-  isDown = false;
 }
 
 function handleKeysDown() {
