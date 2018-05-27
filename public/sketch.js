@@ -203,7 +203,6 @@ function touchStarted()
 
 function touchEnded()
 {
-  $("#name").append(event.type);
   if (event.type == "touchend" || event.type == "mouseup" && (deviceOrientation == "undefined"))
   {
     let rMPos=realPos([mouseX, mouseY]);
