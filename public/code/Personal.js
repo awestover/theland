@@ -21,6 +21,16 @@ class Personal extends Animal
 
     this.age = animal_traits["age"] || 0;
     this.hunger = animal_traits["age"] || 0;
+
+    this.dHunger = 0.01;
+    this.dAge = 0.01;
+  }
+
+  show()
+  {
+    super.show();
+    this.hunger += this.dHunger;
+    this.age += this.dAge;
   }
 
   sickDamage()

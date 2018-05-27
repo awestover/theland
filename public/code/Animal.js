@@ -107,6 +107,7 @@ class Animal
       {
         ctx += "\n" + "Strength: " + this.strength;
         ctx += "\n" + "Age: " + this.age;
+        ctx += "\n" + "Hunger: " + this.hunger.toFixed(2);
       }
       if (this.speed)
       {
