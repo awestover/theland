@@ -14,6 +14,9 @@ class User {
 
     this.stormlight = user_info["stormlight"] || 0;
     this.cost = user_info["cost"] || 100; // may be variable later
+    this.upgradeCost = user_info["upgradeCost"] || 50;
+    this.feedCost = user_info["feedCost"] || 10;
+
     this.attractAnimals = user_info["attractAnimals"] || true;
 
     for (let an in allAnimals)
@@ -29,6 +32,48 @@ class User {
 
     this.idCt = user_info["isCt"] || 0;
 
+    this.selectedPersonal = null;// don't need to send it over...
+
+  }
+
+  validateSelected()
+  {
+    if (this.selectedPersonal == null)
+    {
+      return false;
+    }
+    else if (this.selectedPersonal.health > 0)
+    {
+      return true;
+    }
+    else {
+      this.selectedPersonal = null;
+      return false;
+    }
+  }
+
+  feedSelected()
+  {
+    if (this.validateSelected())
+    {
+      if (this.stormlight >= this.feedCost)
+      {
+        this.stormlight -= this.feedCost;
+        this.selectedPersonal.doFeed();
+      }
+    }
+  }
+
+  upgradeSelected()
+  {
+    if (this.validateSelected())
+    {
+      if (this.stormlight >= this.upgradeCost)
+      {
+        this.stormligth -= this.upgradeCost;
+        this.selectedPersonal.levelUp();
+      }
+    }
   }
 
   initAnimals()

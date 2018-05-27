@@ -6,7 +6,7 @@ html, body {
 }
 
 button{
-	font-size: xx-small;
+	font-size: small;
 }
 
 body{
@@ -27,6 +27,14 @@ body{
 #buy{
 	float: right;
 	/* margin: 2%; */
+}
+
+#feed {
+	float: right;
+}
+
+#upgrade {
+	float: right;
 }
 
 #name{

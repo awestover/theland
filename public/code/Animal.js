@@ -105,7 +105,7 @@ class Animal
       ctx += "\n" + "Level: " + this.level;
       if (this.type == "personals")
       {
-        ctx += "\n" + "Strength: " + this.strength;
+        ctx += "\n" + "Strength: " + this.strength.toFixed(2);
         ctx += "\n" + "Age: " + this.age.toFixed(2);
         ctx += "\n" + "Hunger: " + this.hunger.toFixed(2);
       }

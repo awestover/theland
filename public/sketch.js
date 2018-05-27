@@ -214,6 +214,7 @@ function touchEnded()
       let idx = collisions[cidx];
       if (gametree.values[idx].username == user.name)
       {
+        user.selectedPersonal = gametree.values[idx];
         gametree.values[idx].showStats = !gametree.values[idx].showStats;
       }
       else {

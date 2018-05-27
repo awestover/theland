@@ -22,7 +22,7 @@ class Personal extends Animal
     this.age = animal_traits["age"] || 0;
     this.hunger = animal_traits["age"] || 0;
 
-    this.dHunger = 0.01;
+    this.dHunger = 0.02;
     this.dAge = 0.01;
   }
 
@@ -59,7 +59,7 @@ class Personal extends Animal
   levelUp()
   {
     this.level += 1;
-    // change other stats too later...
+    this.strength += 0.5;
     this.health += 5;
     this.image = this.getImg();
   }
@@ -117,6 +117,11 @@ class Personal extends Animal
       return true;
     }
     return false;
+  }
+
+  doFeed()
+  {
+    this.hunger = Math.max(0, this.hunger-1);
   }
 
 }
