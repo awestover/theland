@@ -18,6 +18,9 @@
   <!--bootstrap-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+  <!-- node libraries -->
+  <script src="/socket.io/socket.io.js"></script>
+
   <!-- Animal info -->
   <script src="code/constants.js" type="text/javascript"></script>
 
@@ -27,6 +30,7 @@
     <div class="container">
       <form action="/" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
+        <img src="pictures/logo.png">
         <label for="unm">User Name</label>
         <input name="unm" class="form-control" placeholder="User Name">
         <label for="world">World</label>
@@ -37,6 +41,8 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
       </form>
       <button class="btn btn-lg" id="button" onclick='window.location.href = "info.html";'>Help</button>
+      <h1>Users</h1>
+      <p id="users_info"></p>
     </div>
 
     <script src="style/arrayToTable.js" type="text/javascript"></script>
@@ -44,6 +50,33 @@
       let data = [animal_names["personals"], personalNameIndxes, descriptions];
       let table = arrayToTable(["name", "index", "description"], data);
       $("#animal_txt_help").append(table);
+    </script>
+
+    <script>
+      let colNames = ["Name", "World", "theta"];
+      let userData = {};
+      let userArray;
+      let userTable;
+      socket = io.connect();
+      socket.on('gotData', handleGotData);
+      socket.on('worldChosen', socket.emit('getData', 'home'));
+
+      socket.emit('getData', "home");
+
+      function handleGotData(data)
+      {
+        userData = data;
+        userArray = [[],[],[]];
+        for (let i in userData)
+        {
+          for (let j in colNames)
+          {
+            userArray[j].push(userData[i][j]);
+          }
+        }
+        userTable = arrayToTable(colNames, userArray);
+        $("#users_info").html(userTable);
+      }
     </script>
 
 </body>

@@ -7,11 +7,11 @@ class Personal extends Animal
     this.type="personals";
 
     // important statistics, change later
-    this.sickPr = animal_traits["sickPr"] || 0.001;
-    this.rebirthPr = animal_traits["rebirthPr"] || 0.0005;
+    this.sickPr = animal_traits["sickPr"] || 0; // no more!!
+    this.rebirthPr = animal_traits["rebirthPr"] || 0.001;
     this.strength = animal_traits["strength"] || 1;
     this.speed = animal_traits["speed"] || 1.3;
-    this.levelUpPr = animal_traits["levelUpPr"] || 0.0005;
+    this.levelUpPr = animal_traits["levelUpPr"] || 0; // no more :( pay to play...
 
     this.vel = super.randomHeading(this.speed);
 
@@ -22,7 +22,7 @@ class Personal extends Animal
     this.age = animal_traits["age"] || 0;
     this.hunger = animal_traits["age"] || 0;
 
-    this.dHunger = 0.02;
+    this.dHunger = 0.0005;
     this.dAge = 0.01;
   }
 

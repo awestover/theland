@@ -1,7 +1,7 @@
 // generate a table from a 1d array and a 2d array
 function arrayToTable(titles, values)
 {
-  let output = '<table class="table table-inverse table-bordered">';
+  let output = '<table class="table table-bordered">';
   output += '<thread>';
   for (let i in titles)
   {
@@ -30,7 +30,7 @@ function arrayToTable(titles, values)
 
 function arrayToFlippedTable(titles, values)
 {
-  let output = '<table class="table table-dark table-striped table-bordered table-hover">';
+  let output = '<table class="table table-striped table-bordered table-hover">';
   output += '<thread>';
   for (let i in titles)
   {

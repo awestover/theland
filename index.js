@@ -26,6 +26,8 @@ io.sockets.on('connection', newConnection);  // when you get a connection do thi
 var playersConnected = [];
 var worldThetas = {};
 
+var userData = {};
+
 var maxSLength = 15;
 
 function newConnection(socket) {
@@ -48,6 +50,12 @@ function newConnection(socket) {
   socket.on('updatePlayer', updatePlayer);
   socket.on('pushAnimalUpdate', pushAnimalUpdate);
   socket.on('deathAlert', handleDeath);
+
+  socket.on('getData', sendData);
+  function sendData(data)
+  {
+    socket.emit('gotData', userData);
+  }
 
   function handleSendWorld(data)
   {
@@ -83,6 +91,9 @@ function newConnection(socket) {
       worldThetas[world] = [0];
       th=0;
     }
+
+    userData[name].push(world);
+    userData[name].push(th);
 
   	socket.join(world); // join a world... this means you can have a private conversation within that world
 
@@ -126,6 +137,7 @@ function newConnection(socket) {
 
     console.log(name + " added" );
     playersConnected.push(name);
+    userData[name] = [name];
     console.log("Now playing: ");
     console.log(playersConnected);
 
@@ -140,31 +152,37 @@ function newConnection(socket) {
   socket.on('disconnect', handleDisconnect);
   function handleDisconnect(data)
   {
-    try {
-      for (var i = 0; i < worldThetas[world].length; i++)
-      {
-        if (th == worldThetas[world][i])
+    if (world)
+    {
+      try {
+        for (var i = 0; i < worldThetas[world].length; i++)
         {
-          worldThetas[world].splice(i,1);
-          break;
+          if (th == worldThetas[world][i])
+          {
+            worldThetas[world].splice(i,1);
+            break;
+          }
         }
       }
-    }
-    catch (e) {
-      console.log("ERROR "+e);
-    }
+      catch (e) {
+        console.log("ERROR " + e);
+      }
+      var idx = playersConnected.indexOf(name);
+      console.log("disconnect by " + idx + " " + name);
+      if (idx != -1)
+      {
+        delete userData[name];
+        playersConnected.splice(idx, 1); // 1 means remove 1 thing
+        console.log("Now playing: ");
+        console.log(playersConnected);
 
-    var idx = playersConnected.indexOf(name);
-    console.log("disconnect by " + idx + " " + name);
-    if (idx != -1)
-    {
-      playersConnected.splice(idx, 1); // 1 means remove 1 thing
-      console.log("Now playing: ");
-      console.log(playersConnected);
-
-	  // don't emit to yourself or people in other worlds
-  	  socket.broadcast.to(world).emit("deletePlayer", {"name": name});
-      // io.sockets.emit("deletePlayer", {"name":name});
+  	     // don't emit to yourself or people in other worlds
+         socket.broadcast.to(world).emit("deletePlayer", {"name": name});
+         // io.sockets.emit("deletePlayer", {"name":name});
+      }
+    }
+    else {
+      console.log("disconnect on HOME PAGE");
     }
   }
 

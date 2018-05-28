@@ -1,7 +1,18 @@
 body {
+  background-image: url("/pictures/bg.png");
+  background-size: 100% 100%;
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #eee;
+}
+
+img{
+  width: 100%;
+}
+
+.container
+{
+  color: white;
+  background-color: rgba(0,0,0,0.8);
 }
 
 .form-signin {
