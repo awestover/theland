@@ -101,7 +101,7 @@ class Animal
       fill(0,0,0);
       textSize(10);
       let ctx = "Name: "  +  this.name;
-      ctx += "\n" + "Health: " + this.health;
+      ctx += "\n" + "Health: " + this.health.toFixed(2);
       ctx += "\n" + "Level: " + this.level;
       if (this.type == "personals")
       {
@@ -111,15 +111,15 @@ class Animal
       }
       if (this.speed)
       {
-        ctx += "\n" + "Speed: " + this.speed;
+        ctx += "\n" + "Speed: " + this.speed.toFixed(2);
       }
       if (this.help)
       {
-        ctx += "\n" + "Help: " + this.help;
+        ctx += "\n" + "Help: " + this.help.toFixed(2);
       }
       if (this.power)
       {
-        ctx += "\n" + "Power: " + this.power;
+        ctx += "\n" + "Power: " + this.power.toFixed(2);
       }
       text(ctx, pp[0]+this.dims[0]/2, pp[1]+1.3*this.dims[1]);
     }

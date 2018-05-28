@@ -47,8 +47,18 @@
 
     <script src="style/arrayToTable.js" type="text/javascript"></script>
     <script>
-      let data = [animal_names["personals"], personalNameIndxes, descriptions];
-      let table = arrayToTable(["name", "index", "description"], data);
+      let pics = [];
+      for (let i in allAnimals)
+      {
+        for (let j in animal_names[allAnimals[i]])
+        {
+          let temp = "pictures/"+animal_names[allAnimals[i]][j] + "1.png";
+          temp = '<img src = "' + temp + '">';
+          pics.push(temp);
+        }
+      }
+      let data = [personalNameIndxes, animal_names["personals"], descriptions, pics];
+      let table = arrayToTable(["index", "name", "description", "picture"], data);
       $("#animal_txt_help").append(table);
     </script>
 
@@ -59,9 +69,12 @@
       let userTable;
       socket = io.connect();
       socket.on('gotData', handleGotData);
-      socket.on('worldChosen', socket.emit('getData', 'home'));
-
-      socket.emit('getData', "home");
+      function getUpdatedTable()
+      {
+        socket.emit('getData', "home");
+      }
+      getUpdatedTable();
+      setInterval(getUpdatedTable, 3000);
 
       function handleGotData(data)
       {

@@ -101,7 +101,6 @@ function newConnection(socket) {
     console.log("world chosen " + world);
 
     // what world did we really join?...
-
     socket.emit("worldChosen", {"world":world, "ourTheta": th});
   }
 

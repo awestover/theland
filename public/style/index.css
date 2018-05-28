@@ -29,9 +29,8 @@ img{
   font-size: 16px;
 }
 
-a {
-  background-color: lightgrey;
-  padding: 5%;
+.btn{
+  color: black;
 }
 
 .table-inverse {

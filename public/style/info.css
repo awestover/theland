@@ -1,5 +1,7 @@
 body{
   padding-bottom: 5%;
+  background-image: url("/pictures/bg.png");
+  background-size: 100% 100%;
 }
 
 a {
@@ -10,4 +12,9 @@ a {
 .table-inverse {
   color: #fff;
   background-color: #373a3c;
+}
+
+h2, h1
+{
+  width: auto;
 }

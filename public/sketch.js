@@ -385,7 +385,7 @@ function handleDeath(alldata)
         if (user[data["type"]][an].id == data["id"])
         {
           user.triggerReward(alldata["reward"]);
-          user[data["type"]][an].getBoosted();
+          // user[data["type"]][an].getBoosted();
           return true;
         }
       }

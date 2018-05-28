@@ -24,7 +24,7 @@ descriptions[0] = "kinda looks like a sheep..."; // dog
 descriptions[1] = "blue, until upgraded..."; //shark
 descriptions[2] = "Very interesting avatar..."; //bear
 descriptions[3] = "slightly scarred..."; // crab
-descriptions[4] = "As beautiful as the bell curve..."; //butterfly
+descriptions[4] = "As beautiful as the bell curve...";//butterfly
 
 let angles = [0,0,0];
 
