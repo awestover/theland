@@ -38,17 +38,16 @@ class User {
 
   validateSelected()
   {
-    if (this.selectedPersonal == null)
+    if (this.selectedPersonal == null || this.selectedPersonal.health <= 0)
     {
       return false;
     }
-    else if (this.selectedPersonal.health > 0)
+    else if (this.selectedPersonal.level >= max_lvls["personals"])
     {
-      return true;
+      return false;
     }
     else {
-      this.selectedPersonal = null;
-      return false;
+      return true;
     }
   }
 

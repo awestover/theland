@@ -313,7 +313,14 @@ function keyPressed()
   {
     toggleScores();
   }
-
+  else if (lk == 'f')
+  {
+    user.feedSelected();
+  }
+  else if (lk == 'u')
+  {
+    user.upgradeSelected();
+  }
   if (cheats)
   {
     if (lk=='l')

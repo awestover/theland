@@ -8,7 +8,7 @@ class Personal extends Animal
 
     // important statistics, change later
     this.sickPr = animal_traits["sickPr"] || 0; // no more!!
-    this.rebirthPr = animal_traits["rebirthPr"] || 0.005;
+    this.rebirthPr = animal_traits["rebirthPr"] || 0.003;
     this.strength = animal_traits["strength"] || 1;
     this.speed = animal_traits["speed"] || 1.3;
     this.levelUpPr = animal_traits["levelUpPr"] || 0; // no more :( pay to play...
@@ -22,7 +22,7 @@ class Personal extends Animal
     this.age = animal_traits["age"] || 0;
     this.hunger = animal_traits["hunger"] || 0;
 
-    this.dHunger = animal_traits["dHunger"] || 0.008;
+    this.dHunger = animal_traits["dHunger"] || 0.015;
     this.dAge = animal_traits["dAge"] || 0.01;
   }
 
