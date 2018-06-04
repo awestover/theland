@@ -24,69 +24,85 @@
 <body>
 
 <div class="container">
+
 <h1 class="well well-lg">The Land</h1>
-<h2 class="well well-lg">Information about the game</h2>
-<p class="well well-lg">
+
+<div class="well well-lg">
+<p>
+<h2>Information about the game</h2>
 The goal of the game is to get the most animals
 Move arround the board by scrolling with your finger or mouse or tilting your moblie device if it has an acceleromter
 attack other players in order to harm them and get stormlight for defeating them
 </p>
+</div>
 
-<h2 class="well well-lg">Currency</h2>
-<p class="well well-lg">
+<div class="well well-lg">
+<h2>Currency</h2>
+<p>
 The currency in this game is "stormlight"
 If you get stormlight you can buy an animal. You can't buy any more once you are at 15 animals, but they may reproduce still.
+You can also buy food for animals, or upgrade animals.
 (as of now you cannot manipulate gravity once you attain stormlight.
 This feature would be cool, but probably is not feasible to add without support from NASA)
-animals will grow and reproduce (and sometimes get sick and die as dictated by the cycle of life)
+animals will grow and reproduce and eventually become old and die. So it goes.
+You have a somewhat steady (yet slightly random) constant income source
+Click on the buy button to get an animal in the current center of your screen
+this costs 100 stormlight for now
 </p>
+</div>
 
-<h2 class="well well-lg">Age</h2>
-<p class="well well-lg">
-This is how old your animal is.
+<div class="well well-lg">
+<h2>Age</h2>
+<p>
+This is how old your animal is. This affects the rate of change of your health due to age, and the rate of change of your speed.
 </p>
+</div>
 
-<h2 class="well well-lg">Strength</h2>
-<p class="well well-lg">
+<div class="well well-lg">
+<h2>Strength</h2>
+<p>
 This is how much damage you do.
 </p>
+</div>
 
-<h2 class="well well-lg">Hunger</h2>
-<p class="well well-lg">
-If you get too hungry you will die. Feed your animals!
+<div class="well well-lg">
+<h2>Hunger</h2>
+<p>
+If you get too hungry you will die. Feed your animals! (costs 10 stormlight)
 </p>
+</div>
 
-<h2 class="well well-lg">Speed</h2>
-<p class="well well-lg">
-Faster animals move faster...
+<div class="well well-lg">
+<h2>Speed</h2>
+<p>
+Faster animals move faster... This is affected by age a bit.
 </p>
+</div>
 
-<h2 class="well well-lg">User stats</h2>
-<p class="well well-lg">
+<div class="well well-lg">
+<h2>User stats</h2>
+<p>
 You chose a name, a world and some other stuff too.
 Sorry but I don't allow names longer than 15 characters
 they will be truncated if they are too long
 also world names are subject to this constraint
 </p>
+</div>
 
-<h2 class="well well-lg">How does the currency work?</h2>
-<p class="well well-lg">
-You have a somewhat steady (yet slightly random) constant income source
-Click on the buy button to get an animal in the current center of your screen
-this costs 100 stormlight for now
-</p>
-
-<h2 class="well well-lg">Winning and losing</h2>
-<p class="well well-lg">
+<div class="well well-lg">
+<h2>Winning and losing</h2>
+<p>
 Look at the leaderboard to see your score your score
 is determined mostly by how many animals you are fielding
 but other factors like stormlight contribute to your score as well
 see the scoreboard by pressing Toggle Scores
 for your current standing.
 </p>
+</div>
 
-<h2 class="well well-lg">What is my score?</h2>
-<p class="well well-lg">
+<div class="well well-lg">
+<h2>What is my score?</h2>
+<p>
 In general this is your score:
 <pre>
 function getScore()
@@ -95,71 +111,67 @@ function getScore()
 }
 </pre>
 </p>
+</div>
 
-<h2 class="well well-lg">Food</h2>
-<p class="well well-lg">
-Eat food. It is good for you
+<div class="well well-lg">
+<h2>Food</h2>
+<p>
+Eat food. It is good for you. Pizza gives 10 health for now.
 </p>
+</div>
 
-<h2 class="well well-lg">Predators</h2>
-<p class="well well-lg">
-These will eat YOU. They will also destroy food, but they can only eat humans.
+<div class="well well-lg">
+<h2>Predators</h2>
+<p>
+The dinos. These will eat YOU. They will also destroy food, but they can only eat humans.
 If you eat one you get boosted, which on the first time it happens will double your health
 </p>
+</div>
 
-<h2 class="well well-lg">Toggle Attract</h2>
-<p class="well well-lg">
+<div class="well well-lg">
+<h2>Toggle Attract</h2>
+<p>
 your animals may be attracted to the center if you want
 which gives a higher chance of level up, but you gain stormlight faster
 if you have this off...
 </p>
+</div>
 
-<h2 class="well well-lg">Border</h2>
-<p class="well well-lg">
-You know that big red rectangle arround the perrimeter of the map?
+<div class="well well-lg">
+<h2>Border</h2>
+<p>
+You know that big red rectangle arround the perimeter of the map?
 Don't step on it.
 Really, I am not sure why you would want to.
 It will kill you. I am very sorry for the inconvenience.
 </p>
+</div>
 
-<h2 class="well well-lg">Terrirories</h2>
-<p class="well well-lg">
+<div class="well well-lg">
+<h2>Terrirories</h2>
+<p>
 You lose health if you enter someone elses territory, and gain strength if you visit yours.
 </p>
+</div>
 
 <script>
 let titles; let keys; let responses; let data;
 </script>
 
-<h2 class="well well-lg">Hotkeys</h2>
-<p id="hotkeys" class="well well-lg">
+<div class="well well-lg">
+<h2>Hotkeys</h2>
+<p id="hotkeys">
 Well here they are I guess
 </p>
 <script>
 titles = ["Key", "Action"];
-keys = ['b','t','c','arrows or awsd', 'h'];
-responses = ['Buy','toggle attract', 'togle scores', 'move view', 'annihilate (only if cheating)'];
+keys = ['b','t','c','arrows or awsd', 'h', 'f', 'u', 'r', 'l'];
+responses = ['Buy','toggle attract', 'togle scores', 'move view',
+'annihilate (only if cheating)', 'feed  selected', 'upgrade selected', 'freeze if cheating', 'user.stormlight+=100 if cheating'];
 data = [ keys, responses];
 $('#hotkeys').append(arrayToTable(titles, data));
 </script>
-
-<h2 class="well well-lg"> Coming soon </h2>
-<p class="well well-lg">
-This section will soon be put in to place
-</p>
-
-<h2 class="well well-lg">Credits</h2>
-<p class="well well-lg" id="credits">Note, I am sorry that this is not an exhaustive list.</p>
-<script>
-titles = ["Person", "Help"];
-keys = ['Alek Westover','Walter Shen','Brandon Westover','Eli Barnes', "Stephan Donaldson", "Brandon Sanderson"];
-responses = ['He wrote the entire game and stuff',
-  'He made the butterflies', 'Accelerometer suggestion',
-  'Eli discovered the duplicate animal object bug (slice and splice)', 'Wrote Thomas Covenant series',
-  'Stormlight'];
-data = [ keys, responses];
-$('#credits').append(arrayToTable(titles, data));
-</script>
+</div>
 
 <button class="btn btn-lg" id="button" onclick='window.location.href = "index.html";'>Back</button>
 

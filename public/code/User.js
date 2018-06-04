@@ -69,7 +69,7 @@ class User {
     {
       if (this.stormlight >= this.upgradeCost)
       {
-        this.stormligth -= this.upgradeCost;
+        this.stormlight -= this.upgradeCost;
         this.selectedPersonal.levelUp();
       }
     }

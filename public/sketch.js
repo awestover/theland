@@ -327,7 +327,7 @@ function keyPressed()
     {
       user.stormlight+=100;
     }
-    else if (lk=='f')
+    else if (lk=='r')
     {
       freeze=!freeze;
     }
