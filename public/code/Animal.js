@@ -21,7 +21,7 @@ class Animal
     this.id = animal_traits["id"] || 0;
 
     this.dims=[66,50];
-    this.showStats = animal_traits["showStats"] || false;
+    this.showStats = false; //  animal_traits["showStats"] || 
 
     this.level = animal_traits["level"] || 1;
 

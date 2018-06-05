@@ -6,7 +6,7 @@ html, body {
 }
 
 button{
-	font-size: small;
+	font-size: xx-small;
 }
 
 body{
@@ -15,26 +15,27 @@ body{
 }
 
 #scores{
-	float: right;
-	/* margin: 2%; */
+	float: left;
 }
 
 #attract{
-	float: right;
-	/* margin: 2%; */
+	float: left;
 }
 
 #buy{
 	float: right;
-	/* margin: 2%; */
 }
 
 #feed {
-	float: right;
+	float: left;
 }
 
 #upgrade {
-	float: right;
+	float: left;
+}
+
+#select {
+	float: left;
 }
 
 #name{
@@ -58,5 +59,4 @@ body{
 }
 #help{
 	float: right;
-	margin: 2%;
 }

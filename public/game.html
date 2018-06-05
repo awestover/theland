@@ -41,15 +41,16 @@
   <div id="top">
   <div id="txt">
   <b id="name">Name: X</b> <b id ="animalType">Animal Type: Z</b> <b id="world">World: 1</b><br>
-  <b id="animals">Animals: 0</b>  <b id="stormlight">Stormlight: 0</b><br>
+  <b id="animals">Animals: 0</b>  <b id="stormlight">Stormlight: 0</b>
+  <button id="help" onclick='window.location.href = "info.html";'>Help</button>
+  <button id="buy" onclick="user.buyAnimal()">Buy</button><br>
   </div>
   <div id="buttons">
-  <button id="button" onclick='window.location.href = "info.html";'>Help</button>
-  <button id="buy" onclick="user.buyAnimal()">Buy</button>
-  <button id="feed" onclick="user.feedSelected()">Feed Selected</button>
-  <button id="upgrade" onclick="user.upgradeSelected()">Upgrade Selected</button>
-  <button id="attract" onclick="user.toggleAttractAnimals()">Toggle Attract</button>
-  <button id="scores" onclick="toggleScores()">Toggle Scores</button>
+    <button id="feed" onclick="user.feedStatsShown()">Feed</button>
+  <button id="upgrade" onclick="user.upgradeSelected()">Upgrade</button>
+  <button id="attract" onclick="user.toggleAttractAnimals()">Attract</button>
+  <button id="scores" onclick="toggleScores()">Scores</button>
+  <button id="select" onclick="user.toggleStatsAll();">Stats</button>
   </div>
   </div>
   <br>

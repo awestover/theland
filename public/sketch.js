@@ -209,23 +209,23 @@ function touchEnded()
     let collisions = gametree.getCollisionsWith([rMPos[0], rMPos[1], 5, 5])
     if (collisions.length > 0)
     {
-      let cidx = 0; // choose smart later if multiple collisions...
+      let cidx = 0;
       let idx = collisions[cidx];
       if (gametree.values[idx].username == user.name)
       {
         user.selectedPersonal = gametree.values[idx];
         gametree.values[idx].showStats = !gametree.values[idx].showStats;
       }
-      else {
-        let data = {
-          "world": user.world,
-          "username": gametree.values[idx].username,
-          "type": gametree.values[idx].type,
-          "id": gametree.values[idx].id,
-          "updates":{"showStats": !gametree.values[idx].showStats}
-        }
-        socket.emit("pushAnimalUpdate", data);
-      }
+      // else {
+      //   let data = {
+      //     "world": user.world,
+      //     "username": gametree.values[idx].username,
+      //     "type": gametree.values[idx].type,
+      //     "id": gametree.values[idx].id,
+      //     "updates":{"showStats": !gametree.values[idx].showStats}
+      //   }
+      //   socket.emit("pushAnimalUpdate", data);
+      // }
     }
     isDown = false;
   }
@@ -276,13 +276,6 @@ function handleTilted()
   }
 }
 
-// function handleAccelerometer()
-// {
-//   console.log(accelerationX);
-//   console.log(accelerationY);
-//   console.log(accelerationZ);
-// }
-
 // accelerometer Data
 window.addEventListener('deviceorientation', function(e)
 {
@@ -301,25 +294,25 @@ window.addEventListener('deviceorientation', function(e)
 function keyPressed()
 {
   let lk = key.toLowerCase();
-  if (lk=='b')
+  switch(lk)
   {
-    user.buyAnimal();
-  }
-  else if (lk=='t')
-  {
-    user.toggleAttractAnimals();
-  }
-  else if (lk=='c')
-  {
-    toggleScores();
-  }
-  else if (lk == 'f')
-  {
-    user.feedSelected();
-  }
-  else if (lk == 'u')
-  {
-    user.upgradeSelected();
+    case 'b':
+      user.buyAnimal();
+      break;
+    case 't':
+      user.toggleAttractAnimals();
+      break;
+    case 'c':
+      toggleScores();
+      break;
+    case 'f':
+      user.feedStatsShown();
+      break;
+    case 'u':
+      user.upgradeSelected();
+      break;
+    case 'g':
+      user.toggleStatsAll();
   }
   if (cheats)
   {
@@ -353,10 +346,14 @@ function handleNameChosen(data)
 {
   user.name = data;
   user.giveAnimalsName();
-  if (validate(user.name))
+  if (validate(user.name) == "gold and power")
   {
     cheats = true;
     user.stormlight = 100000;
+  }
+  else if (validate(user.name) == "power")
+  {
+    cheats = true;
   }
   $('#name').text("Name: " + user.name);
 }
@@ -403,14 +400,24 @@ function handleDeath(alldata)
 
 function encrypt(pwd)
 {
-  return pwd;
+  let o = 1;
+  for(let i = 0; i < pwd.length; i++)
+  {
+    o *= pwd.charCodeAt(i);
+    o = o % 7907;
+  }
+  return o;
 }
 
 function validate(pwd)
 {
-  if (encrypt(pwd) == "lbd")
+  if (encrypt(pwd) == 6769)
   {
-    return true;
+    return "gold and power";
+  }
+  else if (encrypt(pwd) == 3845)
+  {
+    return "power";
   }
   return false;
 }

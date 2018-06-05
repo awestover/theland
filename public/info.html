@@ -37,6 +37,21 @@ attack other players in order to harm them and get stormlight for defeating them
 </div>
 
 <div class="well well-lg">
+<h2>Hotkeys</h2>
+<p id="hotkeys">
+Well here they are I guess
+</p>
+<script>
+titles = ["Key", "Action"];
+keys = ['b','t','c','arrows or awsd', 'g', 'h', 'f', 'u', 'r', 'l'];
+responses = ['Buy','toggle attract', 'togle scores', 'move view', 'toggle stats selection'
+'annihilate (only if cheating)', 'feed  selected', 'upgrade selected', 'freeze if cheating', 'user.stormlight+=100 if cheating'];
+data = [ keys, responses];
+$('#hotkeys').append(arrayToTable(titles, data));
+</script>
+</div>
+
+<div class="well well-lg">
 <h2>Currency</h2>
 <p>
 The currency in this game is "stormlight"
@@ -157,21 +172,6 @@ You lose health if you enter someone elses territory, and gain strength if you v
 <script>
 let titles; let keys; let responses; let data;
 </script>
-
-<div class="well well-lg">
-<h2>Hotkeys</h2>
-<p id="hotkeys">
-Well here they are I guess
-</p>
-<script>
-titles = ["Key", "Action"];
-keys = ['b','t','c','arrows or awsd', 'h', 'f', 'u', 'r', 'l'];
-responses = ['Buy','toggle attract', 'togle scores', 'move view',
-'annihilate (only if cheating)', 'feed  selected', 'upgrade selected', 'freeze if cheating', 'user.stormlight+=100 if cheating'];
-data = [ keys, responses];
-$('#hotkeys').append(arrayToTable(titles, data));
-</script>
-</div>
 
 <button class="btn btn-lg" id="button" onclick='window.location.href = "index.html";'>Back</button>
 

@@ -302,3 +302,10 @@ function getMaxScores()
 
   return [names, scores];
 }
+
+// function handleAccelerometer()
+// {
+//   console.log(accelerationX);
+//   console.log(accelerationY);
+//   console.log(accelerationZ);
+// }

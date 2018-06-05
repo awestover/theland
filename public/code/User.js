@@ -19,6 +19,8 @@ class User {
 
     this.attractAnimals = user_info["attractAnimals"] || true;
 
+    this.selectToggle = user_info["attractAnimals"] || true;
+
     for (let an in allAnimals)
     {
       if (!user_info[allAnimals[an]])
@@ -36,6 +38,15 @@ class User {
 
   }
 
+  toggleStatsAll()
+  {
+    for (let i = 0; i < this.personals.length; i++)
+    {
+      this.personals[i].showStats = this.selectToggle;
+    }
+    this.selectToggle = ! this.selectToggle;
+  }
+
   validateSelected()
   {
     if (this.selectedPersonal == null || this.selectedPersonal.health <= 0)
@@ -51,14 +62,17 @@ class User {
     }
   }
 
-  feedSelected()
+  feedStatsShown()
   {
-    if (this.validateSelected())
+    for (let i = 0; i < this.personals.length; i++)
     {
-      if (this.stormlight >= this.feedCost)
+      if (this.personals[i].showStats)
       {
-        this.stormlight -= this.feedCost;
-        this.selectedPersonal.doFeed();
+        if (this.stormlight >= this.feedCost)
+        {
+          this.stormlight -= this.feedCost;
+          this.personals[i].doFeed();
+        }
       }
     }
   }
