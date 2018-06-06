@@ -25,8 +25,9 @@
 
 <div class="container">
 
-<h2 class="well well-lg">Credits</h2>
-<p class="well well-lg" id="credits">Note, I am sorry that this is not an exhaustive list.</p>
+<div class="well well-lg">
+<h2>Credits</h2>
+<p id="credits">Note, I am sorry that this is not an exhaustive list.</p>
 <script>
 titles = ["Person", "Help"];
 keys = ['Alek Westover','Walter Shen','Brandon Westover','Eli Barnes', "Stephan Donaldson", "Brandon Sanderson"];
@@ -37,8 +38,24 @@ responses = ['He wrote the entire game and stuff',
 data = [ keys, responses];
 $('#credits').append(arrayToTable(titles, data));
 </script>
+</div>
 
-<button class="btn btn-lg" id="button" onclick='window.location.href = "index.html";'>Back</button>
+<div class="well well-lg">
+<h2>Fan of the Week</h2>
+<h2>Eli Barnes</h2>
+</div>
+
+<div class="well well-lg">
+<h2>Contributer of the Week</h2>
+<h2>Alek Westover</h2>
+</div>
+
+<div class="well well-lg">
+<h2>Knight Radiant of the Week</h2>
+<h2>Kelsier Cauthon</h2>
+</div>
+
+<button class="btn btn-lg well well-lg" id="button" onclick='window.location.href = "index.html";'>Back</button>
 
 </div>
 </body>
