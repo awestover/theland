@@ -211,7 +211,7 @@ function touchEnded()
     {
       let cidx = 0;
       let idx = collisions[cidx];
-      if (gametree.values[idx].username == user.name)
+      if (gametree.values[idx].username == user.name && gametree.values[idx].type == "personals")
       {
         user.selectedPersonal = gametree.values[idx];
         gametree.values[idx].showStats = !gametree.values[idx].showStats;

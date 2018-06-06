@@ -10,7 +10,7 @@ class Personal extends Animal
     this.sickPr = animal_traits["sickPr"] || 0; // no more!!
     this.rebirthPr = animal_traits["rebirthPr"] || 0.002;
     this.strength = animal_traits["strength"] || 1;
-    this.speed = animal_traits["speed"] || 1.3;
+    this.speed = animal_traits["speed"] || 3;
     this.levelUpPr = animal_traits["levelUpPr"] || 0.0005;
 
     this.vel = super.randomHeading(this.speed);
@@ -37,8 +37,8 @@ class Personal extends Animal
     let ptemp = (fAge - Math.abs(this.age - fAge));
 
     this.health += ptemp * 0.05;
-    this.speed +=  ptemp * 0.005;
-    this.speed = Math.max(0.3, this.speed); // not negative
+    this.speed +=  ptemp * 0.01;
+    this.speed = Math.max(0.6, this.speed); // not negative
 
   }
 
@@ -78,6 +78,8 @@ class Personal extends Animal
     this.level += 1;
     this.strength += 0.5;
     this.health += 5;
+    this.deadHunger += 1;
+    this.speed += 0.5;
     this.image = this.getImg();
   }
 
@@ -90,6 +92,7 @@ class Personal extends Animal
 
     if (otherAnimal.username == this.username && otherAnimal.type=="personals")
     {
+      this.getRepulsed(otherAnimal.pos, otherAnimal.dims);
       if (this.level < max_lvls["personals"])
       {
         if (this.levelUpPr > random())
@@ -98,9 +101,17 @@ class Personal extends Animal
         }
       }
     }
-    else {
+    else if (otherAnimal.type == "personals" || otherAnimal.type == "predators"){
       let deltaH = otherAnimal.interact();
       this.health += deltaH;
+    }
+    else if (otherAnimal.type = "preys"){
+      let deltas = otherAnimal.interact();
+      for (let i in deltas)
+      {
+        this[i] += deltas[i];
+      }
+      this.hunger = Math.max(0, this.hunger);
     }
     if (this.health <=0)
     {

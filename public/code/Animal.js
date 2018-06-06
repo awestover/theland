@@ -21,7 +21,7 @@ class Animal
     this.id = animal_traits["id"] || 0;
 
     this.dims=[66,50];
-    this.showStats = false; //  animal_traits["showStats"] || 
+    this.showStats = false; //  animal_traits["showStats"] ||
 
     this.level = animal_traits["level"] || 1;
 
@@ -66,9 +66,16 @@ class Animal
     }
   }
 
+  getRepulsed(pos, dims)
+  {
+    let diffs = [(pos[0]+dims[0]/2) - (this.pos[0]+this.dims[0]/2), (pos[1]+dims[1]/2) - (this.pos[1]+this.dims[1]/2)];
+    diffs = vecScalarMult(diffs, -this.speed/magv(diffs));
+    this.addPos(diffs);
+  }
+
   move()
   {
-    var th = (Math.random()-0.5)*0.9;
+    let th = (Math.random()-0.5)*1.5;
     if (Math.random() < 0.5) {
       th = 0;
     }
@@ -87,40 +94,27 @@ class Animal
     let cMag = magv(deltaV);
     if (cMag>50)
     {
-      deltaV = vecScalarMult(deltaV, 2.5*this.speed/cMag);
+      deltaV = vecScalarMult(deltaV, this.speed/cMag);
       this.vel = deltaV;
-      this.addPos(deltaV);
     }
-    this.move();
+    this.move(); // slightly alter current trajectory
+  }
+
+  statsConfigText()
+  {
+    stroke(0,0,0);
+    strokeWeight(0.5);
+    fill(0,0,0);
+    textSize(12);
   }
 
   pStats(pp)
   {
     if (this.showStats)
     {
-      fill(0,0,0);
-      textSize(10);
+      this.statsConfigText();
       let ctx = "Name: "  +  this.name;
-      ctx += "\n" + "Health: " + this.health.toFixed(2);
       ctx += "\n" + "Level: " + this.level;
-      if (this.type == "personals")
-      {
-        ctx += "\n" + "Strength: " + this.strength.toFixed(2);
-        ctx += "\n" + "Age: " + this.age.toFixed(2);
-        ctx += "\n" + "Hunger: " + this.hunger.toFixed(2);
-      }
-      if (this.speed)
-      {
-        ctx += "\n" + "Speed: " + this.speed.toFixed(2);
-      }
-      if (this.help)
-      {
-        ctx += "\n" + "Help: " + this.help.toFixed(2);
-      }
-      if (this.power)
-      {
-        ctx += "\n" + "Power: " + this.power.toFixed(2);
-      }
       text(ctx, pp[0]+this.dims[0]/2, pp[1]+1.3*this.dims[1]);
     }
   }
@@ -151,31 +145,59 @@ class Animal
       push();
       translate(this.pos[0]+this.dims[0]/2, this.pos[1]+this.dims[1]/2);
 
+      this.pStats([-this.dims[0]/2, -this.dims[1]/2]);
+
+      let space = 0;
       let curY;
       //health bar
       curY = this.drawBar(this.health, color(200,50,50), 20, -2*barHeight);
-
-      // user indicator
-      if (this.type == "personals")
+      if (this.showStats)
       {
-        //strength bar
-        curY = this.drawBar(this.strength, color(66, 134, 244), 5, curY);
-        //age bar
-        curY = this.drawBar(this.age, color(82, 232, 55), 5, curY);
-        //hunger bar
-        curY = this.drawBar(this.hunger, color(224, 206, 13), 5, curY);
-        //speed bar
-        curY = this.drawBar(this.speed, color(205, 15, 226), 5, curY);
+        this.statsConfigText();
+        text("Health: " + this.health.toFixed(2), this.dims[0]*1.1, curY-this.dims[1]/2-space);
+        space += 10;
+      }
+
+      //preys stats
+      if (this.type == "preys")
+      {
+        let colors = [color(253, 106, 2), color(249, 241, 157)];
+        let titles = ["health", "hunger"];
+        for (let i = 0; i < titles.length; i++)
+        {
+          curY = this.drawBar(Math.abs(this.help[titles[i]]), colors[i], 5, curY);
+        }
+      }
+      //predators stats
+      else if (this.type == "predators")
+      {
+        let colors = [color(205, 15, 226), color(66, 134, 244)];
+        curY = this.drawBar(this.speed, colors[0], 5, curY);
+        curY = this.drawBar(this.power, colors[1], 5, curY);
+      }
+      // user stats
+      else if (this.type == "personals")
+      {
+        //bars
+        let titles = ["Strength: ", "Age: ", "Hunger: ", "Speed: "]
+        let stats = [this.strength, this.age, this.hunger, this.speed];
+        let colors = [color(66, 134, 244), color(82, 232, 55), color(224, 206, 13), color(205, 15, 226)];
+        for (let i = 0; i < stats.length; i++)
+        {
+          curY = this.drawBar(stats[i], colors[i], 5, curY);
+          if (this.showStats)
+          {
+            this.statsConfigText();
+            text(titles[i] + stats[i].toFixed(2), this.dims[0]*1.1, curY-this.dims[1]/2-space);
+            space += 10;
+          }
+        }
 
         noFill();
         stroke(thColors[this.th]);
         strokeWeight(3);
         ellipse(0, 0, this.dims[0]*1.3, this.dims[1]*1.3);
       }
-
-      stroke(0,0,0);
-      strokeWeight(0.5);
-      this.pStats([-this.dims[0]/2, -this.dims[1]/2]);
 
       scale(this.rotated,1);
       try

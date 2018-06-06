@@ -5,7 +5,7 @@ class Prey extends Animal
   {
     super(animal_traits);
     this.type = "preys";
-    this.help = animal_traits["help"] || 1;
+    this.help = animal_traits["help"] || {"health": 1, "hunger": -0.5};
 
     this.name = animal_traits["name"] || "pizza"; // for now...
     this.dims = [30,30];
