@@ -3,22 +3,16 @@
 <head>
   <!-- resize -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
   <!-- Icon -->
   <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
-
   <title>The Land Help</title>
-
   <!--jquery-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
   <!--bootstrap-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
   <!-- style -->
   <link rel="stylesheet" type="text/css" href="style/info.css">
   <script src="style/arrayToTable.js" type="text/javascript"></script>
-
 </head>
 
 <body>
@@ -42,10 +36,11 @@ attack other players in order to harm them and get stormlight for defeating them
 Well here they are I guess
 </p>
 <script>
+let titles; let keys; let responses; let data;
 titles = ["Key", "Action"];
 keys = ['b','t','c','arrows or awsd', 'g', 'h', 'f', 'u', 'r', 'l'];
 responses = ['Buy', 'toggle attract', 'togle scores', 'move view', 'toggle stats selection',
-'annihilate (only if cheating)', 'feed  selected', 'upgrade selected', 'freeze if cheating', 'user.stormlight+=100 if cheating'];
+'annihilate (only if cheating)', 'feed all hungry (more than about half hunger)', 'upgrade last pressed', 'freeze if cheating', 'user.stormlight+=100 if cheating'];
 data = [ keys, responses];
 $('#hotkeys').append(arrayToTable(titles, data));
 </script>
@@ -55,7 +50,7 @@ $('#hotkeys').append(arrayToTable(titles, data));
 <h2>Currency</h2>
 <p>
 The currency in this game is "stormlight"
-If you get stormlight you can buy an animal. You can't buy any more once you are at 15 animals, but they may reproduce still.
+If you get stormlight you can buy an animal. You can't buy any more once you are at 10 animals, but they may reproduce still.
 You can also buy food for animals, or upgrade animals.
 (as of now you cannot manipulate gravity once you attain stormlight.
 This feature would be cool, but probably is not feasible to add without support from NASA)
@@ -69,7 +64,9 @@ this costs 100 stormlight for now
 <div class="well well-lg">
 <h2>Age</h2>
 <p>
-This is how old your animal is. This affects the rate of change of your health due to age, and the rate of change of your speed.
+This is how old your animal is.
+This affects the rate of change of your health due to age, and the rate of change of your speed.
+If you get too old you will start to die pretty fast.
 </p>
 </div>
 
@@ -83,14 +80,14 @@ This is how much damage you do.
 <div class="well well-lg">
 <h2>Hunger</h2>
 <p>
-If you get too hungry you will die. Feed your animals! (costs 10 stormlight)
+If you get too hungry you will die. Feed your animals! (costs 10 stormlight per animal)
 </p>
 </div>
 
 <div class="well well-lg">
 <h2>Speed</h2>
 <p>
-Faster animals move faster... This is affected by age a bit.
+Faster animals move faster... This is affected by age.
 </p>
 </div>
 
@@ -110,7 +107,7 @@ also world names are subject to this constraint
 Look at the leaderboard to see your score your score
 is determined mostly by how many animals you are fielding
 but other factors like stormlight contribute to your score as well
-see the scoreboard by pressing Toggle Scores
+see the scoreboard by pressing Scores
 for your current standing.
 </p>
 </div>
@@ -168,10 +165,6 @@ It will kill you. I am very sorry for the inconvenience.
 You lose health if you enter someone elses territory, and gain strength if you visit yours.
 </p>
 </div>
-
-<script>
-let titles; let keys; let responses; let data;
-</script>
 
 <button class="btn btn-lg well well-lg" id="button" onclick='window.location.href = "index.html";'>Back</button>
 

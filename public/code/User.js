@@ -62,11 +62,11 @@ class User {
     }
   }
 
-  feedStatsShown()
+  feedHungry()
   {
     for (let i = 0; i < this.personals.length; i++)
     {
-      if (this.personals[i].showStats)
+      if (this.personals[i].isHungry())
       {
         if (this.stormlight >= this.feedCost)
         {

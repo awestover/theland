@@ -306,7 +306,7 @@ function keyPressed()
       toggleScores();
       break;
     case 'f':
-      user.feedStatsShown();
+      user.feedHungry();
       break;
     case 'u':
       user.upgradeSelected();
