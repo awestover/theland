@@ -16,6 +16,13 @@ class Predator extends Animal
     this.dims=[75,100];
   }
 
+
+  // if others are in sight chase one of them
+  // chaseOther()
+  // {
+  //
+  // }
+
   handleCollide(otherAnimal)
   {
     if (this.health <= 0 || otherAnimal.health <=0)

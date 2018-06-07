@@ -27,6 +27,23 @@ cp -r knight-rises/* knight-rises-code-github/
 gitc "added code"
 gitp
 
+# socket io and general js lessons learned:
+
+"rooms" for semi private communication (private within a group) are important
+https://socket.io/docs/rooms-and-namespaces/
+
+
+splice and slice
+
+splice(x, length) deletes a section of an array
+slice(x, length)  copies  a section of an array
+
+ellipse(x,y,w,h) diameter NOT radius...
+
+for links via button press do
+window.location.href = "http://stackoverflow.com"; etc
+DO NOT hack css into a <a> tag...
+
 
 # for 3d open gl
     pip install numpy

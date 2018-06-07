@@ -75,7 +75,7 @@
     </script>
 
     <script>
-      let colNames = ["Name", "World", "theta"];
+      let colNames = ["Name", "World", "theta", "animal type"];
       let userData = {};
       let userArray;
       let userTable;
@@ -91,7 +91,7 @@
       function handleGotData(data)
       {
         userData = data;
-        userArray = [[],[],[]];
+        userArray = [[],[],[], []];
         for (let i in userData)
         {
           for (let j in colNames)

@@ -50,11 +50,17 @@ function newConnection(socket) {
   socket.on('updatePlayer', updatePlayer);
   socket.on('pushAnimalUpdate', pushAnimalUpdate);
   socket.on('deathAlert', handleDeath);
+  socket.on('choseAnimalType', handleChoseAnimalType);
 
   socket.on('getData', sendData);
   function sendData(data)
   {
     socket.emit('gotData', userData);
+  }
+
+  function handleChoseAnimalType(data)
+  {
+    userData[name].push(data["animalType"]);
   }
 
   function handleSendWorld(data)

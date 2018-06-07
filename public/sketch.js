@@ -47,13 +47,16 @@ function setup()
     animalType = animal_names["personals"][animalType];
   }
   user = new User({"animal_type": animalType});
-  user.setAnimalType();
   // let name = prompt("Name");
   let name = userValues["unm"];
   socket.emit("named", {"name":name});
   // let world=prompt("World");
   let world = userValues["world"];
   socket.emit("sendWorld", {"world":world});
+
+  user.setAnimalType();
+  socket.emit('choseAnimalType', {"animalType": animalType});
+
   user.initAnimals();
 
   edgeRects = calculateEdge();
