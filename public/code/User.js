@@ -148,7 +148,7 @@ class User {
       {
         if (this.attractAnimals)
         {
-          this.personals[an].pushMotion(this.pos);
+          this.personals[an].pushMotion(negateV(this.pos));
         }
         else {
           this.personals[an].move();

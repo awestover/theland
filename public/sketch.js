@@ -22,7 +22,7 @@ function setup()
     thColors[i] = color(thColors[i]);
   }
 
-  screen_dims = [windowWidth, windowHeight*0.91];
+  screen_dims = [windowWidth, windowHeight*0.95];
   canvas = createCanvas(screen_dims[0], screen_dims[1]);
   textAlign(CENTER);
   frameRate(10);
@@ -138,6 +138,12 @@ function draw()
     else {
       ccollided.inEnemyTerritory();
     }
+  }
+
+  let pCollisions = gametree.getPredatorTargets();
+  for (let i in pCollisions[0])
+  {
+    gametree.values[pCollisions[0][i]].pushMotion(pCollisions[1][i], 0);
   }
 
   drawEdge(); // not allways needed...

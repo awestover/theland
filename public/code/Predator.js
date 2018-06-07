@@ -14,14 +14,17 @@ class Predator extends Animal
 
     this.name=animal_traits["name"] || "dino";
     this.dims=[75,100];
+
+    this.sightR = animal_traits["sightR"] || 500;
   }
 
-
-  // if others are in sight chase one of them
-  // chaseOther()
-  // {
-  //
-  // }
+  show()
+  {
+    super.show();
+    noFill();
+    stroke(0,0,0);
+    ellipse(this.pos[0]+this.dims[0]/2, this.pos[1]+this.dims[1]/2, this.sightR*2, this.sightR*2);
+  }
 
   handleCollide(otherAnimal)
   {

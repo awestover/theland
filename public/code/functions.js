@@ -1,5 +1,12 @@
 //functions
 
+function centerSqaredDist(animalA, animalB)
+{
+	let dx = (animalA.pos[0]+animalA.dims[0]/2) - (animalB.pos[0]+animalB.dims[0]/2);
+	let dy = (animalA.pos[1]+animalA.dims[1]/2) - (animalB.pos[1]+animalB.dims[1]/2);
+	return (dx*dx + dy*dy);
+}
+
 function parseURL(url)
 {
 	var lastPart = url.split("?");

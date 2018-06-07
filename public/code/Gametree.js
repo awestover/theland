@@ -36,9 +36,9 @@ class Gametree
     }
   }
 
+  // crummy comparison for now
   getCollisions()
   {
-    // crummy comparison FOR NOW
     let collisions = [];
     for (var i = 0; i < this.values.length; i++)
     {
@@ -53,9 +53,44 @@ class Gametree
     return collisions;
   }
 
+  getPredatorTargets()
+  {
+    let predatorIdxs = [];// idx of predators
+    let targets = []; // for predator sight animal collisions, lists center coords
+    for (let i in this.values)
+    {
+      let targetPos = [];
+      let targetDist = false; // really squared distances...
+      if (this.values[i].type == "predators")
+      {
+        for (let j in this.values)
+        {
+          if (i!=j && this.values[j].type=="personals")
+          {
+            if (rectInCircle(this.values[j].getBox(), [this.values[i].getCenter(), this.values[i].sightR]))
+            {
+              let cDist = centerSqaredDist(this.values[i], this.values[j]);
+              if (targetDist==false || targetDist > cDist)
+              {
+                targetDist = cDist;
+                targetPos = this.values[j].getCenter();
+              }
+            }
+          }
+        }
+        if (targetPos.length == 2)
+        {
+          targets.push(targetPos);
+          predatorIdxs.push(i);
+        }
+      }
+    }
+    return [predatorIdxs, targets];
+  }
+
+  // crummy comparison FOR NOW
   getCollisionsWith(box)
   {
-    // crummy comparison FOR NOW
     let collisions = [];
     for (var i = 0; i < this.values.length; i++)
     {
@@ -80,7 +115,6 @@ class Gametree
     let yInt = this.collideX([a[1], a[1]+a[3]], [b[1], b[1]+b[3]]);
     return (xInt && yInt);
   }
-
 
   getTerritoryCollisions()
   {

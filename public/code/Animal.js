@@ -35,6 +35,11 @@ class Animal
     this.visitedUserTerritory = animal_traits["visitedUserTerritory"] || false;
   }
 
+  getCenter()
+  {
+    return [this.pos[0]+this.dims[0]/2, this.pos[1]+this.dims[1]/2];
+  }
+
   getBoosted()
   {
     if (!this.boosted)
@@ -75,7 +80,7 @@ class Animal
 
   move()
   {
-    let th = (Math.random()-0.5)*1.5;
+    let th = (Math.random()-0.5)*1.2;
     if (Math.random() < 0.5) {
       th = 0;
     }
@@ -88,11 +93,15 @@ class Animal
     this.rotated=Math.sign(this.vel[0]);
   }
 
-  pushMotion(location)
+  pushMotion(location, threshold)
   {
-    let deltaV = [-this.pos[0]-location[0]-this.dims[0]/2, -this.pos[1]-location[1]-this.dims[1]/2];
+    if (!threshold)
+    {
+      threshold = 50;
+    }
+    let deltaV = [location[0]-this.pos[0]-this.dims[0]/2, location[1]-this.pos[1]-this.dims[1]/2];
     let cMag = magv(deltaV);
-    if (cMag>50)
+    if (cMag>threshold)
     {
       deltaV = vecScalarMult(deltaV, this.speed/cMag);
       this.vel = deltaV;
