@@ -4,6 +4,18 @@ These are some cool games
 
 # dependencies
 
+# mongodb stuff
+
+heroku:
+https://devcenter.heroku.com/articles/heroku-postgresql#designating-a-primary-database
+
+local install is good too
+
+psql
+
+the export command is good too.
+
+
 # for socket games
 npm
 nodejs

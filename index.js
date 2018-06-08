@@ -18,7 +18,13 @@ const client = new Client({
 
 client.connect();
 
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+// client
+
+let qu = 'SELECT table_schema,table_name FROM information_schema.tables;';
+qu = 'CREATE TABLE test (product_no integer,name text,price numeric);'
+qu = 'SELECT * FROM test';
+client.query(qu, (err, res) => {
+  console.log("trying");
   if (err) throw err;
   for (let row of res.rows) {
     console.log(JSON.stringify(row));
