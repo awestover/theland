@@ -9,7 +9,6 @@ var io = socket(server);
 app.use(express.static('public'));
 
 
-/*
 const { Client } = require('pg');
 
 const client = new Client({
@@ -27,7 +26,6 @@ client.query('SELECT table_schema,table_name FROM information_schema.tables;', (
   client.end();
 });
 
-*/
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
