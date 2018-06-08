@@ -3,28 +3,28 @@ var express = require('express'); // needs this library
 var app = express();
 var port = process.env.PORT || 3000;  // what port to open it on must have the option to be
 // chosen by server if you want it to be heroku compatible, also does need the default
-var server = require('http').createServer(app).listen(port);
-var socket = require('socket.io');
-var io = socket(server);
+let server = require('http').createServer(app).listen(port);
+let socket = require('socket.io');
+let io = socket(server);
 app.use(express.static('public'));
 
 
-const { Client } = require('pg');
-
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
-});
-
-client.connect();
-
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
+// const { Client } = require('pg');
+//
+// const client = new Client({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: true,
+// });
+//
+// client.connect();
+//
+// client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+//   if (err) throw err;
+//   for (let row of res.rows) {
+//     console.log(JSON.stringify(row));
+//   }
+//   client.end();
+// });
 
 
 var bodyParser = require('body-parser');
