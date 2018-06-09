@@ -8,7 +8,6 @@ let socket = require('socket.io');
 let io = socket(server);
 app.use(express.static('public'));
 
-/*
 const { Client } = require('pg');
 
 const client = new Client({
@@ -21,18 +20,20 @@ client.connect();
 // client
 
 let qu = 'SELECT table_schema,table_name FROM information_schema.tables;';
-qu = 'CREATE TABLE test (name varchar(40));';
-qu = 'SELECT * FROM test;';
+//qu = 'CREATE TABLE test (name varchar(40));';
+//qu = 'SELECT * FROM test;';
 // qu = 'INSERT INTO test name VALUES("testasdf");';
+// qu = 'CREATE DATABASE X
+
 client.query(qu, (err, res) => {
-  console.log("trying TRYYYYYYYYYYYYYYYYY");
+  //console.log("trying TRYYYYYYYYYYYYYYYYY");
   if (err) throw err;
   for (let row of res.rows) {
     console.log(JSON.stringify(row));
   }
   client.end();
 });
-*/
+
 
 
 var bodyParser = require('body-parser');
