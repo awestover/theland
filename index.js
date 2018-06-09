@@ -21,7 +21,7 @@ client.connect();
 // client
 
 let qu = 'SELECT table_schema,table_name FROM information_schema.tables;';
-qu = 'CREATE TABLE test (product_no integer,name text,price numeric);'
+// qu = 'CREATE TABLE test (product_no integer,name text,price numeric);'
 // qu = 'SELECT * FROM test';
 client.query(qu, (err, res) => {
   console.log("trying");
