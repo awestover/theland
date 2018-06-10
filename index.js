@@ -12,6 +12,7 @@ const { Client } = require('pg');
 
 function queryDb(qu)
 {
+  var results = [];
   try
   {
     const client = new Client({
@@ -24,7 +25,8 @@ function queryDb(qu)
     client.query(qu, (err, res) => {
       if (err) throw err;
       for (let row of res.rows) {
-        console.log(JSON.stringify(row));
+        var cRow = JSON.stringify(row);
+        results.push(cRow);
       }
       client.end();
     });
@@ -33,6 +35,7 @@ function queryDb(qu)
   {
       console.log(error);
   }
+  return results;
 }
 
 function safer(s)
