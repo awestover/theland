@@ -18,22 +18,30 @@ const client = new Client({
 function queryDb(qu)
 {
   console.log(qu);
-  client.connect();
   var results = [];
-  client.query(qu, (err, res) => {
-    if (err) throw err;
-    for (let row of res.rows) {
-      var cRow = JSON.stringify(row);
-      console.log(cRow);
-      results.push(cRow);
-    }
-    client.end();
-  });
-  return results;
+  try {
+    client.connect();
+    var results = [];
+    client.query(qu, (err, res) => {
+      if (err) throw err;
+      for (let row of res.rows) {
+        var cRow = JSON.stringify(row);
+        console.log(cRow);
+        results.push(cRow);
+      }
+      client.end();
+    });
+  } catch (e) {
+    console.log(e);
+  } finally {
+    console.log("queryDb " + qu);
+    console.log(results);
+    return results;
+  }
 }
 // function queryDb(qu)
 // {
-  // try {
+//    try {
 //     const client = new Client({
 //       connectionString: process.env.DATABASE_URL,
 //       ssl: true,
