@@ -10,19 +10,20 @@ app.use(express.static('public'));
 
 const { Client } = require('pg');
 
-async function queryDb(qu)
+var queryResultRecent = [];
+
+function queryDb(qu, callback, params)
 {
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
   });
-  var results;
   client.connect()
-    .then(() => return reallyQueryDb(client, qu))
+    .then(() => reallyQueryDb(client, qu, callback, params))
     .catch(e => console.error('connection error', err.stack))
 }
 
-function reallyQueryDb(client, qu)
+function reallyQueryDb(client, qu, callback, params)
 {
   console.log("Querying " + qu);
   var results = [];
@@ -35,7 +36,8 @@ function reallyQueryDb(client, qu)
     }
     client.end();
   });
-  return results;
+  queryResultRecent = results;
+  callback(queryResultRecent, params);
 }
 
 function safer(s)
@@ -98,8 +100,10 @@ app.post('/', function(req, res) {
 });
 
 
-function finishRegister(res, dRes, fields)
+function finishRegister(dRes, params)
 {
+  var res = params["res"]
+  var fields = params["fields"];
   console.log("res");
   console.log(dRes);
   if (dRes.length==0)
@@ -121,10 +125,9 @@ app.post('/register', function(req, res) {
   var fields = [unm, quest, level, pwd];
 
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-  queryDb(qu).then(dRes => finishRegister(res, dRes, fields));
+  queryDb(qu, finishRegister, {"res": res, "fields":fields});
   // qu = "SELECT * FROM users;";
   // dRes = queryDb(qu);
-
 });
 
 console.log("server running");
