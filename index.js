@@ -133,8 +133,6 @@ app.post('/register', function(req, res) {
   var level = 1;
   var quest = 'none';
 
-  queryDb("SELECT table_schema,table_name FROM information_schema.tables;");
-
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
   var dRes = queryDb(qu);
   qu = "SELECT * FROM users;";
@@ -142,10 +140,10 @@ app.post('/register', function(req, res) {
   if (dRes.length==0)
   {
     queryDb(formInsert([unm, quest, level, pwd]));
-    res.redirect("index.html");
+    // res.redirect("index.html");
   }
   else {
-    res.redirect("register.html?failed=username_exists");
+    // res.redirect("register.html?failed=username_exists");
   }
 
 });
