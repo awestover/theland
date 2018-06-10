@@ -18,9 +18,7 @@ function queryDb(qu)
       connectionString: process.env.DATABASE_URL,
       ssl: true,
     });
-
     client.connect();
-
     client.query(qu, (err, res) => {
       if (err) throw err;
       for (let row of res.rows) {
@@ -30,15 +28,14 @@ function queryDb(qu)
         console.log(results);
       }
       client.end();
+      console.log("finally " + qu);
+      console.log(results);
+      return results;
     });
   }
   catch (error) {
       console.log(error);
-  }
-  finally {
-    console.log("finally " + qu);
-    console.log(results);
-    return results;
+      return [];
   }
 }
 
