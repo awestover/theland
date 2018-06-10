@@ -18,37 +18,45 @@
   <!--bootstrap-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+  <!-- url parsing -->
+  <script src="code/functions.js" type="text/javascript"></script>
+
 </head>
 
 <body>
-    <div class="container">
-
-      <div class="well well-lg">
-      <form action="/register" method="post">
-        <h2 class="form-signin-heading">Please Create an account</h2>
-        <label for="unm">Username</label>
-        <input name="unm" class="form-control" placeholder="User Name">
-        <br>
-
-        <h1>
-          PLEASE DO NOT INPUT A LEGIT PASSWORD HERE!!!!! I AM NOT EVEN HASHING THESE YET SO USING A REAL PASSWORD IS REALLY STUPID. ALSO PLEASE DO NOT GIVE ME AN SQL INJECTION. PLEASE PLEASE PLEASE. SETTING UP THE DATABASE TOOK A WHILE PLEASE DO NOT MESS WITH IT PLEASE.
-          THANK YOU FOR YOUR KINDNESS AND LENIENCY.
-        </h1>
-        <label for="pwd">Password</label>
-        <input name="pwd" class="form-control" placeholder="password">
-        <br>
-        <br><br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-        <br><br>
-      </form>
-
-      <div>
+  <div class="container">
+  <div class="well well-lg">
+    <form action="/register" method="post">
+      <div id="error"></div>
+      <h2 class="form-signin-heading">Please Create an account</h2>
+      <label for="unm">Username</label>
+      <input name="unm" class="form-control" placeholder="User Name">
       <br>
-      <button class="btn btn-lg well well-lg" id="button" style="float:left" onclick='window.location.href = "index.html";'>Main</button><br><br><br><br>
-      </div>
 
-    </div>
-    </div>
+      <h1>
+        PLEASE DO NOT INPUT A LEGIT PASSWORD HERE!!!!! I AM NOT EVEN HASHING THESE YET SO USING A REAL PASSWORD IS REALLY STUPID. ALSO PLEASE DO NOT GIVE ME AN SQL INJECTION. PLEASE PLEASE PLEASE. SETTING UP THE DATABASE TOOK A WHILE PLEASE DO NOT MESS WITH IT PLEASE.
+        THANK YOU FOR YOUR KINDNESS AND LENIENCY.
+      </h1>
+      <label for="pwd">Password</label>
+      <input name="pwd" class="form-control" placeholder="password">
+      <br><br><br>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+      <br><br>
+    </form>
+    <br>
+    <button class="btn btn-lg well well-lg" id="button" style="float:left" onclick='window.location.href = "index.html";'>Main</button><br><br><br><br>
+  </div>
+  </div>
+
+  <script>
+  if (Object.keys(parseURL(document.URL)).length != 0)
+  {
+    $('#error').append("\
+      <div class='alert alert-danger'>\
+        <strong>ERROR:</strong> Username is already being used. Pick another name.\
+      </div>");
+  }
+  </script>
 
 </body>
 
