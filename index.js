@@ -123,7 +123,7 @@ app.post('/register', function(req, res) {
   var fields = [unm, quest, level, pwd];
 
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-  var dRes = queryDb(qu).then(finish(dRes, fields));
+  var dRes = queryDb(qu).then(finishRegister(dRes, fields));
   // qu = "SELECT * FROM users;";
   // dRes = queryDb(qu);
 
