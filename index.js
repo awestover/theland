@@ -149,7 +149,7 @@ app.post('/register', async function(req, resp) {
     }
     else {
       queryDb(formInsert(fields));
-      res.redirect("index.html");
+      resp.redirect("index.html");
     }
   });
 
