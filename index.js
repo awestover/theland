@@ -8,38 +8,51 @@ let socket = require('socket.io');
 let io = socket(server);
 app.use(express.static('public'));
 
-/**/
-try
+
+const { Client } = require('pg');
+
+function queryDb(qu)
 {
-  const { Client } = require('pg');
-  const client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  });
+  try
+  {
+    const client = new Client({
+      connectionString: process.env.DATABASE_URL,
+      ssl: true,
+    });
 
-  client.connect();
+    client.connect();
 
-  // client
-  // let qu = 'SELECT table_schema,table_name FROM information_schema.tables;';
-  // qu = 'CREATE TABLE test (name varchar(40));';
-  let qu = 'SELECT * FROM test;';
-  // qu = "INSERT INTO test VALUES('testasdf');";
+    client.query(qu, (err, res) => {
+      if (err) throw err;
+      for (let row of res.rows) {
+        console.log(JSON.stringify(row));
+      }
+      client.end();
+    });
+  }
+  catch (error)
+  {
+      console.log(error);
+  }
+}
 
-  client.query(qu, (err, res) => {
-    //console.log("trying");
-    if (err) throw err;
-    for (let row of res.rows) {
-      console.log(JSON.stringify(row));
+
+function formInsert(vals)
+{
+  var qu = "INSERT INTO users VALUES(";
+  for (var i = 0; i < vals.length; i++)
+  {
+    qu += "'" + vals[i].replace(";", "").replace('"', '').replace("'", '') + "'";
+    if (i!= vals.length-1)
+    {
+      qu += ', ';
     }
-    client.end();
-  });
+    else {
+      qu += ");";
+    }
+  }
+  return qu;
 }
-catch (error)
-{
-    console.log(error);
-}
-/**/
-
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
@@ -52,6 +65,15 @@ app.post('/', function(req, res) {
     var anType = req.body.anType;
     var soundWanted = req.body.soundWanted;
     res.redirect("game.html?"+joinIns([unm, world, anType, soundWanted], ["unm", "world", "anType","soundWanted"]));
+});
+
+app.post('/register', function(req, res) {
+  var unm = req.body.unm;
+  var pwd = req.body.pwd;
+  var level = 1;
+  var quest = 'none';
+  queryDb(formInsert([unm, pwd, level, quest]));
+  res.redirect("index.html");
 });
 
 console.log("server running");
