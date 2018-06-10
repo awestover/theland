@@ -22,13 +22,14 @@ function queryDb(qu)
     client.query(qu, (err, res) => {
       if (err) throw err;
       for (let row of res.rows) {
-        // var cRow = JSON.stringify(row);
-        var cRow = row;
+        var cRow = JSON.stringify(row);
+        // var cRow = row;
+        console.log(row);
         results.push(cRow);
       }
       client.end();
     });
-    console.log("queryDb" + qu);
+    console.log("queryDb " + qu);
     console.log(results);
     return results;
   }
