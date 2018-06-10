@@ -23,9 +23,7 @@ function queryDb(qu)
       if (err) throw err;
       for (let row of res.rows) {
         var cRow = JSON.stringify(row);
-        console.log(cRow);
         results.push(cRow);
-        console.log(results);
       }
       client.end();
       console.log("finally " + qu);
@@ -121,7 +119,7 @@ app.post('/register', function(req, res) {
     res.redirect("index.html");
   }
   else {
-    res.redirect("register.html?registering=failed_user_alread_exists");
+    res.redirect("register.html?failed=username_exists");
   }
 
 });
