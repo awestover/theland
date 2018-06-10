@@ -40,40 +40,6 @@ function reallyQueryDb(client, qu)
   return results;
 }
 
-// function queryDb(qu)
-// {
-//    try {
-//     const client = new Client({
-//       connectionString: process.env.DATABASE_URL,
-//       ssl: true,
-//     });
-//     client.connect();
-//     var results = [];
-//     client.query(qu, (err, res) => {
-//       if (err) throw err;
-//       for (let row of res.rows) {
-//         var cRow = JSON.stringify(row);
-//         console.log(cRow);
-//         results.push(cRow);
-//       }
-//       client.end();
-//     });
-//   }
-//   catch (error) {
-//       console.log(error);
-//       return [];
-//   } finally {
-//     console.log("queryDb " + qu);
-//     console.log(results);
-//     return results;
-//   }
-// }
-// function queryDb(qu)
-// {
-//   console.log("fake " + qu);
-//   return [];
-// }
-
 function safer(s)
 {
   return s.replace(";", "").replace('"', '').replace("'", '').replace("-", '');
@@ -141,8 +107,8 @@ app.post('/register', function(req, res) {
 
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
   var dRes = queryDb(qu);
-  qu = "SELECT * FROM users;";
-  dRes = queryDb(qu);
+  // qu = "SELECT * FROM users;";
+  // dRes = queryDb(qu);
   if (dRes.length==0)
   {
     queryDb(formInsert([unm, quest, level, pwd]));
