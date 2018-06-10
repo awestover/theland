@@ -17,7 +17,7 @@ const client = new Client({
 // client.connnect();
 //   .then(() => console.log('connected'))
 //   .catch(e => console.error('connection error', err.stack))
-client.connect();
+client.connect()
   .catch(e => console.error('connection error', err.stack))
 
 function queryDb(qu)
