@@ -32,13 +32,11 @@ function queryDb(qu)
       client.end();
     });
   }
-  catch (error)
-  {
+  catch (error) {
       console.log(error);
   }
-  finally
-  {
-    console.log("finally");
+  finally {
+    console.log("finally " + qu);
     console.log(results);
     return results;
   }
