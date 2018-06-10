@@ -113,7 +113,7 @@ app.post('/', function(req, res) {
     if (pwd.length>0)
     {
       var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-      var qRes = dbQ(qu);
+      var qRes = queryDb(qu);
       if (qRes['password'] == pwd)
       {
         pwdGood = true;
@@ -135,12 +135,12 @@ app.post('/register', function(req, res) {
   var quest = 'none';
 
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-  var dRes = dbQ(qu);
+  var dRes = queryDb(qu);
   qu = "SELECT * FROM users;";
-  dRes = dbQ(qu);
+  dRes = queryDb(qu);
   if (dRes.length==0)
   {
-    dbQ(formInsert([unm, quest, level, pwd]));
+    queryDb(formInsert([unm, quest, level, pwd]));
     res.redirect("index.html");
   }
   else {
