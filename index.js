@@ -109,6 +109,8 @@ app.post('/register', function(req, res) {
   var dRes = queryDb(qu);
   // qu = "SELECT * FROM users;";
   // dRes = queryDb(qu);
+  console.log("res");
+  console.log(dRes);
   if (dRes.length==0)
   {
     queryDb(formInsert([unm, quest, level, pwd]));
