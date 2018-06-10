@@ -139,12 +139,12 @@ app.post('/register', function(req, res) {
   var quest = 'none';
 
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-  var dRes = queryDb(qu);
+  var dRes = await queryDb(qu);
   qu = "SELECT * FROM users;";
-  dRes = queryDb(qu);
+  dRes = await queryDb(qu);
   if (dRes.length==0)
   {
-    queryDb(formInsert([unm, quest, level, pwd]));
+    await queryDb(formInsert([unm, quest, level, pwd]));
     res.redirect("index.html");
   }
   else {
