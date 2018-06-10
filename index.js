@@ -26,6 +26,7 @@ function queryDb(qu)
       if (err) throw err;
       for (let row of res.rows) {
         var cRow = JSON.stringify(row);
+        console.log(cRow);
         results.push(cRow);
       }
       client.end();
@@ -73,6 +74,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 // handle posts
 app.post('/', function(req, res) {
     var unm = req.body.unm;
+    var pwd = req.body.pwd;
     var world = req.body.world;
     var anType = req.body.anType;
     var soundWanted = req.body.soundWanted;
