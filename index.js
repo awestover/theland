@@ -10,34 +10,58 @@ app.use(express.static('public'));
 
 const { Client } = require('pg');
 
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
+// client.connnect();
+//   .then(() => console.log('connected'))
+//   .catch(e => console.error('connection error', err.stack))
+client.connect();
+  .catch(e => console.error('connection error', err.stack))
+
 function queryDb(qu)
 {
-  try {
-    const client = new Client({
-      connectionString: process.env.DATABASE_URL,
-      ssl: true,
-    });
-    client.connect();
-    var results = [];
-    client.query(qu, (err, res) => {
-      if (err) throw err;
-      for (let row of res.rows) {
-        var cRow = JSON.stringify(row);
-        console.log(cRow);
-        results.push(cRow);
-      }
-      client.end();
-    });
-  }
-  catch (error) {
-      console.log(error);
-      return [];
-  } finally {
-    console.log("queryDb " + qu);
-    console.log(results);
-    return results;
-  }
+  var results = [];
+  client.query(qu, (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+      var cRow = JSON.stringify(row);
+      console.log(cRow);
+      results.push(cRow);
+    }
+    // client.end();
+  });
+  return results;
 }
+// function queryDb(qu)
+// {
+  // try {
+//     const client = new Client({
+//       connectionString: process.env.DATABASE_URL,
+//       ssl: true,
+//     });
+//     client.connect();
+//     var results = [];
+//     client.query(qu, (err, res) => {
+//       if (err) throw err;
+//       for (let row of res.rows) {
+//         var cRow = JSON.stringify(row);
+//         console.log(cRow);
+//         results.push(cRow);
+//       }
+//       client.end();
+//     });
+//   }
+//   catch (error) {
+//       console.log(error);
+//       return [];
+//   } finally {
+//     console.log("queryDb " + qu);
+//     console.log(results);
+//     return results;
+//   }
+// }
 
 function safer(s)
 {
@@ -89,7 +113,6 @@ app.post('/', function(req, res) {
         pwdGood = true;
       }
     }
-
     var verified = "no";
     if (pwdGood)
     {
@@ -320,4 +343,10 @@ function nameExists(name)
 		}
 	}
 	return ct;
+}
+
+
+finally
+{
+  client.end();
 }
