@@ -14,10 +14,8 @@ const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 });
-// client.connnect();
-//   .then(() => console.log('connected'))
-//   .catch(e => console.error('connection error', err.stack))
-client.connect()
+client.connnect();
+  .then(() => console.log('connected'); client.end();)
   .catch(e => console.error('connection error', err.stack))
 
 function queryDb(qu)
@@ -343,10 +341,4 @@ function nameExists(name)
 		}
 	}
 	return ct;
-}
-
-
-finally
-{
-  client.end();
 }
