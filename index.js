@@ -99,26 +99,33 @@ app.post('/', function(req, res) {
     res.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
 });
 
+
+finishRegister(dRes, fields)
+{
+  console.log("res");
+  console.log(dRes);
+  if (dRes.length==0)
+  {
+    queryDb(formInsert(fields));
+    res.redirect("index.html");
+  }
+  else {
+    res.redirect("register.html?failed=username_exists");
+  }
+}
+
 app.post('/register', function(req, res) {
   var unm = req.body.unm;
   var pwd = req.body.pwd;
   var level = 1;
   var quest = 'none';
 
+  var fields = [unm, quest, level, pwd];
+
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-  var dRes = queryDb(qu);
+  var dRes = queryDb(qu).then(finish(dRes, fields));
   // qu = "SELECT * FROM users;";
   // dRes = queryDb(qu);
-  console.log("res");
-  console.log(dRes);
-  if (dRes.length==0)
-  {
-    queryDb(formInsert([unm, quest, level, pwd]));
-    res.redirect("index.html");
-  }
-  else {
-    res.redirect("register.html?failed=username_exists");
-  }
 
 });
 
