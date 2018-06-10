@@ -15,30 +15,10 @@ const client = new Client({
   ssl: true,
 });
 
-function queryDb(qu)
-{
-  console.log(qu);
-  var results = [];
-  try {
-    client.connect();
-    var results = [];
-    client.query(qu, (err, res) => {
-      if (err) throw err;
-      for (let row of res.rows) {
-        var cRow = JSON.stringify(row);
-        console.log(cRow);
-        results.push(cRow);
-      }
-      // client.end();
-    });
-  } catch (e) {
-    console.log(e);
-  } finally {
-    console.log("queryDb " + qu);
-    console.log(results);
-    return results;
-  }
-}
+client.connect()
+  .then(() => console.log('connected'))
+  .catch(e => console.error('connection error', err.stack))
+
 // function queryDb(qu)
 // {
 //    try {
@@ -67,6 +47,11 @@ function queryDb(qu)
 //     return results;
 //   }
 // }
+queryDb(qu)
+{
+  console.log("fake " + qu);
+  return [];
+}
 
 function safer(s)
 {
