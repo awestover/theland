@@ -116,10 +116,6 @@ app.post('/', function(req, res) {
 //   }
 // }
 
-function redir(res, loc)
-{
-  res.redirect(loc);
-}
 
 app.post('/register', function(req, res) {
   var unm = req.body.unm;
@@ -130,7 +126,6 @@ app.post('/register', function(req, res) {
   var fields = [unm, quest, level, pwd];
 
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-
 
   const client = new Client({
       connectionString: process.env.DATABASE_URL,
@@ -149,9 +144,9 @@ app.post('/register', function(req, res) {
     }
     client.end();
     console.log(results);
-    redir("register.html?"+results.length);
   });
 
+  res.redirect("register.html?"+results.length);
 
   // queryDb(qu, finishRegister, {"res": res, "fields":fields});
   // qu = "SELECT * FROM users;";
