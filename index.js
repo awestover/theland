@@ -92,6 +92,10 @@ app.post('/register', function(req, res) {
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
   var dRes = queryDb(qu);
   console.log(dRes);
+  qu = "SELECT * FROM users";
+  dRes = queryDb(qu);
+  console.log(safer(unm));
+  console.log(dRes);
   if (dRes.length==0)
   {
     queryDb(formInsert([unm, quest, level, pwd]));
