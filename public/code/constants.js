@@ -73,3 +73,6 @@ let thColors = [[0, 130, 200],
   [250, 190, 190], [0, 128, 128],  [230, 190, 255]];
 
 const barHeight = 5;
+
+let soundWanted = false;
+let song;

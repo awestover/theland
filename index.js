@@ -8,32 +8,38 @@ let socket = require('socket.io');
 let io = socket(server);
 app.use(express.static('public'));
 
-const { Client } = require('pg');
+/**/
+try
+{
+  const { Client } = require('pg');
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
-});
+  client.connect();
 
-client.connect();
+  // client
+  let qu = 'SELECT table_schema,table_name FROM information_schema.tables;';
+  qu = 'CREATE TABLE test (name varchar(40));';
+  //qu = 'SELECT * FROM test;';
+  // qu = 'INSERT INTO test name VALUES("testasdf");';
+  // qu = 'CREATE DATABASE X
 
-// client
-
-let qu = 'SELECT table_schema,table_name FROM information_schema.tables;';
-//qu = 'CREATE TABLE test (name varchar(40));';
-//qu = 'SELECT * FROM test;';
-// qu = 'INSERT INTO test name VALUES("testasdf");';
-// qu = 'CREATE DATABASE X
-
-client.query(qu, (err, res) => {
-  //console.log("trying TRYYYYYYYYYYYYYYYYY");
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
-
+  client.query(qu, (err, res) => {
+    //console.log("trying");
+    if (err) throw err;
+    for (let row of res.rows) {
+      console.log(JSON.stringify(row));
+    }
+    client.end();
+  });
+}
+catch (error)
+{
+    console.log(error);
+}
+/**/
 
 
 var bodyParser = require('body-parser');
@@ -45,7 +51,8 @@ app.post('/', function(req, res) {
     var unm = req.body.unm;
     var world = req.body.world;
     var anType = req.body.anType;
-    res.redirect("game.html?"+joinIns([unm, world, anType], ["unm", "world", "anType"]));
+    var soundWanted = req.body.soundWanted;
+    res.redirect("game.html?"+joinIns([unm, world, anType, soundWanted], ["unm", "world", "anType","soundWanted"]));
 });
 
 console.log("server running");

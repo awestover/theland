@@ -29,6 +29,17 @@ function setup()
 
   let userValues = parseURL(document.URL);
 
+  if (userValues.soundWanted == "on")
+  {
+    soundWanted = true;
+    if (soundWanted) {
+      song = loadSound("pictures/song.m4a", songLoaded);
+    }
+  }
+  else {
+    soundWanted = false;
+  }
+
   socket = io.connect();
   socket.on("updatePlayer", handleUpdatePlayer);
   socket.on("deletePlayer", handleDeletePlayer);
@@ -37,8 +48,13 @@ function setup()
   socket.on('pushedAnimalUpdate', handlePushedAnimalUpdate);
   socket.on('death', handleDeath);
 
-  // let animalType = parseInt(prompt(animal_txt_help));
-  let animalType = parseInt(userValues["anType"]);
+  let animalType = userValues["anType"];
+  let atIdx = animal_names["personals"].indexOf(animalType.toLowerCase());
+  if (atIdx != -1)
+  {
+    animalType = atIdx;
+  }
+  animalType = parseInt(animalType);
   if (isNaN(animalType) || animalType < 0 || animalType >= animal_names["personals"].length)
   {
     animalType = pickRandom(animal_names["personals"])[0];

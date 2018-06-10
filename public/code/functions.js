@@ -1,5 +1,12 @@
 //functions
 
+function songLoaded()
+{
+	song.setVolume(0.3);
+	song.rate(random(0.7, 1.2));
+	song.loop();
+}
+
 function centerSqaredDist(animalA, animalB)
 {
 	let dx = (animalA.pos[0]+animalA.dims[0]/2) - (animalB.pos[0]+animalB.dims[0]/2);

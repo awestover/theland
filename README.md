@@ -1,7 +1,6 @@
 # cool games
 These are some cool games
 
-
 # dependencies
 
 # mongodb stuff
@@ -98,5 +97,11 @@ class B extends A
   }
 }
 
+
+Use indexOf for arrays
+let x =[1,2,45,6];
+x.indexOf(10) = -1
+x.indexOf(1) = 0
+kind of like python!
 
 # End
