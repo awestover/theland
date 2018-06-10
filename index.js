@@ -100,7 +100,7 @@ app.post('/', function(req, res) {
 });
 
 
-function finishRegister(dRes, fields)
+function finishRegister(res, dRes, fields)
 {
   console.log("res");
   console.log(dRes);
@@ -123,7 +123,7 @@ app.post('/register', function(req, res) {
   var fields = [unm, quest, level, pwd];
 
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-  queryDb(qu).then(dRes => finishRegister(dRes, fields));
+  queryDb(qu).then(dRes => finishRegister(res, dRes, fields));
   // qu = "SELECT * FROM users;";
   // dRes = queryDb(qu);
 
