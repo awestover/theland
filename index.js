@@ -24,7 +24,7 @@ function queryDb(qu)
       for (let row of res.rows) {
         var cRow = JSON.stringify(row);
         // var cRow = row;
-        console.log(cRow);
+        // console.log(cRow);
         results.push(cRow);
       }
       client.end();

@@ -29,7 +29,7 @@ function setup()
 
   let userValues = parseURL(document.URL);
 
-  if (userVales["verified"] == "yes")
+  if (userValues["verified"] == "yes")
   {
     alert("WELCOME BACK!!!!!");
   }
