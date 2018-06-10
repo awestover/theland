@@ -29,6 +29,11 @@ function setup()
 
   let userValues = parseURL(document.URL);
 
+  if (userVales["verified"] == "yes")
+  {
+    alert("WELCOME BACK!!!!!");
+  }
+
   if (userValues.soundWanted == "on")
   {
     soundWanted = true;

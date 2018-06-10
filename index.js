@@ -24,7 +24,7 @@ function queryDb(qu)
       for (let row of res.rows) {
         var cRow = JSON.stringify(row);
         // var cRow = row;
-        console.log(row);
+        console.log(cRow);
         results.push(cRow);
       }
       client.end();
@@ -91,14 +91,13 @@ app.post('/', function(req, res) {
       }
     }
 
-    if (!pwdGood)
+    var verified = "no";
+    if (pwdGood)
     {
-      res.redirect("game.html?"+joinIns([unm, world, anType, soundWanted], ["unm", "world", "anType","soundWanted"]));
+      console.log("legit user");
+      verified = "yes";
     }
-    else {
-      res.redirect("game.html?"+joinIns([unm, world, anType, soundWanted], ["unm", "world", "anType","soundWanted"]));
-      console.log("legit user!!");
-    }
+    res.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
 });
 
 app.post('/register', function(req, res) {
