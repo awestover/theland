@@ -35,6 +35,10 @@ function queryDb(qu)
   }
 }
 
+function safer(s)
+{
+  return s.replace(";", "").replace('"', '').replace("'", '').replace("-", '');
+}
 
 function formInsert(vals)
 {
@@ -42,7 +46,7 @@ function formInsert(vals)
   for (var i = 0; i < vals.length; i++)
   {
     try {
-      qu += "'" + vals[i].replace(";", "").replace('"', '').replace("'", '') + "'";
+      qu += "'" + safer(vals[i]) + "'";
     }
     catch (e) {
       qu += vals[i]+"";
@@ -69,6 +73,10 @@ app.post('/', function(req, res) {
     var world = req.body.world;
     var anType = req.body.anType;
     var soundWanted = req.body.soundWanted;
+
+    // var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
+    // var qRes = queryDb(qu);
+
     res.redirect("game.html?"+joinIns([unm, world, anType, soundWanted], ["unm", "world", "anType","soundWanted"]));
 });
 
@@ -77,8 +85,19 @@ app.post('/register', function(req, res) {
   var pwd = req.body.pwd;
   var level = 1;
   var quest = 'none';
-  queryDb(formInsert([unm, quest, level]));
-  res.redirect("index.html");
+
+  var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
+  var dRes = queryDb(qu);
+  console.log(dRes);
+  if (dRes.length==0)
+  {
+    queryDb(formInsert([unm, quest, level, pwd]));
+    res.redirect("index.html");
+  }
+  else {
+    res.redirect("register.html?registering=failed_user_alread_exists");
+  }
+
 });
 
 console.log("server running");

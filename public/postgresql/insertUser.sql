@@ -1,1 +1,1 @@
-INSERT INTO users VALUES('alek', 'none', 1);
+INSERT INTO users VALUES('alek', 'none', 1, 'pwd');

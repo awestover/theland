@@ -5,6 +5,9 @@ These are some cool games
 
 # mongodb stuff
 
+
+single quotes for sql stuff
+
 sql tests:
 SELECT * FROM information_schema.tables WHERE table_name='test';
 (Created table test)
