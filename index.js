@@ -31,7 +31,7 @@ function queryDb(qu)
   console.log(qu);
   var results = [];
   client.query(qu, (err, res) => {
-    if (err) throw err;
+    // if (err) throw err;
     for (let row of res.rows) {
       var cRow = JSON.stringify(row);
       console.log(cRow);
