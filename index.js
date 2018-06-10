@@ -117,7 +117,7 @@ app.post('/', function(req, res) {
 // }
 
 
-app.post('/register', async function(req, res) {
+app.post('/register', async function(req, resp) {
   var unm = req.body.unm;
   var pwd = req.body.pwd;
   var level = 1;
@@ -144,9 +144,9 @@ app.post('/register', async function(req, res) {
     }
     client.end();
     console.log(results);
+    resp.redirect("register.html?"+results.length);
   });
 
-  res.redirect("register.html?"+results.length);
 
   // queryDb(qu, finishRegister, {"res": res, "fields":fields});
   // qu = "SELECT * FROM users;";
