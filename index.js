@@ -8,7 +8,6 @@ let socket = require('socket.io');
 let io = socket(server);
 app.use(express.static('public'));
 
-
 const { Client } = require('pg');
 
 function queryDb(qu)
@@ -42,7 +41,12 @@ function formInsert(vals)
   var qu = "INSERT INTO users VALUES(";
   for (var i = 0; i < vals.length; i++)
   {
-    qu += "'" + vals[i].replace(";", "").replace('"', '').replace("'", '') + "'";
+    try {
+      qu += "'" + vals[i].replace(";", "").replace('"', '').replace("'", '') + "'";
+    }
+    catch (e) {
+      qu += "'"+vals[i]+"'";
+    }
     if (i!= vals.length-1)
     {
       qu += ', ';
@@ -51,6 +55,7 @@ function formInsert(vals)
       qu += ");";
     }
   }
+  console.log(qu);
   return qu;
 }
 
