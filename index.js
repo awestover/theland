@@ -116,6 +116,12 @@ app.post('/', function(req, res) {
 //   }
 // }
 
+function redir(res, loc)
+{
+  console.log(loc);
+  res.redirect(loc);
+}
+
 app.post('/register', function(req, res) {
   var unm = req.body.unm;
   var pwd = req.body.pwd;
@@ -144,7 +150,7 @@ app.post('/register', function(req, res) {
     }
     client.end();
     console.log(results);
-    res.redirect("register.html?");
+    redir("register.html?"+results.length);
   });
 
 
