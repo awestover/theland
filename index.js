@@ -45,7 +45,7 @@ function formInsert(vals)
       qu += "'" + vals[i].replace(";", "").replace('"', '').replace("'", '') + "'";
     }
     catch (e) {
-      qu += "'"+vals[i]+"'";
+      qu += vals[i]+"";
     }
     if (i!= vals.length-1)
     {
@@ -77,7 +77,7 @@ app.post('/register', function(req, res) {
   var pwd = req.body.pwd;
   var level = 1;
   var quest = 'none';
-  queryDb(formInsert([unm, pwd, level, quest]));
+  queryDb(formInsert([unm, quest, level]));
   res.redirect("index.html");
 });
 
