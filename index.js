@@ -14,30 +14,20 @@ const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 });
-client.connect()
-  .then(() => resppp())
-  .catch(e => console.error('connection error', err.stack))
-
-function resppp()
-{
-  console.log('connected asodkfjaksldfjalksdjfkl');
-  queryDb("SELECT * FROM Users;");
-  queryDb("SELECT table_schema,table_name FROM information_schema.tables;");
-  client.end();
-}
 
 function queryDb(qu)
 {
   console.log(qu);
+  client.connect();
   var results = [];
   client.query(qu, (err, res) => {
-    // if (err) throw err;
+    if (err) throw err;
     for (let row of res.rows) {
       var cRow = JSON.stringify(row);
       console.log(cRow);
       results.push(cRow);
     }
-    // client.end();
+    client.end();
   });
   return results;
 }
