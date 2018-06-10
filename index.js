@@ -20,6 +20,7 @@ function queryDb(qu)
   client.connect()
     .then(() => results = reallyQueryDb(qu))
     .catch(e => console.error('connection error', err.stack))
+  console.log("hmm");
   return results;
 }
 
@@ -139,12 +140,12 @@ app.post('/register', function(req, res) {
   var quest = 'none';
 
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-  var dRes = await queryDb(qu);
+  var dRes = queryDb(qu);
   qu = "SELECT * FROM users;";
-  dRes = await queryDb(qu);
+  dRes = queryDb(qu);
   if (dRes.length==0)
   {
-    await queryDb(formInsert([unm, quest, level, pwd]));
+    queryDb(formInsert([unm, quest, level, pwd]));
     res.redirect("index.html");
   }
   else {
