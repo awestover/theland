@@ -29,7 +29,7 @@ function queryDb(qu)
         console.log(cRow);
         results.push(cRow);
       }
-      client.end();
+      // client.end();
     });
   } catch (e) {
     console.log(e);
