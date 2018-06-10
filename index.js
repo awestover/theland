@@ -117,7 +117,7 @@ app.post('/', function(req, res) {
 // }
 
 
-app.post('/register', function(req, res) {
+app.post('/register', async function(req, res) {
   var unm = req.body.unm;
   var pwd = req.body.pwd;
   var level = 1;
@@ -135,7 +135,7 @@ app.post('/register', function(req, res) {
 
   console.log("Querying " + qu);
   var results = [];
-  client.query(qu, (err, res) => {
+  await client.query(qu, (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
       var cRow = JSON.stringify(row);
