@@ -118,7 +118,6 @@ app.post('/', function(req, res) {
 
 function redir(res, loc)
 {
-  console.log(loc);
   res.redirect(loc);
 }
 
