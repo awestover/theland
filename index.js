@@ -21,9 +21,9 @@ try
 
   // client
   let qu = 'SELECT table_schema,table_name FROM information_schema.tables;';
-  qu = 'CREATE TABLE test (name varchar(40));';
+  // qu = 'CREATE TABLE test (name varchar(40));';
   //qu = 'SELECT * FROM test;';
-  // qu = 'INSERT INTO test name VALUES("testasdf");';
+  qu = 'INSERT INTO test name VALUES("testasdf");';
   // qu = 'CREATE DATABASE X
 
   client.query(qu, (err, res) => {

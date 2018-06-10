@@ -5,12 +5,24 @@ These are some cool games
 
 # mongodb stuff
 
+sql tests:
+SELECT * FROM information_schema.tables WHERE table_name='test';
+(Created table test)
+
+INSERT INTO test VALUES('hmm')
+
 heroku:
 https://devcenter.heroku.com/articles/heroku-postgresql#designating-a-primary-database
 
 local install is good too
 
 psql
+
+very nice
+heroku pg:psql
+
+really nice forum
+https://teamtreehouse.com/community/postgresql-database-deployed-on-heroku-possible-view-add-delete-rows-in-tables
 
 the export command is good too.
 
