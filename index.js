@@ -13,8 +13,7 @@ const { Client } = require('pg');
 function queryDb(qu)
 {
   var results = [];
-  try
-  {
+  try {
     const client = new Client({
       connectionString: process.env.DATABASE_URL,
       ssl: true,
@@ -28,6 +27,7 @@ function queryDb(qu)
         var cRow = JSON.stringify(row);
         console.log(cRow);
         results.push(cRow);
+        console.log(results);
       }
       client.end();
     });
@@ -38,6 +38,7 @@ function queryDb(qu)
   }
   finally
   {
+    console.log("finally");
     console.log(results);
     return results;
   }
@@ -83,10 +84,26 @@ app.post('/', function(req, res) {
     var anType = req.body.anType;
     var soundWanted = req.body.soundWanted;
 
-    // var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-    // var qRes = queryDb(qu);
+    var pwdGood = false;
 
-    res.redirect("game.html?"+joinIns([unm, world, anType, soundWanted], ["unm", "world", "anType","soundWanted"]));
+    if (pwd.length>0)
+    {
+      var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
+      var qRes = queryDb(qu);
+      if (qRes['password'] == pwd)
+      {
+        pwdGood = true;
+      }
+    }
+
+    if (!pwdGood)
+    {
+      res.redirect("game.html?"+joinIns([unm, world, anType, soundWanted], ["unm", "world", "anType","soundWanted"]));
+    }
+    else {
+      res.redirect("game.html?"+joinIns([unm, world, anType, soundWanted], ["unm", "world", "anType","soundWanted"]));
+      console.log("legit user!!");
+    }
 });
 
 app.post('/register', function(req, res) {
