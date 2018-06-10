@@ -20,7 +20,7 @@ client.connect()
   .catch(e => console.error('connection error', err.stack))
   .then(() => client.end())
 
-function dbQ(q)
+function queryDb(qu)
 {
   var results = [];
   client.query(qu, (err, res) => {
@@ -63,11 +63,11 @@ function dbQ(q)
 //     return results;
 //   }
 // }
-function queryDb(qu)
-{
-  console.log("fake " + qu);
-  return [];
-}
+// function queryDb(qu)
+// {
+//   console.log("fake " + qu);
+//   return [];
+// }
 
 function safer(s)
 {
