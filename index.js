@@ -99,24 +99,6 @@ app.post('/', function(req, res) {
     res.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
 });
 
-
-// function finishRegister(dRes, params)
-// {
-//   var res = params["res"]
-//   var fields = params["fields"];
-//   console.log("res");
-//   console.log(dRes);
-//   if (dRes.length==0)
-//   {
-//     queryDb(formInsert(fields));
-//     res.redirect("index.html");
-//   }
-//   else {
-//     res.redirect("register.html?failed=username_exists");
-//   }
-// }
-
-
 app.post('/register', async function(req, resp) {
   var unm = req.body.unm;
   var pwd = req.body.pwd;
@@ -144,13 +126,16 @@ app.post('/register', async function(req, resp) {
     }
     client.end();
     console.log(results);
-    resp.redirect("register.html?"+results.length);
+    if (results.length != 0)
+    {
+      resp.redirect("register.html?fail=unm_exists");
+    }
+    else {
+      queryDb(formInsert(fields);
+      res.redirect("index.html");
+    }
   });
 
-
-  // queryDb(qu, finishRegister, {"res": res, "fields":fields});
-  // qu = "SELECT * FROM users;";
-  // dRes = queryDb(qu);
 });
 
 console.log("server running");
