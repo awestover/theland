@@ -10,35 +10,35 @@ app.use(express.static('public'));
 
 const { Client } = require('pg');
 
-var queryResultRecent = [];
+// var queryResultRecent = [];
 
-function queryDb(qu, callback, params)
-{
-  const client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  });
-  client.connect()
-    .then(() => reallyQueryDb(client, qu, callback, params))
-    .catch(e => console.error('connection error', e))
-}
-
-async function reallyQueryDb(client, qu, callback, params)
-{
-  console.log("Querying " + qu);
-  var results = [];
-  await client.query(qu, (err, res) => {
-    if (err) throw err;
-    for (let row of res.rows) {
-      var cRow = JSON.stringify(row);
-      console.log(cRow);
-      results.push(cRow);
-    }
-    client.end();
-  });
-  queryResultRecent = results;
-  callback(queryResultRecent, params);
-}
+// function queryDb(qu, callback, params)
+// {
+//   const client = new Client({
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: true,
+//   });
+//   client.connect()
+//     .then(() => reallyQueryDb(client, qu, callback, params))
+//     .catch(e => console.error('connection error', e))
+// }
+//
+// async function reallyQueryDb(client, qu, callback, params)
+// {
+//   console.log("Querying " + qu);
+//   var results = [];
+//   await client.query(qu, (err, res) => {
+//     if (err) throw err;
+//     for (let row of res.rows) {
+//       var cRow = JSON.stringify(row);
+//       console.log(cRow);
+//       results.push(cRow);
+//     }
+//     client.end();
+//   });
+//   queryResultRecent = results;
+//   callback(queryResultRecent, params);
+// }
 
 function safer(s)
 {
@@ -100,21 +100,21 @@ app.post('/', function(req, res) {
 });
 
 
-function finishRegister(dRes, params)
-{
-  var res = params["res"]
-  var fields = params["fields"];
-  console.log("res");
-  console.log(dRes);
-  if (dRes.length==0)
-  {
-    queryDb(formInsert(fields));
-    res.redirect("index.html");
-  }
-  else {
-    res.redirect("register.html?failed=username_exists");
-  }
-}
+// function finishRegister(dRes, params)
+// {
+//   var res = params["res"]
+//   var fields = params["fields"];
+//   console.log("res");
+//   console.log(dRes);
+//   if (dRes.length==0)
+//   {
+//     queryDb(formInsert(fields));
+//     res.redirect("index.html");
+//   }
+//   else {
+//     res.redirect("register.html?failed=username_exists");
+//   }
+// }
 
 app.post('/register', function(req, res) {
   var unm = req.body.unm;
@@ -125,7 +125,30 @@ app.post('/register', function(req, res) {
   var fields = [unm, quest, level, pwd];
 
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-  queryDb(qu, finishRegister, {"res": res, "fields":fields});
+
+
+  const client = new Client({
+      connectionString: process.env.DATABASE_URL,
+      ssl: true,
+    });
+  client.connect();
+
+  console.log("Querying " + qu);
+  var results = [];
+  client.query(qu, (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+      var cRow = JSON.stringify(row);
+      console.log(cRow);
+      results.push(cRow);
+    }
+    client.end();
+    console.log(results);
+    res.redirect("register.html?");
+  });
+
+
+  // queryDb(qu, finishRegister, {"res": res, "fields":fields});
   // qu = "SELECT * FROM users;";
   // dRes = queryDb(qu);
 });
