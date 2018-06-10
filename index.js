@@ -10,18 +10,22 @@ app.use(express.static('public'));
 
 const { Client } = require('pg');
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
-});
-
-client.connect()
-  .then(() => console.log('connected'))
-  .catch(e => console.error('connection error', err.stack))
-  .then(() => client.end())
-
 function queryDb(qu)
 {
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+  var results;
+  client.connect()
+    .then(() => results = reallyQueryDb(qu))
+    .catch(e => console.error('connection error', err.stack))
+  return results;
+}
+
+function reallyQueryDb(qu)
+{
+  console.log("Querying " + qu);
   var results = [];
   client.query(qu, (err, res) => {
     if (err) throw err;
@@ -30,7 +34,7 @@ function queryDb(qu)
       console.log(cRow);
       results.push(cRow);
     }
-    // client.end();
+    client.end();
   });
   return results;
 }
