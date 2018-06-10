@@ -14,12 +14,21 @@ const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 });
-client.connnect();
-  .then(() => console.log('connected'); client.end();)
+client.connect()
+  .then(() => resppp())
   .catch(e => console.error('connection error', err.stack))
+
+function resppp()
+{
+  console.log('connected asodkfjaksldfjalksdjfkl');
+  queryDb("SELECT * FROM Users;");
+  queryDb("SELECT table_schema,table_name FROM information_schema.tables;");
+  client.end();
+}
 
 function queryDb(qu)
 {
+  console.log(qu);
   var results = [];
   client.query(qu, (err, res) => {
     if (err) throw err;
@@ -125,6 +134,8 @@ app.post('/register', function(req, res) {
   var pwd = req.body.pwd;
   var level = 1;
   var quest = 'none';
+
+  queryDb("SELECT table_schema,table_name FROM information_schema.tables;");
 
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
   var dRes = queryDb(qu);
