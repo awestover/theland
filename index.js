@@ -100,7 +100,7 @@ app.post('/', function(req, res) {
 });
 
 
-finishRegister(dRes, fields)
+function finishRegister(dRes, fields)
 {
   console.log("res");
   console.log(dRes);
