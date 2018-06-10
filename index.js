@@ -23,7 +23,7 @@ function queryDb(qu)
   return results;
 }
 
-function reallyQueryDb(qu)
+function reallyQueryDb(client, qu)
 {
   console.log("Querying " + qu);
   var results = [];
