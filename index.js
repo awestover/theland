@@ -10,7 +10,24 @@ app.use(express.static('public'));
 
 const { Client } = require('pg');
 
-// var queryResultRecent = [];
+function queryDb(qu)
+{
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+  client.connect();
+  console.log("Querying " + qu);
+
+  client.query(qu, (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+      var cRow = JSON.stringify(row);
+      console.log(cRow);
+    }
+    client.end();
+  });
+}
 
 // function queryDb(qu, callback, params)
 // {
@@ -131,7 +148,7 @@ app.post('/register', async function(req, resp) {
       resp.redirect("register.html?fail=unm_exists");
     }
     else {
-      queryDb(formInsert(fields);
+      queryDb(formInsert(fields));
       res.redirect("index.html");
     }
   });
