@@ -18,7 +18,7 @@ function queryDb(qu)
   });
   var results;
   client.connect()
-    .then(() => results = reallyQueryDb(qu))
+    .then(() => results = reallyQueryDb(client, qu))
     .catch(e => console.error('connection error', err.stack))
   console.log("hmm");
   return results;
