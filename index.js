@@ -19,6 +19,21 @@ client.connect()
   .then(() => console.log('connected'))
   .catch(e => console.error('connection error', err.stack))
 
+function dbQ(q)
+{
+  var results = [];
+  client.query(qu, (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+      var cRow = JSON.stringify(row);
+      console.log(cRow);
+      results.push(cRow);
+    }
+    client.end();
+  });
+  return results;
+}
+
 // function queryDb(qu)
 // {
 //    try {
@@ -47,7 +62,7 @@ client.connect()
 //     return results;
 //   }
 // }
-queryDb(qu)
+function queryDb(qu)
 {
   console.log("fake " + qu);
   return [];
