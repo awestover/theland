@@ -20,11 +20,10 @@ try
   client.connect();
 
   // client
-  let qu = 'SELECT table_schema,table_name FROM information_schema.tables;';
+  // let qu = 'SELECT table_schema,table_name FROM information_schema.tables;';
   // qu = 'CREATE TABLE test (name varchar(40));';
-  //qu = 'SELECT * FROM test;';
-  qu = "INSERT INTO test VALUES('testasdf');";
-  // qu = 'CREATE DATABASE X
+  let qu = 'SELECT * FROM test;';
+  // qu = "INSERT INTO test VALUES('testasdf');";
 
   client.query(qu, (err, res) => {
     //console.log("trying");

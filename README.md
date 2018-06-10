@@ -9,6 +9,8 @@ sql tests:
 SELECT * FROM information_schema.tables WHERE table_name='test';
 (Created table test)
 
+
+please note postgresql and mysql ARE (subtly) different. ie INSERT command
 INSERT INTO test VALUES('hmm')
 
 heroku:
