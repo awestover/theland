@@ -18,6 +18,7 @@ const client = new Client({
 client.connect()
   .then(() => console.log('connected'))
   .catch(e => console.error('connection error', err.stack))
+  .then(() => client.end())
 
 function dbQ(q)
 {
@@ -29,7 +30,7 @@ function dbQ(q)
       console.log(cRow);
       results.push(cRow);
     }
-    client.end();
+    // client.end();
   });
   return results;
 }
@@ -112,7 +113,7 @@ app.post('/', function(req, res) {
     if (pwd.length>0)
     {
       var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-      var qRes = queryDb(qu);
+      var qRes = dbQ(qu);
       if (qRes['password'] == pwd)
       {
         pwdGood = true;
@@ -134,16 +135,16 @@ app.post('/register', function(req, res) {
   var quest = 'none';
 
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-  var dRes = queryDb(qu);
+  var dRes = dbQ(qu);
   qu = "SELECT * FROM users;";
-  dRes = queryDb(qu);
+  dRes = dbQ(qu);
   if (dRes.length==0)
   {
-    queryDb(formInsert([unm, quest, level, pwd]));
-    // res.redirect("index.html");
+    dbQ(formInsert([unm, quest, level, pwd]));
+    res.redirect("index.html");
   }
   else {
-    // res.redirect("register.html?failed=username_exists");
+    res.redirect("register.html?failed=username_exists");
   }
 
 });
