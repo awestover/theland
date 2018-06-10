@@ -36,7 +36,11 @@ function queryDb(qu)
   {
       console.log(error);
   }
-  return results;
+  finally
+  {
+    console.log(results);
+    return results;
+  }
 }
 
 function safer(s)
