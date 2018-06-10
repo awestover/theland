@@ -10,14 +10,14 @@ app.use(express.static('public'));
 
 const { Client } = require('pg');
 
-function queryDb(qu)
+async function queryDb(qu)
 {
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
   });
   var results;
-  client.connect()
+  await client.connect()
     .then(() => results = reallyQueryDb(client, qu))
     .catch(e => console.error('connection error', err.stack))
   console.log("hmm");
