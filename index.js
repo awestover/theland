@@ -17,11 +17,9 @@ async function queryDb(qu)
     ssl: true,
   });
   var results;
-  await client.connect()
-    .then(() => results = reallyQueryDb(client, qu))
+  client.connect()
+    .then(() => return reallyQueryDb(client, qu))
     .catch(e => console.error('connection error', err.stack))
-  console.log("hmm");
-  return results;
 }
 
 function reallyQueryDb(client, qu)
