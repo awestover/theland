@@ -12,19 +12,18 @@ const { Client } = require('pg');
 
 function queryDb(qu)
 {
-  var results = [];
   try {
     const client = new Client({
       connectionString: process.env.DATABASE_URL,
       ssl: true,
     });
     client.connect();
+    var results = [];
     client.query(qu, (err, res) => {
       if (err) throw err;
       for (let row of res.rows) {
         var cRow = JSON.stringify(row);
-        // var cRow = row;
-        // console.log(cRow);
+        console.log(cRow);
         results.push(cRow);
       }
       client.end();
