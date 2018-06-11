@@ -106,6 +106,9 @@ app.post('/', function(req, resp) {
         resp.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
       });
     }
+    else {
+      resp.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, "no"], ["unm", "world", "anType","soundWanted", "verified"]));
+    }
 });
 
 app.post('/register', async function(req, resp) {
