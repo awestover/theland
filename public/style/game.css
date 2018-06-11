@@ -6,12 +6,16 @@ html, body {
 }
 
 button{
-	font-size: xx-small;
+	font-size: small;
 }
 
 body{
 	background-color: grey;
-	font-size: xx-small;
+	font-size: small;
+}
+
+#quest{
+	float: right;
 }
 
 #scores{

@@ -22,7 +22,7 @@ function setup()
     thColors[i] = color(thColors[i]);
   }
 
-  screen_dims = [windowWidth, windowHeight*0.95];
+  screen_dims = [windowWidth, windowHeight*0.9];
   canvas = createCanvas(screen_dims[0], screen_dims[1]);
   textAlign(CENTER);
   frameRate(10);
