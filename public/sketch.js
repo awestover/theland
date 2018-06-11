@@ -241,7 +241,8 @@ function touchStarted()
 function handleSelectedData(data)
 {
   userDb = data;
-  console.log("dbq");
+  $("#level").text("Level: " + userDb["level"]);
+  $("#quest").text("Quest: " + userDb["quest"]);
   console.log(data);
 }
 
