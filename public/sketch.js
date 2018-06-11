@@ -90,7 +90,7 @@ function setup()
 
   if (userValues.verified == "yes")
   {
-    socket.emit("selectDb", {"username": name});
+    socket.emit("selectDb", {"unm": name});
   }
 
 }
