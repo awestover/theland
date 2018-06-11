@@ -88,7 +88,7 @@ function setup()
   }
   gametree = new Gametree();
 
-  socket.emit("selectDb", name);
+  // socket.emit("selectDb", user.name);
 
 }
 
@@ -238,6 +238,7 @@ function touchStarted()
 function handleSelectedData(data)
 {
   userDb = data;
+  console.log("dbq");
   console.log(data);
 }
 
