@@ -75,7 +75,6 @@ app.post('/', function(req, resp) {
     {
       var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
 
-
       const client = new Client({
           connectionString: process.env.DATABASE_URL,
           ssl: true,
@@ -104,8 +103,8 @@ app.post('/', function(req, resp) {
           console.log("legit user");
           verified = "yes";
         }
+        resp.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
       });
-      resp.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
     }
 });
 
