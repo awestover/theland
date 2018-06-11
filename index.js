@@ -108,7 +108,11 @@ app.post('/', function(req, resp) {
             qRes = results[0];
           }
         }
-        
+        catch
+        {
+          results = [];
+        }
+
         if (qRes['pwd'] == pwd)
         {
           pwdGood = true;
