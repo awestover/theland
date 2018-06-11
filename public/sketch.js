@@ -52,6 +52,7 @@ function setup()
   socket.on('worldChosen', handleWorldChosen);
   socket.on('pushedAnimalUpdate', handlePushedAnimalUpdate);
   socket.on('death', handleDeath);
+  socket.on('selectedData', handleSelectedData);
 
   let animalType = userValues["anType"];
   let atIdx = animal_names["personals"].indexOf(animalType.toLowerCase());
@@ -86,6 +87,9 @@ function setup()
     territoryLocs[th] = calculateTerritory(th);
   }
   gametree = new Gametree();
+
+  socket.emit("selectDb", name);
+
 }
 
 function draw()
@@ -229,6 +233,12 @@ function touchStarted()
 {
   last_down = [mouseX, mouseY];
   isDown = true;
+}
+
+function handleSelectDb(data)
+{
+  userDb = data;
+  console.log(data);
 }
 
 function touchEnded()

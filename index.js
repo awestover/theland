@@ -181,6 +181,33 @@ function newConnection(socket) {
   socket.on('pushAnimalUpdate', pushAnimalUpdate);
   socket.on('deathAlert', handleDeath);
   socket.on('choseAnimalType', handleChoseAnimalType);
+  socket.on('selectDb', handleSelectDb);
+
+  function handleSelectDb(data)
+  {
+    var unm = data["unm"];
+    var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
+
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true,
+      });
+    client.connect();
+
+    console.log("Querying " + qu);
+    var results = [];
+    client.query(qu, (err, res) => {
+      if (err) throw err;
+      for (let row of res.rows) {
+        var cRow = row;
+        console.log(cRow);
+        results.push(cRow);
+      }
+      client.end();
+      socket.emit("selectedData", results);
+    }
+        
+  }
 
   socket.on('getData', sendData);
   function sendData(data)
