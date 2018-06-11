@@ -86,13 +86,13 @@ app.post('/', function(req, resp) {
       client.query(qu, (err, res) => {
         if (err) throw err;
         for (let row of res.rows) {
-          var cRow = JSON.stringify(row);
+          var cRow = row;
           console.log(cRow);
           results.push(cRow);
         }
         client.end();
         console.log(results);
-        var qRes = queryDb(qu);
+        var qRes =  results[0];
         if (qRes['password'] == pwd)
         {
           pwdGood = true;
