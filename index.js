@@ -79,7 +79,7 @@ app.post('/', function(req, resp) {
     var pwdGood = false;
 
     console.log("Password " + pwd);
-    if (pwd.length>0)
+    if (pwd && pwd.length>0)
     {
       var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
 
