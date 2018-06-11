@@ -48,9 +48,8 @@ function nextQuest(quest)
 }
 
 
-function questComplete(userDb)
+function questComplete(quest)
 {
-  console.log(userDb);
   if (quest == "none") {
     return true;
   }

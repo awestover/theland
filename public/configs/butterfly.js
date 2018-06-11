@@ -1,4 +1,4 @@
-var description = "completely average. Most well balanced";
+var description = "Pretty average. Most well balanced";
 var animal_traits =
 {
   "health": 10,
