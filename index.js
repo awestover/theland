@@ -111,11 +111,11 @@ app.post('/', function(req, resp) {
           console.log("legit user");
           verified = "yes";
         }
-        resp.redirect("https://game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
+        resp.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
       });
     }
     else {
-      resp.redirect("https://game.html?"+joinIns([unm, world, anType, soundWanted, "no"], ["unm", "world", "anType","soundWanted", "verified"]));
+      resp.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, "no"], ["unm", "world", "anType","soundWanted", "verified"]));
     }
 });
 
