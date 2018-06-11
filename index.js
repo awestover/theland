@@ -29,34 +29,6 @@ function queryDb(qu)
   });
 }
 
-// function queryDb(qu, callback, params)
-// {
-//   const client = new Client({
-//     connectionString: process.env.DATABASE_URL,
-//     ssl: true,
-//   });
-//   client.connect()
-//     .then(() => reallyQueryDb(client, qu, callback, params))
-//     .catch(e => console.error('connection error', e))
-// }
-//
-// async function reallyQueryDb(client, qu, callback, params)
-// {
-//   console.log("Querying " + qu);
-//   var results = [];
-//   await client.query(qu, (err, res) => {
-//     if (err) throw err;
-//     for (let row of res.rows) {
-//       var cRow = JSON.stringify(row);
-//       console.log(cRow);
-//       results.push(cRow);
-//     }
-//     client.end();
-//   });
-//   queryResultRecent = results;
-//   callback(queryResultRecent, params);
-// }
-
 function safer(s)
 {
   return s.replace(";", "").replace('"', '').replace("'", '').replace("-", '');
@@ -89,7 +61,7 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // handle posts
-app.post('/', function(req, res) {
+app.post('/', function(req, resp) {
     var unm = req.body.unm;
     var pwd = req.body.pwd;
     var world = req.body.world;
@@ -101,19 +73,39 @@ app.post('/', function(req, res) {
     if (pwd.length>0)
     {
       var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-      var qRes = queryDb(qu);
-      if (qRes['password'] == pwd)
-      {
-        pwdGood = true;
-      }
+
+
+      const client = new Client({
+          connectionString: process.env.DATABASE_URL,
+          ssl: true,
+        });
+      client.connect();
+
+      console.log("Querying " + qu);
+      var results = [];
+      client.query(qu, (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+          var cRow = JSON.stringify(row);
+          console.log(cRow);
+          results.push(cRow);
+        }
+        client.end();
+        console.log(results);
+        var qRes = queryDb(qu);
+        if (qRes['password'] == pwd)
+        {
+          pwdGood = true;
+        }
+        var verified = "no";
+        if (pwdGood)
+        {
+          console.log("legit user");
+          verified = "yes";
+        }
+      });
+      resp.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
     }
-    var verified = "no";
-    if (pwdGood)
-    {
-      console.log("legit user");
-      verified = "yes";
-    }
-    res.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
 });
 
 app.post('/register', async function(req, resp) {
