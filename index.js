@@ -189,9 +189,9 @@ function newConnection(socket) {
     var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
 
     const client = new Client({
-        connectionString: process.env.DATABASE_URL,
-        ssl: true,
-      });
+      connectionString: process.env.DATABASE_URL,
+      ssl: true,
+    });
     client.connect();
 
     console.log("Querying " + qu);
@@ -205,8 +205,8 @@ function newConnection(socket) {
       }
       client.end();
       socket.emit("selectedData", results);
-    }
-        
+    });
+
   }
 
   socket.on('getData', sendData);
