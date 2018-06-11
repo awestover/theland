@@ -8,12 +8,12 @@ let quests = {
     "maxNumAnimals": [10, 15, 20, 30]
 }
 
-let Qtypes = ["predatorsKilled", "personalsKilled", "preysKilled", \
+let Qtypes = ["predatorsKilled", "personalsKilled", "preysKilled",
   "userAnimalsKilled", "maxStormlightHeld", "maxScore", "maxNumAnimals"];
 
 // add this later, nicer user view of quests
-let QtypesUsrView = ["predators killed", "personals killed", "preys killed", \
-"user animals killed", "max Stormlight Held", "max score", "max number of animals"];
+let QtypesUsrView = ["predators killed", "personals killed", "preys killed",
+  "user animals killed", "max Stormlight Held", "max score", "max number of animals"];
 
 function getQuest(quest)
 {

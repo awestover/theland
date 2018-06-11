@@ -244,6 +244,10 @@ function handleSelectedData(data)
   $("#level").text("Level: " + userDb["level"]);
   $("#quest").text("Quest: " + userDb["quest"]);
   console.log(data);
+  if (questComplete(userDb["quest"]))
+  {
+    socket.emit("updateAchievments", {"unm": user.name, "col": "level", "newVal": (userDb["level"]+1)})
+  }
 }
 
 function touchEnded()

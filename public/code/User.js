@@ -222,9 +222,17 @@ class User {
 
   addPrey(data)
   {
+    let nameP;
+    if (random()<0.5)
+    {
+      nameP = "cake";
+    }
+    else {
+      nameP = "pizza";
+    }
     let newPrey = new Prey({
       "pos":randomMidish(0.7),
-      "name": "pizza",
+      "name": nameP,
       "username": this.name,
       "th": this.th,
       "id": this.idCt
