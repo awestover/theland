@@ -15,7 +15,7 @@ class Predator extends Animal
     this.name=animal_traits["name"] || "dino";
     this.dims=[75,100];
 
-    this.sightR = animal_traits["sightR"] || 500;
+    this.sightR = animal_traits["sightR"] || Math.floor(Math.random()*500+150);
   }
 
   show()

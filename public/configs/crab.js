@@ -1,4 +1,12 @@
-var animal_traits = {
+var description = "completely average. Most well balanced";
+var animal_traits =
+{
   "health": 10,
-  "reproducePr": 1
+  "rebirthPr": 0.002,
+  "strength": 1,
+  "speed": 4,
+  "levelUpPr": 0.0005,
+  "deadHunger": 5,
+  "dHunger": 0.018,
+  "dAge": 0.01
 }

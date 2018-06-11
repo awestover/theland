@@ -10,6 +10,7 @@ app.use(express.static('public'));
 
 const { Client } = require('pg');
 
+// only for inserts and updates
 function queryDb(qu)
 {
   const client = new Client({
@@ -136,7 +137,7 @@ app.post('/register', async function(req, resp) {
   var level = 1;
   var quest = 'none';
 
-  var fields = [unm, quest, level, pwd];
+  var fields = [unm, quest, level, pwd, 0, 0, 0, 0, 0, 0, 0];
 
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
 
@@ -201,6 +202,16 @@ function newConnection(socket) {
   socket.on('deathAlert', handleDeath);
   socket.on('choseAnimalType', handleChoseAnimalType);
   socket.on('selectDb', handleSelectDb);
+  socket.on('updateAchievments', handleUpdateAchievments);
+
+  function handleUpdateAchievments(data)
+  {
+    let unm = data["unm"];
+    let newVal = data["newVal"];
+    let col = data["col"];
+    let qu = "UPDATE Users SET "+col+"="+newVal+" WHERE name='" + safer(unm) + "'";
+    queryDb(qu);
+  }
 
   function handleSelectDb(data)
   {

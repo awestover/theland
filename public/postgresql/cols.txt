@@ -1,0 +1,1 @@
+name | quest | level |   pwd   | predatorskilled | preyskilled | useranimalskilled | maxstormlightheld | maxscore | maxnumanimals | personalskilled
