@@ -31,6 +31,14 @@ function queryDb(qu)
 
 function safer(s)
 {
+  if (!s)
+  {
+    return "";
+  }
+  if (s.length==0)
+  {
+    return "";
+  }
   return s.replace(";", "").replace('"', '').replace("'", '').replace("-", '');
 }
 
