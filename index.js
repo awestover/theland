@@ -99,8 +99,16 @@ app.post('/', function(req, resp) {
           results.push(cRow);
         }
         client.end();
-        console.log(results[0]['pwd']);
-        var qRes =  results[0];
+
+        var qRes = {"pwd": ""}
+        try {
+          if (results  && results[0] && results[0]['pwd'])
+          {
+            console.log(results[0]['pwd']);
+            qRes = results[0];
+          }
+        }
+        
         if (qRes['pwd'] == pwd)
         {
           pwdGood = true;
