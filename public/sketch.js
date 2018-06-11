@@ -252,8 +252,8 @@ function handleSelectedData(data)
 
 function handleQuestCopmlete()
 {
-  userDb["quest"] = nextQuest(quest);
-  socket.emit("updateAchievments", {"unm": user.name, "col": "quest", "newVal": userDb["quest"]});
+  userDb["quest"] = nextQuest(userDb["quest"]);
+  socket.emit("updateAchievments", {"unm": user.name, "col": "quest", "newVal": "'"+userDb["quest"]+"'"});
   socket.emit("updateAchievments", {"unm": user.name, "col": "level", "newVal": (userDb["level"]+1)});
 }
 
