@@ -5,6 +5,8 @@ These are some cool games
 
 # mongodb stuff
 
+NOTE sql isn't really case sensitive....
+so the column names don't have camel casing...
 
 single quotes for sql stuff
 

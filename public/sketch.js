@@ -241,13 +241,20 @@ function touchStarted()
 function handleSelectedData(data)
 {
   userDb = data[0];
-  $("#level").text("Level: " + userDb["level"]);
-  $("#quest").text("Quest: " + userDb["quest"]);
-  console.log(data);
+  console.log(userDb);
   if (questComplete(userDb["quest"]))
   {
-    socket.emit("updateAchievments", {"unm": user.name, "col": "level", "newVal": (userDb["level"]+1)})
+    handleQuestCopmlete();
   }
+  $("#level").text("Level: " + userDb["level"]);
+  $("#quest").text("Quest: " + userDb["quest"]);
+}
+
+function handleQuestCopmlete()
+{
+  userDb["quest"] = nextQuest(quest);
+  socket.emit("updateAchievments", {"unm": user.name, "col": "quest", "newVal": userDb["quest"]});
+  socket.emit("updateAchievments", {"unm": user.name, "col": "level", "newVal": (userDb["level"]+1)});
 }
 
 function touchEnded()
