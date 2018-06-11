@@ -27,6 +27,13 @@
 </head>
 
 <body>
+  <script>
+  if (document.URL.indexOf("https") == -1 && document.URL.indexOf("localhost") == -1)
+  {
+    window.location.href = document.URL.replace("http", "https");
+  }
+  </script>
+
     <div class="container">
       <br>
       <button class="btn btn-lg well well-lg" style="float: right;"onclick="window.location.href='register.html';">Register</button>
