@@ -235,7 +235,7 @@ function touchStarted()
   isDown = true;
 }
 
-function handleSelectDb(data)
+function handleSelectedData(data)
 {
   userDb = data;
   console.log(data);
