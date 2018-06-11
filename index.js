@@ -107,8 +107,7 @@ app.post('/', function(req, resp) {
             console.log(results[0]['pwd']);
             qRes = results[0];
           }
-        }
-        catch
+        } catch(e)
         {
           results = [];
         }
