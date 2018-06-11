@@ -10,7 +10,7 @@ class Personal extends Animal
     this.sickPr = animal_traits["sickPr"] || 0; // no more!!
     this.rebirthPr = animal_traits["rebirthPr"] || 0.002;
     this.strength = animal_traits["strength"] || 1;
-    this.speed = animal_traits["speed"] || 3;
+    this.speed = animal_traits["speed"] || 4;
     this.levelUpPr = animal_traits["levelUpPr"] || 0.0005;
 
     this.vel = super.randomHeading(this.speed);

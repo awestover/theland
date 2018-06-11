@@ -203,13 +203,14 @@ function pickRandom(list)
 
 function drawTerritory(th, name)
 {
-	if (th==user.th)
-	{
-		fill(255, 0, 0, 100);
-	}
-	else {
-		fill(0, 255, 255, 100);
-	}
+	// if (th==user.th)
+	// {
+	// 	fill(255, 0, 0, 100);
+	// }
+	// else {
+	// 	fill(0, 255, 255, 100);
+	// }
+	fill(thColors[th])
   ellipse(territoryLocs[th][0], territoryLocs[th][1], 2*territoryR, 2*territoryR);
   fill(0,0,0);
   if (name)

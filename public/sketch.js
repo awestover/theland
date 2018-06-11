@@ -461,7 +461,7 @@ function annihilate()
       "username": gametree.values[gt].username,
       "type": gametree.values[gt].type,
       "id": gametree.values[gt].id,
-      "updates":{"health": 0}
+      "updates":{"health": -10000}// because with aging 0 isn't good enough
     }
     socket.emit("pushAnimalUpdate", data);
   }
