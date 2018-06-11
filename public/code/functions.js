@@ -210,9 +210,11 @@ function drawTerritory(th, name)
 	// else {
 	// 	fill(0, 255, 255, 100);
 	// }
-	fill(thColors[th])
+	thColors[th].setAlpha(100);
+	fill(thColors[th]);
   ellipse(territoryLocs[th][0], territoryLocs[th][1], 2*territoryR, 2*territoryR);
-  fill(0,0,0);
+	thColors[th].setAlpha(255);
+	fill(0,0,0);
   if (name)
   {
     text(name, territoryLocs[th][0], territoryLocs[th][1]);
