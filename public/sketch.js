@@ -88,7 +88,7 @@ function setup()
   }
   gametree = new Gametree();
 
-  // socket.emit("selectDb", user.name);
+  socket.emit("selectDb", user.name);
 
 }
 
