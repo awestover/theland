@@ -88,7 +88,10 @@ function setup()
   }
   gametree = new Gametree();
 
-  socket.emit("selectDb", user.name);
+  if (userValues.verified == "yes")
+  {
+    socket.emit("selectDb", {"username": name});
+  }
 
 }
 
