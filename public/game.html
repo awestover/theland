@@ -38,6 +38,14 @@
 </head>
 
 <body class="noselect">
+
+  <script>
+  if (document.URL.indexOf("https") == -1)
+  {
+    window.location.href = document.URL.replace("http", "https");
+  }
+  </script>
+
   <div id="top">
   <div id="txt">
   <b id="name">Name: X</b> <b id ="animalType">Animal Type: Z</b> <b id="world">World: 1</b><br>
