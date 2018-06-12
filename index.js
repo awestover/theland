@@ -51,7 +51,7 @@ function formInsert(vals)
     try {
       if (typeof(vals[i]) == "number")
       {
-        qu += vals;
+        qu += vals[i];
       }
       else {
         qu += "'" + safer(vals[i]) + "'";
@@ -140,10 +140,8 @@ app.post('/', function(req, resp) {
 app.post('/register', async function(req, resp) {
   var unm = req.body.unm;
   var pwd = req.body.pwd;
-  var level = 1;
-  var quest = 'none';
 
-  var fields = [unm, quest, level, pwd, 0, 0, 0, 0, 0, 0, 0];
+  var fields = [unm, 'none', 0, pwd, 0, 0, 0, 0, 0, 0, 0];
 
   var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
 
