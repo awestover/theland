@@ -54,9 +54,9 @@ function questComplete()
     return true;
   }
   let res = getQuest(userDb["quest"]);
-  console.log(userDb[quests[res[0]]]);
+  console.log(userDb[quests[res[0].toLowerCase()]);
   console.log(res);
-  if (userDb[quests[res[0]].toLowerCase()] >= res[1])
+  if (userDb[quests[res[0].toLowerCase()]] >= res[1])
   {
     return true;
   }
