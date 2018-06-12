@@ -241,7 +241,7 @@ function touchStarted()
 function handleSelectedData(data)
 {
   userDb = data[0];
-  console.log(userDb);
+  // console.log(userDb);
   if (questComplete(userDb["quest"]))
   {
     handleQuestCopmlete();

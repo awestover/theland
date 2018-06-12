@@ -373,8 +373,8 @@ class User {
   {
     this.stormlight+=rewards[type];
     this.setStormlightText();
-    
-    let col = type + "Killed";
+
+    let col = type + "killed";
     userDb[col] += 1;
     socket.emit("updateAchievments", {"unm": this.name, "col": col, "newVal": userDb[col]});
 
