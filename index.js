@@ -49,7 +49,13 @@ function formInsert(vals)
   for (var i = 0; i < vals.length; i++)
   {
     try {
-      qu += "'" + safer(vals[i]) + "'";
+      if (typeof(vals[i]) == "number")
+      {
+        qu += vals;
+      }
+      else {
+        qu += "'" + safer(vals[i]) + "'";
+      }
     }
     catch (e) {
       qu += vals[i]+"";
