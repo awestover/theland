@@ -29,8 +29,7 @@
 
 <body>
   <script>
-  if (document.URL.indexOf("https") == -1 && document.URL.indexOf("localhost") == -1)
-  {
+  if (document.URL.indexOf("https") == -1 && document.URL.indexOf("localhost") == -1) {
     window.location.href = document.URL.replace("http", "https");
   }
   </script>
@@ -44,14 +43,13 @@
         <input name="unm" class="form-control" placeholder="User Name">
         <br>
         <label for="pwd">Password (If you do not wish to store your data you can play as a guest and leave this field blank)</label>
-        <!-- <input name="pwd" class="form-control" type="password" placeholder=""> -->
         <input name="pwd" class="form-control" type="password" placeholder="">
         <br>
         <label for="world">World</label>
         <input name="world" class="form-control" placeholder="World">
         <br>
         <label for="anType">Animal Type</label>
-        <input name="anType" class="form-control" placeholder="1">
+        <input name="anType" class="form-control" placeholder="shark">
         <br>
         <label class="btn btn-primary active form-check-label">
         <input name="soundWanted" type="checkbox" class="form-check-input" unchecked autocomplete="off"> Sound Wanted?
@@ -59,8 +57,10 @@
         <br><br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
         <br><br>
-        <p id="animal_txt_help">Types include: </p>
       </form>
+      <div id="animal_txt_help">
+        <p>Types include: </p>
+      </div>
 
       <div>
       <br>
@@ -96,8 +96,8 @@
         tmp += jsonToTable(["stat", "val"], personal_stats[animal_names["personals"][i]]);
         descriptions.push(tmp);
       }
-      let data = [personalNameIndxes, animal_names["personals"], descriptions, pics];
-      let table = arrayToTable(["index", "name", "description", "picture"], data);
+      let data = [animal_names["personals"], descriptions, pics];
+      let table = arrayToTable(["name", "description", "picture"], data);
       $("#animal_txt_help").append(table);
     </script>
 

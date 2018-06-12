@@ -7,6 +7,16 @@ function songLoaded()
 	song.loop();
 }
 
+function userDbToTxt()
+{
+  let t = "";
+  for (let i in userDb)
+  {
+    t += i + ": " + userDb[i] + "   ";
+  }
+  return t;
+}
+
 function centerSqaredDist(animalA, animalB)
 {
 	let dx = (animalA.pos[0]+animalA.dims[0]/2) - (animalB.pos[0]+animalB.dims[0]/2);

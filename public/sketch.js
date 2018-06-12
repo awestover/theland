@@ -251,6 +251,8 @@ function handleSelectedData(data)
 
 function updateDbText()
 {
+  $("#stats").text(userDbToTxt());
+
   $("#level").text("Level: " + userDb["level"]);
   $("#quest").text("Quest: " + userDb["quest"]);
 }

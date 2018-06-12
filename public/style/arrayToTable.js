@@ -35,7 +35,16 @@ function jsonToTable(titles, jsonData)
   for (let key in jsonData)
   {
     rs.push(key);
-    vals.push(jsonData[key]);
+    if (typeof(jsonData[key]) == "number")
+    {
+      if (jsonData[key] %1 ==0)
+      {
+        vals.push(jsonData[key]);
+      }
+      else {
+        vals.push(jsonData[key].toFixed(5).toString());
+      }
+    }
   }
   return arrayToTable(titles, [rs, vals]);
 }
