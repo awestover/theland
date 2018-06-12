@@ -6,24 +6,12 @@ class Personal extends Animal
     super(animal_traits);
     this.type="personals";
 
-    // important statistics, change later
-    this.sickPr = animal_traits["sickPr"] || 0; // no more!!
-    this.rebirthPr = animal_traits["rebirthPr"] || 0.002;
-    this.strength = animal_traits["strength"] || 1;
-    this.speed = animal_traits["speed"] || 4;
-    this.levelUpPr = animal_traits["levelUpPr"] || 0.0005;
+    for (let stat in personal_stats[this.name]) {
+      this[stat] = personal_stats[this.name][stat];
+    }
 
     this.vel = super.randomHeading(this.speed);
-
     this.dims = [66, 50];
-
-    this.deadHunger = 5;
-
-    this.age = animal_traits["age"] || 0;
-    this.hunger = animal_traits["hunger"] || 0;
-
-    this.dHunger = animal_traits["dHunger"] || 0.018;
-    this.dAge = animal_traits["dAge"] || 0.01;
   }
 
   isHungry()

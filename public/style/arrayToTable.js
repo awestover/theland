@@ -1,7 +1,7 @@
 // generate a table from a 1d array and a 2d array
 function arrayToTable(titles, values)
 {
-  let output = '<table class="table table-bordered">';
+  let output = '<table class="table">';
   output += '<thread>';
   for (let i in titles)
   {
@@ -26,6 +26,18 @@ function arrayToTable(titles, values)
   output += '</tbody>';
   output += '</table>';
   return output;
+}
+
+function jsonToTable(titles, jsonData)
+{
+  let rs = [];
+  let vals = [];
+  for (let key in jsonData)
+  {
+    rs.push(key);
+    vals.push(jsonData[key]);
+  }
+  return arrayToTable(titles, [rs, vals]);
 }
 
 function arrayToFlippedTable(titles, values)

@@ -23,6 +23,7 @@
 
   <!-- Animal info -->
   <script src="code/constants.js" type="text/javascript"></script>
+  <script src="configs/traits.js"></script>
 
 </head>
 
@@ -81,14 +82,19 @@
     <script src="style/arrayToTable.js" type="text/javascript"></script>
     <script>
       let pics = [];
-      for (let i in allAnimals)
+      for (let j in animal_names["personals"])
       {
-        for (let j in animal_names[allAnimals[i]])
-        {
-          let temp = "pictures/"+animal_names[allAnimals[i]][j] + "1.png";
-          temp = '<img src = "' + temp + '">';
-          pics.push(temp);
-        }
+        let temp = "pictures/"+animal_names["personals"][j] + "1.png";
+        temp = '<img src = "' + temp + '">';
+        pics.push(temp);
+      }
+      let descriptions = [];
+      for (let i in animal_names["personals"])
+      {
+        let tmp = personal_descriptions[animal_names["personals"][i]];
+        tmp += "<br><br>";
+        tmp += jsonToTable(["stat", "val"], personal_stats[animal_names["personals"][i]]);
+        descriptions.push(tmp);
       }
       let data = [personalNameIndxes, animal_names["personals"], descriptions, pics];
       let table = arrayToTable(["index", "name", "description", "picture"], data);
