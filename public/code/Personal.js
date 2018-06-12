@@ -106,7 +106,7 @@ class Personal extends Animal
       let data = {
         "world": user.world,
         "animal": otherAnimal,
-        "reward": rewards["personals"]
+        "type": "personals"
       }
       socket.emit('deathAlert', data);
     }

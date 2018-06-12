@@ -253,8 +253,9 @@ function handleSelectedData(data)
 function handleQuestCopmlete()
 {
   userDb["quest"] = nextQuest(userDb["quest"]);
+  userDb["level"] += 1;
   socket.emit("updateAchievments", {"unm": user.name, "col": "quest", "newVal": "'"+userDb["quest"]+"'"});
-  socket.emit("updateAchievments", {"unm": user.name, "col": "level", "newVal": (userDb["level"]+1)});
+  socket.emit("updateAchievments", {"unm": user.name, "col": "level", "newVal": userDb["level"]});
 }
 
 function touchEnded()
@@ -272,16 +273,6 @@ function touchEnded()
         user.selectedPersonal = gametree.values[idx];
         gametree.values[idx].showStats = !gametree.values[idx].showStats;
       }
-      // else {
-      //   let data = {
-      //     "world": user.world,
-      //     "username": gametree.values[idx].username,
-      //     "type": gametree.values[idx].type,
-      //     "id": gametree.values[idx].id,
-      //     "updates":{"showStats": !gametree.values[idx].showStats}
-      //   }
-      //   socket.emit("pushAnimalUpdate", data);
-      // }
     }
     isDown = false;
   }
@@ -435,7 +426,7 @@ function handlePushedAnimalUpdate(data)
 
 function handleDeath(alldata)
 {
-  let data=alldata["animal"];
+  let data = alldata["animal"];
   if (data["username"] == user.name)
   {
     if (data["type"] == "personals")
@@ -444,8 +435,7 @@ function handleDeath(alldata)
       {
         if (user[data["type"]][an].id == data["id"])
         {
-          user.triggerReward(alldata["reward"]);
-          // user[data["type"]][an].getBoosted();
+          user.triggerReward(alldata["type"]);
           return true;
         }
       }

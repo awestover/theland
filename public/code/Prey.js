@@ -23,6 +23,18 @@ class Prey extends Animal
       let deltaH = otherAnimal.interact();
       this.health += deltaH;
     }
+
+    // you were alive, now you are dead
+    if (this.health <= 0)
+    {
+      let data = {
+        "world": user.world,
+        "animal": otherAnimal,
+        "type": "preys"
+      }
+      socket.emit('deathAlert', data);
+    }
+
     return true;
   }
 

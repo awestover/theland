@@ -369,10 +369,15 @@ class User {
     return Math.floor(this.personals.length*20+0.1*this.stormlight);
   }
 
-  triggerReward(sl)
+  triggerReward(type)
   {
-    this.stormlight+=sl;
+    this.stormlight+=rewards[type];
     this.setStormlightText();
+    
+    let col = type + "Killed";
+    userDb[col] += 1;
+    socket.emit("updateAchievments", {"unm": this.name, "col": col, "newVal": userDb[col]});
+
   }
 
 }

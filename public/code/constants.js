@@ -23,7 +23,7 @@ let angles = [0,0,0];
 
 let cheats = false;
 
-const rewards  = {"predators": 300, "personals": 30, "preys": 0};
+const rewards  = {"predators": 300, "personals": 60, "preys": 20};
 // note level 0 is reserved for boosted state...
 const max_lvls = {"personals": 4, "predators": 1, "preys": 1};
 let animal_pictures = {};

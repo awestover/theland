@@ -41,7 +41,7 @@ class Predator extends Animal
         let data = {
           "world": user.world,
           "animal": otherAnimal,
-          "reward": rewards["predators"]
+          "type": "predators"
         }
         socket.emit('deathAlert', data);
       }
