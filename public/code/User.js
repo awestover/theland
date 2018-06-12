@@ -378,6 +378,10 @@ class User {
     userDb[col] += 1;
     socket.emit("updateAchievments", {"unm": this.name, "col": col, "newVal": userDb[col]});
 
+    if (questComplete(userDb["quest"])) {
+      handleQuestCopmlete();
+    }
+
   }
 
 }
