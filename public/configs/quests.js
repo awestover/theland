@@ -48,13 +48,15 @@ function nextQuest(quest)
 }
 
 
-function questComplete(quest)
+function questComplete()
 {
-  if (quest == "none") {
+  if (userDb["quest"] == "none") {
     return true;
   }
   let res = getQuest(userDb["quest"]);
-  if (userDb[quests[res[0]]] >= res[1])
+  console.log(userDb[quests[res[0]]]);
+  console.log(res);
+  if (userDb[quests[res[0]].toLowerCase()] >= res[1])
   {
     return true;
   }
