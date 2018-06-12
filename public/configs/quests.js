@@ -47,13 +47,13 @@ function nextQuest(quest)
   }
 }
 
-
 function questComplete()
 {
   if (userDb["quest"] == "none") {
     return true;
   }
   let res = getQuest(userDb["quest"]);
+  console.log(res);
   if (userDb[res[0].toLowerCase()] >= res[1])
   {
     return true;
