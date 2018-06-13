@@ -45,6 +45,16 @@ body{
 #name{
 	float: left;
 }
+
+#level{
+	padding-left: 5%;
+}
+
+#progress
+{
+	padding-left: 5%;
+}
+
 #world{
 	float: right;
 }
