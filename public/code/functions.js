@@ -9,13 +9,18 @@ function songLoaded()
 
 function userDbToTxt()
 {
-  // let t = "";
-  // for (let i in userDb)
-  // {
-  //   t += i + ": " + userDb[i] + "   ";
-  // }
-  // return t;
-	return userDb[getQuest(userDb.quest)[0].toLowerCase()];
+	let t = "";
+  for (let i in userDb)
+  {
+    t += i + ": " + userDb[i] + "   ";
+  }
+  return t;
+}
+
+function userQuestProgress()
+{
+	let gq = getQuest(userDb.quest);
+	return "Progress: " + userDb[gq[0].toLowerCase()] + " " gq[0];
 }
 
 function centerSqaredDist(animalA, animalB)
