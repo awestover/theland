@@ -88,7 +88,7 @@ app.post('/', function(req, resp) {
     console.log("Password " + pwd);
     if (pwd && pwd.length>0)
     {
-      var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
+      // var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
 
       const client = new Client({
           connectionString: process.env.DATABASE_URL,
@@ -96,9 +96,9 @@ app.post('/', function(req, resp) {
         });
       client.connect();
 
-      console.log("Querying " + qu);
+      console.log("Querying " + unm);
       var results = [];
-      client.query(qu, (err, res) => {
+      client.query("SELECT * FROM users WHERE name=$1;", unm, (err, res) => {
         if (err) throw err;
         for (let row of res.rows) {
           var cRow = row;
@@ -143,7 +143,7 @@ app.post('/register', async function(req, resp) {
 
   var fields = [unm, 'none', 0, pwd, 0, 0, 0, 0, 0, 0, 0];
 
-  var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
+  // var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
 
   const client = new Client({
       connectionString: process.env.DATABASE_URL,
@@ -153,7 +153,7 @@ app.post('/register', async function(req, resp) {
 
   console.log("Querying " + qu);
   var results = [];
-  await client.query(qu, (err, res) => {
+  await client.query("SELECT * FROM users WHERE name=$1;", unm, (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
       var cRow = JSON.stringify(row);
@@ -214,14 +214,14 @@ function newConnection(socket) {
     let unm = data["unm"];
     let newVal = data["newVal"];
     let col = data["col"];
-    let qu = "UPDATE Users SET "+col+"="+newVal+" WHERE name='" + safer(unm) + "'";
-    queryDb(qu);
+    // let qu = "UPDATE Users SET "+col+"="+newVal+" WHERE name='" + safer(unm) + "'";
+    queryDb("UPDATE Users SET $1=$2 WHERE name=$3;", [col, newVal, unm]);
   }
 
   function handleSelectDb(data)
   {
     var unm = data["unm"];
-    var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
+    // var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
 
     const client = new Client({
       connectionString: process.env.DATABASE_URL,
@@ -229,9 +229,9 @@ function newConnection(socket) {
     });
     client.connect();
 
-    console.log("Querying " + qu);
+    console.log("Querying " + unm);
     var results = [];
-    client.query(qu, (err, res) => {
+    client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
       if (err) throw err;
       for (let row of res.rows) {
         var cRow = row;
