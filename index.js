@@ -142,7 +142,8 @@ app.post('/', function(req, resp) {
     }
 });
 
-app.post('/register', async function(req, resp) {
+// async
+app.post('/register', function(req, resp) {
   var unm = req.body.unm;
   var pwd = req.body.pwd;
 
@@ -158,7 +159,8 @@ app.post('/register', async function(req, resp) {
 
   console.log("Querying in register " + unm);
   var results = [];
-  await client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
+  // await
+  client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
       var cRow = JSON.stringify(row);
