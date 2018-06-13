@@ -167,7 +167,7 @@ app.post('/register', async function(req, resp) {
       resp.redirect("register.html?fail=unm_exists");
     }
     else {
-      queryDb("INSERT INTO Users VALUES ANY ($1);", fields);
+      queryDb("INSERT INTO Users VALUES ($1);", fields);
       // queryDb(formInsert(fields));
       resp.redirect("index.html");
     }
