@@ -43,50 +43,35 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 function handlePasswordInput(results, params)
 {
   let resp = params["resp"];
-  let qRes = {"pwd": ""};
-  try {
-    if (results  && results[0] && results[0]['pwd'])
+  let pwd = params["pwd"];
+  let datas = params["datas"];
+
+  let dText = ["unm", "world", "anType","soundWanted"];
+
+  console.log("pwd input results " + results);
+  if (!results)
+  {
+    resp.redirect("game.html?"+joinIns(datas, dText));
+  }
+  else {
+    let pwdReal = results[0];
+    if (pwdReal == pwd)
     {
-      console.log(results[0]['pwd']);
-      qRes = results[0];
+      resp.redirect("game.html?"+joinIns(datas, dText));
+    }
+    else
+    {
+      resp.redirect("index.html?login=failed");
     }
   }
-  catch(e)
-  {
-    console.log("pwd handle error? not sure what it is");
-  }
-
-  if (qRes['pwd'] == pwd)
-  {
-    pwdGood = true;
-  }
-  let verified = "no";
-  if (pwdGood)
-  {
-    console.log("legit user");
-    verified = "yes";
-  }
-  resp.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
 }
 
 // handle posts
 app.post('/', function(req, resp) {
-    let unm = nicerFormInput(req.body.unm);
-    let pwd = req.body.pwd;
-    let world = req.body.world;
-    let anType = req.body.anType;
-    let soundWanted = req.body.soundWanted;
-
-    let pwdGood = false;
-
-    console.log("Password " + pwd);
-    if (pwd && pwd.length>0)
-    {
-      queryDb("SELECT * FROM users WHERE name=$1;", [unm], handlePasswordInput, {"resp": resp});
-    }
-    else {
-      resp.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, "no"], ["unm", "world", "anType","soundWanted", "verified"]));
-    }
+  let unm = nicerFormInput(req.body.unm);
+  let datas = [unm, req.body.world, req.body.anType, req.body.soundWanted];
+  let pwd = req.body.pwd;
+  queryDb("SELECT * FROM users WHERE name=$1;", [unm], handlePasswordInput, {"pwd": pwd, "datas": datas});
 });
 
 function registerGoodUnm(results, params)

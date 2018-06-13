@@ -39,6 +39,12 @@ npm
 nodejs
 stuff in pacakges.json or something
 
+notify.js is a fancier version of alerts
+ie
+alert("nasty");
+versus
+$.notify("pretty");
+
 One player version at
 <a href="https://awestover.github.io/coolGames/knight-1player/public/">https://awestover.github.io/coolGames/knight-1player/public/</a>
 

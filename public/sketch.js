@@ -31,7 +31,6 @@ function setup()
 
   if (userValues["verified"] == "yes")
   {
-    // alert("WELCOME BACK!!!!!");
     $.notify.addStyle("width": "100px");
     $.notify("Welcome back", "success");
   }
