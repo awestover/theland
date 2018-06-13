@@ -117,3 +117,45 @@ client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
     resp.redirect("index.html");
   }
 });
+
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+client.connect();
+
+console.log("Querying " + unm);
+let results = [];
+client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    let cRow = row;
+    console.log(cRow);
+    results.push(cRow);
+  }
+  client.end();
+
+  let qRes = {"pwd": ""}
+  try {
+    if (results  && results[0] && results[0]['pwd'])
+    {
+      console.log(results[0]['pwd']);
+      qRes = results[0];
+    }
+  } catch(e)
+  {
+    results = [];
+  }
+
+  if (qRes['pwd'] == pwd)
+  {
+    pwdGood = true;
+  }
+  let verified = "no";
+  if (pwdGood)
+  {
+    console.log("legit user");
+    verified = "yes";
+  }
+  resp.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
+});

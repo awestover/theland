@@ -40,6 +40,35 @@ let bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+function handlePasswordInput(results, resp)
+{
+  let resp = params["resp"];
+  let qRes = {"pwd": ""};
+  try {
+    if (results  && results[0] && results[0]['pwd'])
+    {
+      console.log(results[0]['pwd']);
+      qRes = results[0];
+    }
+  }
+  catch(e)
+  {
+    console.log("pwd handle error? not sure what it is");
+  }
+
+  if (qRes['pwd'] == pwd)
+  {
+    pwdGood = true;
+  }
+  let verified = "no";
+  if (pwdGood)
+  {
+    console.log("legit user");
+    verified = "yes";
+  }
+  resp.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
+}
+
 // handle posts
 app.post('/', function(req, resp) {
     let unm = nicerFormInput(req.body.unm);
@@ -53,48 +82,7 @@ app.post('/', function(req, resp) {
     console.log("Password " + pwd);
     if (pwd && pwd.length>0)
     {
-
-      const client = new Client({
-          connectionString: process.env.DATABASE_URL,
-          ssl: true,
-        });
-      client.connect();
-
-      console.log("Querying " + unm);
-      let results = [];
-      client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
-        if (err) throw err;
-        for (let row of res.rows) {
-          let cRow = row;
-          console.log(cRow);
-          results.push(cRow);
-        }
-        client.end();
-
-        let qRes = {"pwd": ""}
-        try {
-          if (results  && results[0] && results[0]['pwd'])
-          {
-            console.log(results[0]['pwd']);
-            qRes = results[0];
-          }
-        } catch(e)
-        {
-          results = [];
-        }
-
-        if (qRes['pwd'] == pwd)
-        {
-          pwdGood = true;
-        }
-        let verified = "no";
-        if (pwdGood)
-        {
-          console.log("legit user");
-          verified = "yes";
-        }
-        resp.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
-      });
+      queryDb("SELECT * FROM users WHERE name=$1;", [unm], handlePasswordInput, {"resp": resp});
     }
     else {
       resp.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, "no"], ["unm", "world", "anType","soundWanted", "verified"]));
