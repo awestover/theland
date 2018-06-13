@@ -15,7 +15,7 @@ function userDbToTxt()
   //   t += i + ": " + userDb[i] + "   ";
   // }
   // return t;
-	return userDb[userDb.quest.toLowerCase()];
+	return userDb[getQuest(userDb.quest)[0].toLowerCase()];
 }
 
 function centerSqaredDist(animalA, animalB)
