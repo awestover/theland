@@ -10,8 +10,8 @@ app.use(express.static('public'));
 
 const { Client } = require('pg');
 
-// only for inserts and updates
-function queryDb(qu, params) // , callbackFunction, callbackParams
+// query the database
+function queryDb(qu, params, callbackFunction, callbackParams)
 {
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -28,10 +28,10 @@ function queryDb(qu, params) // , callbackFunction, callbackParams
       console.log(cRow);
     }
     client.end();
-    // if(callbackFunction)
-    // {
-    //   callbackFunction(callbackParams);
-    // }
+    if(callbackFunction)
+    {
+      callbackFunction(callbackParams);
+    }
   });
 }
 
