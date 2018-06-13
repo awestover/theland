@@ -20,6 +20,7 @@ function queryDb(qu, params) // , callbackFunction, callbackParams
   client.connect();
   console.log("Querying " + qu);
 
+  console.log(params);
   client.query(qu, params, (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
