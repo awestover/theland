@@ -11,7 +11,7 @@ app.use(express.static('public'));
 const { Client } = require('pg');
 
 // only for inserts and updates
-function queryDb(qu, params)
+function queryDb(qu, params) // , callbackFunction, callbackParams
 {
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -27,6 +27,10 @@ function queryDb(qu, params)
       console.log(cRow);
     }
     client.end();
+    // if(callbackFunction)
+    // {
+    //   callbackFunction(callbackParams);
+    // }
   });
 }
 
@@ -420,7 +424,7 @@ function nums(x)
   for (let i = 1; i <= x; i++)
   {
     o+="$"+i;
-    if (i!= x-1)
+    if (i!= x)
     {
       o+=", ";
     }
