@@ -31,7 +31,8 @@ function setup()
 
   if (userValues["verified"] == "yes")
   {
-    alert("WELCOME BACK!!!!!");
+    // alert("WELCOME BACK!!!!!");
+    $.notify("Welcome back", "success");
   }
 
   if (userValues.soundWanted == "on")
