@@ -98,7 +98,7 @@ app.post('/', function(req, resp) {
 
       console.log("Querying " + unm);
       var results = [];
-      client.query("SELECT * FROM users WHERE name=$1;", unm, (err, res) => {
+      client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
         if (err) throw err;
         for (let row of res.rows) {
           var cRow = row;
@@ -153,7 +153,7 @@ app.post('/register', async function(req, resp) {
 
   console.log("Querying in register" + unm);
   var results = [];
-  await client.query("SELECT * FROM users WHERE name=$1;", unm, (err, res) => {
+  await client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
       var cRow = JSON.stringify(row);
