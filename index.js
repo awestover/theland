@@ -35,47 +35,6 @@ function queryDb(qu, params) // , callbackFunction, callbackParams
   });
 }
 
-// function safer(s)
-// {
-//   if (!s)
-//   {
-//     return "";
-//   }
-//   if (s.length==0)
-//   {
-//     return "";
-//   }
-//   return s.replace(";", "").replace('"', '').replace("'", '').replace("-", '');
-// }
-
-// function formInsert(vals)
-// {
-//   var qu = "INSERT INTO users VALUES(";
-//   for (var i = 0; i < vals.length; i++)
-//   {
-//     try {
-//       if (typeof(vals[i]) == "number")
-//       {
-//         qu += vals[i];
-//       }
-//       else {
-//         qu += "'" + safer(vals[i]) + "'";
-//       }
-//     }
-//     catch (e) {
-//       qu += vals[i]+"";
-//     }
-//     if (i!= vals.length-1)
-//     {
-//       qu += ', ';
-//     }
-//     else {
-//       qu += ");";
-//     }
-//   }
-//   return qu;
-// }
-
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies

@@ -205,8 +205,10 @@ function draw()
 
   if(gameOver)
   {
+    let tmp = textSize();
+    textSize(50);
     text("GAME OVER", 0, 0);
-
+    textSize(tmp);
   }
 
   if (!gameOver && user.personals.length == 0)
@@ -214,9 +216,6 @@ function draw()
     gameOver = true;
     setTimeout(function(){window.location.href="index.html";}, 5000);
   }
-
-
-  // drawCenterCross();
 
 }
 

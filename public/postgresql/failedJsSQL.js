@@ -25,3 +25,44 @@ async function reallyQueryDb(client, qu, callback, params)
   queryResultRecent = results;
   callback(queryResultRecent, params);
 }
+
+function safer(s)
+{
+  if (!s)
+  {
+    return "";
+  }
+  if (s.length==0)
+  {
+    return "";
+  }
+  return s.replace(";", "").replace('"', '').replace("'", '').replace("-", '');
+}
+
+function formInsert(vals)
+{
+  var qu = "INSERT INTO users VALUES(";
+  for (var i = 0; i < vals.length; i++)
+  {
+    try {
+      if (typeof(vals[i]) == "number")
+      {
+        qu += vals[i];
+      }
+      else {
+        qu += "'" + safer(vals[i]) + "'";
+      }
+    }
+    catch (e) {
+      qu += vals[i]+"";
+    }
+    if (i!= vals.length-1)
+    {
+      qu += ', ';
+    }
+    else {
+      qu += ");";
+    }
+  }
+  return qu;
+}

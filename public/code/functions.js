@@ -9,12 +9,13 @@ function songLoaded()
 
 function userDbToTxt()
 {
-  let t = "";
-  for (let i in userDb)
-  {
-    t += i + ": " + userDb[i] + "   ";
-  }
-  return t;
+  // let t = "";
+  // for (let i in userDb)
+  // {
+  //   t += i + ": " + userDb[i] + "   ";
+  // }
+  // return t;
+	return userDb[userDb.quest.toLowerCase()];
 }
 
 function centerSqaredDist(animalA, animalB)
