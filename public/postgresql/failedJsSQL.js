@@ -66,3 +66,6 @@ function formInsert(vals)
   }
   return qu;
 }
+
+
+JSON.stringify(row);

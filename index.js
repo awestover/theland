@@ -25,8 +25,7 @@ function queryDb(qu, params, callbackFunction, callbackParams)
   client.query(qu, params, (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
-      var cRow = JSON.stringify(row);
-      dataResults.push(cRow);
+      dataResults.push(row);
     }
     client.end();
     console.log(dataResults);
@@ -102,7 +101,6 @@ app.post('/', function(req, resp) {
     }
 });
 
-// async
 app.post('/register', function(req, resp) {
   var unm = req.body.unm;
   var pwd = req.body.pwd;
@@ -117,12 +115,10 @@ app.post('/register', function(req, resp) {
 
   console.log("Querying in register " + unm);
   var results = [];
-  // await
   client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
-      var cRow = JSON.stringify(row);
-      console.log(cRow);
+      var cRow = row;
       results.push(cRow);
     }
     client.end();
