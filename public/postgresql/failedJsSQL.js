@@ -69,3 +69,25 @@ function formInsert(vals)
 
 
 JSON.stringify(row);
+
+function handleSelectDb()
+{
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+  client.connect();
+
+  console.log("Querying " + unm);
+  var results = [];
+  client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+      var cRow = row;
+      console.log(cRow);
+      results.push(cRow);
+    }
+    client.end();
+    socket.emit("selectedData", results);
+  });
+}

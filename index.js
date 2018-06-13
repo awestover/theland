@@ -101,37 +101,52 @@ app.post('/', function(req, resp) {
     }
 });
 
+function registerGoodUnm(results, params)
+{
+  let resp = params["resp"];
+  let fields = params["fields"];
+  if (results.length != 0)
+  {
+    resp.redirect("register.html?fail=unm_exists");
+  }
+  else {
+    queryDb("INSERT INTO Users VALUES ("+nums(fields.length)+");", fields);
+    resp.redirect("index.html");
+  }
+}
+
 app.post('/register', function(req, resp) {
   var unm = req.body.unm;
   var pwd = req.body.pwd;
-
   var fields = [unm, 'none', 0, pwd, 0, 0, 0, 0, 0, 0, 0];
+  queryDb("SELECT * FROM users WHERE name=$1;", [unm], registerGoodUnm, {"resp": resp, "fields": fields});
 
-  const client = new Client({
-      connectionString: process.env.DATABASE_URL,
-      ssl: true,
-    });
-  client.connect();
 
-  console.log("Querying in register " + unm);
-  var results = [];
-  client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
-    if (err) throw err;
-    for (let row of res.rows) {
-      var cRow = row;
-      results.push(cRow);
-    }
-    client.end();
-    console.log(results);
-    if (results.length != 0)
-    {
-      resp.redirect("register.html?fail=unm_exists");
-    }
-    else {
-      queryDb("INSERT INTO Users VALUES ("+nums(fields.length)+");", fields);
-      resp.redirect("index.html");
-    }
-  });
+  // const client = new Client({
+  //     connectionString: process.env.DATABASE_URL,
+  //     ssl: true,
+  //   });
+  // client.connect();
+
+  // console.log("Querying in register " + unm);
+  // var results = [];
+  // client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
+  //   if (err) throw err;
+  //   for (let row of res.rows) {
+  //     var cRow = row;
+  //     results.push(cRow);
+  //   }
+  //   client.end();
+  //   console.log(results);
+    // if (results.length != 0)
+    // {
+    //   resp.redirect("register.html?fail=unm_exists");
+    // }
+    // else {
+    //   queryDb("INSERT INTO Users VALUES ("+nums(fields.length)+");", fields);
+    //   resp.redirect("index.html");
+    // }
+  // });
 
 });
 
@@ -178,28 +193,7 @@ function newConnection(socket) {
   function handleSelectDb(data)
   {
     var unm = data["unm"];
-
-    // const client = new Client({
-    //   connectionString: process.env.DATABASE_URL,
-    //   ssl: true,
-    // });
-    // client.connect();
-    //
-    // console.log("Querying " + unm);
-    // var results = [];
-    // client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
-    //   if (err) throw err;
-    //   for (let row of res.rows) {
-    //     var cRow = row;
-    //     console.log(cRow);
-    //     results.push(cRow);
-    //   }
-    //   client.end();
-    //   socket.emit("selectedData", results);
-    // });
-
     queryDb("SELECT * FROM users WHERE name=$1;", [unm], function(results, empty) {socket.emit("selectedData", results);}, []);
-
   }
 
   socket.on('getData', sendData);
