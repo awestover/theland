@@ -45,17 +45,17 @@ function handlePasswordInput(resultsArr, params)
   let resp = params["resp"];
   let pwd = params["pwd"];
   let datas = params["datas"];
-  let results = resultsArr[0];
+  let results = resultsArr;
 
   let dText = ["unm", "world", "anType","soundWanted"];
 
-  console.log("pwd input results " + results);
-  if (!results)
+  console.log("pwd input " + results[0]["pwd"]);
+  if (results.length == 0)
   {
     resp.redirect("game.html?"+joinIns(datas, dText));
   }
   else {
-    let pwdReal = results[0];
+    let pwdReal = results[0]["pwd"];
     if (pwdReal == pwd)
     {
       resp.redirect("game.html?"+joinIns(datas, dText));
