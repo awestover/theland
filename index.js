@@ -151,7 +151,7 @@ app.post('/register', async function(req, resp) {
     });
   client.connect();
 
-  console.log("Querying " + qu);
+  console.log("Querying in register" + unm);
   var results = [];
   await client.query("SELECT * FROM users WHERE name=$1;", unm, (err, res) => {
     if (err) throw err;
