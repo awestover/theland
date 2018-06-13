@@ -19,18 +19,20 @@ function queryDb(qu, params, callbackFunction, callbackParams)
   });
   client.connect();
   console.log("Querying " + qu);
+  console.log("With params " + params);
 
-  console.log(params);
+  let res = [];
   client.query(qu, params, (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
       var cRow = JSON.stringify(row);
-      console.log(cRow);
+      res.push(cRow);
     }
     client.end();
+    console.log(res);
     if(callbackFunction)
     {
-      callbackFunction(callbackParams);
+      callbackFunction(res, callbackParams);
     }
   });
 }
@@ -52,7 +54,6 @@ app.post('/', function(req, resp) {
     console.log("Password " + pwd);
     if (pwd && pwd.length>0)
     {
-      // var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
 
       const client = new Client({
           connectionString: process.env.DATABASE_URL,
@@ -108,8 +109,6 @@ app.post('/register', function(req, resp) {
 
   var fields = [unm, 'none', 0, pwd, 0, 0, 0, 0, 0, 0, 0];
 
-  // var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
-
   const client = new Client({
       connectionString: process.env.DATABASE_URL,
       ssl: true,
@@ -133,8 +132,7 @@ app.post('/register', function(req, resp) {
       resp.redirect("register.html?fail=unm_exists");
     }
     else {
-      queryDb("INSERT INTO Users VALUES ("+nums(fields.length)+");", fields);//fields is an array
-      // queryDb(formInsert(fields));
+      queryDb("INSERT INTO Users VALUES ("+nums(fields.length)+");", fields);
       resp.redirect("index.html");
     }
   });
@@ -178,16 +176,12 @@ function newConnection(socket) {
   function handleUpdateAchievments(data)
   {
     let unm = data["unm"];
-    let newVal = data["newVal"];
-    let col = data["col"];
-    // let qu = "UPDATE Users SET "+col+"="+newVal+" WHERE name='" + safer(unm) + "'";
-    queryDb("UPDATE Users SET $1=$2 WHERE name=$3;", [col, newVal, unm]);
+    queryDb("UPDATE Users SET $1=$2 WHERE name=$3;", [data["col"], data["newVal"], unm]);
   }
 
   function handleSelectDb(data)
   {
     var unm = data["unm"];
-    // var qu = "SELECT * FROM users WHERE name='"+safer(unm)+"';";
 
     const client = new Client({
       connectionString: process.env.DATABASE_URL,
@@ -207,6 +201,8 @@ function newConnection(socket) {
       client.end();
       socket.emit("selectedData", results);
     });
+
+    // queryDb("SELECT * FROM users WHERE name=$1;", [unm], function(results, empty) {socket.emit("selectedData", results);}, []);
 
   }
 
