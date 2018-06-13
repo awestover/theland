@@ -40,7 +40,7 @@ let bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-function handlePasswordInput(results, resp)
+function handlePasswordInput(results, params)
 {
   let resp = params["resp"];
   let qRes = {"pwd": ""};
