@@ -71,3 +71,5 @@ let soundWanted = false;
 let song;
 
 let userDb;
+
+let gameOver = false;

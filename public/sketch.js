@@ -203,6 +203,19 @@ function draw()
     showMaxScores();
   }
 
+  if(gameOver)
+  {
+    text("GAME OVER", 0, 0);
+
+  }
+
+  if (!gameOver && user.personals.length == 0)
+  {
+    gameOver = true;
+    setTimeout(function(){window.location.href="index.html";}, 5000);
+  }
+
+
   // drawCenterCross();
 
 }
