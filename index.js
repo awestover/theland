@@ -21,7 +21,7 @@ function queryDb(qu, params, callbackFunction, callbackParams)
   console.log("Querying " + qu);
   console.log("With params " + params);
 
-  let dataReults = [];
+  let dataResults = [];
   client.query(qu, params, (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
@@ -29,10 +29,10 @@ function queryDb(qu, params, callbackFunction, callbackParams)
       dataResults.push(cRow);
     }
     client.end();
-    console.log(res);
+    console.log(dataResults);
     if(callbackFunction)
     {
-      callbackFunction(res, callbackParams);
+      callbackFunction(dataResults, callbackParams);
     }
   });
 }
