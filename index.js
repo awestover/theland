@@ -62,7 +62,7 @@ function handlePasswordInput(resultsArr, params)
     }
     else
     {
-      resp.redirect("index.html?login=failed");
+      resp.redirect("index.html?failed=bad_pwd");
     }
   }
 }
