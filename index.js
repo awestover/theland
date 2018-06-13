@@ -21,12 +21,12 @@ function queryDb(qu, params, callbackFunction, callbackParams)
   console.log("Querying " + qu);
   console.log("With params " + params);
 
-  let res = [];
+  let dataReults = [];
   client.query(qu, params, (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
       var cRow = JSON.stringify(row);
-      res.push(cRow);
+      dataResults.push(cRow);
     }
     client.end();
     console.log(res);
