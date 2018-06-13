@@ -11,7 +11,7 @@ app.use(express.static('public'));
 const { Client } = require('pg');
 
 // only for inserts and updates
-function queryDb(qu, param)
+function queryDb(qu, params)
 {
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -20,7 +20,7 @@ function queryDb(qu, param)
   client.connect();
   console.log("Querying " + qu);
 
-  client.query(qu, [param], (err, res) => {
+  client.query(qu, params, (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
       var cRow = JSON.stringify(row);
@@ -151,7 +151,7 @@ app.post('/register', async function(req, resp) {
     });
   client.connect();
 
-  console.log("Querying in register" + unm);
+  console.log("Querying in register " + unm);
   var results = [];
   await client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
     if (err) throw err;
@@ -167,7 +167,7 @@ app.post('/register', async function(req, resp) {
       resp.redirect("register.html?fail=unm_exists");
     }
     else {
-      queryDb("INSERT INTO Users VALUES ("+nums(fields.length)+");", fields);
+      queryDb("INSERT INTO Users VALUES ("+nums(fields.length)+");", [fields]);
       // queryDb(formInsert(fields));
       resp.redirect("index.html");
     }
@@ -417,7 +417,7 @@ function nameExists(name)
 function nums(x)
 {
   let o = "";
-  for (let i = 0; i < x; i++)
+  for (let i = 1; i <= x; i++)
   {
     o+="$"+i;
     if (i!= x-1)
