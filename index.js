@@ -40,11 +40,12 @@ let bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-function handlePasswordInput(results, params)
+function handlePasswordInput(resultsArr, params)
 {
   let resp = params["resp"];
   let pwd = params["pwd"];
   let datas = params["datas"];
+  let results = resultsArr[0];
 
   let dText = ["unm", "world", "anType","soundWanted"];
 
