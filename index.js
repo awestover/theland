@@ -1,7 +1,7 @@
 // behind the scenes of the game
-var express = require('express'); // needs this library
-var app = express();
-var port = process.env.PORT || 3000;  // what port to open it on must have the option to be
+let express = require('express'); // needs this library
+let app = express();
+let port = process.env.PORT || 3000;  // what port to open it on must have the option to be
 // chosen by server if you want it to be heroku compatible, also does need the default
 let server = require('http').createServer(app).listen(port);
 let socket = require('socket.io');
@@ -36,19 +36,19 @@ function queryDb(qu, params, callbackFunction, callbackParams)
   });
 }
 
-var bodyParser = require('body-parser');
+let bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // handle posts
 app.post('/', function(req, resp) {
-    var unm = nicerFormInput(req.body.unm);
-    var pwd = req.body.pwd;
-    var world = req.body.world;
-    var anType = req.body.anType;
-    var soundWanted = req.body.soundWanted;
+    let unm = nicerFormInput(req.body.unm);
+    let pwd = req.body.pwd;
+    let world = req.body.world;
+    let anType = req.body.anType;
+    let soundWanted = req.body.soundWanted;
 
-    var pwdGood = false;
+    let pwdGood = false;
 
     console.log("Password " + pwd);
     if (pwd && pwd.length>0)
@@ -61,17 +61,17 @@ app.post('/', function(req, resp) {
       client.connect();
 
       console.log("Querying " + unm);
-      var results = [];
+      let results = [];
       client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
         if (err) throw err;
         for (let row of res.rows) {
-          var cRow = row;
+          let cRow = row;
           console.log(cRow);
           results.push(cRow);
         }
         client.end();
 
-        var qRes = {"pwd": ""}
+        let qRes = {"pwd": ""}
         try {
           if (results  && results[0] && results[0]['pwd'])
           {
@@ -87,7 +87,7 @@ app.post('/', function(req, resp) {
         {
           pwdGood = true;
         }
-        var verified = "no";
+        let verified = "no";
         if (pwdGood)
         {
           console.log("legit user");
@@ -116,49 +116,19 @@ function registerGoodUnm(results, params)
 }
 
 app.post('/register', function(req, resp) {
-  var unm = req.body.unm;
-  var pwd = req.body.pwd;
-  var fields = [unm, 'none', 0, pwd, 0, 0, 0, 0, 0, 0, 0];
+  let unm = req.body.unm;
+  let pwd = req.body.pwd;
+  let fields = [unm, 'none', 0, pwd, 0, 0, 0, 0, 0, 0, 0];
   queryDb("SELECT * FROM users WHERE name=$1;", [unm], registerGoodUnm, {"resp": resp, "fields": fields});
-
-
-  // const client = new Client({
-  //     connectionString: process.env.DATABASE_URL,
-  //     ssl: true,
-  //   });
-  // client.connect();
-
-  // console.log("Querying in register " + unm);
-  // var results = [];
-  // client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
-  //   if (err) throw err;
-  //   for (let row of res.rows) {
-  //     var cRow = row;
-  //     results.push(cRow);
-  //   }
-  //   client.end();
-  //   console.log(results);
-    // if (results.length != 0)
-    // {
-    //   resp.redirect("register.html?fail=unm_exists");
-    // }
-    // else {
-    //   queryDb("INSERT INTO Users VALUES ("+nums(fields.length)+");", fields);
-    //   resp.redirect("index.html");
-    // }
-  // });
-
 });
 
 console.log("server running");
 io.sockets.on('connection', newConnection);  // when you get a connection do this
 
-var playersConnected = [];
-var worldThetas = {};
-
-var userData = {};
-
-var maxSLength = 15;
+let playersConnected = [];
+let worldThetas = {};
+let userData = {};
+const maxSLength = 15;
 
 function newConnection(socket) {
 	/*
@@ -170,9 +140,9 @@ function newConnection(socket) {
 	*/
 
   console.log("new connection");
-  var name;
-  var world;
-  var th;
+  let name;
+  let world;
+  let th;
 
   // what to listen for
   socket.on('named', handleNaming);
@@ -192,7 +162,7 @@ function newConnection(socket) {
 
   function handleSelectDb(data)
   {
-    var unm = data["unm"];
+    let unm = data["unm"];
     queryDb("SELECT * FROM users WHERE name=$1;", [unm], function(results, empty) {socket.emit("selectedData", results);}, []);
   }
 
@@ -229,7 +199,7 @@ function newConnection(socket) {
 
     if (worldThetas[world])
     {
-      var ii=0;
+      let ii=0;
       while (ii < worldThetas[world].length && worldThetas[world][ii]==ii)
       {
         ii += 1;
@@ -304,7 +274,7 @@ function newConnection(socket) {
     if (world)
     {
       try {
-        for (var i = 0; i < worldThetas[world].length; i++)
+        for (let i = 0; i < worldThetas[world].length; i++)
         {
           if (th == worldThetas[world][i])
           {
@@ -316,7 +286,7 @@ function newConnection(socket) {
       catch (e) {
         console.log("ERROR " + e);
       }
-      var idx = playersConnected.indexOf(name);
+      let idx = playersConnected.indexOf(name);
       console.log("disconnect by " + idx + " " + name);
       if (idx != -1)
       {
@@ -339,12 +309,12 @@ function newConnection(socket) {
 
 function joinIns(ins, fields)
 {
-	var out = "";
+	let out = "";
 	if (ins.length<1)
 	{
 		return out;
 	}
-	for (var i = 0; i < ins.length-1; i++)
+	for (let i = 0; i < ins.length-1; i++)
 	{
 		out+=fields[i]+"="+ins[i]+"&";
 	}
@@ -354,8 +324,8 @@ function joinIns(ins, fields)
 
 function nameExists(name)
 {
-	var ct=0;
-	for (var i = 0; i<playersConnected.length; i++)
+	let ct=0;
+	for (let i = 0; i<playersConnected.length; i++)
 	{
     // if (playersConnected[i].indexOf(name)!=-1)
 		if (playersConnected[i] == name)

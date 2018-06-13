@@ -91,3 +91,29 @@ function handleSelectDb()
     socket.emit("selectedData", results);
   });
 }
+
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+client.connect();
+
+console.log("Querying in register " + unm);
+var results = [];
+client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    var cRow = row;
+    results.push(cRow);
+  }
+  client.end();
+  console.log(results);
+  if (results.length != 0)
+  {
+    resp.redirect("register.html?fail=unm_exists");
+  }
+  else {
+    queryDb("INSERT INTO Users VALUES ("+nums(fields.length)+");", fields);
+    resp.redirect("index.html");
+  }
+});
