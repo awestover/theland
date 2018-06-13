@@ -11,7 +11,7 @@ app.use(express.static('public'));
 const { Client } = require('pg');
 
 // only for inserts and updates
-function queryDb(qu)
+function queryDb(qu, param)
 {
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -20,7 +20,7 @@ function queryDb(qu)
   client.connect();
   console.log("Querying " + qu);
 
-  client.query(qu, (err, res) => {
+  client.query(qu, [param], (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
       var cRow = JSON.stringify(row);
@@ -30,46 +30,46 @@ function queryDb(qu)
   });
 }
 
-function safer(s)
-{
-  if (!s)
-  {
-    return "";
-  }
-  if (s.length==0)
-  {
-    return "";
-  }
-  return s.replace(";", "").replace('"', '').replace("'", '').replace("-", '');
-}
+// function safer(s)
+// {
+//   if (!s)
+//   {
+//     return "";
+//   }
+//   if (s.length==0)
+//   {
+//     return "";
+//   }
+//   return s.replace(";", "").replace('"', '').replace("'", '').replace("-", '');
+// }
 
-function formInsert(vals)
-{
-  var qu = "INSERT INTO users VALUES(";
-  for (var i = 0; i < vals.length; i++)
-  {
-    try {
-      if (typeof(vals[i]) == "number")
-      {
-        qu += vals[i];
-      }
-      else {
-        qu += "'" + safer(vals[i]) + "'";
-      }
-    }
-    catch (e) {
-      qu += vals[i]+"";
-    }
-    if (i!= vals.length-1)
-    {
-      qu += ', ';
-    }
-    else {
-      qu += ");";
-    }
-  }
-  return qu;
-}
+// function formInsert(vals)
+// {
+//   var qu = "INSERT INTO users VALUES(";
+//   for (var i = 0; i < vals.length; i++)
+//   {
+//     try {
+//       if (typeof(vals[i]) == "number")
+//       {
+//         qu += vals[i];
+//       }
+//       else {
+//         qu += "'" + safer(vals[i]) + "'";
+//       }
+//     }
+//     catch (e) {
+//       qu += vals[i]+"";
+//     }
+//     if (i!= vals.length-1)
+//     {
+//       qu += ', ';
+//     }
+//     else {
+//       qu += ");";
+//     }
+//   }
+//   return qu;
+// }
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
@@ -77,7 +77,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // handle posts
 app.post('/', function(req, resp) {
-    var unm = req.body.unm;
+    var unm = nicerFormInput(req.body.unm);
     var pwd = req.body.pwd;
     var world = req.body.world;
     var anType = req.body.anType;
@@ -167,7 +167,8 @@ app.post('/register', async function(req, resp) {
       resp.redirect("register.html?fail=unm_exists");
     }
     else {
-      queryDb(formInsert(fields));
+      queryDb("INSERT INTO Users VALUES ANY ($1);", fields);
+      // queryDb(formInsert(fields));
       resp.redirect("index.html");
     }
   });
@@ -411,4 +412,11 @@ function nameExists(name)
 		}
 	}
 	return ct;
+}
+
+function nicerFormInput(fi)
+{
+  fi = fi.replace("?", "");
+  fi = fi.replace(" ", "_");
+  return fi;
 }
