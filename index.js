@@ -167,7 +167,7 @@ app.post('/register', async function(req, resp) {
       resp.redirect("register.html?fail=unm_exists");
     }
     else {
-      queryDb("INSERT INTO Users VALUES ($1);", fields);
+      queryDb("INSERT INTO Users VALUES ("+nums(fields.length)+");", fields);
       // queryDb(formInsert(fields));
       resp.redirect("index.html");
     }
@@ -412,6 +412,20 @@ function nameExists(name)
 		}
 	}
 	return ct;
+}
+
+function nums(x)
+{
+  let o = "";
+  for (let i = 0; i < x; i++)
+  {
+    o+="$"+i;
+    if (i!= x-1)
+    {
+      o+=", ";
+    }
+  }
+  return o;
 }
 
 function nicerFormInput(fi)
