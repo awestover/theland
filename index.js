@@ -177,6 +177,8 @@ function newConnection(socket) {
     console.log(unm);
     if (validCols.indexOf(data["cols"])!=-1)
     {
+      console.log("UPDATE SET "+data["cols"]+"=$1 WHERE name=$2;");
+      console.log([data["newVal"], unm]);
       queryDb("UPDATE SET "+data["cols"]+"=$1 WHERE name=$2;", [data["newVal"], unm]);
     }
   }
