@@ -175,7 +175,7 @@ function newConnection(socket) {
     console.log("UPDATE");
     console.log(data["newVal"]);
     console.log(unm);
-    if (validCols.indexOf(data["cols"])!=-1)
+    if (validCols.indexOf(data["col"])!=-1)
     {
       console.log("UPDATE SET "+data["cols"]+"=$1 WHERE name=$2;");
       console.log([data["newVal"], unm]);
