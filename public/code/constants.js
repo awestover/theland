@@ -85,3 +85,5 @@ $.notify.addStyle('message', {
     }
   }
 });
+
+let zoom;

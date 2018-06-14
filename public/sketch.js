@@ -94,10 +94,17 @@ function setup()
     socket.emit("selectDb", {"unm": name});
   }
 
+  console.log("hmm");
+  zoom = createSlider(0.2, 5, 1, 0);// min, max, init, step
+	zoom.style("width", "300px");
+  zoom.position(200, 200);
+
 }
 
 function draw()
 {
+  scale(zoom.value());
+
   // graphics basis
   background(bgColor[0], bgColor[1], bgColor[2]);
   translate(screen_dims[0]/2, screen_dims[1]/2);  // center to 0,0
