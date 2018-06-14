@@ -227,8 +227,13 @@ function draw()
 
   if (!gameOver && user.personals.length == 0)
   {
-    gameOver = true;
-    setTimeout(function(){window.location.href="index.html";}, 5000);
+    setTimeout(function() {
+      if (user.personals.length == 0)
+      {
+        gameOver = true;
+        setTimeout(function(){window.location.href="index.html";}, 5000);
+      }
+    }, 60000);
   }
 
 }

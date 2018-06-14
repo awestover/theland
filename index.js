@@ -14,7 +14,7 @@ const { Client } = require('pg');
 function queryDb(qu, params, callbackFunction, callbackParams)
 {
   const client = new Client({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL, //|| "postgresql://localhost:5432", NOT a thing...
     ssl: true,
   });
   client.connect();
