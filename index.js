@@ -154,8 +154,9 @@ function newConnection(socket) {
 
   function handleUpdateAchievments(data)
   {
+    //bad form, vulnerable to sql injection
     let unm = data["unm"];
-    queryDb("UPDATE Users SET ($1)=$2 WHERE name=$3;", [data["col"], data["newVal"], unm]);
+    queryDb("UPDATE Users SET "+data["col"]+"=$2 WHERE name=$3;", [data["newVal"], unm]);
   }
 
   function handleSelectDb(data)
