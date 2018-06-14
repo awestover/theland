@@ -171,6 +171,10 @@ function newConnection(socket) {
     // changing name and pwd is not allowed here...
     let validCols = [ "quest" , "level" , "predatorskilled" , "preyskilled" ,
       "useranimalskilled" , "maxstormlightheld" , "maxscore" , "maxnumanimals" , "personalskilled" ];
+    console.log(data["cols"]);
+    console.log("UPDATE");
+    console.log(data["newVal"]);
+    console.log(unm);
     if (validCols.indexOf(data["cols"])!=-1)
     {
       queryDb("UPDATE SET "+data["cols"]+"=$1 WHERE name=$2;", [data["newVal"], unm]);
