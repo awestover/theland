@@ -55,6 +55,7 @@
       userDb = data[0];
       console.log(userDb);
       let table = jsonToTable(["name", "value"], userDb);
+      console.log(table);
       $("#stats").append(table);
     }
   }
@@ -67,6 +68,11 @@
   <div class="stats">
     <p id="stats">
     </p>
+  </div>
+
+  <div>
+  <br>
+  <button class="btn btn-lg well well-lg" id="button" style="float:left" onclick='window.location.href = "index.html";'>Main</button>
   </div>
 
 </body>
