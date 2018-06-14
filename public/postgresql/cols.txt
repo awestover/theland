@@ -1,1 +1,5 @@
 name | quest | level |   pwd   | predatorskilled | preyskilled | useranimalskilled | maxstormlightheld | maxscore | maxnumanimals | personalskilled
+[ "name" , "quest" , "level" , "pwd" , "predatorskilled" , "preyskilled" , "useranimalskilled" , "maxstormlightheld" , "maxscore" , "maxnumanimals" , "personalskilled" ];
+
+
+select column_name from information_schema.columns where table_name='test';

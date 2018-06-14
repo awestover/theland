@@ -162,14 +162,17 @@ function newConnection(socket) {
     }
   }
 
+  //safe from sql injection because column must be in the validCols array
   function handleUpdateAchievments(data)
   {
-    // bad form, vulnerable to sql injection by someone who knows what they are doing.
-    // if they forcibly sent a socketio request to update a fake column with an injection in it this would break. Try to fix it.
     let unm = data["unm"];
-    // $column = data["col"];
-    // queryDb("UPDATE Users SET =$1 WHERE name=$2;", [data["newVal"], unm]);
-    queryDb("UPDATE SET $1::text=$2 WHERE name=$3;", [data["col"], data["newVal"], unm]);
+    // changing name and pwd is not allowed here...
+    let validCols = [ "quest" , "level" , "predatorskilled" , "preyskilled" ,
+      "useranimalskilled" , "maxstormlightheld" , "maxscore" , "maxnumanimals" , "personalskilled" ];
+    if (validCols.indexOf(data["cols"])!=-1)
+    {
+      queryDb("UPDATE SET "+data["cols"]+"=$1 WHERE name=$2;", [data["newVal"], unm]);
+    }
   }
 
   function handleSelectDb(data)
