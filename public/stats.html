@@ -27,6 +27,9 @@
   <!-- parseURl -->
   <script src="code/functions.js" type="text/javascript"></script>
 
+  <!-- table -->
+  <script src="style/arrayToTable.js" type="text/javascript"></script>
+
 </head>
 
 <body>
@@ -40,21 +43,31 @@
   let urlArgs = parseURL(window.location.href);
   if (urlArgs["usr"])
   {
+    let unm = urlArgs["usr"];
     $.notify("stats for " + urlArgs["usr"], "success");
+    socket = io.connect();
+    socket.on('selectedData', handleSelectedData);
+    socket.emit("selectDb", {"unm": unm});
+
+    let userDb = {};
+    function handleSelectedData(data)
+    {
+      userDb = data[0];
+      console.log(userDb);
+      let table = jsonToTable(["name", "value"], userDb);
+      $("#stats").append(table);
+    }
   }
-
-  socket = io.connect();
-  socket.on('selectedData', handleSelectedData);
-
-  let userDb = [];
-  function handleSelectedData(data)
-  {
-    userDb = data[0];
-    console.log(userDb);
+  else {
+    $.notify("user does not exist", "error");
   }
 
   </script>
 
+  <div class="stats">
+    <p id="stats">
+    </p>
+  </div>
 
 </body>
 
