@@ -5,8 +5,25 @@ body {
   padding-bottom: 40px;
 }
 
+div#stats{
+  margin-left: 20%;
+}
+
+#stat_unm{
+  margin-left: 10%;
+}
+
+#stat_unm_label {
+  margin-left: 10%;
+}
+
 img{
   width: 100%;
+}
+
+div.btn-container
+{
+  width: 70%;
 }
 
 .container
