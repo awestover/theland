@@ -149,7 +149,13 @@ function newConnection(socket) {
 
   function handleTextSent(data)
   {
-    socket.broadcast.to(data.world).emit("textIncoming", data);
+    if (data["world"] == "home")
+    {
+      io.sockets.emit("textIncoming", data);
+    }
+    else {
+      socket.broadcast.to(data.world).emit("textIncoming", data);
+    }
   }
 
   function handleUpdateAchievments(data)

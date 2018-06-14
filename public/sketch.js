@@ -27,18 +27,6 @@ function setup()
   textAlign(CENTER);
   frameRate(10);
 
-  $.notify.addStyle('message', {
-    html: "<div><span data-notify-text/></div>",
-    classes: {
-      base: {
-        "white-space": "nowrap",
-        "background-color": "lightblue",
-        "padding": "20px",
-        "width": "300px"
-      }
-    }
-  });
-
   let userValues = parseURL(document.URL);
 
   if (userValues["verified"] == "yes")

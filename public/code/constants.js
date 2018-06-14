@@ -73,3 +73,15 @@ let song;
 let userDb;
 
 let gameOver = false;
+
+$.notify.addStyle('message', {
+  html: "<div><span data-notify-text/></div>",
+  classes: {
+    base: {
+      "white-space": "nowrap",
+      "background-color": "lightblue",
+      "padding": "20px",
+      "width": "300px"
+    }
+  }
+});

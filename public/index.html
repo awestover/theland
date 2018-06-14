@@ -38,7 +38,7 @@
     window.location.href = document.URL.replace("http", "https");
   }
 
-  setTimeout(function() {window.location.href="https://theland.surge.sh/";}, 60000);
+  setTimeout(function() {window.location.href="https://theland.surge.sh/";}, 300000);
 
   let urlArgs = parseURL(window.location.href);
   if (urlArgs["failed"])
@@ -72,13 +72,16 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
         <br><br>
       </form>
-      <div id="animal_txt_help">
-        <p>Types include: </p>
-      </div>
 
+      <div class="texting">
       <input id="texting"></input>
       <button id="send" onclick="sendText(document.getElementById('texting').value);
         document.getElementById('texting').value=''">Send Message</button>
+      </div>
+
+      <div id="animal_txt_help">
+        <p>Types include: </p>
+      </div>
 
       <div>
       <br>

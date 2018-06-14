@@ -2,17 +2,27 @@
 
 function sendText(txt)
 {
-  let data = {
-    "world": user.world,
-    "txt": txt
+  let data;
+  if (user)
+  {
+    data = {
+      "world": user.world,
+      "txt": txt + " - " + user.name
+    }
+    $.notify(data["txt"], {style: 'message'});
+  }
+  else {
+    data = {
+      "world": "home",
+      "txt": txt + " - home"
+    }
   }
   socket.emit("textSent", data);
-  $.notify(data["txt"] + " - " + user.name, {style: 'message'});
 }
 
 function handleTextIncoming(data)
 {
-  $.notify(data["txt"] + " - " + user.name, {style: 'message'});
+  $.notify(data["txt"], {style: 'message'});
 }
 
 function songLoaded()
