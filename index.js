@@ -51,12 +51,12 @@ function handlePasswordInput(resultsArr, params)
 
   let dText = ["unm", "world", "anType","soundWanted", "verified"];
 
-  console.log("pwd input " + results[0]["pwd"]);
   if (results.length == 0)
   {
     resp.redirect("game.html?"+joinIns(datas, dText));
   }
   else {
+    console.log("pwd input " + results[0]["pwd"]);
     let pwdReal = results[0]["pwd"];
     if (pwdReal == pwd)
     {
