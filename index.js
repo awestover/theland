@@ -53,12 +53,11 @@ let bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-function handlePasswordInput(resultsArr, params)
+function handlePasswordInput(results, params)
 {
   let resp = params["resp"];
   let pwd = params["pwd"];
   let datas = params["datas"];
-  let results = resultsArr;
 
   console.log(pwd);
   console.log(results);
@@ -89,8 +88,8 @@ function handlePasswordInput(resultsArr, params)
 app.post('/', function(req, resp) {
   let unm = nicerFormInput(req.body.unm);
   let datas = [unm, req.body.world, req.body.anType, req.body.soundWanted];
-  let pwd = stupidHash(req.body.pwd);
-  let params = {"resp":resp, "pwd": pwd, "datas": datas};
+  let pwd = req.body.pwd;
+  let params = {"resp":resp, "pwd": stupidHash(pwd), "datas": datas};
   if (pwd.length>0)
   {
     queryDb("SELECT * FROM users WHERE name=$1;", [unm], handlePasswordInput, params);
