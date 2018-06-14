@@ -1,7 +1,7 @@
 let quests = {
     "predatorsKilled": [1, 5, 25, 125],
     "personalsKilled": [5, 25, 125, 625],
-    "preysKilled": [5, 25, 125, 625],
+    "preysKilled": [5, 25, 125, 625]
     // "userAnimalsKilled": [25, 125, 625, 3125],
     // "maxStormlightHeld": [500, 1000, 2500, 10000],
     // "maxScore": [100, 200, 300, 400],
@@ -53,10 +53,22 @@ function questComplete()
     return true;
   }
   let res = getQuest(userDb["quest"]);
-  console.log(res);
+  // console.log(res);
   if (userDb[res[0].toLowerCase()] >= res[1])
   {
     return true;
+  }
+  return false;
+}
+
+function getCamel(uncammeled)
+{
+  for (let q in Qtypes)
+  {
+    if (Qtypes[q].toLowerCase() == uncammeled)
+    {
+      return Qtypes[q];
+    }
   }
   return false;
 }

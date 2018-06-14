@@ -53,9 +53,7 @@
     function handleSelectedData(data)
     {
       userDb = data[0];
-      console.log(userDb);
       let table = jsonToTable(["name", "value"], userDb);
-      console.log(table);
       $("#stats").append(table);
     }
   }
