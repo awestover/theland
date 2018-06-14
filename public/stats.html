@@ -41,6 +41,7 @@
   setTimeout(function() {window.location.href="https://theland.surge.sh/";}, 300000);
 
   let urlArgs = parseURL(window.location.href);
+  let userDb = {};
   if (urlArgs["usr"])
   {
     let unm = urlArgs["usr"];
@@ -49,7 +50,6 @@
     socket.on('selectedData', handleSelectedData);
     socket.emit("selectDb", {"unm": unm});
 
-    let userDb = {};
     function handleSelectedData(data)
     {
       userDb = data[0];
