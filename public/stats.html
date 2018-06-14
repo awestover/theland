@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- resize -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+  <!-- Icon -->
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+
+  <!-- style -->
+  <link rel="stylesheet" type="text/css" href="style/stats.css">
+
+  <title>The Land Stats</title>
+
+  <!--jquery-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!--bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- node libraries -->
+  <script src="/socket.io/socket.io.js"></script>
+
+  <!-- notify -->
+  <script src="libraries/notify.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+  <script>
+  if (document.URL.indexOf("https") == -1 && document.URL.indexOf("localhost") == -1) {
+    window.location.href = document.URL.replace("http", "https");
+  }
+  setTimeout(function() {window.location.href="https://theland.surge.sh/";}, 300000);
+
+  let urlArgs = parseURL(window.location.href);
+  if (urlArgs["usr"])
+  {
+    $.notify("stats for " + urlArgs["usr"], "success");
+  }
+
+  socket = io.connect();
+  socket.on('selectedData', handleSelectedData);
+
+  let userDb = [];
+  function handleSelectedData(data)
+  {
+    userDb = data[0];
+    console.log(userDb);
+  }
+
+  </script>
+
+
+</body>
+
+</html>
