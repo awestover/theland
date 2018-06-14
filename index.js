@@ -47,12 +47,11 @@ function handlePasswordInput(resultsArr, params)
   let datas = params["datas"];
   let results = resultsArr;
 
-  datas.push("yes");//really stupid
-
   let dText = ["unm", "world", "anType","soundWanted", "verified"];
 
   if (results.length == 0)
   {
+    datas.push("no"); //really stupid
     resp.redirect("game.html?"+joinIns(datas, dText));
   }
   else {
@@ -60,6 +59,7 @@ function handlePasswordInput(resultsArr, params)
     let pwdReal = results[0]["pwd"];
     if (pwdReal == pwd)
     {
+      datas.push("no"); //really stupid
       resp.redirect("game.html?"+joinIns(datas, dText));
     }
     else
@@ -133,7 +133,8 @@ function newConnection(socket) {
   function handleUpdateAchievments(data)
   {
     let unm = data["unm"];
-    queryDb("UPDATE Users SET ($1)=$2 WHERE name=$3;", [data["col"], data["newVal"], unm]);
+    queryDb("UPDATE users set "+data["col"]+"="+data["newVal"]+" where name="+unm);
+    // queryDb("UPDATE Users SET $1=$2 WHERE name=$3;", [data["col"], data["newVal"], unm]);
   }
 
   function handleSelectDb(data)
