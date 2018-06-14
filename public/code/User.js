@@ -376,7 +376,6 @@ class User {
 
     let col = type + "killed";
     if(userDb) {
-      console.log(col);//should be lowercase
       userDb[col] += 1;
       socket.emit("updateAchievments", {"unm": this.name, "col": col, "newVal": userDb[col]});
       if (questComplete()) {
