@@ -375,18 +375,13 @@ class User {
     this.setStormlightText();
 
     let col = type + "killed";
-    try {
+    if(userDb) {
       userDb[col] += 1;
       socket.emit("updateAchievments", {"unm": this.name, "col": col, "newVal": userDb[col]});
+      if (questComplete()) {
+        handleQuestCopmlete();
+      }
     }
-    catch (e) {
-      //guest  
-    }
-
-    if (questComplete()) {
-      handleQuestCopmlete();
-    }
-
   }
 
 }

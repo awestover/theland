@@ -83,7 +83,14 @@ app.post('/', function(req, resp) {
   let unm = nicerFormInput(req.body.unm);
   let datas = [unm, req.body.world, req.body.anType, req.body.soundWanted];
   let pwd = req.body.pwd;
-  queryDb("SELECT * FROM users WHERE name=$1;", [unm], handlePasswordInput, {"resp":resp, "pwd": pwd, "datas": datas});
+  let params = {"resp":resp, "pwd": pwd, "datas": datas};
+  if (pwd.length>0)
+  {
+    queryDb("SELECT * FROM users WHERE name=$1;", [unm], handlePasswordInput, params);
+  }
+  else {
+    handlePasswordInput([], params);
+  }
 });
 
 function registerGoodUnm(results, params)

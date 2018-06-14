@@ -244,11 +244,12 @@ function sendText(txt)
     "txt": txt
   }
   socket.emit("textSent", data);
+  $.notify(data["txt"] + " - " + user.name, {style: 'message'});
 }
 
 function handleTextIncoming(data)
 {
-  $.notify(data["msg"], {style: 'message'});
+  $.notify(data["txt"] + " - " + user.name, {style: 'message'});
 }
 
 function handleUpdatePlayer(otherUser)
