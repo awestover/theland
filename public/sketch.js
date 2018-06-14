@@ -234,22 +234,6 @@ function draw()
       }
     }, 60000);
   }
-
-}
-
-function sendText(txt)
-{
-  let data = {
-    "world": user.world,
-    "txt": txt
-  }
-  socket.emit("textSent", data);
-  $.notify(data["txt"] + " - " + user.name, {style: 'message'});
-}
-
-function handleTextIncoming(data)
-{
-  $.notify(data["txt"] + " - " + user.name, {style: 'message'});
 }
 
 function handleUpdatePlayer(otherUser)

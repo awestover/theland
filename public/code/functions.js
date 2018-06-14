@@ -1,5 +1,20 @@
 //functions
 
+function sendText(txt)
+{
+  let data = {
+    "world": user.world,
+    "txt": txt
+  }
+  socket.emit("textSent", data);
+  $.notify(data["txt"] + " - " + user.name, {style: 'message'});
+}
+
+function handleTextIncoming(data)
+{
+  $.notify(data["txt"] + " - " + user.name, {style: 'message'});
+}
+
 function songLoaded()
 {
 	song.setVolume(0.3);

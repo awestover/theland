@@ -76,6 +76,10 @@
         <p>Types include: </p>
       </div>
 
+      <input id="texting"></input>
+      <button id="send" onclick="sendText(document.getElementById('texting').value);
+        document.getElementById('texting').value=''">Send Message</button>
+
       <div>
       <br>
       <button class="btn btn-lg well well-lg" id="button" style="float:left" onclick='window.location.href = "info.html";'>Help</button>
@@ -122,6 +126,7 @@
       let userTable;
       socket = io.connect();
       socket.on('gotData', handleGotData);
+      socket.on('textIncoming', handleTextIncoming);
       function getUpdatedTable()
       {
         socket.emit('getData', "home");
