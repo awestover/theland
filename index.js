@@ -8,6 +8,10 @@ let socket = require('socket.io');
 let io = socket(server);
 app.use(express.static('public'));
 
+// require('pg-escape');
+// var sql = escape('INSERT INTO %I VALUES(%L)', 'books', "O'Reilly");
+// console.log(sql);
+
 const { Client } = require('pg');
 
 // query the database
@@ -163,8 +167,9 @@ function newConnection(socket) {
     // bad form, vulnerable to sql injection by someone who knows what they are doing.
     // if they forcibly sent a socketio request to update a fake column with an injection in it this would break. Try to fix it.
     let unm = data["unm"];
-    $column = data["col"];
-    queryDb("UPDATE Users SET $column=$1 WHERE name=$2;", [data["newVal"], unm]);
+    // $column = data["col"];
+    // queryDb("UPDATE Users SET =$1 WHERE name=$2;", [data["newVal"], unm]);
+    queryDb("UPDATE SET $1::text=$2 WHERE name=$3;", [data["col"], data["newVal"], unm]);
   }
 
   function handleSelectDb(data)
