@@ -59,7 +59,7 @@ function handlePasswordInput(resultsArr, params)
     let pwdReal = results[0]["pwd"];
     if (pwdReal == pwd)
     {
-      datas.push("no"); //really stupid
+      datas.push("yes"); //really stupid
       resp.redirect("game.html?"+joinIns(datas, dText));
     }
     else
