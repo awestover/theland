@@ -27,25 +27,23 @@ function setup()
   textAlign(CENTER);
   frameRate(10);
 
+  $.notify.addStyle('message', {
+    html: "<div><span data-notify-text/></div>",
+    classes: {
+      base: {
+        "white-space": "nowrap",
+        "background-color": "lightblue",
+        "padding": "20px",
+        "width": "300px"
+      }
+    }
+  });
+
   let userValues = parseURL(document.URL);
 
   if (userValues["verified"] == "yes")
   {
-    $.notify.addStyle('welcome', {
-      html: "<div><span data-notify-text/></div>",
-      classes: {
-        base: {
-          "white-space": "nowrap",
-          "background-color": "lightblue",
-          "padding": "20px",
-          "width": "300px"
-        }
-      }
-    });
-
-    $.notify('Welcome back', {
-      style: 'welcome'
-    });
+    $.notify('Welcome back', {style: 'message'});
   }
 
   if (userValues.soundWanted == "on")
@@ -67,6 +65,7 @@ function setup()
   socket.on('pushedAnimalUpdate', handlePushedAnimalUpdate);
   socket.on('death', handleDeath);
   socket.on('selectedData', handleSelectedData);
+  socket.on('textIncoming', handleTextIncoming);
 
   let animalType = userValues["anType"];
   let atIdx = animal_names["personals"].indexOf(animalType.toLowerCase());
@@ -236,6 +235,20 @@ function draw()
     }, 60000);
   }
 
+}
+
+function sendText(txt)
+{
+  let data = {
+    "world": user.world,
+    "txt": txt
+  }
+  socket.emit("textSent", data);
+}
+
+function handleTextIncoming(data)
+{
+  $.notify(data["msg"], {style: 'message'});
 }
 
 function handleUpdatePlayer(otherUser)

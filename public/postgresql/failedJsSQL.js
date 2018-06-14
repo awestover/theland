@@ -1,3 +1,5 @@
+//|| "postgresql://localhost:5432"
+
 function queryDb(qu, callback, params)
 {
   const client = new Client({

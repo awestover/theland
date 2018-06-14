@@ -13,27 +13,36 @@ const { Client } = require('pg');
 // query the database
 function queryDb(qu, params, callbackFunction, callbackParams)
 {
-  const client = new Client({
-    connectionString: process.env.DATABASE_URL, //|| "postgresql://localhost:5432", NOT a thing...
-    ssl: true,
-  });
-  client.connect();
-  console.log("Querying " + qu);
-  console.log("With params " + params);
+  try {
+    const client = new Client({
+      connectionString: process.env.DATABASE_URL,
+      ssl: true,
+    });
+    client.connect();
+    console.log("Querying " + qu);
+    console.log("With params " + params);
 
-  let dataResults = [];
-  client.query(qu, params, (err, res) => {
-    if (err) throw err;
-    for (let row of res.rows) {
-      dataResults.push(row);
-    }
-    client.end();
-    console.log(dataResults);
-    if(callbackFunction)
-    {
-      callbackFunction(dataResults, callbackParams);
-    }
-  });
+    let dataResults = [];
+    client.query(qu, params, (err, res) => {
+      if (err) throw err;
+      for (let row of res.rows) {
+        dataResults.push(row);
+      }
+      client.end();
+      console.log(dataResults);
+      if(callbackFunction)
+      {
+        callbackFunction(dataResults, callbackParams);
+      }
+    });
+  } catch (e) {
+      console.log("ERROR in database stuff");
+      if(callbackFunction)
+      {
+        dataResults = [];
+        callbackFunction(dataResults, callbackParams);
+      }
+  }
 }
 
 let bodyParser = require('body-parser');
@@ -129,12 +138,17 @@ function newConnection(socket) {
   socket.on('choseAnimalType', handleChoseAnimalType);
   socket.on('selectDb', handleSelectDb);
   socket.on('updateAchievments', handleUpdateAchievments);
+  socket.on('textSent', handleTextSent);
+
+  function handleTextSent(data)
+  {
+    socket.broadcast.to(data.world).emit("textIncoming", data);
+  }
 
   function handleUpdateAchievments(data)
   {
     let unm = data["unm"];
-    queryDb("UPDATE users set "+data["col"]+"="+data["newVal"]+" where name="+unm);
-    // queryDb("UPDATE Users SET $1=$2 WHERE name=$3;", [data["col"], data["newVal"], unm]);
+    queryDb("UPDATE Users SET ($1)=$2 WHERE name=$3;", [data["col"], data["newVal"], unm]);
   }
 
   function handleSelectDb(data)
