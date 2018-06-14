@@ -56,7 +56,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 function handlePasswordInput(resultsArr, params)
 {
   let resp = params["resp"];
-  let pwd = params["pwd"];
+  let pwd = stupidHash(params["pwd"]);
   let datas = params["datas"];
   let results = resultsArr;
 
@@ -86,7 +86,7 @@ function handlePasswordInput(resultsArr, params)
 app.post('/', function(req, resp) {
   let unm = nicerFormInput(req.body.unm);
   let datas = [unm, req.body.world, req.body.anType, req.body.soundWanted];
-  let pwd = req.body.pwd;
+  let pwd = stupidHash(req.body.pwd);
   let params = {"resp":resp, "pwd": pwd, "datas": datas};
   if (pwd.length>0)
   {
@@ -113,7 +113,7 @@ function registerGoodUnm(results, params)
 
 app.post('/register', function(req, resp) {
   let unm = req.body.unm;
-  let pwd = req.body.pwd;
+  let pwd = stupidHash(req.body.pwd);
   let fields = [unm, 'none', 0, pwd, 0, 0, 0, 0, 0, 0, 0];
   queryDb("SELECT * FROM users WHERE name=$1;", [unm], registerGoodUnm, {"resp": resp, "fields": fields});
 });
@@ -370,4 +370,16 @@ function nicerFormInput(fi)
   fi = fi.replace("?", "");
   fi = fi.replace(" ", "_");
   return fi;
+}
+
+// this is a really bad hash function, but I bet it can deter most people (only really worried about Nathan...)
+function stupidHash(pwd)
+{
+  let o = 1;
+  for(let i = 0; i < pwd.length; i++)
+  {
+    o *= pwd.charCodeAt(i);
+    o = o % 7907;
+  }
+  return o;
 }

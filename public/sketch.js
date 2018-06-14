@@ -94,7 +94,6 @@ function setup()
     socket.emit("selectDb", {"unm": name});
   }
 
-  console.log("hmm");
   zoom = createSlider(0.2, 5, 1, 0);// min, max, init, step
 	zoom.style("width", "300px");
   zoom.position(200, 200);
