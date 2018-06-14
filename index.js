@@ -154,9 +154,10 @@ function newConnection(socket) {
 
   function handleUpdateAchievments(data)
   {
-    //bad form, vulnerable to sql injection
+    // bad form, vulnerable to sql injection by someone who knows what they are doing.
+    // if they forcibly sent a socketio request to update a fake column with an injection in it this would break. Try to fix it.
     let unm = data["unm"];
-    queryDb("UPDATE Users SET "+data["col"]+"=$2 WHERE name=$3;", [data["newVal"], unm]);
+    queryDb("UPDATE Users SET "+data["col"]+"=$1 WHERE name=$2;", [data["newVal"], unm]);
   }
 
   function handleSelectDb(data)
