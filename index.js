@@ -8,10 +8,6 @@ let socket = require('socket.io');
 let io = socket(server);
 app.use(express.static('public'));
 
-// require('pg-escape');
-// var sql = escape('INSERT INTO %I VALUES(%L)', 'books', "O'Reilly");
-// console.log(sql);
-
 const { Client } = require('pg');
 
 // query the database
@@ -173,9 +169,9 @@ function newConnection(socket) {
       "useranimalskilled" , "maxstormlightheld" , "maxscore" , "maxnumanimals" , "personalskilled" ];
     if (validCols.indexOf(data["col"])!=-1)
     {
-      console.log("UPDATE SET "+data["col"]+"=$1 WHERE name=$2;");
+      console.log("UPDATE users SET "+data["col"]+"=$1 WHERE name=$2;");
       console.log([data["newVal"], unm]);
-      queryDb("UPDATE SET "+data["col"]+"=$1 WHERE name=$2;", [data["newVal"], unm]);
+      queryDb("UPDATE users SET "+data["col"]+"=$1 WHERE name=$2;", [data["newVal"], unm]);
     }
   }
 
