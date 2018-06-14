@@ -55,8 +55,10 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 function handlePasswordInput(resultsArr, params)
 {
+  console.log("pwd input handling");
+  console.log(params);
   let resp = params["resp"];
-  let pwd = stupidHash(params["pwd"]);
+  let pwd = params["pwd"];
   let datas = params["datas"];
   let results = resultsArr;
 
