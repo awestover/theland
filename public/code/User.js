@@ -376,7 +376,8 @@ class User {
 
     let col = type + "killed";
     if(userDb) {
-      userDb[getCamel(col)] += 1;
+      console.log(col);//should be lowercase
+      userDb[col] += 1;
       socket.emit("updateAchievments", {"unm": this.name, "col": col, "newVal": userDb[col]});
       if (questComplete()) {
         handleQuestCopmlete();
