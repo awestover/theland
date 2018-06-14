@@ -31,8 +31,21 @@ function setup()
 
   if (userValues["verified"] == "yes")
   {
-    $.notify.addStyle("width": "100px");
-    $.notify("Welcome back", "success");
+    $.notify.addStyle('welcome', {
+      html: "<div><span data-notify-text/></div>",
+      classes: {
+        base: {
+          "white-space": "nowrap",
+          "background-color": "lightblue",
+          "padding": "20px",
+          "width": "300px"
+        }
+      }
+    });
+
+    $.notify('Welcome back', {
+      style: 'welcome'
+    });
   }
 
   if (userValues.soundWanted == "on")
