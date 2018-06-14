@@ -171,7 +171,7 @@ function newConnection(socket) {
     // changing name and pwd is not allowed here...
     let validCols = [ "quest" , "level" , "predatorskilled" , "preyskilled" ,
       "useranimalskilled" , "maxstormlightheld" , "maxscore" , "maxnumanimals" , "personalskilled" ];
-    console.log(data["cols"]);
+    console.log(data["col"]);
     console.log("UPDATE");
     console.log(data["newVal"]);
     console.log(unm);
