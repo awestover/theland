@@ -47,18 +47,18 @@ function handlePasswordInput(resultsArr, params)
   let datas = params["datas"];
   let results = resultsArr;
 
-  let dText = ["unm", "world", "anType","soundWanted"];
+  let dText = ["unm", "world", "anType","soundWanted", "verified"];
 
   console.log("pwd input " + results[0]["pwd"]);
   if (results.length == 0)
   {
-    resp.redirect("game.html?"+joinIns(datas, dText));
+    resp.redirect("game.html?"+joinIns(concat(datas, "yes"), dText));
   }
   else {
     let pwdReal = results[0]["pwd"];
     if (pwdReal == pwd)
     {
-      resp.redirect("game.html?"+joinIns(datas, dText));
+      resp.redirect("game.html?"+joinIns(concat(datas,"yes"), dText));
     }
     else
     {
