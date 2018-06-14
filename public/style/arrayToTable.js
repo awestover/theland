@@ -45,6 +45,9 @@ function jsonToTable(titles, jsonData)
         vals.push(jsonData[key].toFixed(5).toString());
       }
     }
+    else {
+      vals.push(jsonData[key]);
+    }
   }
   return arrayToTable(titles, [rs, vals]);
 }
