@@ -31,7 +31,7 @@ function setup()
 
   if (userValues["verified"] == "yes")
   {
-    $.notify('Welcome back', {style: 'message'});
+    $.notify('Welcome back', {style: 'notification'});
   }
 
   if (userValues.soundWanted == "on")
@@ -282,6 +282,7 @@ function updateDbText()
 
 function handleQuestCopmlete()
 {
+  $.notify("Quest complete: <br> "+ userDb["quest"], {style: 'notification'});
   userDb["quest"] = nextQuest(userDb["quest"]);
   userDb["level"] += 1;
   userDb["title"] = getTitle(userDb["level"]);

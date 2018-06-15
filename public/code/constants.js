@@ -86,4 +86,16 @@ $.notify.addStyle('message', {
   }
 });
 
+$.notify.addStyle('notification', {
+  html: "<div><span data-notify-text/></div>",
+  classes: {
+    base: {
+      "white-space": "nowrap",
+      "background-color": "lightblue",
+      "padding": "20px",
+      "width": "300px"
+    }
+  }
+});
+
 let zoom;
