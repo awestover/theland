@@ -61,8 +61,7 @@
       {
         if (i == "name")
         {
-          let linkTemp = data[j]["name"];
-          linkTemp = linkTemp.link("stats.html?usr="+data[j]["name"]);
+          let linkTemp = '<a href="stats.html?usr='+data[j].name+'">'+data[j].name+'</a>';
           temp.push(linkTemp);
         }
         else {
