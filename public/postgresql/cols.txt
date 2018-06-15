@@ -1,5 +1,13 @@
+OLD 
+
 name | quest | level |   pwd   | predatorskilled | preyskilled | useranimalskilled | maxstormlightheld | maxscore | maxnumanimals | personalskilled
 [ "name" , "quest" , "level" , "pwd" , "predatorskilled" , "preyskilled" , "useranimalskilled" , "maxstormlightheld" , "maxscore" , "maxnumanimals" , "personalskilled" ];
 
 
-select column_name from information_schema.columns where table_name='test';
+NOW
+
+[ "name", "quest", "level", "pwd_hash", "title",
+"personals_killed", "predators_killed", "preys_killed" ];
+
+
+select column_name from information_schema.columns where table_name='users';

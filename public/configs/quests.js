@@ -1,74 +1,25 @@
-let quests = {
-    "predatorsKilled": [1, 5, 25, 125],
-    "personalsKilled": [5, 25, 125, 625],
-    "preysKilled": [5, 25, 125, 625]
-    // "userAnimalsKilled": [25, 125, 625, 3125],
-    // "maxStormlightHeld": [500, 1000, 2500, 10000],
-    // "maxScore": [100, 200, 300, 400],
-    // "maxNumAnimals": [10, 15, 20, 30]
-};
+let questsOrdered = [
+  ["preys_killed", 1  ], ["predators_killed", 1  ], ["personals_killed", 1  ],
+  ["preys_killed", 10 ], ["predators_killed", 5  ], ["personals_killed", 10 ],
+  ["preys_killed", 20 ], ["predators_killed", 10 ], ["personals_killed", 20 ],
+  ["preys_killed", 40 ], ["predators_killed", 20 ], ["personals_killed", 40 ],
+  ["preys_killed", 80 ], ["predators_killed", 40 ], ["personals_killed", 80 ],
+  ["preys_killed", 160], ["predators_killed", 80 ], ["personals_killed", 160],
+  ["preys_killed", 320], ["predators_killed", 160], ["personals_killed", 320],
+  ["preys_killed", 640], ["predators_killed", 320], ["personals_killed", 640]
+];
 
-let Qtypes = ["predatorsKilled", "personalsKilled", "preysKilled",
-  "userAnimalsKilled", "maxStormlightHeld", "maxScore", "maxNumAnimals"];
-
-// add this later, nicer user view of quests
-let QtypesUsrView = ["predators killed", "personals killed", "preys killed",
-  "user animals killed", "max Stormlight Held", "max score", "max number of animals"];
-
-function getQuest(quest)
-{
-  let ps = quest.replace("'", "").replace('"', "").split(": ");
-  let t = ps[0];
-  let n = parseInt(ps[1]);
-
-  return [t, n];
-}
-
-function nextQuest(quest)
-{
-  if (quest == "none")
-  {
-    return (Qtypes[0] + ": " + quests[Qtypes[0]][0]);
-  }
-  try {
-    let res = getQuest(quest);
-    let t = res[0]; let n = res[1];
-    let cDepth = quests[t].indexOf(n);
-    let idx = (Qtypes.indexOf(t)+1) % Qtypes.length;
-    if (idx == 0) {
-      cDepth += 1;
-    }
-    return (Qtypes[idx] + ": " + quests[Qtypes[idx]][cDepth]);
-  }
-  catch (e) {
-    console.log("Out of quests? or some misc error...");
-    console.log(e);
-    return "no more quests";
-  }
-}
+let Qtypes = ["predators_killed", "personals_killed", "preys_killed"];
 
 function questComplete()
 {
-  if (userDb["quest"] == "none") {
+  if (userDb["quest"] == -1) {
     return true;
   }
-  let res = getQuest(userDb["quest"]);
-  // console.log(res);
-  if (userDb[res[0].toLowerCase()] >= res[1])
+  let res = questsOrdered[userDb["quest"]];
+  if (userDb[res[0]] >= res[1])
   {
     return true;
-  }
-  return false;
-}
-
-function getCamel(uncammeled)
-{
-  for (let q in Qtypes)
-  {
-    if (Qtypes[q].toLowerCase() == uncammeled)
-    {
-      return Qtypes[q];
-    }
   }
   return false;
 }
@@ -98,6 +49,14 @@ function getTitle(lvl)
   else if (lvl == 6)
   {
     return "pro";
+  }
+  else if (lvl < 9)
+  {
+    return "swimmer";
+  }
+  else if (lvl < 9)
+  {
+    return "prancer";
   }
   else if (lvl < 50) {
     return "lander"

@@ -52,25 +52,21 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 function handlePasswordInput(results, params)
 {
   let resp = params["resp"];
-  let pwd = params["pwd"];
+  let pwd_hash = params["pwd_hash"];
   let datas = params["datas"];
-
-  console.log(pwd);
-  console.log(results);
 
   let dText = ["unm", "world", "anType","soundWanted", "verified"];
 
   if (results.length == 0)
   {
-    datas.push("no"); //really stupid
+    datas.push("no");
     resp.redirect("game.html?"+joinIns(datas, dText));
   }
   else {
-    console.log("pwd input " + results[0]["pwd"]);
-    let pwdReal = results[0]["pwd"];
-    if (pwdReal == pwd)
+    let pwdReal = results[0]["pwd_hash"];
+    if (pwdReal == pwd_hash)
     {
-      datas.push("yes"); //really stupid
+      datas.push("yes");
       resp.redirect("game.html?"+joinIns(datas, dText));
     }
     else
@@ -85,8 +81,8 @@ app.post('/', function(req, resp) {
   let unm = nicerFormInput(req.body.unm);
   let datas = [unm, req.body.world, req.body.anType, req.body.soundWanted];
   let pwd = req.body.pwd;
-  let params = {"resp":resp, "pwd": stupidHash(pwd), "datas": datas};
-  if (pwd.length>0)
+  let params = {"resp":resp, "pwd_hash": stupidHash(pwd), "datas": datas};
+  if (pwd.length > 0)
   {
     queryDb("SELECT * FROM users WHERE name=$1;", [unm], handlePasswordInput, params);
   }
@@ -111,8 +107,9 @@ function registerGoodUnm(results, params)
 
 app.post('/register', function(req, resp) {
   let unm = req.body.unm;
-  let pwd = stupidHash(req.body.pwd);
-  let fields = [unm, 'none', 0, pwd, 0, 0, 0, 0, 0, 0, 0];
+  let pwd_hash = stupidHash(req.body.pwd);
+  //[ "name", "quest", "level", "pwd_hash", "title", "personals_killed", "predators_killed", "preys_killed" ];
+  let fields = [unm, -1, 0, pwd_hash, 'none', 0, 0, 0];
   queryDb("SELECT * FROM users WHERE name=$1;", [unm], registerGoodUnm, {"resp": resp, "fields": fields});
 });
 
@@ -163,15 +160,14 @@ function newConnection(socket) {
   //safe from sql injection because column must be in the validCols array
   function handleUpdateAchievments(data)
   {
-    let unm = data["unm"];
-    // changing name and pwd is not allowed here...
-    let validCols = [ "quest" , "level" , "predatorskilled" , "preyskilled" ,
-      "useranimalskilled" , "maxstormlightheld" , "maxscore" , "maxnumanimals" , "personalskilled", "title" ];
-    if (validCols.indexOf(data["col"])!=-1)
+    let validCols = [ "name", "quest", "level", "pwd_hash", "title",
+      "personals_killed", "predators_killed", "preys_killed" ];
+
+    if (validCols.indexOf(data.col)!=-1)
     {
-      console.log("UPDATE users SET "+data["col"]+"=$1 WHERE name=$2;");
-      console.log([data["newVal"], unm]);
-      queryDb("UPDATE users SET "+data["col"]+"=$1 WHERE name=$2;", [data["newVal"], unm]);
+      console.log("UPDATE users SET "+data.col+"=$1 WHERE name=$2;");
+      console.log([data.newVal, data.unm]);
+      queryDb("UPDATE users SET "+data.col+"=$1 WHERE name=$2;", [data.newVal, data.unm]);
     }
   }
 
