@@ -277,12 +277,12 @@ function updateDbText()
   $("#progress").text(userQuestProgress());
   $("#title").text("Title: " + userDb.title);
   $("#level").text("Level: " + userDb.level);
-  $("#quest").text("Quest: " + questsOrdered[userDb.quest]);
+  $("#quest").text("Quest: " + questText(userDb.quest));
 }
 
 function handleQuestCopmlete()
 {
-  $.notify("Quest complete: " + userDb.quest, {style: 'notification'});
+  $.notify("Quest complete: " + questText(userDb.quest), {style: 'notification'});
   if (levelUp(userDb.quest))
   {
     userDb.level += 1;

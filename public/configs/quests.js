@@ -33,6 +33,11 @@ function questComplete()
   }
 }
 
+function questText(quest)
+{
+  return questsOrdered[quest][0] + ": " + questsOrdered[quest][1];
+}
+
 function getTitle(lvl)
 {
   if(lvl == 0)
