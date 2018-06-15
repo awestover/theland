@@ -12,3 +12,6 @@ UPDATE Users SET personalsKilled=0, preysKilled=0, userAnimalsKilled=0, maxStorm
 
 
 UPDATE Users SET quest='none' WHERE name='alek';
+
+
+ALTER TABLE users ADD COLUMN title varchar(15);

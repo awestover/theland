@@ -276,7 +276,7 @@ function updateDbText()
 {
   $("#progress").text(userQuestProgress());
 
-  $("#level").text("Level: " + userDb["level"]);
+  $("#level").text("Level: " + userDb["level"] + " " + userDb["title"]);
   $("#quest").text("Quest: " + userDb["quest"]);
 }
 
@@ -284,8 +284,10 @@ function handleQuestCopmlete()
 {
   userDb["quest"] = nextQuest(userDb["quest"]);
   userDb["level"] += 1;
+  userDb["title"] = getTitle(userDb["level"]);
   socket.emit("updateAchievments", {"unm": user.name, "col": "quest", "newVal": "'"+userDb["quest"]+"'"});
   socket.emit("updateAchievments", {"unm": user.name, "col": "level", "newVal": userDb["level"]});
+  socket.emit("updateAchievments", {"unm": user.name, "col": "title", "newVal": userDb["title"]});
 
   updateDbText();
 }
