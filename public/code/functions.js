@@ -44,8 +44,8 @@ function userDbToTxt()
 
 function userQuestProgress()
 {
-	let gq = getQuest(userDb.quest);
-	return ("Progress: " + userDb[gq[0].toLowerCase()] + " " + gq[0]);
+  let gq = questsOrdered[userDb.quest];
+	return ("Progress: " + userDb[gq[0]] + " " + gq[0]);
 }
 
 function centerSqaredDist(animalA, animalB)
