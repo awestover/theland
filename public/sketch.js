@@ -275,23 +275,23 @@ function handleSelectedData(data)
 function updateDbText()
 {
   $("#progress").text(userQuestProgress());
-  $("#title").text("Title: " + userDb["title"]);
-  $("#level").text("Level: " + userDb["level"]);
-  $("#quest").text("Quest: " + userDb["quest"]);
+  $("#title").text("Title: " + userDb.title);
+  $("#level").text("Level: " + userDb.level);
+  $("#quest").text("Quest: " + questsOrdered[userDb.quest]);
 }
 
 function handleQuestCopmlete()
 {
   $.notify("Quest complete: " + userDb["quest"], {style: 'notification'});
-  if (levelUp(userDb["quest"]))
+  if (levelUp(userDb.quest))
   {
     userDb["level"] += 1;
   }
   userDb["quest"] += 1;
   userDb["title"] = getTitle(userDb["level"]);
-  socket.emit("updateAchievments", {"unm": user.name, "col": "quest", "newVal": "'"+userDb["quest"]+"'"});
-  socket.emit("updateAchievments", {"unm": user.name, "col": "level", "newVal": userDb["level"]});
-  socket.emit("updateAchievments", {"unm": user.name, "col": "title", "newVal": userDb["title"]});
+  socket.emit("updateAchievments", {"unm": user.name, "col": "quest", "newVal": userDb.quest});
+  socket.emit("updateAchievments", {"unm": user.name, "col": "level", "newVal": userDb.level});
+  socket.emit("updateAchievments", {"unm": user.name, "col": "title", "newVal": userDb.title});
 
   updateDbText();
 }
