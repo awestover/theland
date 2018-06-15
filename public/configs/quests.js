@@ -1,27 +1,37 @@
 let questsOrdered = [
-  ["preys_killed", 1  ], ["predators_killed", 1  ], ["personals_killed", 1  ],
-  ["preys_killed", 10 ], ["predators_killed", 5  ], ["personals_killed", 10 ],
-  ["preys_killed", 20 ], ["predators_killed", 10 ], ["personals_killed", 20 ],
-  ["preys_killed", 40 ], ["predators_killed", 20 ], ["personals_killed", 40 ],
-  ["preys_killed", 80 ], ["predators_killed", 40 ], ["personals_killed", 80 ],
-  ["preys_killed", 160], ["predators_killed", 80 ], ["personals_killed", 160],
-  ["preys_killed", 320], ["predators_killed", 160], ["personals_killed", 320],
-  ["preys_killed", 640], ["predators_killed", 320], ["personals_killed", 640]
+   ["preys_killed", 1  ],
+  // ["preys_killed", 1  ], ["predators_killed", 1  ], ["personals_killed", 1  ],
+  // ["preys_killed", 10 ], ["predators_killed", 5  ], ["personals_killed", 7 ],
+  // ["preys_killed", 20 ], ["predators_killed", 10 ], ["personals_killed", 14 ],
+  // ["preys_killed", 40 ], ["predators_killed", 20 ], ["personals_killed", 28 ],
+  // ["preys_killed", 80 ], ["predators_killed", 40 ], ["personals_killed", 56 ],
+  // ["preys_killed", 160], ["predators_killed", 80 ], ["personals_killed", 112],
+  // ["preys_killed", 320], ["predators_killed", 160], ["personals_killed", 224],
+  // ["preys_killed", 640], ["predators_killed", 320], ["personals_killed", 448],
+  ["No more quests", -1]
 ];
 
 let Qtypes = ["predators_killed", "personals_killed", "preys_killed"];
+
+function levelUp(quest)
+{
+  // level up every 3 quests
+  return ((quest+1)%3 == 0);
+}
 
 function questComplete()
 {
   if (userDb["quest"] == -1) {
     return true;
   }
-  let res = questsOrdered[userDb["quest"]];
-  if (userDb[res[0]] >= res[1])
+  else if(userDb["quest"] >= questsOrdered.length)
   {
-    return true;
+    return false;
   }
-  return false;
+  else {
+    let res = questsOrdered[userDb["quest"]];
+    return (userDb[res[0]] >= res[1]);
+  }
 }
 
 function getTitle(lvl)

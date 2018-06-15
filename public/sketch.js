@@ -283,8 +283,11 @@ function updateDbText()
 function handleQuestCopmlete()
 {
   $.notify("Quest complete: <br> "+ userDb["quest"], {style: 'notification'});
-  userDb["quest"] = nextQuest(userDb["quest"]);
-  userDb["level"] += 1;
+  if (lvlUp(userDb["quest"]))
+  {
+    userDb["level"] += 1;
+  }
+  userDb["quest"] += 1;
   userDb["title"] = getTitle(userDb["level"]);
   socket.emit("updateAchievments", {"unm": user.name, "col": "quest", "newVal": "'"+userDb["quest"]+"'"});
   socket.emit("updateAchievments", {"unm": user.name, "col": "level", "newVal": userDb["level"]});
