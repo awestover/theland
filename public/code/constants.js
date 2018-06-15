@@ -91,7 +91,7 @@ $.notify.addStyle('notification', {
   classes: {
     base: {
       "white-space": "nowrap",
-      "background-color": "lightblue",
+      "background-color": "white",
       "padding": "20px",
       "width": "300px"
     }
