@@ -129,4 +129,10 @@ x.indexOf(10) = -1
 x.indexOf(1) = 0
 kind of like python!
 
+# atom stuff
+control p to go through files
+control shift p to do cooler stuff
+control g to go to a line
+
+
 # End

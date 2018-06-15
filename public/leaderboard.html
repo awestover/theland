@@ -34,12 +34,46 @@
 
 <body>
 
+  <div class="container leaderboard">
+    <p id="leaderboard">
+    </p>
+  </div>
+
   <script>
   if (document.URL.indexOf("https") == -1 && document.URL.indexOf("localhost") == -1) {
     window.location.href = document.URL.replace("http", "https");
   }
   setTimeout(function() {window.location.href="https://theland.surge.sh/";}, 300000);
 
+  socket = io.connect();
+  socket.on('gotLeaderboard', handleGotLeaderboard);
+  socket.emit("getLeaderboard", {});
+
+  function handleGotLeaderboard(data)
+  {
+    console.log(data);
+    let titles = ["name", "level", "quest", "title"];
+    let stats = [];
+    for (let i in titles)
+    {
+      let temp = [];
+      for (let j in data)
+      {
+        if (i == "name")
+        {
+          let linkTemp = data[j]["name"];
+          linkTemp = linkTemp.link("stats.html?usr="+data[j]["name"]);
+          temp.push(linkTemp);
+        }
+        else {
+          temp.push(data[j][titles[i]]);
+        }
+      }
+      stats.push(temp);
+    }
+
+    // $("#leaderboard").append(table);
+  }
 
   </script>
 

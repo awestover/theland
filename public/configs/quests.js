@@ -1,13 +1,12 @@
 let questsOrdered = [
-   ["preys_killed", 1  ], ["predators_killed", 1  ],
-  // ["preys_killed", 1  ], ["predators_killed", 1  ], ["personals_killed", 1  ],
-  // ["preys_killed", 10 ], ["predators_killed", 5  ], ["personals_killed", 7 ],
-  // ["preys_killed", 20 ], ["predators_killed", 10 ], ["personals_killed", 14 ],
-  // ["preys_killed", 40 ], ["predators_killed", 20 ], ["personals_killed", 28 ],
-  // ["preys_killed", 80 ], ["predators_killed", 40 ], ["personals_killed", 56 ],
-  // ["preys_killed", 160], ["predators_killed", 80 ], ["personals_killed", 112],
-  // ["preys_killed", 320], ["predators_killed", 160], ["personals_killed", 224],
-  // ["preys_killed", 640], ["predators_killed", 320], ["personals_killed", 448],
+  ["preys_killed", 1  ], ["predators_killed", 1  ], ["personals_killed", 1  ],
+  ["preys_killed", 10 ], ["predators_killed", 5  ], ["personals_killed", 7 ],
+  ["preys_killed", 20 ], ["predators_killed", 10 ], ["personals_killed", 14 ],
+  ["preys_killed", 40 ], ["predators_killed", 20 ], ["personals_killed", 28 ],
+  ["preys_killed", 80 ], ["predators_killed", 40 ], ["personals_killed", 56 ],
+  ["preys_killed", 160], ["predators_killed", 80 ], ["personals_killed", 112],
+  ["preys_killed", 320], ["predators_killed", 160], ["personals_killed", 224],
+  ["preys_killed", 640], ["predators_killed", 320], ["personals_killed", 448],
   ["No more quests", -1]
 ];
 

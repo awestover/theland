@@ -145,6 +145,13 @@ function newConnection(socket) {
   socket.on('selectDb', handleSelectDb);
   socket.on('updateAchievments', handleUpdateAchievments);
   socket.on('textSent', handleTextSent);
+  socket.on('getLeaderboard', handleGetLeaderboard);
+
+  function handleGetLeaderboard(data)
+  {
+      queryDb("SELECT name,quest,level,title FROM users ORDER BY quest DESC, name ASC;", [],
+        function(results, empty){socket.emit('gotLeaderboard', results);}, []);
+  }
 
   function handleTextSent(data)
   {

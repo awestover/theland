@@ -162,17 +162,6 @@ client.query("SELECT * FROM users WHERE name=$1;", [unm], (err, res) => {
   resp.redirect("game.html?"+joinIns([unm, world, anType, soundWanted, verified], ["unm", "world", "anType","soundWanted", "verified"]));
 });
 
-function getCamel(uncammeled)
-{
-  for (let q in Qtypes)
-  {
-    if (Qtypes[q].toLowerCase() == uncammeled)
-    {
-      return Qtypes[q];
-    }
-  }
-  return false;
-}
 
 function handleAccelerometer()
 {
