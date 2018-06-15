@@ -166,7 +166,7 @@ function newConnection(socket) {
     let unm = data["unm"];
     // changing name and pwd is not allowed here...
     let validCols = [ "quest" , "level" , "predatorskilled" , "preyskilled" ,
-      "useranimalskilled" , "maxstormlightheld" , "maxscore" , "maxnumanimals" , "personalskilled" ];
+      "useranimalskilled" , "maxstormlightheld" , "maxscore" , "maxnumanimals" , "personalskilled", "title" ];
     if (validCols.indexOf(data["col"])!=-1)
     {
       console.log("UPDATE users SET "+data["col"]+"=$1 WHERE name=$2;");

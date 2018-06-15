@@ -276,7 +276,7 @@ function updateDbText()
 {
   $("#progress").text(userQuestProgress());
 
-  $("#level").text("Level: " + userDb["level"] + " " + userDb["title"]);
+  $("#level").text("Level: " + userDb["level"] + " Title: " + userDb["title"]);
   $("#quest").text("Quest: " + userDb["quest"]);
 }
 
