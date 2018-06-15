@@ -283,7 +283,7 @@ function updateDbText()
 function handleQuestCopmlete()
 {
   $.notify("Quest complete: <br> "+ userDb["quest"], {style: 'notification'});
-  if (lvlUp(userDb["quest"]))
+  if (levelUp(userDb["quest"]))
   {
     userDb["level"] += 1;
   }
