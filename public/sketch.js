@@ -275,14 +275,14 @@ function handleSelectedData(data)
 function updateDbText()
 {
   $("#progress").text(userQuestProgress());
-
-  $("#level").text("Level: " + userDb["level"] + " Title: " + userDb["title"]);
+  $("#title").text("Title: " + userDb["title"]);
+  $("#level").text("Level: " + userDb["level"]);
   $("#quest").text("Quest: " + userDb["quest"]);
 }
 
 function handleQuestCopmlete()
 {
-  $.notify("Quest complete: <br> "+ userDb["quest"], {style: 'notification'});
+  $.notify("Quest complete: " + userDb["quest"], {style: 'notification'});
   if (levelUp(userDb["quest"]))
   {
     userDb["level"] += 1;

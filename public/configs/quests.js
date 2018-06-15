@@ -1,5 +1,5 @@
 let questsOrdered = [
-   ["preys_killed", 1  ],
+   ["preys_killed", 1  ], ["predators_killed", 1  ],
   // ["preys_killed", 1  ], ["predators_killed", 1  ], ["personals_killed", 1  ],
   // ["preys_killed", 10 ], ["predators_killed", 5  ], ["personals_killed", 7 ],
   // ["preys_killed", 20 ], ["predators_killed", 10 ], ["personals_killed", 14 ],
