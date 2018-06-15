@@ -377,6 +377,7 @@ class User {
     let col = type + "_killed";
     if(userDb) {
       userDb[col] += 1;
+      updateDbText();
       socket.emit("updateAchievments", {"unm": this.name, "col": col, "newVal": userDb[col]});
       if (questComplete()) {
         handleQuestCopmlete();
