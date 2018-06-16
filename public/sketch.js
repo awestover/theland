@@ -287,7 +287,10 @@ function updateDbText()
 
 function handleQuestCopmlete()
 {
-  $.notify("Quest complete: " + questText(userDb.quest), {style: 'notification'});
+  if (userDb.quest>-1)
+  {
+    $.notify("Quest complete: " + questText(userDb.quest), {style: 'notification'});
+  }
   if (levelUp(userDb.quest))
   {
     userDb.level += 1;
