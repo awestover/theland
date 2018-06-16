@@ -47,7 +47,7 @@
     $.notify("stats for " + urlArgs.usr, "success");
     socket = io.connect();
     socket.on('selectedData', handleSelectedData);
-    socket.emit("selectDb", {"unm": unm});
+    socket.emit("selectDb", {"unm": urlArgs.usr});
 
     function handleSelectedData(data)
     {
