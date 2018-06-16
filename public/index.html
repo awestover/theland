@@ -54,21 +54,29 @@
     <div class="container">
       <br>
       <button class="btn btn-lg well well-lg" style="float: right;"onclick="window.location.href='register.html';">Register</button>
-      <button class="btn btn-lg well well-lg" style="float: right; margin-right:2%;"onclick="">Login</button>
-      <button class="btn btn-lg well well-lg" style="float: right; margin-right:2%;"onclick="">Guest</button>
+      <!-- <button class="btn btn-lg well well-lg" style="float: right; margin-right:2%;"onclick="">Login</button> -->
+      <!-- <button class="btn btn-lg well well-lg" style="float: right; margin-right:2%;"onclick="">Guest</button> -->
       <form action="/" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="unm">Username</label>
         <input name="unm" class="form-control" type="text" placeholder="User Name">
         <br>
-        <label for="pwd">Password (If you do not wish to store your data you can play as a guest and leave this field blank)</label>
-        <input name="pwd" class="form-control" type="password" placeholder="">
-        <br>
+
+        <b>Input a password if you are a registered user, or an animal type if you are a guest</b><br>
+        <div class="returnVsGuest">
+          <div class="split left">
+            <label for="pwd">Password</label>
+            <input name="pwd" class="form-control" type="password" placeholder="">
+          </div>
+
+          <div class="split right">
+            <label for="anType">Animal Type</label>
+            <input name="anType" class="form-control" type="text" placeholder="shark">
+          </div>
+        </div>
+
         <label for="world">World</label>
         <input name="world" class="form-control" type="text" placeholder="World">
-        <br>
-        <label for="anType">Animal Type</label>
-        <input name="anType" class="form-control" type="text" placeholder="shark">
         <br>
         <label class="btn btn-primary active form-check-label">
         <input name="soundWanted" type="checkbox" class="form-check-input" unchecked autocomplete="off"> Sound Wanted?
@@ -84,8 +92,8 @@
         document.getElementById('texting').value=''">Send Message</button>
       </div>
 
-      <div id="animal_txt_help">
-        <p>Types include: </p>
+      <div id="animal_txt_help" class="animal_table">
+        <h3>Types include: </h3>
       </div>
 
       <div class="container btn-container">

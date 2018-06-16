@@ -59,7 +59,33 @@ div.btn-container
 
 table, th, td
 {
-  width: auto !important;
-  border-collapse: collapse;
+  /* width: auto !important; */
+  /* border-collapse: collapse; */
   border: 4px solid black;
+}
+
+div.left
+{
+  float: left;
+  margin-top: 2%;
+  margin-left: 5%;
+  width: 40%;
+}
+
+div.right
+{
+  float: right;
+  margin-top: 2%;
+  margin-right: 5%;
+  width: 40%;
+}
+
+.returnVsGuest
+{
+  margin-bottom: 10%;
+}
+
+div.animal_table
+{
+    margin: 4%;
 }
