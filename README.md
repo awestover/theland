@@ -93,6 +93,10 @@ On windows it will be much harder
 http://pyopengl.sourceforge.net/
 
 
+# the virtue of not implementing everything yourself (always look up solutions before making them)
+https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_cleartimeout
+clear timeout! I was going to make a hacky version of this myself... tracking times, it would have been very bad...
+
 # Interesting notes
 
 In javascript you can write classes kind of like in java

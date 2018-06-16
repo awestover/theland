@@ -99,3 +99,4 @@ $.notify.addStyle('notification', {
 });
 
 let zoom;
+let timeout;

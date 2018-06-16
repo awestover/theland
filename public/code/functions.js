@@ -1,5 +1,26 @@
 //functions
 
+function randomWeightedChoice(arr, weights)
+{
+  let wSum = 0;
+  for (w in weights)
+  {
+    wSum += weights[w];
+  }
+
+  let r = Math.floor(Math.random()*wSum);
+
+  let ct = 0;
+  for (let i in weights)
+  {
+    ct += weights[i];
+    if (r < ct)
+    {
+      return arr[i];
+    }
+  }
+}
+
 function sendText(txt)
 {
   let data;

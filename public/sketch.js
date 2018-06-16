@@ -220,7 +220,7 @@ function draw()
 
   if (!gameOver && user.personals.length == 0)
   {
-    setTimeout(function() {
+    timeout = setTimeout(function() {
       if (user.personals.length == 0)
       {
         gameOver = true;
@@ -228,6 +228,11 @@ function draw()
       }
     }, 60000);
   }
+}
+
+function stopGameOverCallback()
+{
+  clearTimeout(timeout)
 }
 
 function handleUpdatePlayer(otherUser)

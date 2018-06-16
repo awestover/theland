@@ -222,14 +222,7 @@ class User {
 
   addPrey(data)
   {
-    let nameP;
-    if (random()<0.5)
-    {
-      nameP = "cake";
-    }
-    else {
-      nameP = "pizza";
-    }
+    let nameP = randomWeightedChoice(["cake", "pizza"], [1,1]);
     let newPrey = new Prey({
       "pos":randomMidish(0.7),
       "name": nameP,
@@ -280,6 +273,7 @@ class User {
     this.idCt += 1;
     this.personals.push(newPersonal);
     this.personals[this.personals.length-1].subPos([newPersonal.dims[0]/2,newPersonal.dims[1]/2]);
+    stopGameOverCallback();
     this.setAnimalsText();
   }
 
