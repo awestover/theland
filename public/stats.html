@@ -35,24 +35,24 @@
 <body>
 
   <script>
+
   if (document.URL.indexOf("https") == -1 && document.URL.indexOf("localhost") == -1) {
     window.location.href = document.URL.replace("http", "https");
   }
   setTimeout(function() {window.location.href="https://theland.surge.sh/";}, 300000);
 
   let urlArgs = parseURL(window.location.href);
-  let userDb = {};
-  if (urlArgs["usr"])
+  if (urlArgs.usr)
   {
-    let unm = urlArgs["usr"];
-    $.notify("stats for " + urlArgs["usr"], "success");
+    $.notify("stats for " + urlArgs.usr, "success");
     socket = io.connect();
     socket.on('selectedData', handleSelectedData);
     socket.emit("selectDb", {"unm": unm});
 
     function handleSelectedData(data)
     {
-      userDb = data[0];
+      let userDb = data[0];
+      delete userDb.pwd_hash;
       let table = jsonToTable(["name", "value"], userDb);
       $("#stats").append(table);
     }
