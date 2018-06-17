@@ -8,9 +8,7 @@ let default_personal_stats =
   "levelUpPr": 0.0005,
   "deadHunger": 5,
   "dHunger": 0.018,
-  "dAge": 0.01,
-  "age": 0,
-  "hunger": 0
+  "dAge": 0.01
 };
 
 let personals_traits_deltas =
@@ -83,35 +81,26 @@ for (let i in personals_traits_deltas)
     }
   }
   personal_stats[i] = temp;
-}
+};
 
-// let predator_traits =
-// {
-//   "dino":
-//   [
-//     "Typical Predator",
-//     {
-//       "health": 100,
-//       "power": 1,
-//       "speed": 3.2,
-//       "sightR": 500
-//     }
-//   ]
-//
-// };
-//
-// let prey_traits =
-// {
-//   "pizza":
-//   [
-//     "default",
-//     {
-//     }
-//   ],
-//   "cake":
-//   [
-//     "default",
-//     {
-//     }
-//   ]
-// };
+let prey_stats = {
+  "pizza":
+  {
+    "health": 10,
+    "help": {"health": 1, "hunger": -0.5}
+  },
+  "cake":
+  {
+    "health": 20,
+    "help": {"health": 2, "hunger": -1}
+  }
+};
+
+let predator_stats =
+{
+  "dino":
+  {
+    "power": 1,
+    "speed": 3.2
+  }
+}

@@ -5,9 +5,11 @@ class Prey extends Animal
   {
     super(animal_traits);
 
-    this.name = animal_traits["name"] || "pizza";
     this.type = "preys";
-    this.help = animal_traits["help"] || {"health": 1, "hunger": -0.5};
+    for (let stat in prey_stats[this.name]) {
+      this[stat] = animal_traits[stat] || prey_stats[this.name][stat];
+    }
+
     this.dims = [30,30];
   }
 

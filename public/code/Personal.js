@@ -1,13 +1,14 @@
+
 // the user controlled animals
 class Personal extends Animal
 {
   constructor(animal_traits)
   {
     super(animal_traits);
+    
     this.type="personals";
-
     for (let stat in personal_stats[this.name]) {
-      this[stat] = personal_stats[this.name][stat];
+      this[stat] = animal_traits[stat] || personal_stats[this.name][stat];
     }
 
     this.vel = super.randomHeading(this.speed);

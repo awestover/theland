@@ -5,17 +5,14 @@ class Predator extends Animal
   {
     super(animal_traits);
     this.type="predators";
-    this.power = animal_traits["power"] || 1;
+    for (let stat in predator_stats[this.name]) {
+      this[stat] = animal_traits[stat] || predator_stats[this.name][stat];
+    }
 
     this.health = animal_traits["health"] || Math.floor((2*random()+1)*100);
-
-    this.speed = animal_traits["speed"] || 3.2;
     this.vel = super.randomHeading(this.speed);
-
-    this.name=animal_traits["name"] || "dino";
-    this.dims=[75,100];
-
     this.sightR = animal_traits["sightR"] || Math.floor(Math.random()*500+150);
+    this.dims=[75,100];
   }
 
   show()

@@ -20,7 +20,7 @@ class Animal
     this.th = animal_traits["th"] || 0;
     this.id = animal_traits["id"] || 0;
 
-    this.dims=[66,50];
+    this.dims = [66,50];
     this.showStats = false; //  animal_traits["showStats"] ||
 
     this.level = animal_traits["level"] || 1;
@@ -31,7 +31,7 @@ class Animal
 
     this.rotated = 1; // + or - 1 for right and left (positive x vel and negative v vel)
 
-    this.boosted=animal_traits["boosted"] || false;
+    this.boosted = animal_traits["boosted"] || false;
     this.visitedUserTerritory = animal_traits["visitedUserTerritory"] || false;
   }
 
