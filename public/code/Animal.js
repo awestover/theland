@@ -12,7 +12,7 @@ class Animal
     // basic stats
     this.pos = animal_traits["pos"].slice() || [0,0];
     this.vel = [0, 0];
-    this.name = animal_traits["name"] || "circle";
+    this.name = animal_traits["name"];
     this.health = animal_traits["health"] || 10;
 
     // identification

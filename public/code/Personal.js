@@ -5,9 +5,12 @@ class Personal extends Animal
   constructor(animal_traits)
   {
     super(animal_traits);
-    
+
     this.type="personals";
+    console.log(animal_traits);
+    console.log(personal_stats[this.name]);
     for (let stat in personal_stats[this.name]) {
+      console.log(stat);
       this[stat] = animal_traits[stat] || personal_stats[this.name][stat];
     }
 
