@@ -5,6 +5,11 @@ body {
   padding-bottom: 40px;
 }
 
+div.users_info
+{
+  margin: 3%;
+}
+
 div#stats{
   margin-left: 20%;
   margin-bottom: 10%;
