@@ -26,8 +26,7 @@
 <body>
   <script>setTimeout(function() {window.location.href="https://theland.surge.sh/";}, 300000);</script>
 
-  <div class="container">
-  <div class="well well-lg">
+  <div class="container well well-lg">
     <p>Please note that theland is still growing so there is a high probability that I will "DROP TABLE Users;" <br>
       Just saying, don't be surprised if your account is deleted. If you worked really hard tell me and I will restore your stats.</p>
     <form action="/register" method="post">
@@ -35,6 +34,9 @@
       <h2 class="form-signin-heading">Please Create an account</h2>
       <label for="unm">Username</label>
       <input name="unm" class="form-control" placeholder="User Name">
+      <br>
+      <label for="anType">Animal Type</label>
+      <input name="anType" class="form-control" placeholder="dog">
       <br>
       <label for="pwd">Password</label>
       <input name="pwd" class="form-control" type="password" placeholder="password">
@@ -44,7 +46,8 @@
     </form>
     <br>
     <button class="btn btn-lg well well-lg" id="button" style="float:left" onclick='window.location.href = "index.html";'>Main</button><br><br><br><br>
-  </div>
+    <br>
+    <img src="pictures/logo.png" style="margin-bottom:5%; float: right; width:100%;">
   </div>
 
   <script>

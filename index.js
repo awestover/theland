@@ -108,6 +108,7 @@ function registerGoodUnm(results, params)
 app.post('/register', function(req, resp) {
   let unm = req.body.unm;
   let pwd_hash = stupidHash(req.body.pwd);
+  let anType = req.body.anType;
   // [ "name", "quest", "level", "pwd_hash", "title", "personals_killed", "predators_killed", "preys_killed" ];
   let fields = [unm, -1, 0, pwd_hash, 'none', 0, 0, 0];
   queryDb("SELECT * FROM users WHERE name=$1;", [unm], registerGoodUnm, {"resp": resp, "fields": fields});

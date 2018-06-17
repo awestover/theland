@@ -7,7 +7,7 @@ body {
 
 div#stats{
   margin-left: 20%;
-  margin-bottom: 20%;
+  margin-bottom: 10%;
 }
 
 #stat_unm{
@@ -24,7 +24,8 @@ img{
 
 div.btn-container
 {
-  width: 85%;
+  width: 90%;
+  margin-bottom: 5%;
 }
 
 .container

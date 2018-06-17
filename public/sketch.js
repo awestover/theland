@@ -221,7 +221,7 @@ function draw()
     if (user.personals.length == 0 && gameOverPending==false)
     {
       clearTimeout(timeout);
-      timeout = setTimeout(killIfDead, 2000);
+      timeout = setTimeout(killIfDead, 60000);
       gameOverPending = true;
     }
   }
@@ -233,7 +233,7 @@ function killIfDead()
   if (user.personals.length == 0)
   {
     gameOver = true;
-    setTimeout(function(){window.location.href="index.html";}, 60000);
+    setTimeout(function(){window.location.href="index.html";}, 3000);
   }
 }
 
