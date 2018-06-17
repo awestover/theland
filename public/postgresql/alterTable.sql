@@ -20,3 +20,6 @@ ALTER TABLE users DROP COLUMN pwd;
 ALTER TABLE users DROP COLUMN quest;
 
 ALTER TABLE users ADD COLUMN title varchar(15);
+
+
+ALTER TABLE users ADD COLUMN antype varchar(32);

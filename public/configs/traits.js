@@ -34,9 +34,9 @@ let personals_traits_deltas =
 
   "crab":
   [
-    "Very healthy. A little bit hungrier and slower.",
+    "Very healthy. A lot hungrier and slower.",
     {
-      "health": +10,
+      "health": +15,
       "dHunger": 0.03,
       "speed": -1
     }
@@ -44,10 +44,12 @@ let personals_traits_deltas =
 
   "dog":
   [
-    "Reproduces a lot. Lower health.",
+    "Reproduces a lot. Lower health. Higher hunger.",
     {
-      "health": -3,
-      "rebirthPr": 0.0015
+      "health": -4,
+      "rebirthPr": 0.001,
+      "dHunger": 0.004,
+      "deadHunger": -1
     }
   ],
 
