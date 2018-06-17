@@ -310,6 +310,11 @@ function handleQuestCopmlete()
   socket.emit("updateAchievments", {"unm": user.name, "col": "title", "newVal": userDb.title});
 
   updateDbText();
+
+  if(questComplete()) // they might already be done with the next quest too...
+  {
+    handleQuestCopmlete();
+  }
 }
 
 function touchEnded()
