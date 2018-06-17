@@ -7,14 +7,13 @@ class Personal extends Animal
     super(animal_traits);
 
     this.type="personals";
-    console.log(animal_traits);
-    console.log(personal_stats[this.name]);
     for (let stat in personal_stats[this.name]) {
-      console.log(stat);
       this[stat] = animal_traits[stat] || personal_stats[this.name][stat];
     }
 
-    this.vel = super.randomHeading(this.speed);
+    this.age = animal_traits["age"] || 0;
+    this.hunger = animal_traits["hunger"] || 0;
+    this.vel = animal_traits["vel"] || super.randomHeading(this.speed);
     this.dims = [66, 50];
   }
 
