@@ -1,0 +1,16 @@
+Issues:
+
+need to add cancellation for the logout timer thing
+
+I am worried that deaths are being overcounted.... especially personals....
+
+boosted animals can stay back to guard territory
+
+add the ability to destroy territory by occupying it, and lessen territory occupation consequences
+(ie health drop) also give the stormlight of the killed user to whomever kills them
+
+expand map as more users join
+
+return users can buy upgrades to their animal
+
+return users have a fixed animal type

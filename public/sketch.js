@@ -217,22 +217,30 @@ function draw()
     text("GAME OVER", 0, 0);
     textSize(tmp);
   }
+  else {
+    if (user.personals.length == 0 && gameOverPending==false)
+    {
+      clearTimeout(timeout);
+      timeout = setTimeout(killIfDead, 2000);
+      gameOverPending = true;
+    }
+  }
 
-  if (!gameOver && user.personals.length == 0)
+}
+
+function killIfDead()
+{
+  if (user.personals.length == 0)
   {
-    timeout = setTimeout(function() {
-      if (user.personals.length == 0)
-      {
-        gameOver = true;
-        setTimeout(function(){window.location.href="index.html";}, 5000);
-      }
-    }, 60000);
+    gameOver = true;
+    setTimeout(function(){window.location.href="index.html";}, 60000);
   }
 }
 
 function stopGameOverCallback()
 {
-  clearTimeout(timeout)
+  clearTimeout(timeout);
+  gameOverPending = false;
 }
 
 function handleUpdatePlayer(otherUser)

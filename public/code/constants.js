@@ -100,3 +100,4 @@ $.notify.addStyle('notification', {
 
 let zoom;
 let timeout;
+let gameOverPending = false;
