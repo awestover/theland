@@ -46,9 +46,9 @@ let personals_traits_deltas =
   [
     "Reproduces a lot. Lower health. Higher hunger.",
     {
-      "health": -4,
-      "rebirthPr": 0.001,
-      "dHunger": 0.004,
+      "health": -5,
+      "rebirthPr": 0.0015,
+      "dHunger": 0.001,
       "deadHunger": -1
     }
   ],
