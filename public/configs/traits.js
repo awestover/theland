@@ -62,6 +62,16 @@ let personals_traits_deltas =
       "rebirthPr": -0.0005,
       "speed": +2
     }
+  ],
+
+  "squid":
+  [
+    "Very low hunger and age needs. Slight probability of spontaneous death.",
+    {
+      "sickPr": 0.001,
+      "dHunger": -0.009,
+      "dAge": -0.005
+    }
   ]
 
 };
@@ -85,6 +95,11 @@ for (let i in personals_traits_deltas)
   personal_stats[i] = temp;
 };
 
+let prey_descriptions = {
+  "pizza":"pretty good food, health and hunger",
+  "cake":"really good food",
+  "chicken":"only helps with hunger"
+};
 let prey_stats = {
   "pizza":
   {
@@ -95,9 +110,18 @@ let prey_stats = {
   {
     "health": 20,
     "help": {"health": 2, "hunger": -1}
+  },
+  "chicken":
+  {
+    "health": 40,
+    "help": {"health": 0, "hunger": -0.25}
   }
 };
 
+let predator_descriptions = {
+  "dino": "only predator type for now, and therefore the strongest type of predator. \
+  Note there is large variablility in sight radii and health for dinos"
+};
 let predator_stats =
 {
   "dino":
@@ -105,4 +129,17 @@ let predator_stats =
     "power": 1,
     "speed": 3.2
   }
-}
+};
+
+const allDescriptions =  {
+  "personals": personal_descriptions,
+  "preys":prey_descriptions,
+  "predators":predator_descriptions
+};
+
+const allStats =
+{
+  "personals": personal_stats,
+  "preys":prey_stats,
+  "predators":predator_stats
+};

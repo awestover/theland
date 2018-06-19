@@ -93,9 +93,11 @@ class User {
   {
     this.addPersonal();
 
-    this.addPrey();
-    this.addPrey();
-
+    for (let i = 0; i < 5; i++)
+    {
+      this.addPrey();
+    }
+    
     this.addPredator();
   }
 
@@ -222,7 +224,7 @@ class User {
 
   addPrey(data)
   {
-    let nameP = randomWeightedChoice(["cake", "pizza"], [1,1]);
+    let nameP = randomWeightedChoice(["cake", "pizza", "chicken"], [1,1,10]);
     let newPrey = new Prey({
       "pos":randomMidish(0.7),
       "name": nameP,

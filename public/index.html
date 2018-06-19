@@ -123,23 +123,34 @@
     </div>
 
     <script>
-      let pics = [];
-      for (let j in animal_names["personals"])
+      let names = []; let pics = []; let types = [];
+      for (let anType in allAnimals)
       {
-        let temp = "pictures/"+animal_names["personals"][j] + "1.png";
-        temp = '<img src = "' + temp + '">';
-        pics.push(temp);
+        for (let j in animal_names[allAnimals[anType]])
+        {
+          names.push(animal_names[allAnimals[anType]][j]);
+          types.push(allAnimals[anType]);
+          let temp = "pictures/"+animal_names[allAnimals[anType]][j] + "1.png";
+          temp = '<img src = "' + temp + '">';
+          pics.push(temp);
+        }
       }
       let descriptions = [];
-      for (let i in animal_names["personals"])
+      for (let anType in allAnimals)
       {
-        let tmp = personal_descriptions[animal_names["personals"][i]];
-        tmp += "<br><br>";
-        tmp += jsonToTable(["stat", "val"], personal_stats[animal_names["personals"][i]]);
-        descriptions.push(tmp);
+        let cType = allAnimals[anType];
+        for (let i in animal_names[cType])
+        {
+          let cAniName = animal_names[cType][i];
+          let tmp = allDescriptions[cType][cAniName];
+          console.log(cType, cAniName, tmp);
+          tmp += "<br><br>";
+          tmp += jsonToTable(["stat", "val"], allStats[cType][cAniName]);
+          descriptions.push(tmp);
+        }
       }
-      let data = [animal_names["personals"], descriptions, pics];
-      let table = arrayToTable(["name", "description", "picture"], data);
+      let data = [names, types, descriptions, pics];
+      let table = arrayToTable(["name", "type", "description", "picture"], data);
       $("#animal_txt_help").append(table);
     </script>
 
