@@ -80,3 +80,22 @@ function arrayToFlippedTable(titles, values)
   output += '</table>';
   return output;
 }
+
+function flattenJson(vals)
+{
+  let newVals = {};
+  for (let i in vals)
+  {
+    if (typeof(vals[i]) == "object")
+    {
+      for (x in vals[i])
+      {
+        newVals[i+" "+x] = vals[i][x];
+      }
+    }
+    else {
+      newVals[i] = vals[i];
+    }
+  }
+  return newVals;
+}

@@ -71,7 +71,7 @@
 
           <div class="split right">
             <label for="anType">Animal Type</label>
-            <input name="anType" class="form-control" type="text" placeholder="shark">
+            <input name="anType" id="anType" class="form-control" type="text" placeholder="shark">
           </div>
         </div>
 
@@ -85,6 +85,23 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
         <br><br>
       </form>
+
+      <div class="container" id="anChoice">
+      </div>
+      <script>
+        function alterAnChoice(anType)
+        {
+          $("#anType").val(anType);
+        }
+        let btnsHtml = "<h3>Chose an animal:</h3>";
+        for(let i in animal_names["personals"])
+        {
+          btnsHtml += '<input type="image" onclick="alterAnChoice(\''+
+            animal_names["personals"][i]+'\'); "src=\'pictures/'+
+            animal_names["personals"][i]+'1.png\' />';
+        };
+        $("#anChoice").append(btnsHtml);
+      </script>
 
       <div class="texting">
       <input id="texting"></input>
@@ -128,8 +145,7 @@
       {
         for (let j in animal_names[allAnimals[anType]])
         {
-          names.push(animal_names[allAnimals[anType]][j]);
-          types.push(allAnimals[anType]);
+          names.push(animal_names[allAnimals[anType]][j]+"<br><br>("+allAnimals[anType]+")");
           let temp = "pictures/"+animal_names[allAnimals[anType]][j] + "1.png";
           temp = '<img src = "' + temp + '">';
           pics.push(temp);
@@ -143,14 +159,13 @@
         {
           let cAniName = animal_names[cType][i];
           let tmp = allDescriptions[cType][cAniName];
-          console.log(cType, cAniName, tmp);
           tmp += "<br><br>";
-          tmp += jsonToTable(["stat", "val"], allStats[cType][cAniName]);
+          tmp += jsonToTable(["stat", "val"], flattenJson(allStats[cType][cAniName]));
           descriptions.push(tmp);
         }
       }
-      let data = [names, types, descriptions, pics];
-      let table = arrayToTable(["name", "type", "description", "picture"], data);
+      let data = [names, descriptions, pics];
+      let table = arrayToTable(["name", "description", "picture"], data);
       $("#animal_txt_help").append(table);
     </script>
 

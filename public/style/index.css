@@ -5,6 +5,16 @@ body {
   padding-bottom: 40px;
 }
 
+div#anChoice
+{
+  width: 90%;
+  margin-bottom: 3%;
+}
+div#anChoice input
+{
+  margin: 2%;
+}
+
 div.users_info
 {
   margin: 3%;
