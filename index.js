@@ -67,6 +67,11 @@ function handlePasswordInput(results, params)
     if (pwdReal == pwd_hash)
     {
       datas.push("yes");
+      let idxT = dText.indexOf("anType");
+      if (!datas[idxT] || datas[idxT].length == 0)
+      {
+        datas[idxT] = results[0]["antype"]
+      }
       resp.redirect("game.html?"+joinIns(datas, dText));
     }
     else
