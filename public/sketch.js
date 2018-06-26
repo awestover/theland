@@ -59,6 +59,14 @@ function setup()
   socket.on('death', handleDeath);
   socket.on('selectedData', handleSelectedData);
   socket.on('textIncoming', handleTextIncoming);
+  socket.on('gotOccupied', function(data) {
+    if (data.killth == user.th)
+    {
+      $.notify("You got occupied", {"style": "occupation"});
+      gameOver = true;
+      killUser();
+    }
+  });
 
   let animalType = userValues["anType"];
   let atIdx = animal_names["personals"].indexOf(animalType.toLowerCase());
@@ -85,9 +93,7 @@ function setup()
   user.setAnimalType();
   socket.emit('choseAnimalType', {"animalType": animalType});
 
-  user.initAnimals();
-
-  edgeRects = calculateEdge();
+  adjustSize(getGridSize({})); // just default
   for (let th = 0; th < 12; th++)
   {
     territoryLocs[th] = calculateTerritory(th);
@@ -172,16 +178,25 @@ function draw()
   {
     let ccollided = gametree.values[tCollisions[coll][0]];
     let ccth = tCollisions[coll][1];
-    if (ccollided.th == ccth)
+    if (ccollided.type != "personals")
     {
-      ccollided.inUserTerritory();
+      ccollided.inEnemyTerritory();
     }
     else {
-      ccollided.inEnemyTerritory();
-      gotOccupied[ccth] = true;
-      if (!user.occupations[ccth])
+      if (ccollided.th == ccth)
       {
-        user.occupy(ccth);
+        ccollided.inUserTerritory();
+      }
+      else {
+        ccollided.inEnemyTerritory();
+        if (ccollided.th == user.th)
+        {
+          gotOccupied[ccth] = true;
+          if (!user.occupations[ccth])
+          {
+            user.occupy(ccth);
+          }
+        }
       }
     }
   }
@@ -201,6 +216,11 @@ function draw()
 
   drawEdge(); // not allways needed...
   drawOrigin();
+
+  if (getGridSize(otherUsers) != gridSize)
+  {
+    adjustSize(getGridSize(otherUsers));
+  }
 
   pop();
 
@@ -242,20 +262,22 @@ function draw()
     if (user.personals.length == 0 && gameOverPending==false)
     {
       clearTimeout(timeout);
-      timeout = setTimeout(killIfDead, 60000);
+      timeout = setTimeout(function() {
+        if (user.personals.length == 0)
+        {
+          killUser();
+        }
+      }, 180000);
       gameOverPending = true;
     }
   }
 
 }
 
-function killIfDead()
+function killUser()
 {
-  if (user.personals.length == 0)
-  {
-    gameOver = true;
-    setTimeout(function(){window.location.href="index.html";}, 3000);
-  }
+  gameOver = true;
+  setTimeout(function(){window.location.href="index.html";}, 3000);
 }
 
 function stopGameOverCallback()
@@ -455,6 +477,13 @@ function keyPressed()
     {
       annihilate();
     }
+    else if(lk=='i') // togle invincibility
+    {
+      for (let pp in user.personals)
+      {
+        user.personals[pp].health += 10;
+      }
+    }
   }
 }
 
@@ -463,9 +492,11 @@ function handleWorldChosen(data)
   user.world = data["world"];
   user.th = data["ourTheta"];
   user.giveAnimalsTh();
-  // user.pos = negateV(territoryLocs[user.th]);
-  $('#world').text("World: " + user.world);
 
+  user.pos = negateV(territoryLocs[user.th]);
+  user.initAnimals();
+
+  $('#world').text("World: " + user.world);
   bgColor = worldToColor(user.world);
 }
 
@@ -482,7 +513,7 @@ function handleNameChosen(data)
   {
     cheats = true;
   }
-  $('#name').text("Name: " + user.name);
+  $('#nameTxt').text("Name: " + user.name);
 }
 
 function handlePushedAnimalUpdate(data)

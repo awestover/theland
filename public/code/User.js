@@ -13,7 +13,7 @@ class User {
     // only can hold 1 of these for now
     // realistically this should not be a problem...
     this.occupations={};
-    this.occupyTime = 3000; // millis
+    this.occupyTime = 5000; // millis
 
     this.pos = user_info["pos"] || [0,0]; // where are you looking
 
@@ -52,7 +52,20 @@ class User {
     }
 
     this.occupations[th] = setTimeout(function() {
-      console.log("get occupied ya little squid");
+      socket.emit('occupied', {"killth": th, "world": user.world});
+
+      // get the stormlight of the defeated user
+      for (let unm in otherUsers)
+      {
+        if (otherUsers[unm].th == th)
+        {
+          user.stormlight += otherUsers[unm].stormlight;
+          $.notify("territory occupation achieved, \nrecieved " +
+            otherUsers[unm].stormlight+" stormlight from User " + unm,
+            {"style":"occupation"});
+        }
+      }
+
     }, this.occupyTime);
 
   }
@@ -355,17 +368,17 @@ class User {
 
   setStormlightText()
   {
-      $('#stormlight').text("Stormlight: " + this.stormlight);
+      $('#stormlightTxt').text("Stormlight: " + this.stormlight);
   }
 
   setAnimalsText()
   {
-      $('#animals').text("Animals: " + this.personals.length);
+      $('#animalsTxt').text("Animals: " + this.personals.length);
   }
 
   setAnimalType()
   {
-      $('#animalType').text("Animals Type: " + this.animal_type);
+      $('#animalTypeTxt').text("Animals Type: " + this.animal_type);
   }
 
   giveAnimalsName()

@@ -5,77 +5,33 @@ html, body {
 	-webkit-overflow-scrolling: touch;
 }
 
-button{
+button {
 	font-size: small;
 }
 
-body{
+body {
 	background-color: grey;
 	font-size: small;
 }
 
-#quest{
+#quest {
 	float: right;
 	margin-right: 2%;
 }
 
-#scores{
+#select, #nameTxt, #upgrade, #feed, #buy, #attract, #scores, #animalsTxt{
 	float: left;
 }
 
-#attract{
-	float: left;
-}
-
-#buy{
-	float: left;
-}
-
-#feed {
-	float: left;
-}
-
-#upgrade {
-	float: left;
-}
-
-#select {
-	float: left;
-}
-
-#name{
-	float: left;
-}
-
-#level{
+#progress, #title, #level {
 	padding-left: 5%;
 }
 
-#title{
-	padding-left: 5%;
-}
-
-#progress
-{
-	padding-left: 5%;
-}
-
-#world{
+#worldTxt, #help {
 	float: right;
 }
 
-#animalType{
+#animalTypeTxt, #stormlightTxt {
 	padding-left: 5%;
 	float: left;
-}
-
-#animals{
-	float: left;
-}
-#stormlight{
-	padding-left: 5%;
-	float: left;
-}
-#help{
-	float: right;
 }

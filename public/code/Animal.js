@@ -33,6 +33,9 @@ class Animal
 
     this.boosted = animal_traits["boosted"] || false;
     this.visitedUserTerritory = animal_traits["visitedUserTerritory"] || false;
+
+    // maybe later
+    // this.resistanceMultiplier = animal_traits["resistanceMultiplier"] || 1; // multiply incoming damage by this
   }
 
   getCenter()
@@ -285,7 +288,7 @@ class Animal
 
   inEnemyTerritory()
   {
-    this.health = this.health - 0.001;
+    this.health = this.health - 0.01;
   }
 
   inUserTerritory()

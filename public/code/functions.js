@@ -1,5 +1,19 @@
 //functions
 
+function getGridSize(otherUsers)
+{
+  const spacePerExtrUsr = 500;
+  const originalSpace = 1500;
+  return originalSpace + spacePerExtrUsr*Object.keys(otherUsers).length;
+}
+
+function adjustSize(s)
+{
+  gridSize = s;
+  bounds = [[-s, s], [-s, s]];
+  edgeRects = calculateEdge();
+}
+
 function randomWeightedChoice(arr, weights)
 {
   let wSum = 0;
@@ -301,6 +315,7 @@ function calculateEdge()
 {
   /*
   NOTE: this is BROKEN currently. The screen is weird... + is to the left in x....
+  it might not be broken though
 
   BROKEN
 

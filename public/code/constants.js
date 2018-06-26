@@ -18,9 +18,7 @@ for (let i = 0; i < animal_names["personals"].length; i++)
 }
 
 let bgColor = [2, 124, 57];
-
 let angles = [0,0,0];
-
 let cheats = false;
 
 const rewards  = {"predators": 300, "personals": 60, "preys": 20};
@@ -30,11 +28,9 @@ let animal_pictures = {};
 
 const keyCodes = {"a":65, "d": 68, "s": 83, "w": 87};
 const numTerritories = 12;
-const gridSize   = 1500; //2500
 const boundSize  = 100;
-const territoryR = 175; //500
-const bounds = [[-gridSize, gridSize], [-gridSize, gridSize]];
-let edgeRects = [];
+const territoryR = 175;
+let gridSize, bounds, edgeRects;
 let territoryLocs = [];
 let scoresVisible = false;
 const scoreWidth = 120;
@@ -92,6 +88,18 @@ $.notify.addStyle('notification', {
     base: {
       "white-space": "nowrap",
       "background-color": "white",
+      "padding": "20px",
+      "width": "300px"
+    }
+  }
+});
+
+$.notify.addStyle('occupation', {
+  html: "<div><span data-notify-text/></div>",
+  classes: {
+    base: {
+      "white-space": "nowrap",
+      "background-color": "red",
       "padding": "20px",
       "width": "300px"
     }

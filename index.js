@@ -141,26 +141,17 @@ function newConnection(socket) {
   let world;
   let th;
 
-  // what to listen for
-  socket.on('named', handleNaming);
-  socket.on('sendWorld', handleSendWorld);
-  socket.on('updatePlayer', updatePlayer);
-  socket.on('pushAnimalUpdate', pushAnimalUpdate);
-  socket.on('deathAlert', handleDeath);
-  socket.on('choseAnimalType', handleChoseAnimalType);
-  socket.on('selectDb', handleSelectDb);
-  socket.on('updateAchievments', handleUpdateAchievments);
-  socket.on('textSent', handleTextSent);
-  socket.on('getLeaderboard', handleGetLeaderboard);
 
-  function handleGetLeaderboard(data)
-  {
+  socket.on('occupied', function(data) {
+    socket.broadcast.to(data.world).emit("gotOccupied", data);
+  });
+
+  socket.on('getLeaderboard', function(data) {
       queryDb("SELECT name,quest,level,title FROM users ORDER BY quest DESC, name ASC;", [],
         function(results, empty){socket.emit('gotLeaderboard', results);}, []);
-  }
+  });
 
-  function handleTextSent(data)
-  {
+  socket.on('textSent', function(data) {
     if (data["world"] == "home")
     {
       io.sockets.emit("textIncoming", data);
@@ -168,41 +159,35 @@ function newConnection(socket) {
     else {
       socket.broadcast.to(data.world).emit("textIncoming", data);
     }
-  }
+  });
 
   //safe from sql injection because column must be in the validCols array
-  function handleUpdateAchievments(data)
-  {
+  socket.on('updateAchievments', function(data) {
     let validCols = [ "name", "quest", "level", "pwd_hash", "title",
       "personals_killed", "predators_killed", "preys_killed" , "antype"];
 
     if (validCols.indexOf(data.col)!=-1)
     {
-      console.log("UPDATE users SET "+data.col+"=$1 WHERE name=$2;");
-      console.log([data.newVal, data.unm]);
+      // console.log("UPDATE users SET "+data.col+"=$1 WHERE name=$2;");
+      // console.log([data.newVal, data.unm]);
       queryDb("UPDATE users SET "+data.col+"=$1 WHERE name=$2;", [data.newVal, data.unm]);
     }
-  }
+  });
 
-  function handleSelectDb(data)
-  {
+  socket.on('selectDb', function(data) {
     let unm = data["unm"];
     queryDb("SELECT * FROM users WHERE name=$1;", [unm], function(results, empty) {socket.emit("selectedData", results);}, []);
-  }
+  });
 
-  socket.on('getData', sendData);
-  function sendData(data)
-  {
+  socket.on('getData', function(data) {
     socket.emit('gotData', userData);
-  }
+  });
 
-  function handleChoseAnimalType(data)
-  {
+  socket.on('choseAnimalType', function(data) {
     userData[name].push(data["animalType"]);
-  }
+  });
 
-  function handleSendWorld(data)
-  {
+  socket.on('sendWorld', function(data) {
   	world = data["world"];
 
     if  (!world)
@@ -241,32 +226,28 @@ function newConnection(socket) {
 
   	socket.join(world); // join a world... this means you can have a private conversation within that world
 
-    console.log("world chosen " + world);
-
     // what world did we really join?...
     socket.emit("worldChosen", {"world":world, "ourTheta": th});
-  }
+  });
 
-  function updatePlayer(user)
-  {
+  socket.on('updatePlayer', function(user) {
   	// don't emit to yourself or people in other worlds
   	socket.broadcast.to(user.world).emit("updatePlayer", user);
     // io.sockets.emit("updatePlayer", data);
-  }
+  });
 
-  function pushAnimalUpdate(data)
-  {
+  socket.on('pushAnimalUpdate', function(data) {
     socket.broadcast.to(data.world).emit("pushedAnimalUpdate", data);
-  }
+  });
 
-  function handleNaming(data)
-  {
+  socket.on('named', function(data) {
     // later do not allow duplicates
     name = data["name"];
 
-    if (!name){name = "User";}
-    if (name=="NONE"){name="fakeNONE";}
-    if(name=="NPC"){name="fakeNPC";}
+    if (!name){name="User";}
+    if (name=="unclaimed"){name="User"};
+    if (name=="NONE"){name="User";}
+    if(name=="NPC"){name="User";}
 
     if (name.length > maxSLength)
     {
@@ -277,23 +258,18 @@ function newConnection(socket) {
     	name = name + Math.floor(Math.random()*10);
     }
 
-    console.log(name + " added" );
+    // console.log(name + " added" );
     playersConnected.push(name);
     userData[name] = [name];
-    console.log("Now playing: ");
-    console.log(playersConnected);
 
     socket.emit('nameChosen', name);
-  }
+  });
 
-  function handleDeath(data)
-  {
+  socket.on('deathAlert', function(data) {
     io.to(data["world"]).emit("death", data);
-  }
+  });
 
-  socket.on('disconnect', handleDisconnect);
-  function handleDisconnect(data)
-  {
+  socket.on('disconnect', function(data) {
     if (world)
     {
       try {
@@ -315,8 +291,6 @@ function newConnection(socket) {
       {
         delete userData[name];
         playersConnected.splice(idx, 1); // 1 means remove 1 thing
-        console.log("Now playing: ");
-        console.log(playersConnected);
 
   	     // don't emit to yourself or people in other worlds
          socket.broadcast.to(world).emit("deletePlayer", {"name": name});
@@ -326,7 +300,7 @@ function newConnection(socket) {
     else {
       console.log("disconnect on HOME PAGE");
     }
-  }
+  });
 
 }
 

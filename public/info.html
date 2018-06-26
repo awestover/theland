@@ -31,7 +31,7 @@ Move arround the board by scrolling with your finger or mouse or tilting your
 moblie device if it has an acceleromter
 attack other players in order to harm them and get stormlight for defeating them
 
-If you have no animals for a minute you lose
+If you have no animals for 3 minutes or if someone occupies your territory you lose
 </p>
 </div>
 
@@ -43,9 +43,10 @@ Well here they are I guess
 <script>
 let titles; let keys; let responses; let data;
 titles = ["Key", "Action"];
-keys = ['b','t','c','arrows or awsd', 'g', 'h', 'f', 'u', 'r', 'l'];
+keys = ['b','t','c','arrows or awsd', 'g', 'h', 'f', 'u', 'r', 'l', 'i'];
 responses = ['Buy', 'toggle attract', 'togle scores', 'move view', 'toggle stats selection',
-'annihilate (only if cheating)', 'feed all hungry (more than about half hunger)', 'upgrade last pressed', 'freeze if cheating', 'user.stormlight+=100 if cheating'];
+  'annihilate (only if cheating)', 'feed all hungry (more than about half hunger)', 'upgrade last pressed',
+  'freeze if cheating', 'user.stormlight+=100 if cheating', 'add 10 to health for all personals if cheating'];
 data = [ keys, responses];
 $('#hotkeys').append(arrayToTable(titles, data));
 </script>
@@ -167,7 +168,11 @@ It will kill you. I am very sorry for the inconvenience.
 <div class="well well-lg">
 <h2>Terrirories</h2>
 <p>
-You lose health if you enter someone elses territory, and gain strength if you visit yours.
+Color and name are the indicators that denote territory. Your territory has a color similar to your cursor and Your
+username written in the middle of it. Same goes for all users. Warning: in other users territories you will lose a little bit of health.
+If you can keep some personals in an enemy territory for about 9 seconds then you can occupy that territory.
+That means that you claim all the stormlight from the user who held it, and they are logged out of the game.
+You also gain strength if you visit your own territory.
 The color arround the territory is the same as the color arround your animals. Your territory
 also has your name writen in it.
 </p>

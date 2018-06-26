@@ -54,10 +54,11 @@
     <div class="container">
       <br>
       <button class="btn btn-lg well well-lg" style="float: right;"onclick="window.location.href='register.html';">Register</button>
-      <!-- <button class="btn btn-lg well well-lg" style="float: right; margin-right:2%;"onclick="">Login</button> -->
-      <!-- <button class="btn btn-lg well well-lg" style="float: right; margin-right:2%;"onclick="">Guest</button> -->
       <form action="/" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">ENTER theland</button>
+        <br><br>
         <label for="unm">Username</label>
         <input name="unm" class="form-control" type="text" placeholder="User Name">
         <br>
@@ -77,17 +78,15 @@
 
         <label for="world">World</label>
         <input name="world" class="form-control" type="text" placeholder="World">
-        <br>
+        <br><br>
         <label class="btn btn-primary active form-check-label">
         <input name="soundWanted" type="checkbox" class="form-check-input" unchecked autocomplete="off"> Sound Wanted?</input>
         </label>
-        <br>
+        <br><br>
         <label class="btn btn-primary active form-check-label">
         <input name="accelerometerWanted" type="checkbox" class="form-check-input" unchecked autocomplete="off"> Accelerometer Wanted?</input>
         </label>
 
-        <br><br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
         <br><br>
       </form>
 
@@ -115,22 +114,50 @@
       </div>
 
       <div class="users_info">
+        <h3>Current Users:</h3>
         <p id="users_info">
         </p>
+
+        <script>
+          let colNames = ["Name", "World", "theta", "animal type"];
+          let userData = {};
+          let userArray;
+          let userTable;
+          socket = io.connect();
+          socket.on('gotData', handleGotData);
+          socket.on('textIncoming', handleTextIncoming);
+          function getUpdatedTable()
+          {
+            socket.emit('getData', "home");
+          }
+          getUpdatedTable();
+          setInterval(getUpdatedTable, 3000);
+
+          function handleGotData(data)
+          {
+            userData = data;
+            userArray = [[],[],[], []];
+            for (let i in userData)
+            {
+              for (let j in colNames)
+              {
+                userArray[j].push(userData[i][j]);
+              }
+            }
+            userTable = arrayToTable(colNames, userArray);
+            $("#users_info").html(userTable);
+          }
+        </script>
       </div>
 
-      <div id="animal_txt_help" class="animal_table">
-        <h3>Types include: </h3>
-      </div>
-
-      <div class="container btn-container">
+      <div class="container btn-container" id="nobg">
       <br>
       <button class="btn well" id="button" style="float:left" onclick='window.location.href = "info.html";'>Help</button>
       <button class="btn well" id="button" style="float:right;" onclick='window.location.href = "credits.html";'>Credits</button>
       <button class="btn well" id="button" style="float:right" onclick='window.location.href = "https://thelandcontact.wordpress.com/contact/";'>Contact</button>
       </div>
 
-      <div class="container btn-container">
+      <div class="container btn-container" id="nobg">
       <br>
       <button class="btn well" id="button" style="float:left" onclick='window.location.href = "https://theland.surge.sh";'>Home</button>
       <button class="btn well" id="button" style="float:left" onclick='window.location.href = "leaderboard.html";'>Leaderboard</button>
@@ -142,69 +169,41 @@
         </div>
       </div>
 
-    </div>
+      <div id="animal_txt_help" class="animal_table">
+        <h3>Types include: </h3>
 
-    <script>
-      let names = []; let pics = []; let types = [];
-      for (let anType in allAnimals)
-      {
-        for (let j in animal_names[allAnimals[anType]])
-        {
-          names.push(animal_names[allAnimals[anType]][j]+"<br><br>("+allAnimals[anType]+")");
-          let temp = "pictures/"+animal_names[allAnimals[anType]][j] + "1.png";
-          temp = '<img src = "' + temp + '">';
-          pics.push(temp);
-        }
-      }
-      let descriptions = [];
-      for (let anType in allAnimals)
-      {
-        let cType = allAnimals[anType];
-        for (let i in animal_names[cType])
-        {
-          let cAniName = animal_names[cType][i];
-          let tmp = allDescriptions[cType][cAniName];
-          tmp += "<br><br>";
-          tmp += jsonToTable(["stat", "val"], flattenJson(allStats[cType][cAniName]));
-          descriptions.push(tmp);
-        }
-      }
-      let data = [names, descriptions, pics];
-      let table = arrayToTable(["name", "description", "picture"], data);
-      $("#animal_txt_help").append(table);
-    </script>
-
-    <script>
-      let colNames = ["Name", "World", "theta", "animal type"];
-      let userData = {};
-      let userArray;
-      let userTable;
-      socket = io.connect();
-      socket.on('gotData', handleGotData);
-      socket.on('textIncoming', handleTextIncoming);
-      function getUpdatedTable()
-      {
-        socket.emit('getData', "home");
-      }
-      getUpdatedTable();
-      setInterval(getUpdatedTable, 3000);
-
-      function handleGotData(data)
-      {
-        userData = data;
-        userArray = [[],[],[], []];
-        for (let i in userData)
-        {
-          for (let j in colNames)
+        <script>
+          let names = []; let pics = []; let types = [];
+          for (let anType in allAnimals)
           {
-            userArray[j].push(userData[i][j]);
+            for (let j in animal_names[allAnimals[anType]])
+            {
+              names.push(animal_names[allAnimals[anType]][j]+"<br><br>("+allAnimals[anType]+")");
+              let temp = "pictures/"+animal_names[allAnimals[anType]][j] + "1.png";
+              temp = '<img src = "' + temp + '">';
+              pics.push(temp);
+            }
           }
-        }
-        userTable = arrayToTable(colNames, userArray);
-        $("#users_info").html(userTable);
-      }
-    </script>
+          let descriptions = [];
+          for (let anType in allAnimals)
+          {
+            let cType = allAnimals[anType];
+            for (let i in animal_names[cType])
+            {
+              let cAniName = animal_names[cType][i];
+              let tmp = allDescriptions[cType][cAniName];
+              tmp += "<br><br>";
+              tmp += jsonToTable(["stat", "val"], flattenJson(allStats[cType][cAniName]));
+              descriptions.push(tmp);
+            }
+          }
+          let data = [names, descriptions, pics];
+          let table = arrayToTable(["name", "description", "picture"], data);
+          $("#animal_txt_help").append(table);
+        </script>
+      </div>
 
+    </div>
 
 </body>
 

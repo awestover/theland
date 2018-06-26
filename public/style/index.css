@@ -49,6 +49,11 @@ div.btn-container
   background-color: rgba(255,255,255,0.8);
 }
 
+div.container#nobg
+{
+  background-color: rgba(255,255,255,0.5);
+}
+
 .form-signin {
   max-width: 330px;
   padding: 15px;
