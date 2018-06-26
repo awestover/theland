@@ -34,6 +34,11 @@ function setup()
     $.notify('Welcome back', {style: 'notification'});
   }
 
+  if (userValues.accelerometerWanted == "on")
+  {
+    accelerometerWanted = true;
+  }
+
   if (userValues.soundWanted == "on")
   {
     soundWanted = true;
@@ -162,6 +167,7 @@ function draw()
   }
 
   let tCollisions = gametree.getTerritoryCollisions()
+  let gotOccupied = user.getOccupySlots();
   for (let coll in tCollisions)
   {
     let ccollided = gametree.values[tCollisions[coll][0]];
@@ -172,6 +178,18 @@ function draw()
     }
     else {
       ccollided.inEnemyTerritory();
+      gotOccupied[ccth] = true;
+      if (!user.occupations[ccth])
+      {
+        user.occupy(ccth);
+      }
+    }
+  }
+  for (let go in gotOccupied)
+  {
+    if (!gotOccupied[go])
+    {
+      user.cancelOccupy(go);
     }
   }
 
@@ -204,7 +222,10 @@ function draw()
   }
 
   handleKeysDown();
-  handleTilted();
+  if (accelerometerWanted)
+  {
+    handleTilted();
+  }
   if(scoresVisible)
   {
     showMaxScores();

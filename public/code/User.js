@@ -10,6 +10,11 @@ class User {
     this.animal_type = user_info["animal_type"];
     this.th = user_info["th"] || 0;
 
+    // only can hold 1 of these for now
+    // realistically this should not be a problem...
+    this.occupations={};
+    this.occupyTime = 3000; // millis
+
     this.pos = user_info["pos"] || [0,0]; // where are you looking
 
     this.stormlight = user_info["stormlight"] || 0;
@@ -36,6 +41,36 @@ class User {
 
     this.selectedPersonal = null;// don't need to send it over...
 
+  }
+
+  occupy(th)
+  {
+    //shouldn't be a problem... just in case
+    if(this.occupations[th])
+    {
+      clearTimeout(this.occupations[th]);
+    }
+
+    this.occupations[th] = setTimeout(function() {
+      console.log("get occupied ya little squid");
+    }, this.occupyTime);
+
+  }
+
+  cancelOccupy(th)
+  {
+    clearTimeout(this.occupations[th]);
+    delete this.occupations[th];
+  }
+
+  getOccupySlots()
+  {
+    let o = {};
+    for (let i in this.occupations)
+    {
+      o[i] = false;
+    }
+    return o;
   }
 
   toggleStatsAll()
@@ -97,7 +132,7 @@ class User {
     {
       this.addPrey();
     }
-    
+
     this.addPredator();
   }
 

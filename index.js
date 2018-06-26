@@ -55,7 +55,7 @@ function handlePasswordInput(results, params)
   let pwd_hash = params["pwd_hash"];
   let datas = params["datas"];
 
-  let dText = ["unm", "world", "anType","soundWanted", "verified"];
+  let dText = ["unm", "world", "anType","soundWanted", "accelerometerWanted", "verified"];
 
   if (results.length == 0)
   {
@@ -66,7 +66,7 @@ function handlePasswordInput(results, params)
     let pwdReal = results[0]["pwd_hash"];
     if (pwdReal == pwd_hash)
     {
-      datas.push("yes");
+      datas.push("yes"); // reall NOT GOOD
       let idxT = dText.indexOf("anType");
       if (!datas[idxT] || datas[idxT].length == 0)
       {
@@ -84,7 +84,7 @@ function handlePasswordInput(results, params)
 // handle posts
 app.post('/', function(req, resp) {
   let unm = nicerFormInput(req.body.unm);
-  let datas = [unm, req.body.world, req.body.anType, req.body.soundWanted];
+  let datas = [unm, req.body.world, req.body.anType, req.body.soundWanted, req.body.accelerometerWanted];
   let pwd = req.body.pwd;
   let params = {"resp":resp, "pwd_hash": stupidHash(pwd), "datas": datas};
   if (pwd.length > 0)

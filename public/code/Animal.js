@@ -285,8 +285,7 @@ class Animal
 
   inEnemyTerritory()
   {
-    // bad
-    this.health = this.health -1;
+    this.health = this.health - 0.001;
   }
 
   inUserTerritory()
