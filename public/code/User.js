@@ -13,7 +13,7 @@ class User {
     // only can hold 1 of these for now
     // realistically this should not be a problem...
     this.occupations={};
-    this.occupyTime = 5000; // millis
+    this.occupyTime = 10000; // millis
 
     this.pos = user_info["pos"] || [0,0]; // where are you looking
 
@@ -246,7 +246,8 @@ class User {
     }
     for(let i = 0; i < predatorsKilled; i++)
     {
-      this.addPredator();
+      let respawnTime = 6000;
+      setTimeout(this.addPredator(), respawnTime);
     }
 
     this.addFrameStormlight();
@@ -257,7 +258,7 @@ class User {
   addFrameStormlight()
   {
     // later this can be variable or something
-    if(Math.random() < 0.3)
+    if(Math.random() < 0.15)
     {
       if (this.attractAnimals)
       {

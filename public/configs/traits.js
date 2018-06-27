@@ -2,13 +2,13 @@ let default_personal_stats =
 {
   "sickPr": 0,
   "health": 10,
-  "rebirthPr": 0.002,
+  "rebirthPr": 0.0005,
   "strength": 1,
   "speed": 4,
   "levelUpPr": 0.0005,
   "deadHunger": 5,
-  "dHunger": 0.018,
-  "dAge": 0.01
+  "dHunger": 0.009,
+  "dAge": 0.005
 };
 
 let personals_traits_deltas =
@@ -17,7 +17,7 @@ let personals_traits_deltas =
   [
     "Very high tolerance for hunger. Very high strength, Lower rebirth and level up rates",
     {
-      "rebirthPr": -0.001,
+      "rebirthPr": -0.0003,
       "strength": +2,
       "levelUpPr": -0.0003,
       "deadHunger": +10
@@ -37,7 +37,7 @@ let personals_traits_deltas =
     "Very healthy. A lot hungrier and slower.",
     {
       "health": +15,
-      "dHunger": 0.03,
+      "dHunger": +0.011,
       "speed": -1
     }
   ],
@@ -57,10 +57,10 @@ let personals_traits_deltas =
   [
     "Very fast. More likely to upgrade. Lower reproduction. Lower health.",
     {
-      "health": -1,
-      "levelUpPr": +0.0005,
+      "health": -2,
+      "levelUpPr": +0.001,
       "rebirthPr": -0.0005,
-      "speed": +2
+      "speed": +3
     }
   ],
 
