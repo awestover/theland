@@ -7,7 +7,7 @@ let default_personal_stats =
   "speed": 4,
   "levelUpPr": 0.0005,
   "deadHunger": 5,
-  "dHunger": 0.009,
+  "dHunger": 0.011,
   "dAge": 0.005
 };
 
@@ -75,6 +75,14 @@ let personals_traits_deltas =
   ]
 
 };
+
+/*
+narwhal
+incredibly high speed
+incredibly high hunger
+average everything else
+
+*/
 
 let personal_stats = {};
 let personal_descriptions = {};

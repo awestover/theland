@@ -247,7 +247,7 @@ class User {
     for(let i = 0; i < predatorsKilled; i++)
     {
       let respawnTime = 6000;
-      setTimeout(this.addPredator(), respawnTime);
+      setTimeout(function(){this.addPredator();}, respawnTime);
     }
 
     this.addFrameStormlight();
