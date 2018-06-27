@@ -462,11 +462,13 @@ function keyPressed()
       break;
     case 'g':
       user.toggleStatsAll();
+      break;
     case 'p':
       zoom.value(zoom.value()+0.05);
+      break;
     case 'o':
       zoom.value(zoom.value()-0.05);
-
+      break;
   }
   if (cheats)
   {
