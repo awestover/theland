@@ -464,8 +464,8 @@ function keyPressed()
       user.toggleStatsAll();
     case 'p':
       zoom.value(zoom.value()+0.05);
-    case 'z':
-      zoom.value(zoom.value()+0.05);
+    case 'o':
+      zoom.value(zoom.value()-0.05);
 
   }
   if (cheats)
