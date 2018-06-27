@@ -113,7 +113,7 @@ let prey_stats = {
   },
   "chicken":
   {
-    "health": 40,
+    "health": 300,
     "help": {"health": 0, "hunger": -0.25}
   }
 };
