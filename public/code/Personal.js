@@ -24,7 +24,7 @@ class Personal extends Animal
 
   healthAffects()
   {
-    let fAge = 1.2;
+    let fAge = 0.5;
     let ptemp = (fAge - Math.abs(this.age - fAge));
 
     this.health += ptemp * 0.025;
