@@ -24,11 +24,11 @@ class Personal extends Animal
 
   healthAffects()
   {
-    let fAge = 1.4;
+    let fAge = 1.2;
     let ptemp = (fAge - Math.abs(this.age - fAge));
 
-    this.health += ptemp * 0.05;
-    this.speed +=  ptemp * 0.01;
+    this.health += ptemp * 0.025;
+    this.speed +=  ptemp * 0.005;
     this.speed = Math.max(0.6, this.speed); // not negative
 
   }
