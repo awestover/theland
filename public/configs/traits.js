@@ -15,18 +15,21 @@ let personals_traits_deltas =
 {
   "bear":
   [
-    "Very high tolerance for hunger. Very high strength, Lower rebirth and level up rates",
+    "Very high tolerance for hunger. Very high strength, Lower rebirth and level up rates. " +
+    "the bear is a deadly foe and a friend who may outlast all enemies, except perhaps the squid",
     {
       "rebirthPr": -0.0003,
       "strength": +2,
       "levelUpPr": -0.0003,
-      "deadHunger": +10
+      "deadHunger": +7
     }
   ],
 
   "butterfly":
   [
-    "Pretty average. Most well balanced.",
+    "Pretty average. Most well balanced." +
+      "like the band less than 0.1 standard deviations away from the mean in a bell curve. " +
+      "balance is an important aspect of life, but is it so in the intense land known as theland?",
     {
 
     }
@@ -34,7 +37,8 @@ let personals_traits_deltas =
 
   "crab":
   [
-    "Very healthy. A lot hungrier and slower.",
+    "Very healthy. A lot hungrier and slower. "+
+    "pretty much this animal is a bomb. Put it somewhere and it will eat it. Or die trying.",
     {
       "health": +15,
       "dHunger": +0.011,
@@ -44,7 +48,9 @@ let personals_traits_deltas =
 
   "dog":
   [
-    "Reproduces a lot. Lower health. Higher hunger.",
+    "Reproduces a lot. Lower health. Higher hunger."+
+    "it is actually a sheep. Yea. pretty much, it is an incredibly cunning and deceptive creature and "+
+    "that is why it has a pseudonym. or so the sheep wants you to believe.",
     {
       "health": -5,
       "rebirthPr": 0.0015,
@@ -55,7 +61,9 @@ let personals_traits_deltas =
 
   "shark":
   [
-    "Very fast. More likely to upgrade. Lower reproduction. Lower health.",
+    "Very fast. More likely to upgrade. Lower reproduction. Lower health. "+
+    "one day the shark dreams of travelling to theland beyond thewall. This is obviously "+
+    "quite futile as it would mean instant death. But maybe that is part of the plan just like a wise talking mouse once thought.",
     {
       "health": -2,
       "levelUpPr": +0.001,
@@ -66,23 +74,28 @@ let personals_traits_deltas =
 
   "squid":
   [
-    "Very low hunger and age needs. Slight probability of spontaneous death.",
+    "Very low hunger and age needs. Slight probability of spontaneous death. "+
+    "the squid usually has a pretty good life. It doesn't worry about much, despite the complete power the dice have "+
+    "over it. Let the die be cast.",
     {
       "sickPr": 0.001,
       "dHunger": -0.009,
       "dAge": -0.005
     }
+  ],
+
+  "narwhal":
+  [
+    "incredibly high speed coupled with incredibly high hunger"+
+    "narwhals are not cool. they are warm hopefully. They are just about as real as arcsin(pi) if you catch my drift. " +
+    "they transced common things like that. or something.",
+    {
+      "speed": +8,
+      "dHunger": +0.03
+    }
   ]
 
 };
-
-/*
-narwhal
-incredibly high speed
-incredibly high hunger
-average everything else
-
-*/
 
 let personal_stats = {};
 let personal_descriptions = {};

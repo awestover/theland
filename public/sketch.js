@@ -469,6 +469,31 @@ function keyPressed()
     case 'o':
       zoom.value(zoom.value()-0.05);
       break;
+    case 'n': // select next
+      let done = false;
+      if (user.selectedPersonal)
+      {
+        user.selectedPersonal.showStats = !user.selectedPersonal.showStats;
+        for (let ani in user.personals)
+        {
+          if (user.personals[ani].id > user.selectedPersonal.id)
+          {
+            user.selectedPersonal = user.personals[ani];
+            user.personals[ani].showStats = !user.personals[ani].showStats;
+            done=true;
+            break;
+          }
+        }
+      }
+
+      if (!done && user.personals.length > 0)
+      {
+        user.selectedPersonal = user.personals[0];
+        user.selectedPersonal.showStats = !user.selectedPersonal.showStats;
+      }
+
+      break;
+
   }
   if (cheats)
   {
