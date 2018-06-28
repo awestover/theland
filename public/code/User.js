@@ -225,6 +225,9 @@ class User {
         an -= 1;
         preysKilled+=1;
       }
+      else {
+        this.preys[an].move();
+      }
     }
     for(let i=0; i < preysKilled; i++)
     {

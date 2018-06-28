@@ -13,6 +13,16 @@ let default_personal_stats =
 
 let personals_traits_deltas =
 {
+  "sheep":
+  [
+    "The sheep. power TBD",
+    {
+      "levelUpPr": +0.006,
+      "speed": +2,
+      "health": +5,
+      "deadHunger": +5
+    }
+  ],
   "bear":
   [
     "Very high tolerance for hunger. Very high strength, Lower rebirth and level up rates. " +
@@ -117,23 +127,26 @@ for (let i in personals_traits_deltas)
 };
 
 let prey_descriptions = {
-  "pizza":"pretty good food, health and hunger",
-  "cake":"really good food",
-  "chicken":"only helps with hunger"
+  "pizza": "pretty good food, health and hunger",
+  "cake": "really good food",
+  "chicken": "only helps with hunger"
 };
 let prey_stats = {
   "pizza":
   {
+    "speed": 0,
     "health": 10,
     "help": {"health": 1, "hunger": -0.5}
   },
   "cake":
   {
+    "speed": 0,
     "health": 20,
     "help": {"health": 2, "hunger": -1}
   },
   "chicken":
   {
+    "speed": 7,
     "health": 300,
     "help": {"health": 0, "hunger": -0.25}
   }

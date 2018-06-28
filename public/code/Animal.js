@@ -34,8 +34,7 @@ class Animal
     this.boosted = animal_traits["boosted"] || false;
     this.visitedUserTerritory = animal_traits["visitedUserTerritory"] || false;
 
-    // maybe later
-    // this.resistanceMultiplier = animal_traits["resistanceMultiplier"] || 1; // multiply incoming damage by this
+    this.speed = animal_traits["speed"] || 0;
   }
 
   getCenter()
@@ -93,7 +92,11 @@ class Animal
     this.vel = [nx, ny];
     this.addPos(this.vel); // *dt
 
-    this.rotated=Math.sign(this.vel[0]);
+    this.rotated = Math.sign(this.vel[0]);
+    if (this.rotated == 0)
+    {
+      this.rotated = 1;
+    }
   }
 
   pushMotion(location, threshold)

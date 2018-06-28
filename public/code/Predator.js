@@ -9,8 +9,8 @@ class Predator extends Animal
       this[stat] = animal_traits[stat] || predator_stats[this.name][stat];
     }
 
+    this.vel = this.randomHeading(this.speed);
     this.health = animal_traits["health"] || Math.floor((2*random()+1)*100);
-    this.vel = super.randomHeading(this.speed);
     this.sightR = animal_traits["sightR"] || Math.floor(Math.random()*500+150);
     this.dims=[75,100];
   }

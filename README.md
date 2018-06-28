@@ -18,7 +18,12 @@ SELECT * FROM information_schema.tables WHERE table_name='test';
 please note postgresql and mysql ARE (subtly) different. ie INSERT command
 INSERT INTO test VALUES('hmm')
 
-heroku:
+# heroku:
+to list hours left:
+(i am not sure if this is a problematic thing... no credit card registered yet...)
+heroku ps 
+
+
 https://devcenter.heroku.com/articles/heroku-postgresql#designating-a-primary-database
 
 local install is good too
