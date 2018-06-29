@@ -27,7 +27,7 @@ body {
 	padding-left: 5%;
 }
 
-#worldTxt, #help {
+#worldTxt, #help, #advancedSettings{
 	float: right;
 }
 

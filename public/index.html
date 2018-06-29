@@ -86,9 +86,8 @@
         <label class="btn btn-primary active form-check-label">
         <input name="accelerometerWanted" type="checkbox" class="form-check-input" unchecked autocomplete="off"> Accelerometer Wanted?</input>
         </label>
-        <br>
+        <br><br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">ENTER theland</button>
-
         <br><br>
       </form>
 
@@ -98,6 +97,7 @@
         function alterAnChoice(anType)
         {
           $("#anType").val(anType);
+          $.notify("Animal chosen: " + anType, "success");
         }
         let btnsHtml = "<h3>Chose an animal:</h3>";
         for(let i in animal_names["personals"])
