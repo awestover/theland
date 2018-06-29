@@ -141,7 +141,7 @@ class User {
   {
     for (let i = 0; i < 3; i++)
     {
-      this.addPersonal();
+      setTimeout(function(){user.addPersonal();}, i*500);
     }
     for (let i = 0; i < 7; i++)
     {
@@ -251,7 +251,7 @@ class User {
     for(let i = 0; i < predatorsKilled; i++)
     {
       let respawnTime = 6000;
-      setTimeout(function(){this.addPredator();}, respawnTime);
+      setTimeout(function(){user.addPredator();}, respawnTime);
     }
 
     this.addFrameStormlight();
