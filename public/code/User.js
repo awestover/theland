@@ -139,13 +139,14 @@ class User {
 
   initAnimals()
   {
-    this.addPersonal();
-
+    for (let i = 0; i < 3; i++)
+    {
+      this.addPersonal();
+    }
     for (let i = 0; i < 7; i++)
     {
       this.addPrey();
     }
-
     this.addPredator();
   }
 
