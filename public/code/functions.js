@@ -55,11 +55,6 @@ function sendText(txt)
   socket.emit("textSent", data);
 }
 
-function handleTextIncoming(data)
-{
-  $.notify(data["txt"], {style: 'message'});
-}
-
 function songLoaded()
 {
 	song.setVolume(0.3);

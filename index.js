@@ -55,7 +55,7 @@ function handlePasswordInput(results, params)
   let pwd_hash = params["pwd_hash"];
   let datas = params["datas"];
 
-  let dText = ["unm", "world", "anType","soundWanted", "accelerometerWanted", "verified"];
+  let dText = ["unm", "world", "anType","soundWanted", "accelerometerWanted", "chatWanted", "verified"];
 
   if (results.length == 0)
   {
@@ -84,7 +84,7 @@ function handlePasswordInput(results, params)
 // handle posts
 app.post('/', function(req, resp) {
   let unm = nicerFormInput(req.body.unm);
-  let datas = [unm, req.body.world, req.body.anType, req.body.soundWanted, req.body.accelerometerWanted];
+  let datas = [unm, req.body.world, req.body.anType, req.body.soundWanted, req.body.accelerometerWanted, req.body.chatWanted];
   let pwd = req.body.pwd;
   let params = {"resp":resp, "pwd_hash": stupidHash(pwd), "datas": datas};
   if (pwd.length > 0)

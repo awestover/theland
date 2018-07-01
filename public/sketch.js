@@ -2,7 +2,6 @@
 Alek Westover
 theland.herokuapp.com
 */
-
 function setup()
 {
   for (let an in allAnimals)
@@ -58,13 +57,17 @@ function setup()
   socket.on('pushedAnimalUpdate', handlePushedAnimalUpdate);
   socket.on('death', handleDeath);
   socket.on('selectedData', handleSelectedData);
-  socket.on('textIncoming', handleTextIncoming);
+  if (userValues["chatWanted"]=="on")
+  {
+    socket.on('textIncoming', function(data) {
+      $.notify(data["txt"], {style: 'message'});
+    });
+  }
   socket.on('gotOccupied', function(data) {
     if (data.killth == user.th)
     {
       $.notify("You got occupied", {"style": "occupation"});
-      gameOver = true;
-      killUser();
+      user.stormlight = 0;
     }
   });
 
@@ -259,7 +262,7 @@ function draw()
     textSize(tmp);
   }
   else {
-    if (user.personals.length == 0 && gameOverPending==false)
+    if ((user.personals.length == 0 && gameOverPending==false))
     {
       clearTimeout(timeout);
       timeout = setTimeout(function() {
@@ -269,6 +272,11 @@ function draw()
         }
       }, 180000);
       gameOverPending = true;
+    }
+    if (user.stormlight > 100000 || user.personals.length > 100)
+    {
+      alert("I think you are a cheater. more sofisticated test coming soon")
+      killUser();
     }
   }
 
