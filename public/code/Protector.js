@@ -1,4 +1,18 @@
 // this can eat stuff, but won't eat everything
+
+
+
+/*
+
+Protector needs to be anchored to home, but can chase anything that comes into the base
+
+smaller sigt radius
+
+need pictures
+
+*/
+
+
 class Protector extends Animal
 {
   constructor(animal_traits)
@@ -29,7 +43,7 @@ class Protector extends Animal
     {
       return false;
     }
-    if (otherAnimal.type == "personals")
+    if (otherAnimal.type == "personals" && otherAnimal.username != this.username)
     {
       let deltaH = otherAnimal.interact();
       this.health += deltaH;
@@ -46,8 +60,14 @@ class Protector extends Animal
     return true;
   }
 
-  interact()
+  interact(otherAnimal)
   {
-    return -this.power;
+    if (otherAnimal.username != this.username)
+    {
+      return -this.power;
+    }
+    else {
+      return 0;
+    }
   }
 }

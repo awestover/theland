@@ -59,7 +59,7 @@ class Personal extends Animal
     return false;
   }
 
-  interact()
+  interact(otherAnimal)
   {
       return -this.strength;
   }

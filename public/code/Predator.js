@@ -46,7 +46,7 @@ class Predator extends Animal
     return true;
   }
 
-  interact()
+  interact(otherAnimal)
   {
     return -this.power;
   }
