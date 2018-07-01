@@ -53,7 +53,7 @@ class Animal
 
   getBoostedImg()
   {
-    try{
+    try {
       return animal_pictures[this.name+"0"];
     }
     catch(err)
@@ -65,6 +65,10 @@ class Animal
   getImg()
   {
     try{
+      if (!animal_pictures[this.name+this.level])
+      {
+        animal_pictures[this.name+this.level] = loadImage("pictures/"+this.name+this.level+".png");
+      }
       return animal_pictures[this.name+this.level];
     }
     catch(err)
@@ -184,7 +188,7 @@ class Animal
         }
       }
       //predators stats
-      else if (this.type == "predators")
+      else if (this.type == "predators" || this.type == "protector")
       {
         let colors = [color(205, 15, 226), color(66, 134, 244)];
         curY = this.drawBar(this.speed, colors[0], 5, curY);
@@ -227,7 +231,7 @@ class Animal
       }
       catch(err)
       {
-        ellipse(-this.dims[0]/2, -this.dims[1]/2, this.dims[0]/2, this.dims[1]/2);
+        ellipse(-this.dims[0]/2, -this.dims[1]/2, this.dims[0], this.dims[1]);
       }
       pop();
     }

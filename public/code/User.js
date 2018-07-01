@@ -13,12 +13,13 @@ class User {
     // only can hold 1 of these for now
     // realistically this should not be a problem...
     this.occupations={};
-    this.occupyTime = 10000; // millis
+    this.occupyTime = 7000; // millis
 
     this.pos = user_info["pos"] || [0,0]; // where are you looking
 
     this.stormlight = user_info["stormlight"] || 0;
     this.cost = user_info["cost"] || 100; // may be variable later
+    this.protectorCost = user_info["protectorCost"] || 500;
     this.upgradeCost = user_info["upgradeCost"] || 50;
     this.feedCost = user_info["feedCost"] || 10;
 
@@ -41,6 +42,16 @@ class User {
 
     this.selectedPersonal = null;// don't need to send it over...
 
+  }
+
+  buyProtector()
+  {
+    if (this.stormlight >= this.protectorCost && this.protectors.length < maxProtectors)
+    {
+      // this.stormlight -= this.protectorCost;
+      // this.addProtector();
+      alert("coming soon");
+    }
   }
 
   occupy(th)
@@ -287,25 +298,43 @@ class User {
     });
     for (let f in data)
     {
-      newPersonal[f] = data[f];
+      newPrey[f] = data[f];
     }
     this.idCt+=1;
     this.preys.push(newPrey);
     this.preys[this.preys.length-1].subPos([newPrey.dims[0]/2, newPrey.dims[1]/2]);
   }
 
-  addPredator(data)
+  addProtector(data)
   {
-    let newPredator = new Predator({
-      "pos":randomMidish(0.7),
+    let newProtector = new Protector({
+      "pos": randomMidish(0.5),
       "name": "dino",
       "username": this.name,
       "th": this.th,
-      "id":this.idCt
+      "id": this.idCt
     });
     for (let f in data)
     {
-      newPersonal[f] = data[f];
+      newProtector[f] = data[f];
+    }
+    this.idCt += 1;
+    this.protectors.push(newProtector);
+    this.protectors[this.protectors.length-1].subPos([newProtector.dims[0]/2, newProtector.dims[1]/2]);
+  }
+
+  addPredator(data)
+  {
+    let newPredator = new Predator({
+      "pos": randomMidish(0.5),
+      "name": "dino",
+      "username": this.name,
+      "th": this.th,
+      "id": this.idCt
+    });
+    for (let f in data)
+    {
+      newPredator[f] = data[f];
     }
     this.idCt += 1;
     this.predators.push(newPredator);

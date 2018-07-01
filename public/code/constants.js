@@ -1,11 +1,12 @@
 //constants
-const allAnimals = ["personals", "preys", "predators"];
+const allAnimals = ["personals", "preys", "predators", "protectors"];
 
 // all animal names
 let animal_names = {};
 animal_names["personals"] = ["sheep", "squid", "narwhal", "dog", "shark", "bear", "crab", "butterfly"];
 animal_names["preys"] = ["pizza", "cake", "chicken"];
 animal_names["predators"] = ["dino"];
+animal_names["protectors"] = [];
 let animal_txt_help = "";
 for (let i = 0; i < animal_names["personals"].length; i++){
   animal_txt_help += animal_names["personals"][i] + "(" + i + ")" + "\n";
@@ -29,7 +30,7 @@ let animal_pictures = {};
 const keyCodes = {"a":65, "d": 68, "s": 83, "w": 87};
 const numTerritories = 12;
 const boundSize  = 100;
-const territoryR = 175;
+const territoryR = 100;
 let gridSize, bounds, edgeRects;
 let territoryLocs = [];
 let scoresVisible = false;
@@ -52,6 +53,7 @@ let gametree;
 
 // not really a limit, they can still reproduce over this you just can't buy any more after 10
 const maxAnimals = 10;
+const maxProtectors = 2;
 
 // convert to color objects in setup
 //https://sashat.me/2017/01/11/list-of-20-simple-distinct-colors/

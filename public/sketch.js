@@ -4,18 +4,7 @@ theland.herokuapp.com
 */
 function setup()
 {
-  for (let an in allAnimals)
-  {
-    for (let m = 0; m<=max_lvls[allAnimals[an]]; m++)
-    {
-      for (let pn in animal_names[allAnimals[an]])
-      {
-        let cName = animal_names[allAnimals[an]][pn] + m;
-        animal_pictures[cName] = loadImage("pictures/"+cName+".png");
-      }
-    }
-  }
-
+  
   for (let i in thColors)
   {
     thColors[i] = color(thColors[i]);
@@ -59,9 +48,7 @@ function setup()
   socket.on('selectedData', handleSelectedData);
   if (userValues["chatWanted"]=="on")
   {
-    socket.on('textIncoming', function(data) {
-      $.notify(data["txt"], {style: 'message'});
-    });
+    socket.on('textIncoming', handleTextIncoming);
   }
   socket.on('gotOccupied', function(data) {
     if (data.killth == user.th)

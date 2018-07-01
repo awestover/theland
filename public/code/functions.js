@@ -7,6 +7,10 @@ function getGridSize(otherUsers)
   return originalSpace + spacePerExtrUsr*Object.keys(otherUsers).length;
 }
 
+function handleTextIncoming(data) {
+  $.notify(data["txt"], {style: 'message'});
+};
+
 function adjustSize(s)
 {
   gridSize = s;
