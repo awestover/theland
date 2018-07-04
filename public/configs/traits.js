@@ -161,19 +161,33 @@ let predator_stats =
   "dino":
   {
     "power": 1,
-    "speed": 3.2
+    "speed": 3
+  }
+};
+
+let protector_descriptions = {
+  "balrog": "storms, ill do it later im working on it all right!"
+};
+let protector_stats =
+{
+  "balrog":
+  {
+    "power": 2,
+    "speed": 4
   }
 };
 
 const allDescriptions =  {
   "personals": personal_descriptions,
   "preys":prey_descriptions,
-  "predators":predator_descriptions
+  "predators":predator_descriptions,
+  "protectors":protector_descriptions
 };
 
 const allStats =
 {
   "personals": personal_stats,
   "preys":prey_stats,
-  "predators":predator_stats
+  "predators":predator_stats,
+  "protectors": protector_stats
 };

@@ -1,14 +1,8 @@
 Issues:
 
-return users have a fixed animal type
+boosts
 
-add the ability to destroy territory by occupying it, and lessen territory occupation consequences
-(ie health drop) also give the stormlight of the killed user to whomever kills them
-
-return users can buy upgrades to their animal
+return users can buy upgrades to their animal or something... (maybe better stormlight rate, lower animal costs etc)
 
 I am worried that deaths are being overcounted.... especially personals....
 
-boosted animals can stay back to guard territory
-
-expand map as more users join

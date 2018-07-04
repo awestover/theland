@@ -92,12 +92,12 @@ class Personal extends Animal
         }
       }
     }
-    else if (otherAnimal.type == "personals" || otherAnimal.type == "predators"){
-      let deltaH = otherAnimal.interact();
+    else if (otherAnimal.type == "personals" || otherAnimal.type == "predators" || otherAnimal.type == "protectors"){
+      let deltaH = otherAnimal.interact(this);
       this.health += deltaH;
     }
-    else if (otherAnimal.type = "preys"){
-      let deltas = otherAnimal.interact();
+    else if (otherAnimal.type == "preys"){
+      let deltas = otherAnimal.interact(this);
       for (let i in deltas)
       {
         this[i] += deltas[i];

@@ -31,7 +31,7 @@ class Predator extends Animal
     }
     if (otherAnimal.type == "personals")
     {
-      let deltaH = otherAnimal.interact();
+      let deltaH = otherAnimal.interact(this);
       this.health += deltaH;
       if (this.health <= 0)
       {

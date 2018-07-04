@@ -9,7 +9,7 @@ class Prey extends Animal
     for (let stat in prey_stats[this.name]) {
       this[stat] = animal_traits[stat] || prey_stats[this.name][stat];
     }
-  
+
     this.vel = this.randomHeading(this.speed);
     this.dims = [30,30];
   }
@@ -23,7 +23,7 @@ class Prey extends Animal
 
     if (otherAnimal.type != "preys")
     {
-      let deltaH = otherAnimal.interact();
+      let deltaH = otherAnimal.interact(this);
       this.health += deltaH;
     }
 

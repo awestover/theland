@@ -48,9 +48,8 @@ class User {
   {
     if (this.stormlight >= this.protectorCost && this.protectors.length < maxProtectors)
     {
-      // this.stormlight -= this.protectorCost;
-      // this.addProtector();
-      alert("coming soon");
+      this.stormlight -= this.protectorCost;
+      this.addProtector();
     }
   }
 
@@ -265,6 +264,19 @@ class User {
       setTimeout(function(){user.addPredator();}, respawnTime);
     }
 
+    for (let an in this.protectors)
+    {
+      if(this.protectors[an].shouldDie())
+      {
+        this.protectors.splice(an, 1);
+        an -= 1;
+      }
+      else {
+        this.protectors[an].move();
+        this.protectors[an].pushMotion(territoryLocs[this.th]);
+      }
+    }
+
     this.addFrameStormlight();
 
     return results;
@@ -308,8 +320,8 @@ class User {
   addProtector(data)
   {
     let newProtector = new Protector({
-      "pos": randomMidish(0.5),
-      "name": "dino",
+      "pos": territoryLocs[this.th],
+      "name": "balrog",
       "username": this.name,
       "th": this.th,
       "id": this.idCt

@@ -6,7 +6,7 @@ let animal_names = {};
 animal_names["personals"] = ["sheep", "squid", "narwhal", "dog", "shark", "bear", "crab", "butterfly"];
 animal_names["preys"] = ["pizza", "cake", "chicken"];
 animal_names["predators"] = ["dino"];
-animal_names["protectors"] = [];
+animal_names["protectors"] = ["balrog"];
 let animal_txt_help = "";
 for (let i = 0; i < animal_names["personals"].length; i++){
   animal_txt_help += animal_names["personals"][i] + "(" + i + ")" + "\n";
@@ -22,9 +22,9 @@ let bgColor = [2, 124, 57];
 let angles = [0,0,0];
 let cheats = false;
 
-const rewards  = {"predators": 300, "personals": 60, "preys": 20};
+const rewards  = {"predators": 200, "personals": 60, "preys": 20, "protectors":300};
 // note level 0 is reserved for boosted state...
-const max_lvls = {"personals": 4, "predators": 1, "preys": 1};
+const max_lvls = {"personals": 4, "predators": 1, "preys": 1, "protectors": 1};
 let animal_pictures = {};
 
 const keyCodes = {"a":65, "d": 68, "s": 83, "w": 87};

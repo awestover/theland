@@ -188,7 +188,7 @@ class Animal
         }
       }
       //predators stats
-      else if (this.type == "predators" || this.type == "protector")
+      else if (this.type == "predators" || this.type == "protectors")
       {
         let colors = [color(205, 15, 226), color(66, 134, 244)];
         curY = this.drawBar(this.speed, colors[0], 5, curY);

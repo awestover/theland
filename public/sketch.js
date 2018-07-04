@@ -4,7 +4,7 @@ theland.herokuapp.com
 */
 function setup()
 {
-  
+
   for (let i in thColors)
   {
     thColors[i] = color(thColors[i]);
@@ -294,6 +294,10 @@ function handleUpdatePlayer(otherUser)
   for (let i = 0; i < otherUser.predators.length; i++)
   {
     otherUser.predators[i] = new Predator(otherUser.predators[i]);
+  }
+  for (let i = 0; i < otherUser.protectors.length; i++)
+  {
+    otherUser.protectors[i] = new Protector(otherUser.protectors[i]);
   }
   otherUsers[otherUser.name] = new User(otherUser);
 }
