@@ -39,7 +39,6 @@ class User {
     }
 
     this.idCt = user_info["isCt"] || 0;
-
     this.selectedPersonal = null;// don't need to send it over...
 
   }
@@ -147,17 +146,17 @@ class User {
     }
   }
 
-  initAnimals()
+  initAnimals(sketch)
   {
     for (let i = 0; i < 3; i++)
     {
-      setTimeout(function(){user.addPersonal();}, i*500);
+      this.addPersonal({}, sketch);
     }
     for (let i = 0; i < 7; i++)
     {
-      this.addPrey();
+      this.addPrey({}, sketch);
     }
-    this.addPredator();
+    this.addPredator({}, sketch);
   }
 
   hideStats()
@@ -171,18 +170,18 @@ class User {
     }
   }
 
-  show()
+  show(sketch)
   {
     for (let i = 0; i < allAnimals.length; i++)
     {
       for (let an=0; an<this[allAnimals[i]].length; an++)
       {
-        this[allAnimals[i]][an].show();
+        this[allAnimals[i]][an].show(sketch);
       }
     }
-    noStroke();
-  	fill(thColors[this.th]);
-  	ellipse(-this.pos[0], -this.pos[1], 10, 10);
+    sketch.noStroke();
+  	sketch.fill(thColors[this.th]);
+  	sketch.ellipse(-this.pos[0], -this.pos[1], 10, 10);
   }
 
   adjustAnimalLoc(pos)
@@ -298,7 +297,7 @@ class User {
     }
   }
 
-  addPrey(data)
+  addPrey(data, sketch)
   {
     let nameP = randomWeightedChoice(["cake", "pizza", "chicken"], [1,1,15]);
     let newPrey = new Prey({
@@ -306,8 +305,9 @@ class User {
       "name": nameP,
       "username": this.name,
       "th": this.th,
-      "id": this.idCt
-    });
+      "id": this.idCt,
+      "world": this.world
+    }, sketch);
     for (let f in data)
     {
       newPrey[f] = data[f];
@@ -317,15 +317,16 @@ class User {
     this.preys[this.preys.length-1].subPos([newPrey.dims[0]/2, newPrey.dims[1]/2]);
   }
 
-  addProtector(data)
+  addProtector(data, sketch)
   {
     let newProtector = new Protector({
       "pos": territoryLocs[this.th],
       "name": "balrog",
       "username": this.name,
       "th": this.th,
-      "id": this.idCt
-    });
+      "id": this.idCt,
+      "world": this.world
+    }, sketch);
     for (let f in data)
     {
       newProtector[f] = data[f];
@@ -335,15 +336,16 @@ class User {
     this.protectors[this.protectors.length-1].subPos([newProtector.dims[0]/2, newProtector.dims[1]/2]);
   }
 
-  addPredator(data)
+  addPredator(data, sketch)
   {
     let newPredator = new Predator({
       "pos": randomMidish(0.5),
       "name": "dino",
       "username": this.name,
       "th": this.th,
-      "id": this.idCt
-    });
+      "id": this.idCt,
+      "world": this.world
+    }, sketch);
     for (let f in data)
     {
       newPredator[f] = data[f];
@@ -353,15 +355,16 @@ class User {
     this.predators[this.predators.length-1].subPos([newPredator.dims[0]/2, newPredator.dims[1]/2]);
   }
 
-  addPersonal(data)
+  addPersonal(data, sketch)
   {
     let newPersonal = new Personal({
       "pos":this.adjustAnimalLoc(this.pos),
       "name": this.animal_type,
       "username": this.name,
       "th": this.th,
-      "id": this.idCt
-    });
+      "id": this.idCt,
+      "world": this.world
+    }, sketch);
     for (let f in data)
     {
       newPersonal[f] = data[f];

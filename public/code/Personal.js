@@ -2,9 +2,9 @@
 // the user controlled animals
 class Personal extends Animal
 {
-  constructor(animal_traits)
+  constructor(animal_traits, sketch)
   {
-    super(animal_traits);
+    super(animal_traits, sketch);
 
     this.type="personals";
     for (let stat in personal_stats[this.name]) {
@@ -33,9 +33,9 @@ class Personal extends Animal
 
   }
 
-  show()
+  show(sketch)
   {
-    super.show();
+    super.show(sketch);
     this.healthAffects();
     this.hunger += this.dHunger;
     this.age += this.dAge;
@@ -43,7 +43,7 @@ class Personal extends Animal
 
   sickDamage()
   {
-    if (this.sickPr > random())
+    if (this.sickPr > Math.random())
     {
       this.health = 0;
       // this.health = Math.floor(this.health/4);
@@ -75,7 +75,7 @@ class Personal extends Animal
   }
 
   handleCollide(otherAnimal)
-  {
+    {
     if (otherAnimal.health <= 0 || this.health <=0)
     {
       return false;
@@ -86,7 +86,7 @@ class Personal extends Animal
       this.getRepulsed(otherAnimal.pos, otherAnimal.dims);
       if (this.level < max_lvls["personals"])
       {
-        if (this.levelUpPr > random())
+        if (this.levelUpPr > Math.random())
         {
           this.levelUp();
         }
@@ -107,7 +107,7 @@ class Personal extends Animal
     if (this.health <=0)
     {
       let data = {
-        "world": user.world,
+        "world": this.world,
         "animal": otherAnimal,
         "type": "personals"
       }

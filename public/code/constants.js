@@ -41,7 +41,6 @@ const numHighscores = 3;
 let freeze=false;
 
 let socket;
-let user;
 let screen_dims;
 let canvas;
 
@@ -62,6 +61,8 @@ let thColors = [[0, 130, 200],
   [245, 130, 48],  [255, 225, 25], [145, 30, 180],
   [70, 240, 240],  [240, 50, 230], [210, 245, 60],
   [250, 190, 190], [230, 190, 255]]; //[0, 128, 128],
+
+let personalBarColors = [[66, 134, 244], [82, 232, 55], [224, 206, 13], [205, 15, 226]];
 
 const barHeight = 5;
 

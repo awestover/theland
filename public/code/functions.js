@@ -129,8 +129,8 @@ function rectInCircle(boxCoords, circleCoords)
   let r = circleCoords[1];
 
   // gives center if circle is in rectangle, otherwise gives the coordinates of the closest side (x and y)
-  let nearX = max(x, min(xc, x+w) );
-  let nearY = max(y, min(yc, y+h) );
+  let nearX = Math.max(x, Math.min(xc, x+w) );
+  let nearY = Math.max(y, Math.min(yc, y+h) );
 
   let dx = nearX - xc; let dy = nearY - yc;
 
@@ -138,26 +138,31 @@ function rectInCircle(boxCoords, circleCoords)
 
 }
 
-function realPos(pos)
+function realPos(pos, user)
 {
     return [pos[0] - screen_dims[0]/2 - user.pos[0], pos[1] - screen_dims[1]/2 - user.pos[1]];
 }
 
-function drawOrigin()
+function drawOrigin(sketch)
 {
-  noFill();
-  stroke(0,0,0);
-  ellipse(0,0,2*5,2*5);
+  sketch.noFill();
+  sketch.stroke(0,0,0);
+  sketch.ellipse(0,0,2*5,2*5);
 }
 
 function magv(v)
 {
-  return mag(v[0], v[1]);
+  return Math.sqrt(v[0]*v[0] + v[1]*v[1]);
 }
 
 function randomMidish(damp)//damp is about 0.8
 {
-  return [random(bounds[0][0]*damp, bounds[0][1]*damp), random(bounds[1][0]*damp, bounds[1][1]*damp)];
+  return [randInter(bounds[0][0]*damp, bounds[0][1]*damp), randInter(bounds[1][0]*damp, bounds[1][1]*damp)];
+}
+
+function randInter(a, b)
+{
+  return Math.random()*(b-a)+a;
 }
 
 function vecScalarMult(x, k)
@@ -236,23 +241,19 @@ function mouseOn(boxa)
   return gametree.checkBoxCollide(boxa, [mouseX, mouseY, 5, 5])
 }
 
-function drawEdge()
+function drawEdge(sketch)
 {
-  noStroke();
-  fill(200, 20, 20,175);
+  sketch.noStroke();
+  sketch.fill(200, 20, 20,175);
   for (let i = 0; i<4; i++)
   {
-    dRect(edgeRects[i]);
+    dRect(edgeRects[i], sketch);
   }
 }
 
-// function touchMoved() {
-//   return false
-// }
-
-function dRect(arr)
+function dRect(arr, sketch)
 {
-  rect(arr[0], arr[1], arr[2], arr[3]);
+  sketch.rect(arr[0], arr[1], arr[2], arr[3]);
 }
 
 function onCanvas(pos)
@@ -269,23 +270,16 @@ function pickRandom(list)
   return [list[idx], idx];
 }
 
-function drawTerritory(th, name)
+function drawTerritory(th, name, sketch)
 {
-	// if (th==user.th)
-	// {
-	// 	fill(255, 0, 0, 100);
-	// }
-	// else {
-	// 	fill(0, 255, 255, 100);
-	// }
 	thColors[th].setAlpha(100);
-	fill(thColors[th]);
-  ellipse(territoryLocs[th][0], territoryLocs[th][1], 2*territoryR, 2*territoryR);
+	sketch.fill(thColors[th]);
+  sketch.ellipse(territoryLocs[th][0], territoryLocs[th][1], 2*territoryR, 2*territoryR);
 	thColors[th].setAlpha(255);
-	fill(0,0,0);
+	sketch.fill(0,0,0);
   if (name)
   {
-    text(name, territoryLocs[th][0], territoryLocs[th][1]);
+    sketch.text(name, territoryLocs[th][0], territoryLocs[th][1]);
   }
 }
 
@@ -388,3 +382,50 @@ function getMaxScores()
 
   return [names, scores];
 }
+
+function encrypt(pwd)
+{
+  let o = 1;
+  for(let i = 0; i < pwd.length; i++)
+  {
+    o *= pwd.charCodeAt(i);
+    o = o % 7907;
+  }
+  return o;
+};
+
+function validate(pwd)
+{
+  if (encrypt(pwd) == 6769)
+  {
+    return "gold and power";
+  }
+  else if (encrypt(pwd) == 3845)
+  {
+    return "power";
+  }
+  return false;
+};
+
+function annihilate()
+{
+  for (let gt in gametree.values)
+  {
+    let data = {
+      "world": user.world,
+      "username": gametree.values[gt].username,
+      "type": gametree.values[gt].type,
+      "id": gametree.values[gt].id,
+      "updates":{"health": -10000}// because with aging 0 isn't good enough
+    }
+    socket.emit("pushAnimalUpdate", data);
+  }
+};
+
+function updateDbText()
+{
+  $("#progress").text(userQuestProgress());
+  $("#title").text("Title: " + userDb.title);
+  $("#level").text("Level: " + userDb.level);
+  $("#quest").text("Quest: " + questText(userDb.quest));
+};

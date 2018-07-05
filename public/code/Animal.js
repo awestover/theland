@@ -7,7 +7,7 @@ movement properties etc
 
 class Animal
 {
-  constructor(animal_traits)
+  constructor(animal_traits, sketch)
   {
     // basic stats
     this.pos = animal_traits["pos"].slice() || [0,0];
@@ -26,7 +26,7 @@ class Animal
     this.level = animal_traits["level"] || 1;
 
     this.type = "animals";
-    this.image = this.getImg();
+    this.image = this.getImg(sketch);
     this.boostedImage = this.getBoostedImg();
 
     this.rotated = 1; // + or - 1 for right and left (positive x vel and negative v vel)
@@ -62,12 +62,12 @@ class Animal
     }
   }
 
-  getImg()
+  getImg(sketch)
   {
-    try{
+    try {
       if (!animal_pictures[this.name+this.level])
       {
-        animal_pictures[this.name+this.level] = loadImage("pictures/"+this.name+this.level+".png");
+        animal_pictures[this.name+this.level] = sketch.loadImage("pictures/"+this.name+this.level+".png");
       }
       return animal_pictures[this.name+this.level];
     }
@@ -80,6 +80,10 @@ class Animal
   getRepulsed(pos, dims)
   {
     let diffs = [(pos[0]+dims[0]/2) - (this.pos[0]+this.dims[0]/2), (pos[1]+dims[1]/2) - (this.pos[1]+this.dims[1]/2)];
+    if (magv(diffs) < 0.0001)
+    {
+      diffs = [Math.random()*0.1, Math.random()*0.1];
+    }
     diffs = vecScalarMult(diffs, -this.speed/magv(diffs));
     this.addPos(diffs);
   }
@@ -119,60 +123,60 @@ class Animal
     this.move(); // slightly alter current trajectory
   }
 
-  statsConfigText()
+  statsConfigText(sketch)
   {
-    stroke(0,0,0);
-    strokeWeight(0.5);
-    fill(0,0,0);
-    textSize(12);
+    sketch.stroke(0,0,0);
+    sketch.strokeWeight(0.5);
+    sketch.fill(0,0,0);
+    sketch.textSize(12);
   }
 
   pStats(pp)
   {
     if (this.showStats)
     {
-      this.statsConfigText();
+      this.statsConfigText(sketch);
       let ctx = "Name: "  +  this.name;
       ctx += "\n" + "Level: " + this.level;
       text(ctx, pp[0]+this.dims[0]/2, pp[1]+1.3*this.dims[1]);
     }
   }
 
-  drawBar(size, clr, perRow, curY)
+  drawBar(sketch, size, clr, perRow, curY)
   {
-    noStroke();
-    fill(clr);
+    sketch.noStroke();
+    sketch.fill(clr);
     let nrs = Math.floor(size/perRow);
     if (nrs>0)
     {
       curY -= barHeight*nrs;
-      rect(-this.dims[0]/2, -this.dims[1]/2 + curY, this.dims[0], barHeight*nrs);
+      sketch.rect(-this.dims[0]/2, -this.dims[1]/2 + curY, this.dims[0], barHeight*nrs);
     }
     if ((size%perRow) != 0)
     {
       curY -= barHeight;
-      rect(-this.dims[0]/2, -this.dims[1]/2 + curY, this.dims[0]*((size%perRow)/perRow), barHeight);
+      sketch.rect(-this.dims[0]/2, -this.dims[1]/2 + curY, this.dims[0]*((size%perRow)/perRow), barHeight);
     }
 
     return curY;
   }
 
-  show()
+  show(sketch)
   {
     if (this.health>0)
     {
-      push();
-      translate(this.pos[0]+this.dims[0]/2, this.pos[1]+this.dims[1]/2);
+      sketch.push();
+      sketch.translate(this.pos[0]+this.dims[0]/2, this.pos[1]+this.dims[1]/2);
 
       this.pStats([-this.dims[0]/2, -this.dims[1]/2]);
 
       let space = 0;
       let curY;
       //health bar
-      curY = this.drawBar(this.health, color(200,50,50), 20, -2*barHeight);
+      curY = this.drawBar(sketch, this.health, sketch.color(200,50,50), 20, -2*barHeight);
       if (this.showStats)
       {
-        this.statsConfigText();
+        this.statsConfigText(sketch);
         text("Health: " + this.health.toFixed(2), this.dims[0]*1.1, curY-this.dims[1]/2-space);
         space += 10;
       }
@@ -180,19 +184,19 @@ class Animal
       //preys stats
       if (this.type == "preys")
       {
-        let colors = [color(253, 106, 2), color(249, 241, 157)];
+        let colors = [sketch.color(253, 106, 2), sketch.color(249, 241, 157)];
         let titles = ["health", "hunger"];
         for (let i = 0; i < titles.length; i++)
         {
-          curY = this.drawBar(Math.abs(this.help[titles[i]]), colors[i], 5, curY);
+          curY = this.drawBar(sketch, Math.abs(this.help[titles[i]]), colors[i], 5, curY);
         }
       }
       //predators stats
       else if (this.type == "predators" || this.type == "protectors")
       {
-        let colors = [color(205, 15, 226), color(66, 134, 244)];
-        curY = this.drawBar(this.speed, colors[0], 5, curY);
-        curY = this.drawBar(this.power, colors[1], 5, curY);
+        let colors = [sketch.color(205, 15, 226), sketch.color(66, 134, 244)];
+        curY = this.drawBar(sketch, this.speed, colors[0], 5, curY);
+        curY = this.drawBar(sketch, this.power, colors[1], 5, curY);
       }
       // user stats
       else if (this.type == "personals")
@@ -200,40 +204,40 @@ class Animal
         //bars
         let titles = ["Strength: ", "Age: ", "Hunger: ", "Speed: "]
         let stats = [this.strength, this.age, this.hunger, this.speed];
-        let colors = [color(66, 134, 244), color(82, 232, 55), color(224, 206, 13), color(205, 15, 226)];
         for (let i = 0; i < stats.length; i++)
         {
-          curY = this.drawBar(stats[i], colors[i], 5, curY);
+          curY = this.drawBar(sketch, stats[i], personalBarColors[i], 5, curY);
           if (this.showStats)
           {
-            this.statsConfigText();
+            this.statsConfigText(sketch);
             text(titles[i] + stats[i].toFixed(2), this.dims[0]*1.1, curY-this.dims[1]/2-space);
             space += 10;
           }
         }
 
-        noFill();
-        stroke(thColors[this.th]);
-        strokeWeight(3);
-        ellipse(0, 0, this.dims[0]*1.3, this.dims[1]*1.3);
+        sketch.noFill();
+        sketch.stroke(thColors[this.th]);
+        sketch.strokeWeight(3);
+        sketch.ellipse(0, 0, this.dims[0]*1.3, this.dims[1]*1.3);
       }
 
-      scale(this.rotated,1);
+      sketch.scale(this.rotated,1);
       try
       {
         if (!this.boosted)
         {
-          image(this.image, -this.dims[0]/2, -this.dims[1]/2);
+          sketch.image(this.image, -this.dims[0]/2, -this.dims[1]/2);
         }
         else {
-          image(this.boostedImage, -this.dims[0]/2, -this.dims[1]/2);
+          sketch.image(this.boostedImage, -this.dims[0]/2, -this.dims[1]/2);
         }
       }
       catch(err)
       {
-        ellipse(-this.dims[0]/2, -this.dims[1]/2, this.dims[0], this.dims[1]);
+        sketch.fill(0,0,0);
+        sketch.ellipse(0, 0, this.dims[0], this.dims[1]);
       }
-      pop();
+      sketch.pop();
     }
     else {
       console.log("this.health=0 in an Animal... a bit sketchy");

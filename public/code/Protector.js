@@ -2,9 +2,9 @@
 // this can eat stuff, but won't eat everything
 class Protector extends Animal
 {
-  constructor(animal_traits)
+  constructor(animal_traits, sketch)
   {
-    super(animal_traits);
+    super(animal_traits, sketch);
     this.type="protectors";
     for (let stat in protector_stats[this.name]) {
       this[stat] = animal_traits[stat] || protector_stats[this.name][stat];
@@ -13,11 +13,6 @@ class Protector extends Animal
     this.vel = this.randomHeading(this.speed);
     this.health = animal_traits["health"] || Math.floor((2*random()+1)*200);
     this.dims=[75,100];
-  }
-
-  show()
-  {
-    super.show();
   }
 
   handleCollide(otherAnimal)
@@ -33,7 +28,7 @@ class Protector extends Animal
       if (this.health <= 0)
       {
         let data = {
-          "world": user.world,
+          "world": this.world,
           "animal": otherAnimal,
           "type": "protectors"
         }
