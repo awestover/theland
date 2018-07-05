@@ -131,7 +131,7 @@ class Animal
     sketch.textSize(12);
   }
 
-  pStats(pp)
+  pStats(pp, sketch)
   {
     if (this.showStats)
     {
@@ -168,7 +168,7 @@ class Animal
       sketch.push();
       sketch.translate(this.pos[0]+this.dims[0]/2, this.pos[1]+this.dims[1]/2);
 
-      this.pStats([-this.dims[0]/2, -this.dims[1]/2]);
+      this.pStats([-this.dims[0]/2, -this.dims[1]/2], sketch);
 
       let space = 0;
       let curY;

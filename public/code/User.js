@@ -172,9 +172,9 @@ class User {
 
   show(sketch)
   {
-    for (let i = 0; i < allAnimals.length; i++)
+    for (let i in allAnimals)
     {
-      for (let an=0; an<this[allAnimals[i]].length; an++)
+      for (let an in this[allAnimals[i]])
       {
         this[allAnimals[i]][an].show(sketch);
       }

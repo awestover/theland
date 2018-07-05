@@ -64,18 +64,18 @@ class Personal extends Animal
       return -this.strength;
   }
 
-  levelUp()
+  levelUp(sketch)
   {
     this.level += 1;
     this.strength += 0.5;
     this.health += 5;
     this.deadHunger += 1;
     this.speed += 0.5;
-    this.image = this.getImg();
+    this.image = this.getImg(sketch);
   }
 
-  handleCollide(otherAnimal)
-    {
+  handleCollide(otherAnimal, sketch)
+  {
     if (otherAnimal.health <= 0 || this.health <=0)
     {
       return false;
@@ -88,7 +88,7 @@ class Personal extends Animal
       {
         if (this.levelUpPr > Math.random())
         {
-          this.levelUp();
+          this.levelUp(sketch);
         }
       }
     }

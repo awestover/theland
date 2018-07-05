@@ -129,7 +129,7 @@ sketch.draw = function()
 
   for (let key in otherUsers)
   {
-    otherUsers[key].show();
+    otherUsers[key].show(sketch);
     gametree.insertUser(otherUsers[key]);
   }
 
@@ -166,8 +166,8 @@ sketch.draw = function()
       dRect(gcs[0].getBox(), sketch);
       dRect(gcs[1].getBox(), sketch);
     }
-    gcs[0].handleCollide(gcs[1]);
-    gcs[1].handleCollide(gcs[0]);
+    gcs[0].handleCollide(gcs[1], sketch);
+    gcs[1].handleCollide(gcs[0], sketch);
   }
 
   let tCollisions = gametree.getTerritoryCollisions()
@@ -519,33 +519,24 @@ sketch.handleDeath = function(alldata)
 
 sketch.handleUpdatePlayer = function(otherUser)
 {
-  let types = [Personal, Prey, Predator, Protector];
-  for (let i in allAnimals)
+  for (let i = 0; i < otherUser.personals.length; i++)
   {
-    for (let j in otherUsers[allAnimals[i]])
-    {
-      otherUser[allAnimals[i]][j] = new types[i](otherUser[allAnimals[i]][j], sketch);
-    }
+    otherUser.personals[i] = new Personal(otherUser.personals[i], sketch);
   }
-  // for (let i = 0; i < otherUser.personals.length; i++)
-  // {
-  //   otherUser.personals[i] = new Personal(otherUser.personals[i]);
-  // }
-  // for (let i = 0; i < otherUser.preys.length; i++)
-  // {
-  //   otherUser.preys[i] = new Prey(otherUser.preys[i]);
-  // }
-  // for (let i = 0; i < otherUser.predators.length; i++)
-  // {
-  //   otherUser.predators[i] = new Predator(otherUser.predators[i]);
-  // }
-  // for (let i = 0; i < otherUser.protectors.length; i++)
-  // {
-  //   otherUser.protectors[i] = new Protector(otherUser.protectors[i]);
-  // }
+  for (let i = 0; i < otherUser.preys.length; i++)
+  {
+    otherUser.preys[i] = new Prey(otherUser.preys[i], sketch);
+  }
+  for (let i = 0; i < otherUser.predators.length; i++)
+  {
+    otherUser.predators[i] = new Predator(otherUser.predators[i], sketch);
+  }
+  for (let i = 0; i < otherUser.protectors.length; i++)
+  {
+    otherUser.protectors[i] = new Protector(otherUser.protectors[i], sketch);
+  }
   otherUsers[otherUser.name] = new User(otherUser);
 };
-
 
 });
 

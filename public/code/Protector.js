@@ -15,7 +15,7 @@ class Protector extends Animal
     this.dims=[75,100];
   }
 
-  handleCollide(otherAnimal)
+  handleCollide(otherAnimal, sketch)
   {
     if (this.health <= 0 || otherAnimal.health <=0)
     {

@@ -23,7 +23,7 @@ class Predator extends Animal
     sketch.ellipse(this.pos[0]+this.dims[0]/2, this.pos[1]+this.dims[1]/2, this.sightR*2, this.sightR*2);
   }
 
-  handleCollide(otherAnimal)
+  handleCollide(otherAnimal, sketch)
   {
     if (this.health <= 0 || otherAnimal.health <=0)
     {
