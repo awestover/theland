@@ -600,6 +600,43 @@ sketch.sendText = function(txt)
   socket.emit("textSent", data);
 };
 
+sketch.getMaxScores = function()
+{
+  // might have a problem if there is a tie... could give bonus for being on board, might work...
+  let scores = [];
+  let names = [];
+  let userName; let maxScore;
+  for (let i = 0; i < numHighscores; i++)
+  {
+    if(!valInArr(names, user.name))
+    {
+      userName = user.name;
+      maxScore = user.getScore();
+    }
+    else {
+      userName = "NONE";
+      maxScore = -1;
+    }
+
+    for (let ou in otherUsers)
+    {
+      if (!valInArr(names, ou))
+      {
+        if (otherUsers[ou].getScore() > maxScore)
+        {
+          maxScore = otherUsers[ou].getScore();
+          userName = ou;
+        }
+      }
+    }
+
+    names.push(userName);
+    scores.push(maxScore);
+  }
+
+  return [names, scores];
+};
+
 });
 
 function killUser()

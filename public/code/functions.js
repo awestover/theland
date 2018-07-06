@@ -320,7 +320,7 @@ function showMaxScores(sketch)
   sketch.rect(tx, ty, scoreWidth, 60*(numHighscores));
   sketch.fill(0,0,0);
 	let dy = 50;
-  let nameScores = getMaxScores();
+  let nameScores = myp5.getMaxScores();
   let ctxt;
   for (let i = 0; i < numHighscores; i++)
   {
@@ -332,43 +332,6 @@ function showMaxScores(sketch)
     ctxt = nameScores[0][i] + ": " + nameScores[1][i];
     sketch.text(ctxt, tx, ty+(i+1)*dy, scoreWidth, dy);
   }
-}
-
-function getMaxScores()
-{
-  // might have a problem if there is a tie... could give bonus for being on board, might work...
-  let scores = [];
-  let names = [];
-  let userName; let maxScore;
-  for (let i = 0; i < numHighscores; i++)
-  {
-    if(!valInArr(names, user.name))
-    {
-      userName = user.name;
-      maxScore = user.getScore();
-    }
-    else {
-      userName = "NONE";
-      maxScore = -1;
-    }
-
-    for (let ou in otherUsers)
-    {
-      if (!valInArr(names, ou))
-      {
-        if (otherUsers[ou].getScore() > maxScore)
-        {
-          maxScore = otherUsers[ou].getScore();
-          userName = ou;
-        }
-      }
-    }
-
-    names.push(userName);
-    scores.push(maxScore);
-  }
-
-  return [names, scores];
 }
 
 function encrypt(pwd)
