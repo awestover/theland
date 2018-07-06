@@ -19,6 +19,7 @@ class Animal
     this.username = animal_traits["username"] || "NPC";
     this.th = animal_traits["th"] || 0;
     this.id = animal_traits["id"] || 0;
+    this.world = animal_traits["world"] || "World";
 
     this.dims = [66,50];
     this.showStats = false; //  animal_traits["showStats"] ||
