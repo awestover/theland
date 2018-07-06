@@ -311,7 +311,7 @@ sketch.keyPressed = function()
   switch(lk)
   {
     case 'b':
-      user.buyAnimal();
+      user.buyAnimal(sketch);
       break;
     case 't':
       user.toggleAttractAnimals();

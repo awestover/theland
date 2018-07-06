@@ -377,12 +377,12 @@ class User {
     this.setAnimalsText();
   }
 
-  buyAnimal()
+  buyAnimal(sketch)
   {
     if (this.stormlight >= this.cost && this.personals.length < maxAnimals)
     {
       this.stormlight -= this.cost;
-      this.addPersonal();
+      this.addPersonal({}, sketch);
     }
   }
 
