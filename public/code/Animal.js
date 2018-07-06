@@ -171,7 +171,7 @@ class Animal
       if (this.showStats)
       {
         this.statsConfigText(sketch);
-        text("Health: " + this.health.toFixed(2), this.dims[0]*1.1, curY-this.dims[1]/2-space);
+        sketch.text("Health: " + this.health.toFixed(2), this.dims[0]*1.1, curY-this.dims[1]/2-space);
         space += 10;
       }
 
@@ -204,7 +204,7 @@ class Animal
           if (this.showStats)
           {
             this.statsConfigText(sketch);
-            text(titles[i] + stats[i].toFixed(2), this.dims[0]*1.1, curY-this.dims[1]/2-space);
+            sketch.text(titles[i] + stats[i].toFixed(2), this.dims[0]*1.1, curY-this.dims[1]/2-space);
             space += 10;
           }
         }
