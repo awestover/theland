@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "A fun multiplayer game",
   "engines": {
-    "node": "8.11.2"
+    "node": "8.11.2",
+    "npm" : "6.1.0"
   },
   "main": "index.js",
   "scripts": {
