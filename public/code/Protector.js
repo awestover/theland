@@ -11,7 +11,7 @@ class Protector extends Animal
     }
 
     this.vel = this.randomHeading(this.speed);
-    this.health = animal_traits["health"] || Math.floor((2*random()+1)*200);
+    this.health = animal_traits["health"] || Math.floor((2*Math.random()+1)*200);
     this.dims=[75,100];
   }
 
