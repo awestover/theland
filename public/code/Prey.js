@@ -35,7 +35,6 @@ class Prey extends Animal
         "animal": otherAnimal,
         "type": "preys"
       };
-      console.log(this.world);
       socket.emit('deathAlert', data);
     }
 

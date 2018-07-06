@@ -469,9 +469,8 @@ class User {
     this.setStormlightText();
 
     let col = type + "_killed";
-    console.log(col);
     if(userDb) {
-      console.log("update userDb");
+      console.log("update userDb " ++ col);
       userDb[col] += 1;
       updateDbText();
       socket.emit("updateAchievments", {"unm": this.name, "col": col, "newVal": userDb[col]});

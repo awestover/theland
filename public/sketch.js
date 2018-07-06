@@ -500,7 +500,6 @@ sketch.handlePushedAnimalUpdate = function(data)
 sketch.handleDeath = function(alldata)
 {
   let data = alldata["animal"];
-  console.log("death triggered");
   if (data["username"] == user.name)
   {
     if (data["type"] == "personals")
