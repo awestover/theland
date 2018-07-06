@@ -476,7 +476,7 @@ class User {
       updateDbText();
       socket.emit("updateAchievments", {"unm": this.name, "col": col, "newVal": userDb[col]});
       if (questComplete()) {
-        handleQuestCopmlete();
+        myp5.handleQuestComplete();
       }
     }
   }

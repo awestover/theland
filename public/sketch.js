@@ -454,7 +454,7 @@ sketch.touchStarted = function()
   isDown = true;
 };
 
-sketch.handleQuestCopmlete = function()
+sketch.handleQuestComplete = function()
 {
   if (userDb.quest>-1)
   {
