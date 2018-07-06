@@ -39,7 +39,7 @@ sketch.setup = function()
   {
     soundWanted = true;
     if (soundWanted) {
-      song = loadSound("pictures/song.m4a", songLoaded);
+      song = sketch.loadSound("pictures/song.m4a", songLoaded);
     }
   }
   else {
