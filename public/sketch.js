@@ -549,6 +549,31 @@ sketch.handleSelectedData = function(data)
   }
 };
 
+sketch.feedHungry = function()
+{
+  user.feedHungry();
+}
+sketch.upgradeSelected = function()
+{
+  user.upgradeSelected();
+}
+sketch.toggleAttractAnimals = function()
+{
+  user.toggleAttractAnimals();
+}
+sketch.toggleStatsAll = function()
+{
+  user.toggleStatsAll();
+}
+sketch.buyAnimal = function()
+{
+  user.buyAnimal();
+}
+sketch.buyProtector = function()
+{
+  user.buyProtector();
+}
+
 });
 
 function killUser()
