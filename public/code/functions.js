@@ -47,11 +47,11 @@ function sendText(txt)
   });
 }
 
-function songLoaded(sketch)
+function songLoaded()
 {
-	sketch.song.setVolume(0.3);
-	sketch.song.rate(random(0.7, 1.2));
-	sketch.song.loop();
+	song.setVolume(0.3);
+	song.rate(random(0.7, 1.2));
+	song.loop();
 }
 
 function userDbToTxt()
