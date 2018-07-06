@@ -48,7 +48,7 @@ class User {
     if (this.stormlight >= this.protectorCost && this.protectors.length < maxProtectors)
     {
       this.stormlight -= this.protectorCost;
-      this.addProtector(sketch);
+      this.addProtector({}, sketch);
     }
   }
 
