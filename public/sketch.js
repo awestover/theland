@@ -549,9 +549,7 @@ sketch.handleSelectedData = function(data)
   }
 };
 
-
 });
-
 
 function killUser()
 {
