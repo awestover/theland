@@ -68,7 +68,7 @@ class User {
       {
         if (otherUsers[unm].th == th)
         {
-          user.stormlight += otherUsers[unm].stormlight;
+          this.stormlight += otherUsers[unm].stormlight;
           $.notify("territory occupation achieved, \nrecieved " +
             otherUsers[unm].stormlight+" stormlight from User " + unm,
             {"style":"occupation"});
