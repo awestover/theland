@@ -589,6 +589,15 @@ sketch.annihilate = function()
   }
 };
 
+sketch.sendText = function(txt)
+{
+  data = {
+    "world": user.world,
+    "txt": txt + " - " + user.name
+  }
+  $.notify(data["txt"], {style: 'message'});
+  socket.emit("textSent", data);
+};
 
 });
 

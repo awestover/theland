@@ -37,33 +37,21 @@ function randomWeightedChoice(arr, weights)
       return arr[i];
     }
   }
-}
+};
 
 function sendText(txt)
 {
-  let data;
-  if (user)
-  {
-    data = {
-      "world": user.world,
-      "txt": txt + " - " + user.name
-    }
-    $.notify(data["txt"], {style: 'message'});
-  }
-  else {
-    data = {
-      "world": "home",
-      "txt": txt + " - home"
-    }
-  }
-  socket.emit("textSent", data);
+  socket.emit("textSent", {
+    "world": "home",
+    "txt": txt + " - home"
+  });
 }
 
-function songLoaded()
+function songLoaded(sketch)
 {
-	song.setVolume(0.3);
-	song.rate(random(0.7, 1.2));
-	song.loop();
+	sketch.song.setVolume(0.3);
+	sketch.song.rate(random(0.7, 1.2));
+	sketch.song.loop();
 }
 
 function userDbToTxt()
