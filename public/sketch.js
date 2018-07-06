@@ -267,12 +267,7 @@ sketch.draw = function()
         }
       }, 180000);
       gameOverPending = true;
-    }
-    if (user.stormlight > 100000 || user.personals.length > 100)
-    {
-      alert("I think you are a cheater. more sofisticated test coming soon")
-      killUser();
-    }
+    };
   }
 };
 
