@@ -43,12 +43,12 @@ class User {
 
   }
 
-  buyProtector()
+  buyProtector(sketch)
   {
     if (this.stormlight >= this.protectorCost && this.protectors.length < maxProtectors)
     {
       this.stormlight -= this.protectorCost;
-      this.addProtector();
+      this.addProtector(sketch);
     }
   }
 

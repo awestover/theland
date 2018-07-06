@@ -572,7 +572,7 @@ sketch.buyAnimal = function()
 };
 sketch.buyProtector = function()
 {
-  user.buyProtector();
+  user.buyProtector(sketch);
 };
 
 sketch.annihilate = function()
