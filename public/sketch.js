@@ -500,6 +500,7 @@ sketch.handlePushedAnimalUpdate = function(data)
 sketch.handleDeath = function(alldata)
 {
   let data = alldata["animal"];
+  console.log("death triggered");
   if (data["username"] == user.name)
   {
     if (data["type"] == "personals")
@@ -508,7 +509,6 @@ sketch.handleDeath = function(alldata)
       {
         if (user[data["type"]][an].id == data["id"])
         {
-          console.log("triggered");
           user.triggerReward(alldata["type"]);
           return true;
         }
