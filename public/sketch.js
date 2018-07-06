@@ -351,10 +351,14 @@ sketch.keyPressed = function()
         user.selectedPersonal = user.personals[0];
         user.selectedPersonal.showStats = !user.selectedPersonal.showStats;
       }
-
+      
       break;
 
-  }
+    case 'z':
+      user.buyProtector(sketch);
+      break;
+
+  };
   if (cheats)
   {
     if (lk=='l')
