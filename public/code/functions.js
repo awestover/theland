@@ -50,7 +50,7 @@ function sendText(txt)
 function songLoaded()
 {
 	song.setVolume(0.3);
-	song.rate(random(0.7, 1.2));
+	song.rate(randInter(0.7, 1.2));
 	song.loop();
 }
 
