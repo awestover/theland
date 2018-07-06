@@ -132,7 +132,7 @@ class Animal
       this.statsConfigText(sketch);
       let ctx = "Name: "  +  this.name;
       ctx += "\n" + "Level: " + this.level;
-      text(ctx, pp[0]+this.dims[0]/2, pp[1]+1.3*this.dims[1]);
+      sketch.text(ctx, pp[0]+this.dims[0]/2, pp[1]+1.3*this.dims[1]);
     }
   }
 
