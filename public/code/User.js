@@ -134,14 +134,14 @@ class User {
     }
   }
 
-  upgradeSelected()
+  upgradeSelected(sketch)
   {
     if (this.validateSelected())
     {
       if (this.stormlight >= this.upgradeCost)
       {
         this.stormlight -= this.upgradeCost;
-        this.selectedPersonal.levelUp();
+        this.selectedPersonal.levelUp(sketch);
       }
     }
   }

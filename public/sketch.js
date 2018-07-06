@@ -323,7 +323,7 @@ sketch.keyPressed = function()
       user.feedHungry();
       break;
     case 'u':
-      user.upgradeSelected();
+      user.upgradeSelected(sketch);
       break;
     case 'g':
       user.toggleStatsAll();
@@ -556,7 +556,7 @@ sketch.feedHungry = function()
 };
 sketch.upgradeSelected = function()
 {
-  user.upgradeSelected();
+  user.upgradeSelected(sketch);
 };
 sketch.toggleAttractAnimals = function()
 {
