@@ -469,7 +469,7 @@ sketch.handleQuestComplete = function()
 
   if(questComplete()) // they might already be done with the next quest too...
   {
-    sketch.handleQuestCopmlete();
+    sketch.handleQuestComplete();
   }
 };
 
@@ -537,7 +537,7 @@ sketch.handleSelectedData = function(data)
 {
   userDb = data[0];
   if (questComplete()) {
-    sketch.handleQuestCopmlete();
+    sketch.handleQuestComplete();
   }
   else {
     updateDbText();
