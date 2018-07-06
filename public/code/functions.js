@@ -316,9 +316,9 @@ function showMaxScores()
   // let tx = screen_dims[0]*0.2;
 	let tx = screen_dims[0]/2-scoreWidth*1.2;
   let ty = -0.45*screen_dims[1];
-  fill(10,10,10,50);
-  rect(tx, ty, scoreWidth, 60*(numHighscores));
-  fill(0,0,0);
+  sketch.fill(10,10,10,50);
+  sketch.rect(tx, ty, scoreWidth, 60*(numHighscores));
+  sketch.fill(0,0,0);
 	let dy = 50;
   let nameScores = getMaxScores();
   let ctxt;
@@ -330,7 +330,7 @@ function showMaxScores()
       nameScores[1][i] = -1;
     }
     ctxt = nameScores[0][i] + ": " + nameScores[1][i];
-    text(ctxt, tx, ty+(i+1)*dy, scoreWidth, dy);
+    sketch.text(ctxt, tx, ty+(i+1)*dy, scoreWidth, dy);
   }
 }
 

@@ -246,7 +246,7 @@ sketch.draw = function()
   }
   if(scoresVisible)
   {
-    showMaxScores();
+    showMaxScores(sketch);
   }
 
   if(gameOver)
