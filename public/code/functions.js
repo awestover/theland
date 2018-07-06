@@ -407,21 +407,6 @@ function validate(pwd)
   return false;
 };
 
-function annihilate()
-{
-  for (let gt in gametree.values)
-  {
-    let data = {
-      "world": user.world,
-      "username": gametree.values[gt].username,
-      "type": gametree.values[gt].type,
-      "id": gametree.values[gt].id,
-      "updates":{"health": -10000}// because with aging 0 isn't good enough
-    }
-    socket.emit("pushAnimalUpdate", data);
-  }
-};
-
 function updateDbText()
 {
   $("#progress").text(userQuestProgress());

@@ -372,7 +372,7 @@ sketch.keyPressed = function()
     }
     else if (lk=='h')
     {
-      annihilate();
+      sketch.annihilate();
     }
     else if(lk=='i') // togle invincibility
     {
@@ -552,27 +552,43 @@ sketch.handleSelectedData = function(data)
 sketch.feedHungry = function()
 {
   user.feedHungry();
-}
+};
 sketch.upgradeSelected = function()
 {
   user.upgradeSelected();
-}
+};
 sketch.toggleAttractAnimals = function()
 {
   user.toggleAttractAnimals();
-}
+};
 sketch.toggleStatsAll = function()
 {
   user.toggleStatsAll();
-}
+};
 sketch.buyAnimal = function()
 {
   user.buyAnimal();
-}
+};
 sketch.buyProtector = function()
 {
   user.buyProtector();
-}
+};
+
+sketch.annihilate = function()
+{
+  for (let gt in gametree.values)
+  {
+    let data = {
+      "world": user.world,
+      "username": gametree.values[gt].username,
+      "type": gametree.values[gt].type,
+      "id": gametree.values[gt].id,
+      "updates":{"health": -10000}// because with aging 0 isn't good enough
+    }
+    socket.emit("pushAnimalUpdate", data);
+  }
+};
+
 
 });
 
