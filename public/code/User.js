@@ -61,7 +61,7 @@ class User {
     }
 
     this.occupations[th] = setTimeout(function() {
-      socket.emit('occupied', {"killth": th, "world": user.world});
+      socket.emit('occupied', {"killth": th, "world": this.world});
 
       // get the stormlight of the defeated user
       for (let unm in otherUsers)
@@ -260,7 +260,8 @@ class User {
     for(let i = 0; i < predatorsKilled; i++)
     {
       let respawnTime = 6000;
-      setTimeout(function(){user.addPredator();}, respawnTime);
+      let cc = this;
+      setTimeout(function(){cc.addPredator();}, respawnTime);
     }
 
     for (let an in this.protectors)

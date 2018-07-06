@@ -64,17 +64,11 @@ class Animal
 
   getImg(sketch)
   {
-    try {
-      if (!animal_pictures[this.name+this.level])
-      {
-        animal_pictures[this.name+this.level] = sketch.loadImage("pictures/"+this.name+this.level+".png");
-      }
-      return animal_pictures[this.name+this.level];
-    }
-    catch(err)
+    if (!animal_pictures[this.name+this.level])
     {
-      return false;
+      animal_pictures[this.name+this.level] = sketch.loadImage("pictures/"+this.name+this.level+".png");
     }
+    return animal_pictures[this.name+this.level];
   }
 
   getRepulsed(pos, dims)
@@ -222,20 +216,12 @@ class Animal
       }
 
       sketch.scale(this.rotated,1);
-      try
+      if (!this.boosted)
       {
-        if (!this.boosted)
-        {
-          sketch.image(this.image, -this.dims[0]/2, -this.dims[1]/2);
-        }
-        else {
-          sketch.image(this.boostedImage, -this.dims[0]/2, -this.dims[1]/2);
-        }
+        sketch.image(this.image, -this.dims[0]/2, -this.dims[1]/2);
       }
-      catch(err)
-      {
-        sketch.fill(0,0,0);
-        sketch.ellipse(0, 0, this.dims[0], this.dims[1]);
+      else {
+        sketch.image(this.boostedImage, -this.dims[0]/2, -this.dims[1]/2);
       }
       sketch.pop();
     }
