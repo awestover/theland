@@ -241,7 +241,7 @@ class User {
     }
     for(let i=0; i < preysKilled; i++)
     {
-      this.addPrey();
+      this.addPrey({}, sketch);
     }
 
     let predatorsKilled=0;
