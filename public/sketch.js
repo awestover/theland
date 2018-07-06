@@ -222,7 +222,7 @@ sketch.draw = function()
 
   sketch.pop();
 
-  user.update();
+  user.update(sketch);
   socket.emit("updatePlayer", user);
 
   //handle drag

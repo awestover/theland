@@ -189,7 +189,7 @@ class User {
     return [-pos[0], -pos[1]];
   }
 
-  update()
+  update(sketch)
   {
     if (freeze){
       return false;
@@ -223,7 +223,7 @@ class User {
 
     for (let i = 0; i < results.length; i++)
     {
-      this.addPersonal(results[i]);
+      this.addPersonal(results[i], sketch);
     }
 
     let preysKilled=0;
