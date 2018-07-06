@@ -311,7 +311,7 @@ function calculateEdge()
   return brs;
 }
 
-function showMaxScores()
+function showMaxScores(sketch)
 {
   // let tx = screen_dims[0]*0.2;
 	let tx = screen_dims[0]/2-scoreWidth*1.2;
