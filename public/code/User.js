@@ -470,7 +470,7 @@ class User {
 
     let col = type + "_killed";
     if(userDb) {
-      console.log("update userDb " ++ col);
+      console.log("update userDb " + col);
       userDb[col] += 1;
       updateDbText();
       socket.emit("updateAchievments", {"unm": this.name, "col": col, "newVal": userDb[col]});
