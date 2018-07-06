@@ -53,7 +53,7 @@ sketch.setup = function()
   socket.on('worldChosen', sketch.handleWorldChosen);
   socket.on('pushedAnimalUpdate', sketch.handlePushedAnimalUpdate);
   socket.on('death', sketch.handleDeath);
-  socket.on('selectedData', handleSelectedData);
+  socket.on('selectedData', sketch.handleSelectedData);
   if (userValues["chatWanted"]=="on")
   {
     socket.on('textIncoming', handleTextIncoming);
@@ -454,7 +454,7 @@ sketch.touchStarted = function()
   isDown = true;
 };
 
-function handleQuestCopmlete()
+sketch.handleQuestCopmlete = function()
 {
   if (userDb.quest>-1)
   {
@@ -474,7 +474,7 @@ function handleQuestCopmlete()
 
   if(questComplete()) // they might already be done with the next quest too...
   {
-    handleQuestCopmlete();
+    sketch.handleQuestCopmlete();
   }
 };
 
@@ -538,6 +538,18 @@ sketch.handleUpdatePlayer = function(otherUser)
   otherUsers[otherUser.name] = new User(otherUser);
 };
 
+sketch.handleSelectedData = function(data)
+{
+  userDb = data[0];
+  if (questComplete()) {
+    sketch.handleQuestCopmlete();
+  }
+  else {
+    updateDbText();
+  }
+};
+
+
 });
 
 
@@ -558,17 +570,6 @@ function handleDeletePlayer(data)
   console.log("deleting " + data["name"]);
   delete otherUsers[data["name"]];
   // splice(x, 1) to remove element
-};
-
-function handleSelectedData(data)
-{
-  userDb = data[0];
-  if (questComplete()) {
-    handleQuestCopmlete();
-  }
-  else {
-    updateDbText();
-  }
 };
 
 // accelerometer Data
