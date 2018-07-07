@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # node
 node_modules/
 =======
@@ -170,4 +169,4 @@ ENV/
 
 # mypy
 .mypy_cache/
->>>>>>> 35776b44ec80cafd2391292030169b777350b06d
+
