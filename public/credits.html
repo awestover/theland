@@ -1,8 +1,6 @@
 
 <!DOCTYPE html>
 <html>
-<!-- fix
-add molly -->
 <head>
   <!-- resize -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -29,18 +27,20 @@ add molly -->
 <p id="credits">Note, I am sorry that this is not an exhaustive list.</p>
 <script>
 titles = ["Person", "Help"];
-keys = ['Alek Westover', 'Molly Smith', "Rand al'Thor", 'Nathan Shefield', 'Walter Shen','Brandon Westover',
-  'Eli Barnes', "Stephan Donaldson", "Brandon Sanderson", "Caroline"];
+keys = ['Alek Westover', 'Molly Smith', "Rand al'Thor", 'Nathan Shefield',
+'Walter Shen','Brandon Westover', 'Eli Barnes', "Stephan Donaldson",
+"Brandon Sanderson", "Caroline", "Kevin"];
 responses = ['He wrote the entire game and stuff',
-  'Drew a sheep',
-  "Rand randomly draws higher level animals",
+  'Drew a sheep and some other stuff too.',
+  "Rand randomly draws higher level animals.",
   'Nathan played the game for 24 hours straight to convince me to switch the scoring mechanism. He also noticed the infinite pizza glitch.',
-  'He made a drawing similar to the butterfly (bigger, different color scheme etc, it was for the endgame game... that totally worked... maybe... opencv)',
+  'He made a drawing similar to the butterfly, inspirational (bigger, different color scheme etc, it was for the endgame game... that totally worked... maybe... opencv)',
   'Accelerometer suggestion',
   'Eli discovered the duplicate animal object bug (slice and splice are different!!!)',
-  'Wrote Thomas Covenant series',
+  'Wrote Thomas Covenant series (theland)',
   'Stormlight',
-  "finally got sudo acess and got theland to run on her with sketchy nested sshing"];
+  "Nathan's server that can run theland with a really sketchy python threading script that executes sketchy nested sshing and runs the code",
+  "Kevin made me switch to Linux. Still hasn't got me to use vim exclusively though."];
 data = [ keys, responses];
 $('#credits').append(arrayToTable(titles, data));
 </script>
@@ -58,16 +58,15 @@ $('#credits').append(arrayToTable(titles, data));
 
 <div class="well well-lg">
 <h2>Graphics Designers:</h2>
-<h4>Primary: Rand al'Thor</h4>
-<h4>Secondary: Alek Westover</h4>
-<h4>Tertiary: Molly Smith</h4>
+<h4>Primary: Molly Smith</h4>
+<h4>Secondary: Rand al'Thor</h4>
+<h4>Tertiary: Alek Westover</h4>
 </div>
 
 <div class="well well-lg">
-<h2>Squid/Scrub/Pro of the week</h2>
+<h2>Squid of the week</h2>
 <h4>Lincoln Crockett</h4>
 </div>
-
 
 <button class="btn btn-lg well well-lg" id="button" onclick='window.location.href = "index.html";'>Back</button>
 
