@@ -1,19 +1,16 @@
-# cool games
-These are some cool games
+# theland
+It is kind of the best thing ever
 
 # dependencies
 
 # mongodb stuff
 
-NOTE sql isn't really case sensitive....
+NOTE SQL is no respecter of capitalization
 so the column names don't have camel casing...
 
-single quotes for sql stuff
+single quotes for SQL stuff
 
-sql tests:
-SELECT * FROM information_schema.tables WHERE table_name='test';
-(Created table test)
-
+SELECT * FROM information_schema.tables WHERE table_name='users';
 
 please note postgresql and mysql ARE (subtly) different. ie INSERT command
 INSERT INTO test VALUES('hmm')
@@ -21,7 +18,7 @@ INSERT INTO test VALUES('hmm')
 # heroku:
 to list hours left:
 (i am not sure if this is a problematic thing... no credit card registered yet...)
-heroku ps 
+heroku ps
 
 
 https://devcenter.heroku.com/articles/heroku-postgresql#designating-a-primary-database
@@ -50,23 +47,8 @@ alert("nasty");
 versus
 $.notify("pretty");
 
-One player version at
-<a href="https://awestover.github.io/coolGames/knight-1player/public/">https://awestover.github.io/coolGames/knight-1player/public/</a>
-
 website at
 <a href="https://theland.herokuapp.com">theland.herokuapp.com</a>
-
-<a>http://localhost:8000/index.html</a>
-
-You can't acess the repo for some reason when it is on heroku
-
-so you should copy code to github when you are done
-
-(not quite, this copies heroku remote too... manually copy all files...)
-cp -r knight-rises/* knight-rises-code-github/
-
-gitc "added code"
-gitp
 
 # socket io and general js lessons learned:
 
@@ -84,18 +66,6 @@ ellipse(x,y,w,h) diameter NOT radius...
 for links via button press do
 window.location.href = "http://stackoverflow.com"; etc
 DO NOT hack css into a <a> tag...
-
-
-# for 3d open gl
-    pip install numpy
-    pip install pygame
-    pip install opengl
-or maybe
-    sudo apt-get install python-opengl
-or something similar
-
-On windows it will be much harder
-http://pyopengl.sourceforge.net/
 
 
 # the virtue of not implementing everything yourself (always look up solutions before making them)
