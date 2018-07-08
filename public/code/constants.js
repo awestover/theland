@@ -3,8 +3,9 @@ const allAnimals = ["personals", "preys", "predators", "protectors"];
 
 // all animal names
 let animal_names = {};
-animal_names["personals"] = ["sheep", "squid", "narwhal", "dog", "shark", "bear", "crab", "butterfly"];
-animal_names["preys"] = ["pizza", "cake", "chicken"];
+animal_names["personals"] = ["sheep", "squid", "narwhal", "dog", "shark",
+  "bear", "crab", "butterfly", "dragon"];
+animal_names["preys"] = ["pizza", "cake", "chicken", "hawaiianPizza", "pie"];
 animal_names["predators"] = ["dino"];
 animal_names["protectors"] = ["balrog"];
 let animal_txt_help = "";

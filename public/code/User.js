@@ -152,7 +152,7 @@ class User {
     {
       this.addPersonal({}, sketch);
     }
-    for (let i = 0; i < 7; i++)
+    for (let i = 0; i < 9; i++)
     {
       this.addPrey({}, sketch);
     }
@@ -300,7 +300,8 @@ class User {
 
   addPrey(data, sketch)
   {
-    let nameP = randomWeightedChoice(["cake", "pizza", "chicken"], [1,1,15]);
+    let nameP = randomWeightedChoice(["cake", "pizza", "chicken", "hawaiianPizza", "pie"],
+      [1,1,10,1,3]);
     let newPrey = new Prey({
       "pos":randomMidish(0.99),
       "name": nameP,

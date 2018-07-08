@@ -15,7 +15,7 @@ let personals_traits_deltas =
 {
   "sheep":
   [
-    "The sheep. power TBD",
+    "The sheep. This is that one sheep that got lost. Not sure if anyone found it yet.",
     {
       "levelUpPr": +0.006,
       "speed": +2,
@@ -103,6 +103,15 @@ let personals_traits_deltas =
       "speed": +8,
       "dHunger": +0.03
     }
+  ],
+
+  "dragon":
+  [
+    "The dragon does incredibly high damage. The dragon is actually the grandmother of Smaug. "
+    +"Probably. No relation to the Dragon Reborn.",
+    {
+      "strength": +7
+    }
   ]
 
 };
@@ -128,9 +137,12 @@ for (let i in personals_traits_deltas)
 
 let prey_descriptions = {
   "pizza": "pretty good food, health and hunger",
-  "cake": "really good food",
-  "chicken": "only helps with hunger"
+  "cake": "really good food. The strawberry is squashy though.",
+  "chicken": "only helps with hunger. Catch it if you can.",
+  "hawaiianPizza": "this is actually the best pizza type ever!!!",
+  "pie": "this pie was left out overnight and then 王朋吃饭把肚子吃坏了"
 };
+
 let prey_stats = {
   "pizza":
   {
@@ -146,14 +158,26 @@ let prey_stats = {
   },
   "chicken":
   {
-    "speed": 7,
-    "health": 300,
+    "speed": 4,
+    "health": 200,
     "help": {"health": 0, "hunger": -0.25}
+  },
+  "hawaiianPizza":
+  {
+    "speed": 7,
+    "health": 50,
+    "help": {"health": 5, "hunger": -0.25}
+  },
+  "pie":
+  {
+    "speed": 0,
+    "health": 300,
+    "help": {"health": -1, "hunger": 0}
   }
 };
 
 let predator_descriptions = {
-  "dino": "only predator type for now, and therefore the strongest type of predator. \
+  "dino": "This is the only predator type for now, and therefore the strongest type of predator. The dino takes great pride in that, perhaps unduly so.\
   Note there is large variablility in sight radii and health for dinos"
 };
 let predator_stats =
@@ -166,7 +190,7 @@ let predator_stats =
 };
 
 let protector_descriptions = {
-  "balrog": "storms, ill do it later im working on it all right!"
+  "balrog": "'storms, I'll do it later im working on it all right!' is how the balrog responds anytime someone asks him about his social life."
 };
 let protector_stats =
 {
