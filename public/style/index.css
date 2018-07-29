@@ -42,6 +42,9 @@ div.btn-container
   width: 90%;
   margin-bottom: 5%;
 }
+div.btn-container button {
+  padding: 3%;
+}
 
 .container
 {
@@ -106,14 +109,9 @@ div.right
   margin-bottom: 10%;
 }
 
-div.animal_table
-{
-    /* margin: 4%; */
-    font-size: x-small;
-}
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-    div.animal_table
+    div.animal_table, button
     {
       font-size: x-small;
     }
@@ -121,7 +119,7 @@ div.animal_table
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-    div.animal_table
+    div.animal_table, div.button#button
     {
       font-size: large;
     }
