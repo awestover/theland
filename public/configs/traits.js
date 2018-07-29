@@ -110,7 +110,7 @@ let personals_traits_deltas =
     "The dragon does incredibly high damage. The dragon is actually the grandmother of Smaug. "
     +"Probably. No relation to the Dragon Reborn.",
     {
-      "strength": +7
+      "strength": +4
     }
   ]
 
