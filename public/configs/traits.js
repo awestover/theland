@@ -20,7 +20,8 @@ let personals_traits_deltas =
       "levelUpPr": +0.006,
       "speed": +2,
       "health": +5,
-      "deadHunger": +5
+      "deadHunger": +5, 
+      "dims": [66, 50]
     }
   ],
   "bear":
@@ -31,7 +32,8 @@ let personals_traits_deltas =
       "rebirthPr": -0.0003,
       "strength": +2,
       "levelUpPr": -0.0003,
-      "deadHunger": +7
+      "deadHunger": +7,
+      "dims": [66, 50]
     }
   ],
 
@@ -41,7 +43,7 @@ let personals_traits_deltas =
     "The butterfly is like the set of values less than 0.1 standard deviations away from the mean in a bell curve. " +
     "Balance is nice in life, but is it so in the intense land known as theland? The butterfly screams yes.",
     {
-
+      "dims": [66, 50]
     }
   ],
 
@@ -52,7 +54,8 @@ let personals_traits_deltas =
     {
       "health": +15,
       "dHunger": +0.011,
-      "speed": -1
+      "speed": -1,
+      "dims": [66, 50]
     }
   ],
 
@@ -65,7 +68,8 @@ let personals_traits_deltas =
       "health": -5,
       "rebirthPr": 0.0015,
       "dHunger": 0.001,
-      "deadHunger": -1
+      "deadHunger": -1,
+      "dims": [66, 50]
     }
   ],
 
@@ -78,7 +82,8 @@ let personals_traits_deltas =
       "health": -2,
       "levelUpPr": +0.001,
       "rebirthPr": -0.0005,
-      "speed": +3
+      "speed": +3,
+      "dims": [90, 50]
     }
   ],
 
@@ -90,7 +95,8 @@ let personals_traits_deltas =
     {
       "sickPr": 0.001,
       "dHunger": -0.009,
-      "dAge": -0.005
+      "dAge": -0.005,
+      "dims": [54, 70]
     }
   ],
 
@@ -101,7 +107,8 @@ let personals_traits_deltas =
     "They transced common things like that. Or something.",
     {
       "speed": +8,
-      "dHunger": +0.03
+      "dHunger": +0.03,
+      "dims": [30, 100]
     }
   ],
 
@@ -110,7 +117,8 @@ let personals_traits_deltas =
     "The dragon does incredibly high damage. The dragon is actually the grandmother of Smaug. "
     +"Probably. No relation to the Dragon Reborn.",
     {
-      "strength": +4
+      "strength": +4,
+      "dims": [66, 50]
     }
   ]
 
