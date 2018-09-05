@@ -568,6 +568,10 @@ sketch.buyAnimal = function()
 {
   user.buyAnimal();
 };
+sketch.changePicture = function() 
+{
+  user.changePicture(sketch);
+}
 sketch.buyProtector = function()
 {
   user.buyProtector(sketch);

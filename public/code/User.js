@@ -43,6 +43,15 @@ class User {
 
   }
 
+  changePicture(sketch) {
+    let data_uri = prompt("Please paste the uri for your picture that you received from face-color here");
+    let newImg = sketch.loadImage(data_uri);
+    for (let i = 0; i < this.personals.length; i++) {
+      this.personals[i].image = newImg;
+      this.personals[i].img_uri = data_uri;
+    }
+  }
+
   buyProtector(sketch)
   {
     if (this.stormlight >= this.protectorCost && this.protectors.length < maxProtectors)

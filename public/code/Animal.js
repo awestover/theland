@@ -21,13 +21,24 @@ class Animal
     this.id = animal_traits["id"] || 0;
     this.world = animal_traits["world"] || "World";
 
-    this.dims = [66,50];
-    this.showStats = false; //  animal_traits["showStats"] ||
+    this.dims = animal_traits["dims"] || [66,50];
+    this.showStats = false;
 
     this.level = animal_traits["level"] || 1;
 
     this.type = "animals";
-    this.image = this.getImg(sketch);
+
+    if (animal_traits["img_uri"]) {
+      try {
+        this.image = sketch.loadImage(animal_traits['img_uri']);
+      }
+      catch(error) {
+        this.image = this.getImg(sketch);
+      }
+    }
+    else {
+      this.image = this.getImg(sketch);
+    }
     this.boostedImage = this.getBoostedImg();
 
     this.rotated = 1; // + or - 1 for right and left (positive x vel and negative v vel)
