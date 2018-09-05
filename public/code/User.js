@@ -38,6 +38,8 @@ class User {
       }
     }
 
+    this.data_uri = "";
+
     this.idCt = user_info["isCt"] || 0;
     this.selectedPersonal = null;// don't need to send it over...
 
@@ -46,9 +48,13 @@ class User {
   changePicture(sketch) {
     let data_uri = prompt("Please paste the uri for your picture that you received from face-color here");
     let newImg = sketch.loadImage(data_uri);
-    for (let i = 0; i < this.personals.length; i++) {
-      this.personals[i].image = newImg;
-      this.personals[i].img_uri = data_uri;
+    if (newImg && data_uri && data_uri.length > 0) {
+      this.data_uri = data_uri;
+      for (let i = 0; i < this.personals.length; i++) {
+        this.personals[i].image = newImg;
+        this.personals[i].image.resize(this.personals[i].dims[0], this.personals[i].dims[1]);
+        this.personals[i].img_uri = data_uri;
+      }
     }
   }
 
@@ -374,7 +380,8 @@ class User {
       "username": this.name,
       "th": this.th,
       "id": this.idCt,
-      "world": this.world
+      "world": this.world,
+      "img_uri": this.data_uri
     }, sketch);
     for (let f in data)
     {

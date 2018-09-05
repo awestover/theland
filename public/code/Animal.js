@@ -28,9 +28,11 @@ class Animal
 
     this.type = "animals";
 
-    if (animal_traits["img_uri"]) {
+    if (animal_traits["img_uri"] && animal_traits['img_uri'].length > 0) {
       try {
         this.image = sketch.loadImage(animal_traits['img_uri']);
+        this.image.resize(this.dims[0], this.dims[1]);
+        this.img_uri = animal_traits["img_uri"];
       }
       catch(error) {
         this.image = this.getImg(sketch);
@@ -76,6 +78,9 @@ class Animal
 
   getImg(sketch)
   {
+    if (this.img_uri) {
+      return this.image;
+    }
     if (!animal_pictures[this.name+this.level])
     {
       animal_pictures[this.name+this.level] = sketch.loadImage("pictures/"+this.name+this.level+".png");
