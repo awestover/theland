@@ -2,6 +2,8 @@
 It is kind of the best thing ever
 
 # dependencies
+npm install
+NOT npm install package.json
 
 # mongodb stuff
 

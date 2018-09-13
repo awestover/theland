@@ -300,7 +300,7 @@ class User {
   addFrameStormlight()
   {
     // later this can be variable or something
-    if(Math.random() < 0.15)
+    if(Math.random() < 0.5)
     {
       if (this.attractAnimals)
       {

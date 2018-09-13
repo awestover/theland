@@ -7,8 +7,8 @@ let default_personal_stats =
   "speed": 4,
   "levelUpPr": 0.0005,
   "deadHunger": 5,
-  "dHunger": 0.011,
-  "dAge": 0.005
+  "dHunger": 0.006,
+  "dAge": 0.002
 };
 
 let personals_traits_deltas =
@@ -95,7 +95,7 @@ let personals_traits_deltas =
     {
       "sickPr": 0.001,
       "dHunger": -0.009,
-      "dAge": -0.005,
+      "dAge": -0.0019,
       "dims": [54, 70]
     }
   ],
