@@ -1,6 +1,8 @@
 # theland
 It is kind of the best thing ever
 
+<img src="theland.png">
+
 # dependencies
 npm install
 NOT npm install package.json
