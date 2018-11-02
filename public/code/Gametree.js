@@ -1,8 +1,5 @@
 // the game tree. checks all collisions
 
-
-// this.w and this.h dont exist
-
 class Gametree
 {
   constructor()
@@ -36,7 +33,7 @@ class Gametree
     }
   }
 
-  // crummy comparison for now
+  // crumby comparison for now
   getCollisions()
   {
     let collisions = [];
@@ -88,7 +85,7 @@ class Gametree
     return [predatorIdxs, targets];
   }
 
-  // crummy comparison FOR NOW
+  // crumby comparison FOR NOW
   getCollisionsWith(box)
   {
     let collisions = [];

@@ -47,8 +47,8 @@ sketch.setup = function()
   }
 
   socket = io.connect();
-  socket.on("updatePlayer", sketch.handleUpdatePlayer);
-  socket.on("deletePlayer", handleDeletePlayer);
+  socket.on('updatePlayer', sketch.handleUpdatePlayer);
+  socket.on('deletePlayer', handleDeletePlayer);
   socket.on('nameChosen', sketch.handleNameChosen);
   socket.on('worldChosen', sketch.handleWorldChosen);
   socket.on('pushedAnimalUpdate', sketch.handlePushedAnimalUpdate);
@@ -92,6 +92,7 @@ sketch.setup = function()
   socket.emit('choseAnimalType', {"animalType": animalType});
 
   adjustSize(getGridSize({})); // just default
+  quadtree = new Quadtree([0,0,2*gridSize,2*gridSize], [100,100,100]);
   for (let th = 0; th < 12; th++)
   {
     territoryLocs[th] = calculateTerritory(th);
@@ -117,20 +118,25 @@ sketch.draw = function()
   sketch.background(bgColor);
   sketch.translate(screen_dims[0]/2, screen_dims[1]/2);  // center to 0,0
 
-  sketch.text("Z:"+Math.floor(angles[2])+ " Y:"+Math.floor(angles[1]), 0, -10);
+  // sketch.text("Z:"+Math.floor(angles[2])+ " Y:"+Math.floor(angles[1]), 0, -10);
 
   // show major elements and get ready to check for collisions
   sketch.push();
   sketch.translate(user.pos[0], user.pos[1]);
-  user.show(sketch);
+  quadtree.display(sketch);
+  user.show(sketch, user.name);
+
 
   gametree.clear();
+  quadtree.clear();
   gametree.insertUser(user);
+  quadtree.insertUser(user);
 
   for (let key in otherUsers)
   {
-    otherUsers[key].show(sketch);
+    otherUsers[key].show(sketch, otherUsers[key].name);
     gametree.insertUser(otherUsers[key]);
+    quadtree.insertUser(otherUsers[key]);
   }
 
   // draw the territories
@@ -156,21 +162,34 @@ sketch.draw = function()
   }
 
   // look at collisions
-  let collisions = gametree.getCollisions();
-  for (let c = 0; c<collisions.length; c++)
+  // let collisions = gametree.getCollisions();
+  // for (let c = 0; c<collisions.length; c++)
+  // {
+  //   sketch.noFill();
+  //   let gcs = [gametree.get(collisions[c][0]), gametree.get(collisions[c][1])];
+  //   if (cheats)
+  //   {
+  //     dRect(gcs[0].getBox(), sketch);
+  //     dRect(gcs[1].getBox(), sketch);
+  //   }
+  //   gcs[0].handleCollide(gcs[1], sketch);
+  //   gcs[1].handleCollide(gcs[0], sketch);
+  // }
+
+  let collisions = quadtree.getCollisions();
+  for (let i = 0; i<collisions.length; i++)
   {
     sketch.noFill();
-    let gcs = [gametree.get(collisions[c][0]), gametree.get(collisions[c][1])];
     if (cheats)
     {
-      dRect(gcs[0].getBox(), sketch);
-      dRect(gcs[1].getBox(), sketch);
+      dRect(collision[i][0].getBox(), sketch);
+      dRect(collision[i][1].getBox(), sketch);
     }
-    gcs[0].handleCollide(gcs[1], sketch);
-    gcs[1].handleCollide(gcs[0], sketch);
+    collisions[i][0].handleCollide(collisions[i][1], sketch);
+    collisions[i][1].handleCollide(collisions[i][0], sketch);
   }
 
-  let tCollisions = gametree.getTerritoryCollisions()
+  let tCollisions = gametree.getTerritoryCollisions();
   let gotOccupied = user.getOccupySlots();
   for (let coll in tCollisions)
   {
@@ -218,6 +237,7 @@ sketch.draw = function()
   if (getGridSize(otherUsers) != gridSize)
   {
     adjustSize(getGridSize(otherUsers));
+    quadtree = new Quadtree([0,0,2*gridSize,2*gridSize], [100,100,100]);
   }
 
   sketch.pop();
@@ -251,10 +271,10 @@ sketch.draw = function()
 
   if(gameOver)
   {
-    let tmp = textSize();
-    textSize(50);
-    text("GAME OVER", 0, 0);
-    textSize(tmp);
+    let tmp = sketch.textSize();
+    sketch.textSize(50);
+    sketch.text("GAME OVER", 0, 0);
+    sketch.textSize(tmp);
   }
   else {
     if ((user.personals.length == 0 && gameOverPending==false))
@@ -351,7 +371,7 @@ sketch.keyPressed = function()
         user.selectedPersonal = user.personals[0];
         user.selectedPersonal.showStats = !user.selectedPersonal.showStats;
       }
-      
+
       break;
 
     case 'z':
@@ -568,7 +588,7 @@ sketch.buyAnimal = function()
 {
   user.buyAnimal();
 };
-sketch.changePicture = function() 
+sketch.changePicture = function()
 {
   user.changePicture(sketch);
 }

@@ -185,7 +185,7 @@ class User {
     }
   }
 
-  show(sketch)
+  show(sketch, name)
   {
     for (let i in allAnimals)
     {
@@ -197,6 +197,10 @@ class User {
     sketch.noStroke();
   	sketch.fill(thColors[this.th]);
   	sketch.ellipse(-this.pos[0], -this.pos[1], 10, 10);
+    if (name) {
+      sketch.fill(0,0,0);
+      sketch.text(name, -this.pos[0], -this.pos[1]-10);
+    }
   }
 
   adjustAnimalLoc(pos)

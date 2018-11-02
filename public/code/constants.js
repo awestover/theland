@@ -50,6 +50,7 @@ let isDown = false;
 
 let otherUsers = {};
 let gametree;
+let quadtree;
 
 // not really a limit, they can still reproduce over this you just can't buy any more after 10
 const maxAnimals = 10;
