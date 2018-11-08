@@ -1,7 +1,15 @@
-# theland
+#theland
 It is kind of the best thing ever
 
 <img src="theland.png">
+
+# picture generator
+
+https://github.com/AWestover/coolGames/tree/master/land-help
+
+coolGames, land-help
+
+this has the level generator code 
 
 # dependencies
 npm install

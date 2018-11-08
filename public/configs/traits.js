@@ -66,7 +66,7 @@ let personals_traits_deltas =
     "that is why it has a pseudonym. Or so the sheep wants you to believe.",
     {
       "health": -5,
-      "rebirthPr": 0.0015,
+      "rebirthPr": 0.000015,
       "dHunger": 0.001,
       "deadHunger": -1,
       "dims": [66, 50]
