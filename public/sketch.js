@@ -182,8 +182,8 @@ sketch.draw = function()
     sketch.noFill();
     if (cheats)
     {
-      dRect(collision[i][0].getBox(), sketch);
-      dRect(collision[i][1].getBox(), sketch);
+      dRect(collisions[i][0].getBox(), sketch);
+      dRect(collisions[i][1].getBox(), sketch);
     }
     collisions[i][0].handleCollide(collisions[i][1], sketch);
     collisions[i][1].handleCollide(collisions[i][0], sketch);
