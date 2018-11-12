@@ -3,7 +3,7 @@ const allAnimals = ["personals", "preys", "predators", "protectors"];
 
 // all animal names
 let animal_names = {};
-animal_names["personals"] = ["sheep", "squid", "narwhal", "dog", "shark",
+animal_names["personals"] = ["squirrel","sheep", "squid", "narwhal", "dog", "shark",
   "bear", "crab", "butterfly", "dragon"];
 animal_names["preys"] = ["pizza", "cake", "chicken", "hawaiianPizza", "pie"];
 animal_names["predators"] = ["dino"];
@@ -18,6 +18,14 @@ for (let i = 0; i < animal_names["personals"].length; i++)
 {
   personalNameIndxes.push(i);
 }
+
+let animated = {};
+for (var i = 0; i < allAnimals.length; i++) {
+  for (var j = 0; j < animal_names[allAnimals[i]].length; j++) {
+    animated[animal_names[allAnimals[i]][j]] = {"animated":false};
+  }
+}
+animated['squirrel'] = {"animated": true, "frames": 3, "frameOrder": [0,1,2]};
 
 let bgColor = [2, 124, 57];
 let angles = [0,0,0];

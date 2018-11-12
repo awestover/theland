@@ -1,0 +1,15 @@
+html, body {
+	margin: 0;
+	height: 100%;
+	overflow: hidden;
+	-webkit-overflow-scrolling: touch;
+}
+
+button {
+	font-size: small;
+}
+
+body {
+	background-color: grey;
+	font-size: small;
+}

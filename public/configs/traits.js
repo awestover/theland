@@ -13,6 +13,14 @@ let default_personal_stats =
 
 let personals_traits_deltas =
 {
+  "squirrel":
+  [
+    "This is a squirrel. You better watch out, it is pretty much the best animal in game.",
+    {
+      "speed": 10
+      // "sickPr": +0.002,
+    }
+  ],
   "sheep":
   [
     "The sheep. This is that one sheep that got lost. Not sure if anyone found it yet.",

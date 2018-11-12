@@ -28,20 +28,31 @@ class Animal
 
     this.type = "animals";
 
-    if (animal_traits["img_uri"] && animal_traits['img_uri'].length > 0) {
-      try {
-        this.image = sketch.loadImage(animal_traits['img_uri']);
-        this.image.resize(this.dims[0], this.dims[1]);
-        this.img_uri = animal_traits["img_uri"];
+    this.isAnimated = animated[this.name]["animated"];
+
+    if (!this.isAnimated)
+    {
+      if (animal_traits["img_uri"] && animal_traits['img_uri'].length > 0) {
+        try {
+          this.image = sketch.loadImage(animal_traits['img_uri']);
+          this.image.resize(this.dims[0], this.dims[1]);
+          this.img_uri = animal_traits["img_uri"];
+        }
+        catch(error) {
+          this.image = this.getImg(sketch);
+        }
       }
-      catch(error) {
+      else {
         this.image = this.getImg(sketch);
       }
     }
     else {
+      this.img_ct = 0;
+      this.numFrames = animated[this.name]["frames"];
+      this.frameOrder = animated[this.name]["frameOrder"];
       this.image = this.getImg(sketch);
     }
-    this.boostedImage = this.getBoostedImg();
+    // this.boostedImage = this.getBoostedImg();
 
     this.rotated = 1; // + or - 1 for right and left (positive x vel and negative v vel)
 
@@ -78,14 +89,29 @@ class Animal
 
   getImg(sketch)
   {
-    if (this.img_uri) {
-      return this.image;
-    }
-    if (!animal_pictures[this.name+this.level])
+    if (!this.isAnimated)
     {
-      animal_pictures[this.name+this.level] = sketch.loadImage("pictures/"+this.name+this.level+".png");
+      if (this.img_uri) {
+        return this.image;
+      }
+      if (!animal_pictures[this.name+this.level])
+      {
+        animal_pictures[this.name+this.level] = sketch.loadImage("pictures/"+this.name+this.level+".png");
+      }
+      return animal_pictures[this.name+this.level];
     }
-    return animal_pictures[this.name+this.level];
+    else {
+      let imgs = [];
+      for (var i = 0; i < this.numFrames; i++) {
+        let c_pic = this.name + i + "-" + this.level; 
+        if(!animal_pictures[c_pic])
+        {
+          animal_pictures[c_pic] = sketch.loadImage("pictures/"+c_pic+".png");
+        }
+        imgs.push(animal_pictures[c_pic]);
+      }
+      return imgs;
+    }
   }
 
   getRepulsed(pos, dims)
@@ -233,12 +259,18 @@ class Animal
       }
 
       sketch.scale(this.rotated,1);
-      if (!this.boosted)
-      {
-        sketch.image(this.image, -this.dims[0]/2, -this.dims[1]/2);
+      if (!this.isAnimated) {
+        // if (!this.boosted)
+        // {
+          sketch.image(this.image, -this.dims[0]/2, -this.dims[1]/2);
+        // }
+        // else {
+          // sketch.image(this.boostedImage, -this.dims[0]/2, -this.dims[1]/2);
+        // }
       }
       else {
-        sketch.image(this.boostedImage, -this.dims[0]/2, -this.dims[1]/2);
+        sketch.image(this.image[this.frameOrder[this.img_ct]], -this.dims[0]/2, -this.dims[1]/2);
+        this.img_ct = (this.img_ct + 1) % this.frameOrder.length;
       }
       sketch.pop();
     }
@@ -312,5 +344,4 @@ class Animal
       this.visitedUserTerritory = true;
     }
   }
-
 }
