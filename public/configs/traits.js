@@ -18,7 +18,13 @@ let personals_traits_deltas =
     "This is a squirrel. You better watch out, it is pretty much the best animal in game.",
     {
       "speed": 10
-      // "sickPr": +0.002,
+    }
+  ],
+  "fly":
+  [
+    "just pretend like its a fly... It totally is a fly, it is just hard to tell. Whatever you do don't call it a shark though, that would be insulting.",
+    {
+      "speed": 6
     }
   ],
   "sheep":

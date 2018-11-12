@@ -1,3 +1,4 @@
+let upos = [0,0];
 let myp5 = new p5(function(sketch) {
 let animals = [];
 sketch.setup = function()
@@ -31,6 +32,9 @@ sketch.draw = function()
   // graphics basis
   sketch.background(bgColor);
   sketch.translate(screen_dims[0]/2, screen_dims[1]/2);  // center to 0,0
+  sketch.push();
+  sketch.translate(upos[0], upos[1]);
+  sketch.ellipse(0,0,10,10);
 
   for (var i = 0; i < animals.length; i++) {
     animals[i].show(sketch);
@@ -43,7 +47,24 @@ sketch.draw = function()
     }
   }
 
+  sketch.handleKeysDown();
   sketch.pop();
+};
+
+sketch.handleKeysDown = function() {
+  let keyD = 30;
+  if (sketch.keyIsDown(sketch.LEFT_ARROW) || sketch.keyIsDown(keyCodes['a'])) {
+    upos[0] += keyD;
+  }
+  else if (sketch.keyIsDown(sketch.RIGHT_ARROW) || sketch.keyIsDown(keyCodes['d'])) {
+    upos[0] -= keyD;
+  }
+  if (sketch.keyIsDown(sketch.UP_ARROW) || sketch.keyIsDown(keyCodes['w'])) {
+    upos[1] += keyD;
+  }
+  else if (sketch.keyIsDown(sketch.DOWN_ARROW) || sketch.keyIsDown(keyCodes['s'])) {
+    upos[1] -= keyD;
+  }
 };
 
 });

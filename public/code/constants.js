@@ -3,7 +3,7 @@ const allAnimals = ["personals", "preys", "predators", "protectors"];
 
 // all animal names
 let animal_names = {};
-animal_names["personals"] = ["squirrel","sheep", "squid", "narwhal", "dog", "shark",
+animal_names["personals"] = ["squirrel","fly","sheep", "squid", "narwhal", "dog", "shark",
   "bear", "crab", "butterfly", "dragon"];
 animal_names["preys"] = ["pizza", "cake", "chicken", "hawaiianPizza", "pie"];
 animal_names["predators"] = ["dino"];
@@ -25,7 +25,8 @@ for (var i = 0; i < allAnimals.length; i++) {
     animated[animal_names[allAnimals[i]][j]] = {"animated":false};
   }
 }
-animated['squirrel'] = {"animated": true, "frames": 3, "frameOrder": [0,1,2]};
+animated['squirrel'] = {"animated": true, "frames": 3, "frameOrder": [0,1,2,2,1,0]};
+animated['fly'] = {"animated": true, "frames": 5, "frameOrder": [0,1,2,3,4,4,3,2,1,0]};
 
 let bgColor = [2, 124, 57];
 let angles = [0,0,0];
@@ -72,7 +73,10 @@ let thColors = [[0, 130, 200],
   [70, 240, 240],  [240, 50, 230], [210, 245, 60],
   [250, 190, 190], [230, 190, 255]]; //[0, 128, 128],
 
-let personalBarColors = [[66, 134, 244], [82, 232, 55], [224, 206, 13], [205, 15, 226]];
+let personalBarColors = [[66, 134, 244], 
+  [82, 232, 55], 
+  [224, 206, 13], 
+  [205, 15, 226]];
 
 const barHeight = 5;
 
