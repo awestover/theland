@@ -34,7 +34,7 @@ let personals_traits_deltas =
       "levelUpPr": +0.006,
       "speed": +2,
       "health": +5,
-      "deadHunger": +5, 
+      "deadHunger": +5,
       "dims": [66, 50]
     }
   ],
@@ -134,9 +134,41 @@ let personals_traits_deltas =
       "strength": +4,
       "dims": [66, 50]
     }
+  ],
+
+  "crab-original":
+  [
+    "This crab means a lot to me. I can't get rid of it. I tried. It is just too beautiful",
+    {
+
+    }
+  ],
+  "shark-original":
+  [
+    "One of the oldest inhabitants of theland. People thought a shark couldn't live on theland. But they were clearly wrong.",
+    {
+
+    }
+  ],
+  "squid-original":
+  [
+    "AKA suicide squid. Just goes to show the incredible genetic diversity in theland. This squid really should have been eliminated via natural selection long ago because of its really bad habit of randomly dying. But it wasn't for some reason.",
+    {
+      "sickPr": 0.003
+    }
   ]
 
 };
+
+for (let i in personals_traits_deltas)
+{
+  try {
+    personals_traits_deltas[i][1]["dims"];
+  }
+  catch {
+    personals_traits_deltas[i][1]["dims"] = [66,50];
+  }
+}
 
 let personal_stats = {};
 let personal_descriptions = {};
@@ -156,6 +188,26 @@ for (let i in personals_traits_deltas)
   }
   personal_stats[i] = temp;
 };
+let personal_displayed_stats = {};
+let stat_name_conversions = {
+  "sickPr": "sick probability",
+  "health": "health",
+  "rebirthPr": "rebirth probability",
+  "strength": "attack power (strength)",
+  "speed": "speed",
+  "levelUpPr": "level up probability",
+  "deadHunger": "dead hunger",
+  "dHunger": "how fast it gets hungry",
+  "dAge": "aging rate"
+};
+for (let i in personal_stats)
+{
+  personal_displayed_stats[i] = {};
+  for (let s in personal_stats[i])
+  {
+    personal_displayed_stats[i][stat_name_conversions[s]] = personal_stats[i][s];
+  }
+}
 
 let prey_descriptions = {
   "pizza": "pretty good food, health and hunger",
@@ -234,6 +286,13 @@ const allStats =
 {
   "personals": personal_stats,
   "preys":prey_stats,
+  "predators":predator_stats,
+  "protectors": protector_stats
+};
+
+const allStatsReadable = {
+  "personals": personal_displayed_stats,
+  "preys": prey_stats,
   "predators":predator_stats,
   "protectors": protector_stats
 };

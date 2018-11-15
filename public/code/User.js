@@ -75,22 +75,23 @@ class User {
       clearTimeout(this.occupations[th]);
     }
 
-    this.occupations[th] = setTimeout(function() {
-      socket.emit('occupied', {"killth": th, "world": this.world});
+    let usr = this;
+    this.occupations[th] = setTimeout(function(usr) {
+      socket.emit('occupied', {"killth": th, "world": usr.world});
 
       // get the stormlight of the defeated user
       for (let unm in otherUsers)
       {
         if (otherUsers[unm].th == th)
         {
-          this.stormlight += otherUsers[unm].stormlight;
+          usr.stormlight += otherUsers[unm].stormlight;
           $.notify("territory occupation achieved, \nrecieved " +
             otherUsers[unm].stormlight+" stormlight from User " + unm,
             {"style":"occupation"});
         }
       }
 
-    }, this.occupyTime);
+    }, this.occupyTime, usr);
 
   }
 

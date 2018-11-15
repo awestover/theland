@@ -103,7 +103,7 @@ class Animal
     else {
       let imgs = [];
       for (var i = 0; i < this.numFrames; i++) {
-        let c_pic = this.name + i + "-" + this.level; 
+        let c_pic = this.name + i + "-" + this.level;
         if(!animal_pictures[c_pic])
         {
           animal_pictures[c_pic] = sketch.loadImage("pictures/"+c_pic+".png");

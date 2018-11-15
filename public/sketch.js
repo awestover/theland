@@ -118,8 +118,6 @@ sketch.draw = function()
   sketch.background(bgColor);
   sketch.translate(screen_dims[0]/2, screen_dims[1]/2);  // center to 0,0
 
-  // sketch.text("Z:"+Math.floor(angles[2])+ " Y:"+Math.floor(angles[1]), 0, -10);
-
   // show major elements and get ready to check for collisions
   sketch.push();
   sketch.translate(user.pos[0], user.pos[1]);

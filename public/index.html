@@ -203,7 +203,7 @@
             let cAniName = animal_names[cType][i];
             let tmp = allDescriptions[cType][cAniName];
             tmp += "<br><br>";
-            tmp += jsonToTable(["stat", "val"], flattenJson(allStats[cType][cAniName]));
+            tmp += jsonToTable(["stat", "val"], flattenJson(allStatsReadable[cType][cAniName]));
             descriptions.push(tmp);
           }
         }
