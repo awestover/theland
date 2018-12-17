@@ -197,7 +197,7 @@ let stat_name_conversions = {
   "speed": "speed",
   "levelUpPr": "level up probability",
   "deadHunger": "dead hunger",
-  "dHunger": "how fast it gets hungry",
+  "dHunger": "hunger rate",
   "dAge": "aging rate"
 };
 for (let i in personal_stats)
@@ -277,22 +277,68 @@ let protector_stats =
 
 const allDescriptions =  {
   "personals": personal_descriptions,
-  "preys":prey_descriptions,
-  "predators":predator_descriptions,
-  "protectors":protector_descriptions
+  "preys": prey_descriptions,
+  "predators": predator_descriptions,
+  "protectors": protector_descriptions
 };
 
 const allStats =
 {
   "personals": personal_stats,
-  "preys":prey_stats,
-  "predators":predator_stats,
+  "preys": prey_stats,
+  "predators": predator_stats,
   "protectors": protector_stats
 };
 
-const allStatsReadable = {
+let prey_displayed_stats = {};
+for (let prey in prey_stats){
+  prey_displayed_stats[prey] = {};
+  for (let stat in prey_stats[prey]){
+    prey_displayed_stats[prey][stat] = prey_stats[prey][stat];
+  }
+  let tmp = prey_displayed_stats[prey]["help"];
+  delete prey_displayed_stats[prey]["help"];
+  for (let tt in tmp){
+    prey_displayed_stats[prey]["help "+tt] = tmp[tt];
+  }
+}
+
+let allStatsReadable = {
   "personals": personal_displayed_stats,
-  "preys": prey_stats,
-  "predators":predator_stats,
+  "preys": prey_displayed_stats,
+  "predators": predator_stats,
   "protectors": protector_stats
 };
+
+for (let entityType in allStatsReadable) {
+  let stat_values = {};
+  let stat_names = {};
+  for (var entityName in allStatsReadable[entityType]) {
+    for (var stat in allStatsReadable[entityType][entityName]) {
+      if (stat_values[stat]) {
+        stat_values[stat].push(allStatsReadable[entityType][entityName][stat]);
+        stat_names[stat].push(entityName);
+      }
+      else {
+        stat_values[stat] = [allStatsReadable[entityType][entityName][stat]];
+        stat_names[stat] = [entityName];
+      }
+    }
+  }
+
+  for (let stat in stat_values) {
+    let min = Math.min(...stat_values[stat]);
+    let max = Math.max(...stat_values[stat]);
+    for(let i in stat_values[stat]){
+      if(max == min)
+        stat_values[stat][i] = 5;
+      else
+        stat_values[stat][i] = (1+(stat_values[stat][i]-min)*9/(max-min)).toFixed(2);
+    }
+  }
+  for (var statType in stat_values) {
+    for (var i in stat_values[statType]) {
+      allStatsReadable[entityType][stat_names[statType][i]][statType] = stat_values[statType][i];
+    }
+  }
+}

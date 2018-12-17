@@ -7,6 +7,7 @@ let questsOrdered = [
   ["preys_killed", 160], ["predators_killed", 80 ], ["personals_killed", 112],
   ["preys_killed", 320], ["predators_killed", 160], ["personals_killed", 224],
   ["preys_killed", 640], ["predators_killed", 320], ["personals_killed", 448],
+  ["preys_killed", 6400], ["predators_killed", 3200], ["personals_killed", 4480],
   ["No more quests", -1]
 ];
 
@@ -68,11 +69,11 @@ function getTitle(lvl)
   {
     return "swimmer";
   }
-  else if (lvl < 9)
+  else if (lvl < 10)
   {
     return "prancer";
   }
-  else if (lvl < 50) {
+  else if (lvl < 15) {
     return "lander"
   }
   else {
