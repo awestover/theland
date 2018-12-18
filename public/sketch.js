@@ -403,7 +403,7 @@ sketch.keyPressed = function()
 
 sketch.touchEnded = function()
 {
-  if (event.type == "touchend" || event.type == "mouseup" && (sketch.deviceOrientation == "undefined"))
+  if (event.type == "touchend" || (event.type == "mouseup" && (!sketch.deviceOrientation || sketch.deviceOrientation == "undefined")))
   {
     let rMPos=realPos([sketch.mouseX, sketch.mouseY], user);
     let collisions = gametree.getCollisionsWith([rMPos[0], rMPos[1], 5, 5])
