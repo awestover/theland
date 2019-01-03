@@ -13,6 +13,13 @@ let default_personal_stats =
 
 let personals_traits_deltas =
 {
+  "rooster":
+  [
+    "moooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+    {
+      "speed": 2
+    }
+  ],
   "squirrel":
   [
     "This is a squirrel. You better watch out, it is pretty much the best animal in game.",
