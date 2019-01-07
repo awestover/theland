@@ -15,9 +15,12 @@ let personals_traits_deltas =
 {
   "rooster":
   [
-    "moooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
+    "moooooooooooooo",
     {
-      "speed": 2
+      "speed": 2,
+      "health": 4,
+      "strength": 1,
+      "dAge": -0.001
     }
   ],
   "squirrel":
@@ -164,7 +167,6 @@ let personals_traits_deltas =
       "sickPr": 0.003
     }
   ]
-
 };
 
 for (let i in personals_traits_deltas)
