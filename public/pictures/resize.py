@@ -9,17 +9,18 @@ newSize=(66,50)
 
 # inPlace (should it just overwrite the old file?)
 def imgResize(imgPath, newSize, save=True, inPlace=False):
-	img = Image.open(imgPath)
-	img = img.resize(newSize, Image.ANTIALIAS)
-	if save:
-		if inPlace:
-			img.save(imgPath)
-		else:
-			img.save(os.path.join("batch", imgPath))
-	else:
-		return img
+    img = Image.open(imgPath)
+    img = img.resize(newSize, Image.ANTIALIAS)
+    if save:
+        if inPlace:
+            img.save(imgPath)
+        else:
+            img.save(os.path.join("batch", imgPath))
+    else:
+        return img
 
 if __name__ == "__main__":
-	for i in range(0, 8):
-		rn = "rooster{}-1.png".format(i)
-		imgResize(rn, newSize, save=True, inPlace=True)
+    for i in range(0, 2):
+        for j in range(1,5):
+            rn = "crab{}-{}.png".format(i, j)
+            imgResize(rn, newSize, save=True, inPlace=True)

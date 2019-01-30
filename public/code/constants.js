@@ -28,7 +28,7 @@ for (var i = 0; i < allAnimals.length; i++) {
 animated['squirrel'] = {"animated": true, "frames": 3, "frameOrder": [0,1,2,2,1,0]};
 animated['fly'] = {"animated": true, "frames": 5, "frameOrder": [0,1,2,3,4,4,3,2,1,0]};
 animated['rooster'] = {"animated": true, "frames": 8, "frameOrder": [0,1,2,3,4,5,6,7]};
-
+animated['crab'] = {"animated": true, "frames": 2, "frameOrder": [0,1]};
 let bgColor = [2, 124, 57];
 let angles = [0,0,0];
 let cheats = false;
