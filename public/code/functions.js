@@ -1,9 +1,9 @@
 //functions
 
+const spacePerExtrUsr = 500;
+const originalSpace = 1500;
 function getGridSize(otherUsers)
 {
-  const spacePerExtrUsr = 500;
-  const originalSpace = 1500;
   return originalSpace + spacePerExtrUsr*Object.keys(otherUsers).length;
 }
 

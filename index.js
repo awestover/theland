@@ -92,8 +92,8 @@ app.post('/', function(req, resp) {
     queryDb("SELECT * FROM users WHERE name=$1;", [unm], handlePasswordInput, params);
   }
   else {
-    handlePasswordInput([], params);
-  }
+		handlePasswordInput([], params);
+	}
 });
 
 function registerGoodUnm(results, params)

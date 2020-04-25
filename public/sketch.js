@@ -232,12 +232,6 @@ sketch.draw = function()
   drawEdge(sketch); // not allways needed...
   drawOrigin(sketch);
 
-  if (getGridSize(otherUsers) != gridSize)
-  {
-    adjustSize(getGridSize(otherUsers));
-    quadtree = new Quadtree([0,0,2*gridSize,2*gridSize], [100,100,100]);
-  }
-
   sketch.pop();
 
   user.update(sketch);
@@ -553,6 +547,13 @@ sketch.handleUpdatePlayer = function(otherUser)
     otherUser.protectors[i] = new Protector(otherUser.protectors[i], sketch);
   }
   otherUsers[otherUser.name] = new User(otherUser);
+
+  if (getGridSize(otherUsers) != gridSize)
+  {
+    adjustSize(getGridSize(otherUsers));
+    quadtree = new Quadtree([0,0,2*gridSize,2*gridSize], [100,100,100]);
+  }
+
 };
 
 sketch.handleSelectedData = function(data)

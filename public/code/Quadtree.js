@@ -127,6 +127,10 @@ class Quadtree {
         }
       }
     }
+    if(isIn == -1){
+      console.error("AGH, trying to do index -1 of somehting...");
+      return false;
+    }
     other.idx = isIn;
     this.regions[isIn].insert(other);
   }
