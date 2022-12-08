@@ -18,7 +18,7 @@
   "author": "Alek  Westover",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.3",
+    "express": "^4.17.3",
     "pg": "^7.4.3",
     "socket.io": "^2.0.3"
   }
